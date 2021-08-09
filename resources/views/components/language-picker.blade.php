@@ -1,18 +1,33 @@
-@once('scripts')
-<script src="{{ mix('js/language-picker.js') }}"></script>
-@endonce
+@push('scripts')
+    @once
+        <script src="{{ mix('js/language-picker.js') }}"></script>
+    @endonce
+@endpush
 
-<div x-data='{ languages: {!! $defaultLanguages !!} }'>
-    <template x-for="languageId in languages">
-        <input
-            name="{{ $attributes->get('name').'[]' }}"
-            type="hidden"
-            x-bind:value="languageId"
-        />
-    </template>
+@php
+    $initAttribute = '';
+
+    if ($attributes->has('wire:model')) {
+        $wireModel = $attributes->get('wire:model');
+        $initAttribute = <<<JS
+x-init="\$watch('languages', v => \$wire.set('$wireModel', Object.values(v).map(n => parseInt(n))))"
+JS;
+    }
+@endphp
+
+<div x-data='{ languages: {!! $defaultLanguages !!} }' {!! $initAttribute !!}>
+    @if (!$attributes->has('wire:model'))
+        <template x-for="languageId in languages">
+            <input
+                name="{{ $attributes->get('name').'[]' }}"
+                type="hidden"
+                x-bind:value="languageId"
+            />
+        </template>
+    @endif
 
     <x-jet-input
-        {{ $attributes->except('name')->merge([
+        {{ $attributes->except('name')->whereDoesntStartWith('wire:model')->merge([
             'type' => 'text',
             'list' => 'available-languages',
         ]) }}
