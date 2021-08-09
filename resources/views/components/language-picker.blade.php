@@ -28,6 +28,7 @@ JS;
 
     <x-jet-input
         {{ $attributes->except('name')->whereDoesntStartWith('wire:model')->merge([
+            'class' => 'w-full',
             'type' => 'text',
             'list' => 'available-languages',
         ]) }}

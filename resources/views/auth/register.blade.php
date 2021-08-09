@@ -28,7 +28,7 @@
                 <x-jet-label for="languages" value="{{ __('What language(s) do you speak?') }}" />
                 <x-language-picker
                     id="languages"
-                    class="block mt-1 w-full"
+                    class="block mt-1"
                     name="languages"
                     :defaultLanguages="['en']"
                     />

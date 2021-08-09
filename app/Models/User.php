@@ -59,7 +59,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function languages() {
+    public function languages()
+    {
         return $this->belongsToMany(Language::class);
+    }
+
+    public function sources()
+    {
+        return $this->hasMany(Source::class, 'author_id', 'id');
     }
 }

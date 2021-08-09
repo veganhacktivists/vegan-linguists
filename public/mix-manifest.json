@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/language-picker.js": "/js/language-picker.js",
-    "/css/app.css": "/css/app.css"
+    "/js/rich-text-editor.js": "/js/rich-text-editor.js",
+    "/css/app.css": "/css/app.css",
+    "/css/quill.snow.css": "/css/quill.snow.css"
 }

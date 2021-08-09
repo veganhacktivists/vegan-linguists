@@ -71,7 +71,7 @@
             <x-jet-label for="languages" value="{{ __('What language(s) do you speak?') }}" />
             <x-language-picker
                 id="languages"
-                class="mt-1 block w-full"
+                class="mt-1 block"
                 wire:model="state.languages"
                 :defaultLanguages="$this->user->languages->pluck('code')->toArray()"
                 />
