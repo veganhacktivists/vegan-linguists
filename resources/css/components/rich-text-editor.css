@@ -1,5 +1,5 @@
 .ql-container.ql-snow {
-    @apply border-none flex-1 h-auto mx-auto px-4 text-lg lg:w-3/4 xl:w-3/5 max-w-5xl;
+    @apply border-none flex-1 h-auto mx-auto px-4 text-lg max-w-full lg:max-w-5xl lg:w-3/4 xl:w-3/5;
 }
 
 .ql-toolbar.ql-snow {
