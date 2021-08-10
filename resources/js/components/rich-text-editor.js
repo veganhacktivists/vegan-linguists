@@ -1,5 +1,23 @@
 import Quill from 'quill'
 
+document.addEventListener('alpine:init', () => {
+  window.Alpine.data('richTextEditor', () => ({
+    init() {
+      this.editor = new RichTextEditor(this.$refs.editorContainer).on(
+        'text-change',
+        () => {
+          this.$dispatch('change', {
+            content: this.editor.getContent(),
+            plainText: this.editor.getPlainText(),
+          })
+        },
+      )
+    },
+
+    editor: null,
+  }))
+})
+
 class RichTextEditor {
   constructor(el) {
     this.quill = new Quill(el, {

@@ -11,11 +11,9 @@
 @endpush
 
 <div {{ $attributes->merge([
-    'x-data' => '{ editor: null }',
+    'x-data' => 'richTextEditor',
     'class' => 'cursor-text flex flex-col h-full',
     'x-on:click' => 'editor.focus()',
 ]) }}>
-    <div
-        x-init="editor = new RichTextEditor($el).on('text-change', () => $dispatch('change', { content: editor.getContent(), plainText: editor.getPlainText() }))"
-        ></div>
+    <div x-ref="editorContainer"></div>
 </div>
