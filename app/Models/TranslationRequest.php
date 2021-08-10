@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class TranslationRequestStatus {
-    const UNCLAIMED = 'UNCLAIMED';
-    const CLAIMED = 'CLAIMED';
-    const COMPLETE = 'COMPLETE';
-}
-
 class TranslationRequest extends Model
 {
     use HasFactory;
+
+    protected $with = ['language'];
 
     protected $attributes = [
         'status' => TranslationRequestStatus::UNCLAIMED,
@@ -23,6 +19,7 @@ class TranslationRequest extends Model
 
     protected $fillable = [
         'source_id',
+        'language_id',
         'translator_id',
         'status',
         'content',
@@ -36,7 +33,7 @@ class TranslationRequest extends Model
 
     public function language()
     {
-        return $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function translator()
