@@ -18,7 +18,16 @@
         </x-slot>
 
         <x-slot name="content">
+            <x-jet-validation-errors class="mb-4" />
+
             <div>
+                <x-jet-label for="title" class="mb-1">
+                    {{ __('Title') }}
+                </x-jet-label>
+                <x-jet-input id="title" type="text" wire:model.lazy="title" class="w-full" />
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label for="source-language" class="mb-1">
                     {{ __('Which language is your content written in?') }}
                 </x-jet-label>

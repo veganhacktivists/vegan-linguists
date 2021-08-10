@@ -11,11 +11,20 @@ use Livewire\Component;
 class RequestTranslationPage extends Component
 {
     public bool $shouldDisplayLanguagePicker = false;
+    public string $title = '';
     public string $content = '';
     public string $plainText = '';
     public ?int $sourceLanguageId = null;
     public array $targetLanguages = [];
     public Collection $languages;
+
+    protected array $rules = [
+        'title' => ['required', 'string'],
+        'content' => ['required', 'string'],
+        'plainText' => ['required', 'string'],
+        'sourceLanguageId' => ['required', 'exists:languages,id'],
+        'targetLanguages' => ['required', 'array', 'exists:languages,id'],
+    ];
 
     public function mount()
     {
@@ -34,9 +43,12 @@ class RequestTranslationPage extends Component
 
     public function requestTranslation()
     {
+        $this->validate();
+
         return DB::transaction(function() {
             $source = Auth::user()->sources()->create([
                 'language_id' => $this->sourceLanguageId,
+                'title' => $this->title,
                 'content' => $this->content,
                 'plain_text' => $this->plainText,
             ]);

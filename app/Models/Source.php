@@ -17,6 +17,7 @@ class Source extends Model
     protected $fillable = [
         'author_id',
         'language_id',
+        'title',
         'content',
         'plain_text',
     ];
