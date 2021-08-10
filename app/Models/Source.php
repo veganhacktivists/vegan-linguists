@@ -12,8 +12,6 @@ class Source extends Model
 {
     use HasFactory;
 
-    protected $with = ['translationRequests'];
-
     protected $fillable = [
         'author_id',
         'language_id',
@@ -29,7 +27,7 @@ class Source extends Model
 
     public function language()
     {
-        return $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function translationRequests()

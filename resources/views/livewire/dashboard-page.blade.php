@@ -34,7 +34,7 @@
                     </x-heading-with-tabs>
                 </div>
 
-                <div class="px-4 py-5 sm:p-6">
+                <div class="px-4 pb-5 sm:px-6 sm:pb-6">
                     <ul class="space-y-3">
                         @foreach ($sources as $source)
                             <x-dashboard.source-row :source="$source" />

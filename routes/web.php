@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\DashboardPage;
+use App\Http\Livewire\QueuePage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
 
@@ -21,5 +22,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/dashboard', DashboardPage::class)->name('dashboard');
+    Route::get('/queue', QueuePage::class)->name('queue');
     Route::get('/request', RequestTranslationPage::class)->name('request-translation');
 });

@@ -33,6 +33,7 @@ class DashboardPage extends Component
     private function getSources() {
         return Auth::user()
             ->sources()
+            ->with('translationRequests')
             ->when($this->filter === 'complete', function(Builder $query) {
                 return $query->complete();
             })

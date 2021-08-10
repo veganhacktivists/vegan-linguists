@@ -1,7 +1,7 @@
 <li {{ $attributes->merge([
     'x-data' => '{ collapsed: true }',
 ]) }}>
-    <div class="bg-gray-50 shadow flex gap-2 rounded-md px-6 py-4">
+    <div class="bg-gray-50 shadow flex items-center gap-2 rounded-md px-6 py-4">
         <div class="truncate flex-1">
             {{ $source->title }}
         </div>

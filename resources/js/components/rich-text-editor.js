@@ -5,12 +5,12 @@ document.addEventListener('alpine:init', () => {
     init() {
       this.editor = new RichTextEditor(this.$refs.editorContainer).on(
         'text-change',
-        () => {
+        _.debounce(() => {
           this.$dispatch('change', {
             content: this.editor.getContent(),
             plainText: this.editor.getPlainText(),
           })
-        },
+        }, 300),
       )
     },
 
