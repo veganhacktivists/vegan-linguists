@@ -18,14 +18,6 @@ class RequestTranslationPage extends Component
     public array $targetLanguages = [];
     public Collection $languages;
 
-    protected array $rules = [
-        'title' => ['required', 'string'],
-        'content' => ['required', 'string'],
-        'plainText' => ['required', 'string'],
-        'sourceLanguageId' => ['required', 'exists:languages,id'],
-        'targetLanguages' => ['required', 'array', 'exists:languages,id'],
-    ];
-
     public function mount()
     {
         $this->languages = Language::all();
@@ -44,6 +36,13 @@ class RequestTranslationPage extends Component
     public function requestTranslation()
     {
         $this->validate();
+
+        $this->targetLanguages = array_unique(
+            array_diff(
+                $this->targetLanguages,
+                [$this->sourceLanguageId]
+            )
+        );
 
         return DB::transaction(function() {
             $source = Auth::user()->sources()->create([
@@ -67,5 +66,25 @@ class RequestTranslationPage extends Component
 
             return redirect()->route('dashboard');
         });
+    }
+
+    protected function rules()
+    {
+        return [
+            'title' => ['required', 'string'],
+            'content' => ['required', 'string'],
+            'plainText' => ['required', 'string'],
+            'sourceLanguageId' => ['required', 'exists:languages,id'],
+            'targetLanguages' => [
+                'required',
+                'array',
+                'exists:languages,id',
+                function ($attribute, $targetLanguages, $fail) {
+                    if (in_array($this->sourceLanguageId, $targetLanguages) && count($targetLanguages) === 1) {
+                        $fail(__('Your target language must differ from your source language.'));
+                    }
+                }
+            ],
+        ];
     }
 }
