@@ -70,11 +70,10 @@
             <x-slot name="content">
                 {{ __('Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.') }}
 
-                <div class="mt-4" x-data="{}" x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $refs.password.focus(), 250)">
+                <div class="mt-4" x-data="{}" x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $el.querySelector('input[type=password]').focus(), 250)">
                     <x-password-input class="mt-1 block"
                                 containerClass="w-3/4"
                                 placeholder="{{ __('Password') }}"
-                                x-ref="password"
                                 wire:model.defer="password"
                                 wire:keydown.enter="logoutOtherBrowserSessions" />
 
