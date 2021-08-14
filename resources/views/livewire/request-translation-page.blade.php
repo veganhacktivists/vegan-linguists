@@ -1,5 +1,6 @@
 <div class="bg-white h-full flex flex-col">
     <x-rich-text-editor
+        class="px-8"
         wire:ignore
         x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
 

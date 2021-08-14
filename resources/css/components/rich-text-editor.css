@@ -1,11 +1,19 @@
 .ql-container.ql-snow {
-    @apply border-none flex-1 h-auto lg:mx-auto px-4 text-lg max-w-full lg:max-w-5xl lg:w-3/4 xl:w-3/5;
+    @apply border-none flex-1 h-auto mx-auto text-lg w-full max-w-prose;
 }
 
 .ql-toolbar.ql-snow {
-    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-4 py-8;
+    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-4 py-6;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
     @apply mx-1;
+}
+
+.ql-editor {
+    @apply p-0;
+}
+
+.ql-editor[contenteditable="false"] *:first-child {
+    @apply mt-0;
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Source extends Model
 {
@@ -32,7 +33,24 @@ class Source extends Model
 
     public function translationRequests()
     {
-        return $this->hasMany(TranslationRequest::class);
+        return $this->hasMany(TranslationRequest::class)
+            ->orderBy(
+                DB::raw(
+                    sprintf(
+                        "FIELD(status, '%s')",
+                        implode(
+                            "','",
+                            [
+                                TranslationRequestStatus::COMPLETE,
+                                TranslationRequestStatus::CLAIMED,
+                                TranslationRequestStatus::UNCLAIMED,
+                            ]
+                        )
+                    ),
+                    'asc'
+                )
+            )
+            ->orderBy('language_id', 'asc');
     }
 
     public function getNumCompleteTranslationRequestsAttribute()
@@ -40,7 +58,13 @@ class Source extends Model
         return $this->translationRequests->where('status', TranslationRequestStatus::COMPLETE)->count();
     }
 
-    public function scopeComplete(Builder $builder) {
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->title);
+    }
+
+    public function scopeComplete(Builder $builder)
+    {
         return $builder->whereNotExists(function(QueryBuilder $query) {
             $query->select(DB::raw(1))
                 ->from('translation_requests')
@@ -49,7 +73,8 @@ class Source extends Model
         });
     }
 
-    public function scopeIncomplete(Builder $builder) {
+    public function scopeIncomplete(Builder $builder)
+    {
         return $builder->whereExists(function(QueryBuilder $query) {
             $query->select(DB::raw(1))
                 ->from('translation_requests')

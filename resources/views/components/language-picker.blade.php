@@ -10,7 +10,7 @@
     if ($attributes->has('wire:model')) {
         $wireModel = $attributes->get('wire:model');
         $initAttribute = <<<JS
-x-init="\$watch('languages', v => \$wire.set('$wireModel', Object.values(v).map(n => parseInt(n))))"
+x-init="\$watch('languages', v => \$wire.set('$wireModel', Object.values(v).map(n => parseInt(n)))); languages = $defaultLanguages"
 JS;
     }
 @endphp

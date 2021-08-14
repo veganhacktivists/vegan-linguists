@@ -2,8 +2,12 @@
     'x-data' => '{ collapsed: true }',
 ]) }}>
     <div class="bg-gray-50 shadow flex items-center gap-2 rounded-md px-6 py-4">
-        <div class="truncate flex-1">
-            {{ $source->title }}
+        <div class="truncate flex-1 group">
+            <a href="{{ route('source', [$source->id, $source->slug]) }}" class="flex gap-1 items-center">
+                {{ $source->title }}
+                <x-heroicon-o-arrow-sm-right
+                    class="h-6 w-6 hidden sm:block transform transition-transform group-hover:translate-x-1" />
+            </a>
         </div>
 
         <div class="{{ $progressClass }} inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
@@ -17,7 +21,10 @@
 
     <div class="flex flex-col gap-2 mt-2 hidden" x-bind:class="{ hidden: collapsed }">
         @foreach ($source->translationRequests as $translationRequest)
-            <x-dashboard.translation-request-row class="ml-4 sm:ml-8" :translationRequest="$translationRequest" />
+            <x-dashboard.translation-request-row
+                class="ml-4 sm:ml-8"
+                :translationRequest="$translationRequest"
+                :source="$source" />
         @endforeach
     </div>
 </li>
