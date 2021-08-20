@@ -80,7 +80,7 @@
                                 </x-jet-option>
                                 @foreach ($languages as $language)
                                     <x-jet-option value="{{ $language->id }}">
-                                        {{ $language->fullName }}
+                                        {{ $language->native_name }}
                                     </x-jet-option>
                                 @endforeach
                             </x-jet-select>
@@ -100,7 +100,7 @@
                                 </x-jet-option>
                                 @foreach ($languages as $language)
                                     <x-jet-option value="{{ $language->id }}">
-                                        {{ $language->fullName }}
+                                        {{ $language->native_name }}
                                     </x-jet-option>
                                 @endforeach
                             </x-jet-select>

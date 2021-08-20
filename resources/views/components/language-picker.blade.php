@@ -52,7 +52,7 @@ JS;
                 x-bind:disabled="languages.includes({{ $language->id }})"
                 data-id="{{ $language->id }}"
                 data-code="{{ $language->code }}"
-                value="{{ $language->fullName }}" />
+                value="{{ $language->native_name }}" />
         @endforeach
     </datalist>
 </div>
