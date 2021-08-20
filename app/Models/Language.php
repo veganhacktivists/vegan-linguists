@@ -14,4 +14,8 @@ class Language extends Model
         'name',
         'native_name',
     ];
+
+    public function getFullNameAttribute() {
+        return "{$this->name} ({$this->native_name})";
+    }
 }

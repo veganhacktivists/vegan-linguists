@@ -11,7 +11,9 @@ window.LanguagePicker = new (class {
   }
 
   getLanguageId(name) {
-    return document.querySelector(`option[value='${name}']`).dataset.id
+    return parseInt(
+      document.querySelector(`option[value='${name}']`).dataset.id,
+    )
   }
 
   getLanguageCode(id) {

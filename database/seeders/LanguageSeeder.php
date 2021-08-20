@@ -301,11 +301,6 @@ class LanguageSeeder extends Seeder
                 "native_name" => "עברית"
             ],
             [
-                "code" => "iw",
-                "name" => "Hebrew",
-                "native_name" => "עברית"
-            ],
-            [
                 "code" => "hz",
                 "name" => "Herero",
                 "native_name" => "Otjiherero"

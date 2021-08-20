@@ -1,8 +1,9 @@
 import Quill from 'quill'
 
 document.addEventListener('alpine:init', () => {
-  window.Alpine.data('richTextEditor', (content = '', isReadOnly = false) => ({
+  window.Alpine.data('richTextEditor', (isReadOnly = false) => ({
     init() {
+      const content = JSON.parse(this.$refs.editorContent.innerText || '{}')
       this.editor = new RichTextEditor(this.$refs.editorContainer, isReadOnly)
         .setContent(content)
         .on(

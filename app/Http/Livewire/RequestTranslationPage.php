@@ -56,7 +56,7 @@ class RequestTranslationPage extends Component
                 array_map(function($targetLanguageId) {
                     return [
                         'language_id' => $targetLanguageId,
-                        'content' => '',
+                        'content' => $this->content,
                         'plain_text' => '',
                     ];
                 }, $this->targetLanguages)

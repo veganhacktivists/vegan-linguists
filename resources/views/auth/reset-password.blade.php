@@ -22,7 +22,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
+                <x-jet-button type="submit">
                     {{ __('Reset Password') }}
                 </x-jet-button>
             </div>

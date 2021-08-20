@@ -14,7 +14,7 @@
                     {{ strtoupper($translationRequest->language->code) }}
                 </span>
                 <span class="hidden sm:block">
-                    {{ $translationRequest->language->name }} ({{ $translationRequest->language->native_name }})
+                    {{ $translationRequest->language->fullName }}
                 </span>
                 <x-heroicon-o-arrow-sm-right
                     class="h-6 w-6 hidden sm:block transform transition-transform group-hover:translate-x-1" />
@@ -25,7 +25,7 @@
                     {{ strtoupper($translationRequest->language->code) }}
                 </span>
                 <span class="hidden sm:block">
-                    {{ $translationRequest->language->name }} ({{ $translationRequest->language->native_name }})
+                    {{ $translationRequest->language->fullName }}
                 </span>
             </div>
         @endif

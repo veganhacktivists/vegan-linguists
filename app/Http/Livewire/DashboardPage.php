@@ -40,6 +40,7 @@ class DashboardPage extends Component
             ->when($this->filter === 'incomplete', function(Builder $query) {
                 return $query->incomplete();
             })
+            ->orderByRecency()
             ->get();
     }
 }

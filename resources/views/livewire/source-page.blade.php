@@ -6,11 +6,9 @@
             </h2>
             @if ($isViewingTranslation)
                 <div>
-                    <a href="{{ route('source', [$source->id, $source->slug]) }}" class="group flex items-center gap-1">
-                        <x-heroicon-o-arrow-sm-left
-                            class="h-6 w-6 hidden sm:block transform transition-transform group-hover:-translate-x-1" />
+                    <x-jet-secondary-button element="a" href="{{ route('source', [$source->id, $source->slug]) }}">
                         {{ __('View original') }}
-                    </a>
+                    </x-jet-secondary-button>
                 </div>
             @endif
         </div>
@@ -28,8 +26,8 @@
                     @endforeach
                 </div>
             </div>
-            <div class="prose prose-lg prose-indigo p-6 w-full break-words">
-                <x-rich-text-editor :content="$content" :isReadOnly="true" />
+            <div class="prose prose-lg prose-indigo p-6 w-full">
+                <x-rich-text-editor :content="$isViewingTranslation ? $translationRequest->content : $source->content" :isReadOnly="true" />
             </div>
         </div>
     </div>

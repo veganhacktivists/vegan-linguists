@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex justify-end mt-4">
-                <x-jet-button class="ml-4">
+                <x-jet-button class="ml-4" type="submit">
                     {{ __('Confirm') }}
                 </x-jet-button>
             </div>

@@ -6,6 +6,7 @@
 
     <div class="text-right m-2">
         <x-jet-button
+            type="submit"
             wire:click="$set('shouldDisplayLanguagePicker', true)"
             :disabled="mb_strlen(trim($plainText)) === 0"
         >
@@ -36,7 +37,7 @@
                 <x-jet-select id="source-language" wire:model="sourceLanguageId" class="w-full">
                     @foreach ($languages as $language)
                         <x-jet-option value="{{ $language->id }}">
-                            {{ $language->name }} ({{ $language->native_name }})
+                            {{ $language->fullName }}
                         </x-jet-option>
                     @endforeach
                 </x-jet-select>
@@ -55,12 +56,14 @@
 
         <x-slot name="footer">
             <x-jet-secondary-button
+                type="button"
                 wire:click="$set('shouldDisplayLanguagePicker', false)"
             >
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
             <x-jet-button
+                type="submit"
                 class="ml-2"
                 dusk="confirm-password-button"
                 wire:click="requestTranslation"

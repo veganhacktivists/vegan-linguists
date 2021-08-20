@@ -6,7 +6,7 @@
 
 <span
     {{ $attributes->wire('then') }}
-    x-data
+    x-data=""
     x-ref="span"
     x-on:click="$wire.startConfirmingPassword('{{ $confirmableId }}')"
     x-on:password-confirmed.window="setTimeout(() => $event.detail.id === '{{ $confirmableId }}' && $refs.span.dispatchEvent(new CustomEvent('then', { bubbles: false })), 250);"
@@ -35,11 +35,11 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
+        <x-jet-secondary-button type="button" wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
             {{ __('Cancel') }}
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-2" dusk="confirm-password-button" wire:click="confirmPassword" wire:loading.attr="disabled">
+        <x-jet-button type="submit" class="ml-2" dusk="confirm-password-button" wire:click="confirmPassword" wire:loading.attr="disabled">
             {{ $button }}
         </x-jet-button>
     </x-slot>

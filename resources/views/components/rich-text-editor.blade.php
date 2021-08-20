@@ -1,4 +1,4 @@
-@props(['content' => '""', 'isReadOnly' => false])
+@props(['content' => '', 'isReadOnly' => false])
 
 @push('styles')
     @once
@@ -12,10 +12,11 @@
     @endonce
 @endpush
 
-<div {{ $attributes->merge([
-    'x-data' => "richTextEditor($content, $isReadOnly)",
-    'class' => 'cursor-text flex flex-col h-full',
-    'x-on:click' => 'editor.focus()',
-]) }}>
+<div
+    x-data="richTextEditor({{ $isReadOnly ? 'true' : 'false' }})"
+    x-on:click="editor.focus()"
+    {{ $attributes->merge([ 'class' => 'cursor-text flex flex-col h-full' ]) }}
+>
+    <div x-ref="editorContent" class="hidden">{!! $content !!}</div>
     <div x-ref="editorContainer"></div>
 </div>

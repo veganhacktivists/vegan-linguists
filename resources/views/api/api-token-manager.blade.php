@@ -39,7 +39,7 @@
                 {{ __('Created.') }}
             </x-jet-action-message>
 
-            <x-jet-button>
+            <x-jet-button type="submit">
                 {{ __('Create') }}
             </x-jet-button>
         </x-slot>
@@ -112,7 +112,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('displayingToken', false)" wire:loading.attr="disabled">
+            <x-jet-secondary-button type="button" wire:click="$set('displayingToken', false)" wire:loading.attr="disabled">
                 {{ __('Close') }}
             </x-jet-secondary-button>
         </x-slot>
@@ -140,7 +140,7 @@
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2" wire:click="updateApiToken" wire:loading.attr="disabled">
+            <x-jet-button type="submit" class="ml-2" wire:click="updateApiToken" wire:loading.attr="disabled">
                 {{ __('Save') }}
             </x-jet-button>
         </x-slot>

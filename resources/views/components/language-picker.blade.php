@@ -39,7 +39,7 @@ JS;
         <template x-for="languageId in languages">
             <li class="bg-gray-200 flex gap-2 px-2 py-1 rounded">
                 <span x-text="window.LanguagePicker.getLanguageCode(languageId)"></span>
-                <button type="button" @click="languages = languages.filter(id => id !== languageId)">
+                <button type="button" @click="languages = languages.filter(id => console.log(id,languageId) || id !== languageId)">
                     &times;
                 </button>
             </li>
@@ -49,10 +49,10 @@ JS;
     <datalist id="available-languages" class="h-6">
         @foreach ($languages as $language)
             <option
-                x-bind:disabled="languages.includes('{{ $language->id }}')"
+                x-bind:disabled="languages.includes({{ $language->id }})"
                 data-id="{{ $language->id }}"
                 data-code="{{ $language->code }}"
-                value="{{ $language->name }} ({{ $language->native_name }})" />
+                value="{{ $language->fullName }}" />
         @endforeach
     </datalist>
 </div>

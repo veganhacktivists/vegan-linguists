@@ -68,4 +68,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Source::class, 'author_id', 'id');
     }
+
+    public function translationRequests()
+    {
+        return $this->hasMany(TranslationRequest::class, 'translator_id', 'id');
+    }
+
+    public function speaksLanguage(int $languageId) {
+        return $this->languages()->wherePivot('language_id', $languageId)->exists();
+    }
 }

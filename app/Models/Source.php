@@ -63,6 +63,10 @@ class Source extends Model
         return Str::slug($this->title);
     }
 
+    public function scopeOrderByRecency(Builder $builder, string $order = 'desc') {
+        return $builder->orderBy('created_at', $order);
+    }
+
     public function scopeComplete(Builder $builder)
     {
         return $builder->whereNotExists(function(QueryBuilder $query) {

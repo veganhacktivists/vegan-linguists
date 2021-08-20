@@ -44,11 +44,39 @@ class TranslationRequest extends Model
         return $this->hasOne(User::class, 'id', 'translator_id');
     }
 
-    public function scopeUnclaimed(Builder $query) {
+    public function assignTo(User $user)
+    {
+        $this->update([
+            'translator_id' => $user->id,
+            'status' => TranslationRequestStatus::CLAIMED,
+        ]);
+    }
+
+    public function unclaim()
+    {
+        $this->update([
+            'translator_id' => null,
+            'status' => TranslationRequestStatus::UNCLAIMED,
+        ]);
+    }
+
+    public function isClaimed()
+    {
+        return $this->status === TranslationRequestStatus::CLAIMED;
+    }
+
+    public function isClaimedBy(User $user)
+    {
+        return $user->id === $this->translator_id;
+    }
+
+    public function scopeUnclaimed(Builder $query)
+    {
         return $query->where('status', TranslationRequestStatus::UNCLAIMED);
     }
 
-    public function scopeExcludingSourceAuthor(Builder $builder, User $user) {
+    public function scopeExcludingSourceAuthor(Builder $builder, User $user)
+    {
         return $builder->whereNotExists(function(QueryBuilder $query) use ($user) {
             $query->select(DB::raw(1))
                 ->from('sources')

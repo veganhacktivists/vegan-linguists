@@ -5,6 +5,7 @@ use App\Http\Livewire\QueuePage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
 use App\Http\Livewire\SourcePage;
+use App\Http\Livewire\TranslatePage;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/dashboard', DashboardPage::class)->name('dashboard');
     Route::get('/queue', QueuePage::class)->name('queue');
     Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
-    Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
+
     Route::get(
         '/requests/{source}/translations/{translationRequest:language_id}',
         SourcePage::class
     )->name('translation');
+
+    Route::get(
+        '/translate/{translationRequest}/{slug?}',
+        TranslatePage::class
+    )->name('translate');
+
+    Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
 });
