@@ -12,18 +12,18 @@ class SourcePage extends Component
     use AuthorizesRequests;
 
     public Source $source;
-    public TranslationRequest $translationRequest;
+    public TranslationRequest $currentTranslationRequest;
     public bool $isViewingTranslation;
 
     public function mount(
         Source $source,
-        TranslationRequest $translationRequest,
+        TranslationRequest $currentTranslationRequest,
         string $slug = ''
     ) {
         $this->authorize('view', $source);
 
         $this->source = $source;
-        $this->isViewingTranslation = isset($translationRequest->id);
+        $this->isViewingTranslation = isset($currentTranslationRequest->id);
 
         if (!$this->isViewingTranslation && $slug !== $source->slug) {
             return redirect()->route('source', [$source->id, $source->slug]);

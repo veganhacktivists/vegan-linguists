@@ -27,7 +27,9 @@
                 </div>
             </div>
             <div class="prose prose-lg prose-indigo p-6 w-full">
-                <x-rich-text-editor :content="$isViewingTranslation ? $translationRequest->content : $source->content" :isReadOnly="true" />
+                <x-rich-text-editor
+                    :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
+                    :isReadOnly="true" />
             </div>
         </div>
     </div>

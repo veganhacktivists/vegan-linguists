@@ -57,7 +57,7 @@ class RequestTranslationPage extends Component
                     return [
                         'language_id' => $targetLanguageId,
                         'content' => $this->content,
-                        'plain_text' => '',
+                        'plain_text' => $this->plainText,
                     ];
                 }, $this->targetLanguages)
             );

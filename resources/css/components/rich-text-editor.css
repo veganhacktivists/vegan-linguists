@@ -3,7 +3,7 @@
 }
 
 .ql-toolbar.ql-snow {
-    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-4 py-6;
+    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-0 py-6;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
@@ -11,7 +11,7 @@
 }
 
 .ql-editor {
-    @apply p-0;
+    @apply break-all p-0;
 }
 
 .ql-editor[contenteditable="false"] *:first-child {

@@ -71,7 +71,8 @@ class User extends Authenticatable
 
     public function translationRequests()
     {
-        return $this->hasMany(TranslationRequest::class, 'translator_id', 'id');
+        return $this->hasMany(TranslationRequest::class, 'translator_id', 'id')
+            ->where('status', TranslationRequestStatus::CLAIMED);
     }
 
     public function speaksLanguage(int $languageId) {
