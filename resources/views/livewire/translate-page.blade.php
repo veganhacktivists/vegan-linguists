@@ -27,6 +27,15 @@
                     {{ $translationRequest->language->native_name }}
                 </div>
                 <div class="flex flex-wrap justify-end gap-2">
+                    <x-success-toast
+                        class="fixed right-4 bottom-4 flex items-center gap-2 opacity-0 transition-opacity duration-500"
+                        x-data="{ saved: false, timeout: null}"
+                        x-bind:class="{ 'opacity-0': !saved }"
+                        @toast-translation-request-saved.window="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1000)"
+                    >
+                        <x-heroicon-s-cloud-upload class="w-6 h-6" />
+                        Saved
+                    </x-success-toast>
                     <x-jet-danger-button type="button" wire:click="unclaimTranslationRequest">
                         {{ __('Unclaim') }}
                     </x-jet-danger-button>
@@ -60,7 +69,7 @@
                     <x-rich-text-editor
                         wire:ignore
                         :content="$translationRequest->content"
-                        x-on:change="e => { $wire.set('translationContent', e.detail.content); $wire.set('translationPlainText', e.detail.plainText) }" />
+                        x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                 </div>
             @endif
         </div>

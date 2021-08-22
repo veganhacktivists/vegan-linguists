@@ -48,6 +48,18 @@ class TranslatePage extends Component
         $this->translationRequest->unclaim();
     }
 
+    public function saveTranslation(string $content, string $plainText) {
+        $this->translationContent = $content;
+        $this->translationPlainText = $plainText;
+
+        $this->translationRequest->update([
+            'content' => $this->translationContent,
+            'plain_text' => $this->translationPlainText,
+        ]);
+
+        $this->dispatchBrowserEvent('toast-translation-request-saved');
+    }
+
     public function submitTranslation() {
         $this->validate();
 
