@@ -17,13 +17,14 @@ class SourcePage extends Component
 
     public function mount(
         Source $source,
-        TranslationRequest $currentTranslationRequest,
+        TranslationRequest $translationRequest,
         string $slug = ''
     ) {
         $this->authorize('view', $source);
 
         $this->source = $source;
-        $this->isViewingTranslation = isset($currentTranslationRequest->id);
+        $this->isViewingTranslation = isset($translationRequest->id);
+        $this->currentTranslationRequest = $translationRequest;
 
         if (!$this->isViewingTranslation && $slug !== $source->slug) {
             return redirect()->route('source', [$source->id, $source->slug]);

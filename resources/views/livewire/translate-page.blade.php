@@ -36,14 +36,14 @@
                         <x-heroicon-s-cloud-upload class="w-6 h-6" />
                         Saved
                     </x-success-toast>
-                    <x-jet-danger-button type="button" wire:click="unclaimTranslationRequest">
+                    <x-jet-danger-button type="button" wire:click="$toggle('isConfirmingUnclaim')">
                         {{ __('Unclaim') }}
                     </x-jet-danger-button>
 
                     <x-jet-button
                         type="button"
                         :disabled="strlen(trim($translationPlainText)) === 0"
-                        wire:click="submitTranslation"
+                        wire:click="$toggle('isConfirmingSubmission')"
                     >
                         {{ __('Submit Translation') }}
                     </x-jet-button>
@@ -71,6 +71,49 @@
                         :content="$translationRequest->content"
                         x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                 </div>
+
+                <x-jet-confirmation-modal wire:model="isConfirmingUnclaim">
+                    <x-slot name="title">
+                        {{ __('Unclaim Translation Request') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        {{ __('Are you sure you would like to unclaim this translation request?') }}
+                    </x-slot>
+
+                    <x-slot name="footer">
+                        <x-jet-secondary-button wire:click="$toggle('isConfirmingUnclaim')" wire:loading.attr="disabled">
+                            {{ __('Cancel') }}
+                        </x-jet-secondary-button>
+
+                        <x-jet-danger-button class="ml-2" wire:click="unclaimTranslationRequest" wire:loading.attr="disabled">
+                            {{ __('Unclaim') }}
+                        </x-jet-danger-button>
+                    </x-slot>
+                </x-jet-confirmation-modal>
+
+                <x-jet-confirmation-modal wire:model="isConfirmingSubmission">
+                    <x-slot name="title">
+                        {{ __('Submit Translation Request') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        {{ __('Are you sure you would like to submit this translation?') }}
+                        <strong class="block mt-3">
+                            {{ __(' Make sure you are finished, because this cannot be undone.') }}
+                        </strong>
+                    </x-slot>
+
+                    <x-slot name="footer">
+                        <x-jet-secondary-button wire:click="$toggle('isConfirmingSubmission')" wire:loading.attr="disabled">
+                            {{ __('Cancel') }}
+                        </x-jet-secondary-button>
+
+                        <x-jet-danger-button class="ml-2" wire:click="submitTranslation" wire:loading.attr="disabled">
+                            {{ __('Submit') }}
+                        </x-jet-danger-button>
+                    </x-slot>
+                </x-jet-confirmation-modal>
             @endif
         </div>
     </div>

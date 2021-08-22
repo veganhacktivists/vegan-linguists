@@ -15,6 +15,8 @@ class TranslatePage extends Component
     public TranslationRequest $translationRequest;
     public string $translationContent;
     public string $translationPlainText;
+    public bool $isConfirmingUnclaim = false;
+    public bool $isConfirmingSubmission = false;
 
     public function mount(TranslationRequest $translationRequest, string $slug = '') {
         $this->authorize('view', $translationRequest);
@@ -45,10 +47,17 @@ class TranslatePage extends Component
     }
 
     public function unclaimTranslationRequest() {
+        $this->authorize('view', $this->translationRequest);
+
+        $this->isConfirmingUnclaim = false;
+        $this->isConfirmingSubmission = false;
+
         $this->translationRequest->unclaim();
     }
 
     public function saveTranslation(string $content, string $plainText) {
+        $this->authorize('view', $this->translationRequest);
+
         $this->translationContent = $content;
         $this->translationPlainText = $plainText;
 
@@ -61,6 +70,8 @@ class TranslatePage extends Component
     }
 
     public function submitTranslation() {
+        $this->authorize('view', $this->translationRequest);
+
         $this->validate();
 
         $this->translationRequest->update([
@@ -68,6 +79,10 @@ class TranslatePage extends Component
             'plain_text' => $this->translationPlainText,
             'status' => TranslationRequestStatus::COMPLETE,
         ]);
+
+        session()->flash('flash.banner', __('Your translation has been submitted. Thank you for your contribution!'));
+
+        return redirect()->route('queue');
     }
 
     protected function rules()
