@@ -31,10 +31,10 @@
                         class="fixed right-4 bottom-4 flex items-center gap-2 opacity-0 transition-opacity duration-500"
                         x-data="{ saved: false, timeout: null}"
                         x-bind:class="{ 'opacity-0': !saved }"
-                        @toast-translation-request-saved.window="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1000)"
+                        @toast-translation-request-saved.window.debounce.3000ms="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1500)"
                     >
                         <x-heroicon-s-cloud-upload class="w-6 h-6" />
-                        Saved
+                        {{ __('Saved') }}
                     </x-success-toast>
                     <x-jet-danger-button type="button" wire:click="$toggle('isConfirmingUnclaim')">
                         {{ __('Unclaim') }}
