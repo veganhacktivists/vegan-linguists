@@ -60,6 +60,11 @@ class TranslationRequest extends Model
         ]);
     }
 
+    public function isComplete()
+    {
+        return $this->status === TranslationRequestStatus::COMPLETE;
+    }
+
     public function isClaimed()
     {
         return $this->status === TranslationRequestStatus::CLAIMED;

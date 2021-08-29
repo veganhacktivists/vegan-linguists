@@ -14,6 +14,7 @@ class SourcePage extends Component
     public Source $source;
     public TranslationRequest $currentTranslationRequest;
     public bool $isViewingTranslation;
+    public bool $isConfirmingClaimRevocation = false;
 
     public function mount(
         Source $source,
@@ -34,5 +35,12 @@ class SourcePage extends Component
     public function render()
     {
         return view('livewire.source-page');
+    }
+
+    public function revokeClaim()
+    {
+        $this->currentTranslationRequest->unclaim();
+        $this->isConfirmingClaimRevocation = false;
+        $this->source->refresh();
     }
 }

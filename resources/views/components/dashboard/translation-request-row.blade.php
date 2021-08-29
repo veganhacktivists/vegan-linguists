@@ -2,7 +2,7 @@
     'class' => "bg-gray-50 bg-opacity-100 shadow flex items-center gap-2 rounded-md px-6 py-4",
 ]) }}>
     <div class="truncate flex-1">
-        @if ($isComplete)
+        @if ($isComplete || $isClaimed)
             <a
                 href="{{ route('translation', [
                     $source->id,

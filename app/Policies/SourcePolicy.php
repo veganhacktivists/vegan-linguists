@@ -2,9 +2,7 @@
 
 namespace App\Policies;
 
-use App\Http\Livewire\TranslationPage;
 use App\Models\Source;
-use App\Models\TranslationRequest;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

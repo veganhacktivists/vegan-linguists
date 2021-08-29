@@ -73,7 +73,7 @@
                 @endif
 
                 <x-jet-confirms-password wire:then="disableTwoFactorAuthentication">
-                    <x-jet-danger-button wire:loading.attr="disabled">
+                    <x-jet-danger-button wire:loading.attr="disabled" type="button">
                         {{ __('Disable') }}
                     </x-jet-danger-button>
                 </x-jet-confirms-password>

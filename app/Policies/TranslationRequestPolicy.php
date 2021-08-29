@@ -20,8 +20,8 @@ class TranslationRequestPolicy
 
     public function view(User $user, TranslationRequest $translationRequest)
     {
-        if ($translationRequest->status === TranslationRequestStatus::CLAIMED) {
-            return $translationRequest->translator_id === $user->id;
+        if ($translationRequest->isClaimed()) {
+            return $translationRequest->isClaimedBy($user);
         }
 
         return $translationRequest->status === TranslationRequestStatus::UNCLAIMED

@@ -161,7 +161,7 @@
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
-            <x-jet-danger-button class="ml-2" wire:click="deleteApiToken" wire:loading.attr="disabled">
+            <x-jet-danger-button class="ml-2" wire:click="deleteApiToken" wire:loading.attr="disabled" type="button">
                 {{ __('Delete') }}
             </x-jet-danger-button>
         </x-slot>

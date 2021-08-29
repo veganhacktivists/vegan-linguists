@@ -12,6 +12,7 @@ class TranslationRequestRow extends Component
     public string $statusClass;
     public string $statusText;
     public bool $isComplete;
+    public bool $isClaimed;
 
     /**
      * Create a new component instance.
@@ -24,14 +25,16 @@ class TranslationRequestRow extends Component
     )
     {
         $this->isComplete = false;
+        $this->isClaimed = false;
 
-        if ($translationRequest->status === TranslationRequestStatus::COMPLETE) {
+        if ($translationRequest->isComplete()) {
             $this->statusClass = 'bg-green-200';
             $this->statusText = __('Complete');
             $this->isComplete = true;
-        } else if ($translationRequest->status === TranslationRequestStatus::CLAIMED) {
+        } else if ($translationRequest->isClaimed()) {
             $this->statusClass = 'bg-yellow-200';
             $this->statusText = __('Claimed');
+            $this->isClaimed = true;
         } else {
             $this->statusClass = 'bg-gray-200';
             $this->statusText = __('Unclaimed');
