@@ -11,7 +11,7 @@
 }
 
 .ql-editor {
-    @apply break-all p-0;
+    @apply break-words p-0;
 }
 
 .ql-editor[contenteditable="false"] *:first-child {
