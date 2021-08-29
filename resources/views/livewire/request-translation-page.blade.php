@@ -50,6 +50,7 @@
                 <x-language-picker
                     id="language-picker"
                     wire:model="targetLanguages"
+                    :shouldDisplayTranslatedLanguage="true"
                     :languages="$languages" />
             </div>
         </x-slot>

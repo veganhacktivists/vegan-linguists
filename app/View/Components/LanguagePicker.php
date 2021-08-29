@@ -16,7 +16,11 @@ class LanguagePicker extends Component
      *
      * @return void
      */
-    public function __construct(Collection $languages, array $defaultLanguages = [])
+    public function __construct(
+        Collection $languages,
+        array $defaultLanguages = [],
+        public bool $shouldDisplayTranslatedLanguage = false,
+    )
     {
         $this->languages = $languages->isNotEmpty() ? $languages : Language::all();
         $this->defaultLanguages = json_encode(
