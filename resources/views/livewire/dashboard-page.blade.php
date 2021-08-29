@@ -36,9 +36,16 @@
 
                 <div class="px-4 pb-5 sm:px-6 sm:pb-6">
                     <ul class="space-y-3">
-                        @foreach ($sources as $source)
+                        @forelse ($sources as $source)
                             <x-dashboard.source-row :source="$source" />
-                        @endforeach
+                        @empty
+                            <p>
+                                {{ __("You haven't requested any translations yet.") }}
+                                <a class="text-indigo-500 hover:text-indigo-700" href="{{ route('request-translation') }}">
+                                    {{ __('Request a translation.') }}
+                                </a>
+                            </p>
+                        @endforelse
                     </ul>
                 </div>
             </div>

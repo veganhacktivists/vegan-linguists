@@ -110,7 +110,7 @@
 
                 <div class="px-4 pb-5 sm:px-6 sm:pb-6">
                     <ul class="space-y-3">
-                        @foreach ($translationRequests as $translationRequest)
+                        @forelse ($translationRequests as $translationRequest)
                             <li>
                                 <div class="bg-gray-50 shadow flex items-center gap-2 rounded-md px-6 py-4">
                                     <div>
@@ -149,7 +149,11 @@
                                     </div>
                                 </div>
                             </li>
-                        @endforeach
+                        @empty
+                            <li>
+                                {{ __('There are no unclaimed translation requests for the languages you speak. Try coming back another time!') }}
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
