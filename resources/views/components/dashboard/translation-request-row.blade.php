@@ -1,37 +1,30 @@
-<div {{ $attributes->merge([
-    'class' => "bg-gray-50 bg-opacity-100 shadow flex items-center gap-2 rounded-md px-6 py-4",
-]) }}>
-    <div class="truncate flex-1">
-        @if ($isComplete || $isClaimed)
-            <a
-                href="{{ route('translation', [
-                    $source->id,
-                    $translationRequest->language->id
-                ]) }}"
-                class="group flex items-center gap-1"
-            >
-                <span class="sm:hidden">
-                    {{ strtoupper($translationRequest->language->code) }}
-                </span>
-                <span class="hidden sm:block">
-                    {{ $translationRequest->language->fullName }}
-                </span>
-                <x-heroicon-o-arrow-sm-right
-                    class="h-6 w-6 hidden sm:block transform transition-transform group-hover:translate-x-1" />
-            </a>
-        @else
-            <div class="group flex items-center gap-1">
-                <span class="sm:hidden">
-                    {{ strtoupper($translationRequest->language->code) }}
-                </span>
-                <span class="hidden sm:block">
-                    {{ $translationRequest->language->fullName }}
-                </span>
-            </div>
-        @endif
-    </div>
+@props(['source', 'translationRequest'])
 
-    <div class="{{ $statusClass }} inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
-        {{ $statusText }}
-    </div>
-</div>
+<li {{ $attributes->except('href') }}>
+    <a class="block hover:bg-gray-50" {{ $attributes->only('href') }}>
+        <div class="px-4 py-4 sm:px-6">
+            <div class="flex items-center justify-between">
+                <p class="font-medium text-indigo-600 truncate">
+                    {{ $translationRequest->source->title }}
+                </p>
+                <div class="ml-2 flex-shrink-0 flex">
+                    <p class="inline-flex text-lg leading-5 font-semibold text-indigo-900">
+                        {{ $translationRequest->language->native_name }}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-2 sm:flex sm:justify-between">
+                <div class="sm:flex">
+                    <p class="flex items-center text-gray-500">
+                        <x-heroicon-o-translate class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                        {{ $translationRequest->source->language->native_name }}
+                    </p>
+                    <p class="mt-2 flex items-center text-gray-500 sm:mt-0 sm:ml-6">
+                        <x-heroicon-o-user-circle class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                        {{ $translationRequest->source->author->name }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+</li>

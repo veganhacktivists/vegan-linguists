@@ -40,7 +40,7 @@ class SourcePage extends Component
     public function revokeClaim()
     {
         $this->currentTranslationRequest->unclaim();
-        $this->isConfirmingClaimRevocation = false;
-        $this->source->refresh();
+
+        return redirect()->route('translation', [$this->source->id, $this->currentTranslationRequest->language->id]);
     }
 }

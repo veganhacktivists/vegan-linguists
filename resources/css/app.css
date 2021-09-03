@@ -3,3 +3,4 @@
 @import 'tailwindcss/utilities';
 
 @import './components/rich-text-editor.css';
+@import './components/sidebar-link.css';

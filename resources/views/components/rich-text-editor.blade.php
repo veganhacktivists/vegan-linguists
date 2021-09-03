@@ -14,8 +14,7 @@
 
 <div
     x-data="richTextEditor({{ $isReadOnly ? 'true' : 'false' }})"
-    x-on:click="editor.focus()"
-    {{ $attributes->merge([ 'class' => 'cursor-text flex flex-col h-full' ]) }}
+    {{ $attributes }}
 >
     <div x-ref="editorContent" class="hidden">{!! $content !!}</div>
     <div x-ref="editorContainer"></div>

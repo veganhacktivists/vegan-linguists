@@ -15,10 +15,15 @@ class TranslatePage extends Component
     public TranslationRequest $translationRequest;
     public string $translationContent;
     public string $translationPlainText;
+    public bool $isConfirmingClaim = false;
     public bool $isConfirmingUnclaim = false;
     public bool $isConfirmingSubmission = false;
+    public bool $isMine;
 
-    public function mount(TranslationRequest $translationRequest, string $slug = '') {
+    protected $listeners = ['toggleClaimModal', 'toggleSubmissionModal', 'toggleUnclaimModal'];
+
+    public function mount(TranslationRequest $translationRequest, string $slug = '')
+    {
         $this->authorize('view', $translationRequest);
 
         if ($slug !== $translationRequest->source->slug) {
@@ -31,31 +36,58 @@ class TranslatePage extends Component
         $this->translationRequest = $translationRequest;
         $this->translationContent = $translationRequest->content;
         $this->translationPlainText = $translationRequest->plain_text;
+        $this->isMine = $translationRequest->isClaimedBy(Auth::user());
+
     }
 
     public function render()
     {
-        return view('livewire.translate-page');
+        return view('livewire.translate-page')->layout('layouts.app', [
+            'containContent' => $this->isMine,
+        ]);
     }
 
-    protected $listeners = ['claimTranslationRequest', 'unclaimTranslationRequest'];
+    public function toggleClaimModal()
+    {
+        $this->isConfirmingClaim = !$this->isConfirmingClaim;
+    }
 
-    public function claimTranslationRequest() {
+    public function toggleUnclaimModal()
+    {
+        $this->isConfirmingUnclaim = !$this->isConfirmingUnclaim;
+    }
+
+    public function toggleSubmissionModal()
+    {
+        $this->isConfirmingSubmission = !$this->isConfirmingSubmission;
+    }
+
+    public function claimTranslationRequest()
+    {
         $this->authorize('claim', $this->translationRequest);
 
         $this->translationRequest->assignTo(Auth::user());
+
+        return redirect()->route('translate', [
+            $this->translationRequest->id,
+            $this->translationRequest->source->slug
+        ]);
     }
 
-    public function unclaimTranslationRequest() {
+    public function unclaimTranslationRequest()
+    {
         $this->authorize('view', $this->translationRequest);
 
-        $this->isConfirmingUnclaim = false;
-        $this->isConfirmingSubmission = false;
-
         $this->translationRequest->unclaim();
+
+        return redirect()->route('translate', [
+            $this->translationRequest->id,
+            $this->translationRequest->source->slug
+        ]);
     }
 
-    public function saveTranslation(string $content, string $plainText) {
+    public function saveTranslation(string $content, string $plainText)
+    {
         $this->authorize('view', $this->translationRequest);
 
         $this->translationContent = $content;
@@ -69,7 +101,8 @@ class TranslatePage extends Component
         $this->dispatchBrowserEvent('toast-translation-request-saved');
     }
 
-    public function submitTranslation() {
+    public function submitTranslation()
+    {
         $this->authorize('view', $this->translationRequest);
 
         $this->validate();

@@ -7,7 +7,6 @@ use Illuminate\View\Component;
 
 class SourceRow extends Component
 {
-    public string $progressClass;
     public int $numCompleteTranslationRequests;
     public int $totalTranslationRequests;
 
@@ -20,14 +19,6 @@ class SourceRow extends Component
     {
         $this->numCompleteTranslationRequests = $source->num_complete_translation_requests;
         $this->totalTranslationRequests = $source->translationRequests->count();
-
-        if ($this->numCompleteTranslationRequests === $this->totalTranslationRequests) {
-            $this->progressClass = 'bg-green-200';
-        } else if ($this->numCompleteTranslationRequests > 0) {
-            $this->progressClass = 'bg-yellow-200';
-        } else {
-            $this->progressClass = 'bg-gray-200';
-        }
     }
 
     /**

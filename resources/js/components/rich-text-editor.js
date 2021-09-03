@@ -15,6 +15,10 @@ document.addEventListener('alpine:init', () => {
             })
           }, 300),
         )
+
+      if (!isReadOnly) {
+        this.editor.focus()
+      }
     },
 
     editor: null,
@@ -61,7 +65,8 @@ class RichTextEditor {
   }
 
   focus() {
-    return this.quill.focus()
+    const length = this.quill.getLength()
+    return this.quill.setSelection(length, length)
   }
 
   setContent(content) {

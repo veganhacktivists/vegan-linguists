@@ -1,34 +1,64 @@
-<div class="bg-white h-full flex flex-col">
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $source->title }}
-
-                @if ($isViewingTranslation)
-                    ({{ $currentTranslationRequest->language->name }})
-                @endif
-            </h2>
-        </div>
+<div class="flex flex-col h-full">
+    <x-slot name="sidebar">
     </x-slot>
-    @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())
-        <x-header-action-bar>
-            <div class="flex justify-between items-center">
-                <div class="flex gap-2 items-center flex-wrap">
-                    @if ($currentTranslationRequest->isComplete() || $currentTranslationRequest->isClaimed())
 
+    <x-slot name="aside">
+        <x-slot name="asideTitle">
+            {{ __('Change Language') }}
+        </x-slot>
+
+        <x-stacked-list class="sticky top-0">
+            <li class="{{ $isViewingTranslation ? 'bg-white' : 'bg-gray-50' }}">
+                <a href="{{ route('source', [$source->id, $source->slug]) }}" class="block hover:bg-gray-50">
+                    <div class="px-4 py-4 sm:px-6 font-medium text-indigo-600 truncate">
+                        {{ __(':languageName (Original)', ['languageName' => $source->language->native_name]) }}
+                    </div>
+                </a>
+            </li>
+
+            @foreach ($source->translationRequests as $translationRequest)
+                <li class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-gray-50' : '' }}">
+                    <a href="{{ route('translation', [$source->id, $translationRequest->language->id]) }}"
+                       class="px-4 py-4 sm:px-6 flex justify-between items-center hover:bg-gray-50">
+                        <div class="font-medium text-indigo-600 truncate">
+                            {{ $translationRequest->language->name }}
+                            ({{ $translationRequest->language->native_name }})
+                        </div>
+                        <div>
+                            @if ($translationRequest->isComplete())
+                                <x-heroicon-o-check class="w-6 h-6 text-green-500" />
+                            @elseif ($translationRequest->isClaimed())
+                                <x-heroicon-o-pencil class="w-6 h-6 text-indigo-600" />
+                            @else
+                                <x-heroicon-o-clock class="w-6 h-6 text-yellow-400" />
+                            @endif
+                        </div>
+                    </a>
+                </li>
+            @endforeach
+        </x-stacked-list>
+    </x-slot>
+
+    @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())
+        <x-header-action-bar class="bg-indigo-50">
+            <div class="flex gap-2 justify-between items-center">
+                @if ($currentTranslationRequest->isComplete() || $currentTranslationRequest->isClaimed())
+                    <div class="truncate">
                         <x-user-photo
                             :user="$currentTranslationRequest->translator"
-                            class="h-10 w-10" />
-                        {{ $currentTranslationRequest->translator->name }}
-                    @endif
-                </div>
+                            class="h-10 w-10 inline-block" />
 
-                <div class="flex gap-2 flex-wrap">
-                    <x-jet-secondary-button element="a" href="{{ route('source', [$source->id, $source->slug]) }}">
-                        {{ __('View original') }}
-                    </x-jet-secondary-button>
+                        <span class="align-middle">
+                            {{ __(':translatorName has claimed this translation request', [
+                                'translatorName' => $currentTranslationRequest->translator->name,
+                            ]) }}
+                        </span>
+                    </div>
+                @endif
+
+                <div>
                     @if ($currentTranslationRequest->isClaimed())
-                        <x-jet-danger-button type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
+                        <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
                             {{ __('Revoke claim') }}
                         </x-jet-danger-button>
                     @endif
@@ -37,24 +67,10 @@
         </x-header-action-bar>
     @endif
 
-    <div class="bg-white">
-        <div class="flex flex-col lg:flex-row max-w-7xl mx-auto">
-            <div class="pl-6 pr-6 lg:pr-0 pt-6 flex-1">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-                    @foreach ($source->translationRequests as $translationRequest)
-                        <x-dashboard.translation-request-row
-                            class=""
-                            :translationRequest="$translationRequest"
-                            :source="$source" />
-                    @endforeach
-                </div>
-            </div>
-            <div class="prose prose-lg prose-indigo p-6 w-full" wire:ignore>
-                <x-rich-text-editor
-                    :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
-                    :isReadOnly="true" />
-            </div>
-        </div>
+    <div class="bg-white p-6 w-full overflow-auto flex-1" wire:key="rich-text-editor" wire:ignore>
+        <x-rich-text-editor
+            :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
+            :isReadOnly="true" />
     </div>
 
     @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())

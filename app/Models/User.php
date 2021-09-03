@@ -71,11 +71,21 @@ class User extends Authenticatable
 
     public function translationRequests()
     {
-        return $this->hasMany(TranslationRequest::class, 'translator_id', 'id')
-            ->where('status', TranslationRequestStatus::CLAIMED);
+        return $this->hasMany(TranslationRequest::class, 'translator_id', 'id');
     }
 
-    public function speaksLanguage(int $languageId) {
+    public function claimedTranslationRequests()
+    {
+        return $this->translationRequests()->where('status', TranslationRequestStatus::CLAIMED);
+    }
+
+    public function completedTranslationRequests()
+    {
+        return $this->translationRequests()->where('status', TranslationRequestStatus::COMPLETE);
+    }
+
+    public function speaksLanguage(int $languageId)
+    {
         return $this->languages()->wherePivot('language_id', $languageId)->exists();
     }
 }

@@ -1,30 +1,34 @@
-<li {{ $attributes->merge([
-    'x-data' => '{ collapsed: true }',
-]) }}>
-    <div class="bg-gray-50 shadow flex items-center gap-2 rounded-md px-6 py-4">
-        <div class="truncate flex-1 group">
-            <a href="{{ route('source', [$source->id, $source->slug]) }}" class="flex gap-1 items-center">
-                {{ $source->title }}
-                <x-heroicon-o-arrow-sm-right
-                    class="h-6 w-6 hidden sm:block transform transition-transform group-hover:translate-x-1" />
-            </a>
+@props(['source', 'translationRequest'])
+
+<li class="relative">
+    <a class="block hover:bg-gray-50" {{ $attributes->only('href') }}>
+        <div class="px-4 py-4 sm:px-6">
+            <div class="flex items-center justify-between">
+                <p class="font-medium text-indigo-600 truncate">
+                    {{ $source->title }}
+                </p>
+                <div class="absolute top-1/2 right-4 transform -translate-y-1/2">
+                    @if ($numCompleteTranslationRequests < $totalTranslationRequests)
+                        <x-heroicon-o-clock class="w-10 h-10 text-yellow-400" />
+                    @else
+                        <x-heroicon-s-badge-check class="w-10 h-10 text-green-500" />
+                    @endif
+                </div>
+            </div>
+            <div class="mt-2 sm:flex sm:justify-between">
+                <div class="sm:flex">
+                    <p class="flex items-center text-gray-500">
+                        <x-heroicon-o-translate class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                        {{ trans_choice('{1} :count target language|[*] :count target languages', $totalTranslationRequests) }}
+                    </p>
+                    @if ($numCompleteTranslationRequests < $totalTranslationRequests)
+                        <p class="mt-2 flex items-center text-gray-500 sm:mt-0 sm:ml-6">
+                            <x-heroicon-o-user-circle class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                            {{ trans_choice('{1} :count translation remaining|[*] :count translations remaining', $totalTranslationRequests - $numCompleteTranslationRequests) }}
+                        </p>
+                    @endif
+                </div>
+            </div>
         </div>
-
-        <div class="{{ $progressClass }} inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
-            {{ $numCompleteTranslationRequests }} / {{ $totalTranslationRequests }}
-        </div>
-
-        <button @click="collapsed = !collapsed">
-            <x-heroicon-o-chevron-down class="h-6 w-6" />
-        </button>
-    </div>
-
-    <div class="flex flex-col gap-2 mt-2 hidden" x-bind:class="{ hidden: collapsed }">
-        @foreach ($source->translationRequests as $translationRequest)
-            <x-dashboard.translation-request-row
-                class="ml-4 sm:ml-8"
-                :translationRequest="$translationRequest"
-                :source="$source" />
-        @endforeach
-    </div>
+    </a>
 </li>

@@ -20,7 +20,7 @@ class TranslationRequestPolicy
 
     public function view(User $user, TranslationRequest $translationRequest)
     {
-        if ($translationRequest->isClaimed()) {
+        if ($translationRequest->isClaimed() || $translationRequest->isComplete()) {
             return $translationRequest->isClaimedBy($user);
         }
 
@@ -48,6 +48,6 @@ class TranslationRequestPolicy
     {
         return $this->view($user, $translationRequest)
             && $translationRequest->translator_id === null
-            && $user->translationRequests()->count() < MAX_CLAIMED_TRANSLATION_REQUESTS;
+            && $user->claimedTranslationRequests()->count() < MAX_CLAIMED_TRANSLATION_REQUESTS;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\DashboardPage;
-use App\Http\Livewire\QueuePage;
+use App\Http\Controllers\AuthorDashboardController;
+use App\Http\Controllers\TranslatorDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
 use App\Http\Livewire\SourcePage;
@@ -23,8 +23,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
-    Route::get('/dashboard', DashboardPage::class)->name('dashboard');
-    Route::get('/queue', QueuePage::class)->name('queue');
+    Route::get('/dashboard', AuthorDashboardController::class)->name('dashboard');
+    Route::get('/queue', TranslatorDashboardController::class)->name('queue');
     Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
 
     Route::get(

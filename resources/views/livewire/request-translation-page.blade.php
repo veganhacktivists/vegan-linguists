@@ -1,8 +1,33 @@
 <div class="bg-white h-full flex flex-col">
-    <x-rich-text-editor
-        class="px-8"
-        wire:ignore
-        x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+    <x-slot name="sidebar">
+    </x-slot>
+
+    <x-slot name="aside">
+        <x-slot name="asideTitle">
+            {{ __('More Info') }}
+        </x-slot>
+
+        <div class="bg-white h-full overflow-hidden">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    {{ __('Submit content for translation') }}
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                    {{ __("Enter your content into the editor. Make sure that it's formatted the way you'd like before submitting it.") }}
+                </p>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                {{ __('Once your content is submitted, it will be available for translators to get to work on it. You will receive notifications to keep you updated on the status of your translations.') }}
+            </div>
+        </div>
+    </x-slot>
+
+    <div class="flex-1 overflow-auto">
+        <x-rich-text-editor
+            class="px-8"
+            wire:ignore
+            x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+    </div>
 
     <div class="text-right m-2">
         <x-jet-button
@@ -10,7 +35,7 @@
             wire:click="$set('shouldDisplayLanguagePicker', true)"
             :disabled="mb_strlen(trim($plainText)) === 0"
         >
-            {{ __('Submit translation request') }}
+            {{ __('Continue') }}
         </x-jet-button>
     </div>
 
