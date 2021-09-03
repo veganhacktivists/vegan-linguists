@@ -16,14 +16,8 @@
                                 x-bind:class="{ active: tab === 'discussion' }">
                     {{ __('Discussion') }}
                 </x-sidebar-link>
-                <x-sidebar-link href="#" icon="o-check" aria-role="button" @click.prevent="Livewire.emit('toggleSubmissionModal')">
-                    {{ __('Submit Translation') }}
-                </x-sidebar-link>
-                <x-sidebar-link href="#" icon="o-x" aria-role="button" @click.prevent="Livewire.emit('toggleUnclaimModal')">
-                    {{ __('Unclaim Translation Request') }}
-                </x-sidebar-link>
             @else
-                <x-sidebar-link href="#" icon="o-hand" aria-role="button" @click.prevent="Livewire.emit('toggleClaimModal')">
+                <x-sidebar-link href="#" icon="o-pencil" aria-role="button" @click.prevent="Livewire.emit('toggleClaimModal')">
                     {{ __('Claim Translation Request') }}
                 </x-sidebar-link>
             @endcan
@@ -141,20 +135,36 @@
             </div>
 
             @if ($isMine)
-                <div class="mx-auto flex-1 overflow-auto w-full">
-                    <x-rich-text-editor
-                        wire:ignore
-                        :content="$translationRequest->content"
-                        :isReadOnly="$translationRequest->isComplete()"
-                        x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
+                <div class="flex flex-col flex-1 w-full overflow-auto">
+                    <div class="mx-auto flex-1">
+                        <x-rich-text-editor
+                            wire:ignore
+                            :content="$translationRequest->content"
+                            :isReadOnly="$translationRequest->isComplete()"
+                            x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
+                    </div>
+                    <div class="text-right p-2 hidden md:block flex gap-2 sticky bottom-0 bg-white">
+                        <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')" type="button">
+                            {{ __('Unclaim') }}
+                        </x-jet-danger-button>
+                        <x-jet-button wire:click="$toggle('isConfirmingSubmission')" type="button">
+                            {{ __('Submit translation') }}
+                        </x-jet-button>
+                    </div>
                 </div>
 
                 <x-success-toast
-                    class="fixed right-4 bottom-4 flex items-center gap-2 opacity-0 transition-opacity duration-500"
+                    class="fixed right-4 bottom-4 flex items-center gap-2 hidden"
                     x-data="{ saved: false, timeout: null}"
-                    x-bind:class="{ 'opacity-0': !saved }"
-                    @toast-translation-request-saved.window.debounce.3000ms="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1500)"
-                    >
+                    x-init="$el.classList.remove('hidden')"
+                    x-show="saved"
+                    x-transition:enter="transition-opacity ease-out duration-500"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-500"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    @toast-translation-request-saved.window.debounce.3000ms="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1500)">
                     <x-heroicon-s-cloud-upload class="w-6 h-6" />
                         {{ __('Saved') }}
                 </x-success-toast>
@@ -181,7 +191,7 @@
 
                 <x-jet-confirmation-modal wire:model="isConfirmingSubmission">
                     <x-slot name="title">
-                        {{ __('Submit Translation Request') }}
+                        {{ __('Submit Translation') }}
                     </x-slot>
 
                     <x-slot name="content">

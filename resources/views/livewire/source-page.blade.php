@@ -28,7 +28,7 @@
                             @if ($translationRequest->isComplete())
                                 <x-heroicon-o-check class="w-6 h-6 text-green-500" />
                             @elseif ($translationRequest->isClaimed())
-                                <x-heroicon-o-pencil class="w-6 h-6 text-indigo-600" />
+                                <x-heroicon-o-beaker class="w-6 h-6 text-indigo-600" />
                             @else
                                 <x-heroicon-o-clock class="w-6 h-6 text-yellow-400" />
                             @endif

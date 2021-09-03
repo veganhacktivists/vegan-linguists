@@ -29,7 +29,7 @@
             x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
     </div>
 
-    <div class="text-right m-2">
+    <div class="text-right p-2 bg-white sticky bottom-0">
         <x-jet-button
             type="submit"
             wire:click="$set('shouldDisplayLanguagePicker', true)"
