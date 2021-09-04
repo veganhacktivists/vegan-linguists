@@ -77,13 +77,16 @@
             </x-slot>
 
             <div class="bg-white h-full overflow-hidden">
-                <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        {{ $translationRequest->source->title }}
-                    </h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                        {{ $translationRequest->source->author->name }}
-                    </p>
+                <div class="px-4 py-5 sm:px-6 flex gap-2 items-end">
+                    <x-user-photo class="w-12 h-12 ring-1 ring-gray-300 " :user="$translationRequest->source->author" />
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            {{ $translationRequest->source->title }}
+                        </h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            {{ $translationRequest->source->author->name }}
+                        </p>
+                    </div>
                 </div>
                 <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
                     <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
