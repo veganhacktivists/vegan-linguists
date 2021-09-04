@@ -1,4 +1,5 @@
 require('./bootstrap')
+require('./tooltips')
 
 import Alpine from 'alpinejs'
 

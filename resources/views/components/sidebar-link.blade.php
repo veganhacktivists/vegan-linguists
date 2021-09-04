@@ -6,7 +6,7 @@
     : 'sidebar-link';
 @endphp
 
-<a {{ $attributes->merge(['class' => $class]) }}>
+<a {{ $attributes->merge(['class' => $class]) }} data-tooltip="{{ $slot }}" data-tippy-placement="right">
     <span class="{{ isset($icon) ? 'sr-only' : '' }} ">
         {{ $slot }}
     </span>
