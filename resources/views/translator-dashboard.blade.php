@@ -1,29 +1,35 @@
+@php
+    $claimedRoute = route('queue', \Request::except('filter'));
+    $unclaimedRoute = route('queue', ['filter' => 'unclaimed'] + \Request::all());
+    $completedRoute = route('queue', ['filter' => 'complete'] + \Request::all());
+@endphp
+
 <x-app-layout>
     <x-slot name="sidebar">
-        <x-sidebar-link href="{{ route('queue', \Request::except('filter')) }}" :active="empty($filter)" icon="o-pencil">
+        <x-sidebar-link href="{{ $claimedRoute }}" :active="empty($filter)" icon="o-pencil">
             {{ __('Claimed') }}
         </x-sidebar-link>
 
-        <x-sidebar-link href="{{ route('queue', ['filter' => 'unclaimed'] + \Request::all()) }}" :active="$filter === 'unclaimed'" icon="o-search">
+        <x-sidebar-link href="{{ $unclaimedRoute }}" :active="$filter === 'unclaimed'" icon="o-search">
             {{ __('Unclaimed') }}
         </x-sidebar-link>
 
-        <x-sidebar-link href="{{ route('queue', ['filter' => 'complete'] + \Request::all()) }}" :active="$filter === 'complete'" icon="o-check">
-            {{ __('Complete') }}
+        <x-sidebar-link href="{{ $completedRoute }}" :active="$filter === 'complete'" icon="o-check">
+            {{ __('Completed') }}
         </x-sidebar-link>
     </x-slot>
 
     <x-slot name="picker">
         <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.location = $el.value">
-            <option value="{{ route('queue', \Request::except('filter')) }}" {{ empty($filter) ? 'selected' : '' }}>
+            <option value="{{ $claimedRoute }}" {{ empty($filter) ? 'selected' : '' }}>
             {{ __('Claimed') }}
             </option>
 
-            <option value="{{ route('queue', ['filter' => 'unclaimed'] + \Request::all()) }}" {{ $filter === 'unclaimed' ? 'selected' : '' }}>
+            <option value="{{ $unclaimedRoute }}" {{ $filter === 'unclaimed' ? 'selected' : '' }}>
             {{ __('Unclaimed') }}
             </option>
 
-            <option value="{{ route('queue', ['filter' => 'complete'] + \Request::all()) }}" {{ $filter === 'complete' ? 'selected' : '' }}>
+            <option value="{{ $completedRoute }}" {{ $filter === 'complete' ? 'selected' : '' }}>
             {{ __('Complete') }}
             </option>
 
@@ -69,15 +75,58 @@
         </x-jet-select>
     </div>
 
-    <x-stacked-list class="sm:mx-4 sm:rounded-md">
-        @forelse ($translationRequests as $translationRequest)
-            <x-dashboard.translation-request-row
-                :translationRequest="$translationRequest"
-                :href="route('translate', [$translationRequest->id, $translationRequest->source->slug])" />
-        @empty
-            <li class="p-4">
-                {{ __('There are no unclaimed translation requests for the languages you speak. Try coming back another time!') }}
-            </li>
-        @endforelse
-    </x-stacked-list>
+    <div class="sm:mx-4">
+        @if ($translationRequests->count() > 0)
+            <x-stacked-list class="sm:rounded-md">
+                @foreach ($translationRequests as $translationRequest)
+                    <x-dashboard.translation-request-row
+                        :translationRequest="$translationRequest"
+                        :href="route('translate', [$translationRequest->id, $translationRequest->source->slug])" />
+                    @endforeach
+            </x-stacked-list>
+        @elseif ($filter === 'unclaimed')
+            <x-empty-state class="bg-white shadow rounded p-8"
+                           icon="o-translate"
+                           :title="__('No translation requests found')">
+                @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
+                    {{ __('Try selecting different languages to broaden your search.') }}
+                @else
+                    {{ __('Try coming back another time!') }}
+                @endif
+            </x-empty-state>
+        @elseif ($filter === 'complete')
+            <x-empty-state class="bg-white shadow rounded p-8"
+                           icon="o-translate"
+                           :title="__('No translations found')">
+                @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
+                    {{ __('Try selecting different languages to broaden your search.') }}
+                @else
+                    {{ __('Want to see something here?') }}
+                @endif
+
+                <x-slot name="action">
+                    <x-jet-button element="a" href="{{ $unclaimedRoute }}">
+                        {{ __('Find content to translate') }}
+                    </x-jet-button>
+                </x-slot>
+            </x-empty-state>
+        @else
+            <x-empty-state class="bg-white shadow rounded p-8"
+                           icon="o-translate"
+                           :title="__('No claimed translation requests')">
+
+                @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
+                    {{ __('Try selecting different languages to broaden your search.') }}
+                @else
+                    {{ __('Want to see something here?') }}
+                @endif
+
+                <x-slot name="action">
+                    <x-jet-button element="a" href="{{ $unclaimedRoute }}">
+                        {{ __('Find content to translate') }}
+                    </x-jet-button>
+                </x-slot>
+            </x-empty-state>
+        @endif
+    </div>
 </x-app-layout>
