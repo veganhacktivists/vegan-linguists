@@ -78,6 +78,15 @@
                     :shouldDisplayTranslatedLanguage="true"
                     :languages="$languages" />
             </div>
+
+            <div class="mt-4">
+                <x-warning-alert title="{{ __('Important') }}">
+                    {{ __('Once your submit your content for translation, it cannot be changed.') }}
+                    <strong>
+                        {{ __('Please make sure to proofread your content thoroughly before submission.') }}
+                    </strong>
+                </x-warning-alert>
+            </div>
         </x-slot>
 
         <x-slot name="footer">
