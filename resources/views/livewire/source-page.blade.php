@@ -7,8 +7,8 @@
         </x-slot>
 
         <x-stacked-list class="sticky top-0">
-            <li class="{{ $isViewingTranslation ? 'bg-white' : 'bg-gray-50' }}">
-                <a href="{{ route('source', [$source->id, $source->slug]) }}" class="block hover:bg-gray-50">
+            <li class="{{ $isViewingTranslation ? 'bg-white hover:bg-gray-50' : 'bg-indigo-50' }}">
+                <a href="{{ route('source', [$source->id, $source->slug]) }}" class="block">
                     <div class="px-4 py-4 sm:px-6 font-medium text-indigo-600 truncate">
                         {{ __(':languageName (Original)', ['languageName' => $source->language->native_name]) }}
                     </div>
@@ -16,9 +16,9 @@
             </li>
 
             @foreach ($source->translationRequests as $translationRequest)
-                <li class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-gray-50' : '' }}">
+                <li class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-indigo-50' : 'bg-white hover:bg-gray-50' }}">
                     <a href="{{ route('translation', [$source->id, $translationRequest->language->id]) }}"
-                       class="px-4 py-4 sm:px-6 flex justify-between items-center hover:bg-gray-50">
+                       class="px-4 py-4 sm:px-6 flex justify-between items-center">
                         <div class="font-medium text-indigo-600 truncate">
                             {{ $translationRequest->language->name }}
                             ({{ $translationRequest->language->native_name }})
