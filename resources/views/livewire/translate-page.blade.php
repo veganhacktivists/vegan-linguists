@@ -1,4 +1,6 @@
 <div class="bg-white h-full flex flex-col">
+    <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
+
     <x-slot name="sidebar">
         <div x-data="{ tab: 'source' }">
             @if ($isMine)

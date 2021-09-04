@@ -1,6 +1,5 @@
 <div class="bg-white h-full flex flex-col">
-    <x-slot name="sidebar">
-    </x-slot>
+    <x-slot name="pageTitle">{{ __('Request Translation') }}</x-slot>
 
     <x-slot name="aside">
         <x-slot name="asideTitle">

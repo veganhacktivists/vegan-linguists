@@ -1,6 +1,5 @@
 <div class="flex flex-col h-full">
-    <x-slot name="sidebar">
-    </x-slot>
+    <x-slot name="pageTitle">{{ $source->title }}</x-slot>
 
     <x-slot name="aside">
         <x-slot name="asideTitle">

@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
+
     <x-slot name="sidebar">
         <x-sidebar-link href="{{ route('dashboard') }}" icon="o-collection" :active="empty($filter)">
             {{ __('All') }}

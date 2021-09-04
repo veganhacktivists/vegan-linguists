@@ -5,7 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Vegan Linguists') }}</title>
+        <title>
+            @if (isset($pageTitle))
+                {{ $pageTitle }} |
+            @endif
+
+            {{ config('app.name', 'Vegan Linguists') }}
+        </title>
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -22,11 +28,12 @@
             @include('navigation-menu')
 
             <div class="min-h-0 flex-1 flex">
-                @if (isset($sidebar))
-                    <x-sidebar>
+                <x-sidebar>
+                    @if (isset($sidebar))
                         {{ $sidebar }}
-                    </x-sidebar>
-                @endif
+                    @else
+                    @endif
+                </x-sidebar>
 
                 <main class="min-w-0 flex-1 border-t border-gray-200 flex flex-col lg:flex-row overflow-auto">
                     <section aria-labelledby="primary-heading"

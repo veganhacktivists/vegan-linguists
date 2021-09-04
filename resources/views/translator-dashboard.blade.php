@@ -5,6 +5,8 @@
 @endphp
 
 <x-app-layout>
+    <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
+
     <x-slot name="sidebar">
         <x-sidebar-link href="{{ $claimedRoute }}" :active="empty($filter)" icon="o-pencil">
             {{ __('Claimed') }}
