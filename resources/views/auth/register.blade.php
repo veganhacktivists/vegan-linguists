@@ -26,12 +26,7 @@
 
             <div class="mt-4">
                 <x-jet-label for="languages" value="{{ __('What language(s) do you speak?') }}" />
-                <x-language-picker
-                    id="languages"
-                    class="block mt-1"
-                    name="languages"
-                    :defaultLanguages="['en']"
-                    />
+                <x-language-picker id="languages" class="block mt-1" name="languages" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())

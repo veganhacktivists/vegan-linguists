@@ -2,5 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './components/autocomplete.css';
 @import './components/rich-text-editor.css';
 @import './components/sidebar-link.css';

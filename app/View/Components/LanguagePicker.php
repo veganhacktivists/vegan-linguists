@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class LanguagePicker extends Component
 {
     public Collection $languages;
-    public string $defaultLanguages;
+    public Collection $defaultLanguages;
 
     /**
      * Create a new component instance.
@@ -18,19 +18,14 @@ class LanguagePicker extends Component
      */
     public function __construct(
         Collection $languages,
-        array $defaultLanguages = [],
+        Collection $defaultLanguages,
         public bool $shouldDisplayTranslatedLanguage = false,
     )
     {
         $this->languages = $languages->isNotEmpty() ? $languages : Language::all();
-        $this->defaultLanguages = json_encode(
-            array_map(
-                'intval',
-                old(
-                    'languages',
-                    Language::whereIn('code', $defaultLanguages)->get()->pluck('id')->toArray(),
-                )
-            )
+        $this->defaultLanguages = old(
+            'languages',
+            $defaultLanguages,
         );
     }
 

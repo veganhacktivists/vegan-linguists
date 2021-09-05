@@ -73,7 +73,8 @@
                 id="languages"
                 class="mt-1 block"
                 wire:model="state.languages"
-                :defaultLanguages="$this->user->languages->pluck('code')->toArray()"
+                :defaultLanguages="$this->user->languages"
+                {{-- :defaultLanguages="$this->user->languages->pluck('code')->toArray()" --}}
                 />
             <x-jet-input-error for="languages" class="mt-2" />
         </div>
