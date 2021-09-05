@@ -3,6 +3,5 @@
     "/js/language-picker.js": "/js/language-picker.js",
     "/js/rich-text-editor.js": "/js/rich-text-editor.js",
     "/css/app.css": "/css/app.css",
-    "/css/quill.snow.css": "/css/quill.snow.css",
-    "/css/autocomplete.css": "/css/autocomplete.css"
+    "/css/quill.snow.css": "/css/quill.snow.css"
 }

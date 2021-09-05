@@ -1,9 +1,3 @@
-@push('styles')
-    @once
-        <link rel="stylesheet" type="text/css" href="{{ mix('css/autocomplete.css') }}" />
-    @endonce
-@endpush
-
 @push('scripts')
     @once
         <script src="{{ mix('js/language-picker.js') }}"></script>
@@ -35,20 +29,21 @@
         </template>
     @endif
 
-    <div wire:ignore
-         x-init="languagePicker = new window.LanguagePicker({
-             el: $el,
-             onSelect(l, setChosenLanguages) {
-                 languages.push(l)
-                 setChosenLanguages(languages)
-             },
-             noResults: '{{ __('No languages found') }}',
-             languages: {{ $languages->toJson() }},
-             displayTranslatedLanguageName: {{ $shouldDisplayTranslatedLanguage ? 'true' : 'false' }},
-         });
-         languagePicker.setChosenLanguages({{ $defaultLanguages }})
-         ">
-    </div>
+    <x-jet-input wire:ignore
+                 class="w-full"
+                 type="text"
+                 x-init="languagePicker = new window.LanguagePicker({
+                     el: $el,
+                     onSelect(l, setChosenLanguages) {
+                         languages.push(l)
+                         setChosenLanguages(languages)
+                     },
+                     emptyMessage: '{{ __('No languages found') }}',
+                     languages: {{ $languages->toJson() }},
+                     displayTranslatedLanguageName: {{ $shouldDisplayTranslatedLanguage ? 'true' : 'false' }},
+                 });
+                 languagePicker.setChosenLanguages({{ $defaultLanguages }})
+         "/>
 
     <ul class="flex flex-wrap gap-2 mt-2" x-show="languages.length > 0">
         <template x-for="language in languages">

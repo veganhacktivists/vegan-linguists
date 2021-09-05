@@ -22,10 +22,6 @@ mix
 
 // vendor CSS
 mix.copy('node_modules/quill/dist/quill.snow.css', 'public/css')
-mix.copy(
-  './node_modules/@algolia/autocomplete-theme-classic/dist/theme.min.css',
-  'public/css/autocomplete.css',
-)
 
 if (mix.inProduction()) {
   mix.version()

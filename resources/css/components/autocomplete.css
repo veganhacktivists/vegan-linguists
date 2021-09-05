@@ -1,40 +1,16 @@
-.aa-DetachedSearchButton,
-.aa-Form {
-    @apply border border-gray-300 rounded-md overflow-hidden;
+.autocomplete {
+    @apply bg-white border border-gray-300 overflow-auto rounded shadow z-50;
 }
 
-.aa-DetachedSearchButton:focus,
-.aa-Form:focus-within {
-    @apply border-indigo-300 ring ring-indigo-200 ring-opacity-50;
+.autocomplete > div {
+    @apply p-2;
 }
 
-.aa-Input {
-    @apply focus:ring-0;
-}
-
-.aa-DetachedSearchButtonPlaceholder,
-.aa-DetachedSearchButtonIcon,
-.aa-SubmitButton {
-    display: none;
-}
-
-.aa-DetachedCancelButton {
-    @apply inline-flex items-center px-4 py-2 bg-white border border-solid border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition;
-}
-
-.aa-DetachedFormContainer {
+.autocomplete .group {
     @apply bg-gray-50;
 }
 
-.aa-Item[aria-selected="true"],
-.aa-Item {
-    @apply hover:bg-gray-50 focus:bg-gray-50;
-}
-
-.aa-Panel {
-    @apply z-50;
-}
-
-.aa-Panel--scrollable::-webkit-scrollbar {
-    display: none;
+.autocomplete > div:hover:not(.group),
+.autocomplete > div.selected {
+    @apply bg-indigo-50 cursor-pointer;
 }

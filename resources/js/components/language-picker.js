@@ -1,10 +1,13 @@
-import { autocomplete } from '@algolia/autocomplete-js'
+import autocomplete from 'autocompleter'
+
+const RESULTS_GAP = 10 // px
+const MIN_CLEARANCE_UNDER_INPUT = 100
 
 window.LanguagePicker = class {
   constructor({
     el,
     onSelect,
-    noResults,
+    emptyMessage,
     languages,
     displayTranslatedLanguageName,
   }) {
@@ -12,43 +15,50 @@ window.LanguagePicker = class {
     this.languages = languages
 
     this.autocomplete = autocomplete({
-      container: el,
+      input: el,
+      emptyMsg: emptyMessage,
+      minLength: 1,
 
-      getSources: () => {
-        return [
-          {
-            sourceId: 'links',
-            templates: {
-              item({ item, createElement, Fragment }) {
-                const languageName = displayTranslatedLanguageName
-                  ? `${item.name} (${item.native_name})`
-                  : item.native_name
-                return createElement(Fragment, {}, languageName)
-              },
-              noResults() {
-                return noResults
-              },
-            },
+      fetch: (text, update) => {
+        text = text.toLocaleLowerCase()
 
-            getItems: ({ query }) => {
-              query = query.toLocaleLowerCase()
+        const results = languages.filter(({ code, name, native_name }) => {
+          return (
+            !this.chosenLanguages.find((l) => l.code === code) &&
+            (code.toLocaleLowerCase().includes(text) ||
+              name.toLocaleLowerCase().includes(text) ||
+              native_name.toLocaleLowerCase().includes(text))
+          )
+        })
 
-              return this.languages.filter(({ code, name, native_name }) => {
-                return (
-                  !this.chosenLanguages.find((l) => l.code === code) &&
-                  (code.toLocaleLowerCase().includes(query) ||
-                    name.toLocaleLowerCase().includes(query) ||
-                    native_name.toLocaleLowerCase().includes(query))
-                )
-              })
-            },
+        update(results)
+      },
 
-            onSelect: ({ item, setQuery }) => {
-              setQuery('')
-              onSelect(item, this.setChosenLanguages)
-            },
-          },
-        ]
+      onSelect: (language) => {
+        el.value = ''
+        onSelect(language, this.setChosenLanguages)
+      },
+
+      render: (language) => {
+        const resultEl = document.createElement('div')
+
+        resultEl.textContent = displayTranslatedLanguageName
+          ? `${language.name} (${language.native_name})`
+          : language.native_name
+
+        return resultEl
+      },
+
+      customize: function (input, inputRect, container, maxHeight) {
+        if (window.innerHeight - MIN_CLEARANCE_UNDER_INPUT < inputRect.bottom) {
+          const top = window.scrollY + RESULTS_GAP
+
+          container.style.top = `${top}px`
+          container.style.maxHeight = `${inputRect.top - RESULTS_GAP * 2}px`
+        } else {
+          container.style.top = `${inputRect.bottom + RESULTS_GAP}px`
+          container.style.maxHeight = `${maxHeight - RESULTS_GAP * 2}px`
+        }
       },
     })
   }
