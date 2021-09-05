@@ -20,6 +20,7 @@ class LanguagePicker extends Component
         Collection $languages,
         Collection $defaultLanguages,
         public bool $shouldDisplayTranslatedLanguage = false,
+        public bool $multiSelect = true,
     )
     {
         $this->languages = $languages->isNotEmpty() ? $languages : Language::all();

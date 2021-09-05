@@ -13,6 +13,7 @@ window.LanguagePicker = class {
   }) {
     this.chosenLanguages = []
     this.languages = languages
+    this.el = el
 
     this.autocomplete = autocomplete({
       input: el,
@@ -35,8 +36,7 @@ window.LanguagePicker = class {
       },
 
       onSelect: (language) => {
-        el.value = ''
-        onSelect(language, this.setChosenLanguages)
+        onSelect(language, this.setChosenLanguages, this.setInputText)
       },
 
       render: (language) => {
@@ -66,5 +66,9 @@ window.LanguagePicker = class {
 
   setChosenLanguages = (languages) => {
     this.chosenLanguages = languages
+  }
+
+  setInputText = (text) => {
+    this.el.value = text
   }
 }

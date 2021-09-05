@@ -58,13 +58,19 @@
                     {{ __('Which language is your content written in?') }}
                 </x-jet-label>
 
-                <x-jet-select id="source-language" wire:model="sourceLanguageId" class="w-full">
+                {{-- <x-jet-select id="source-language" wire:model="sourceLanguageId" class="w-full">
                     @foreach ($languages as $language)
                         <x-jet-option value="{{ $language->id }}">
                             {{ $language->fullName }}
                         </x-jet-option>
                     @endforeach
-                </x-jet-select>
+                </x-jet-select> --}}
+
+                <x-language-picker
+                    id="source-language"
+                    wire:model="sourceLanguageId"
+                    :multiSelect="false"
+                    :languages="$languages" />
             </div>
 
             <div class="mt-4">
