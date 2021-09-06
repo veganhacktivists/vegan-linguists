@@ -18,6 +18,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    protected $attributes = [
+        'user_mode' => UserMode::TRANSLATOR,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_mode',
     ];
 
     /**
@@ -87,5 +92,17 @@ class User extends Authenticatable
     public function speaksLanguage(int $languageId)
     {
         return $this->languages()->wherePivot('language_id', $languageId)->exists();
+    }
+
+    public function isInAuthorMode() {
+        return $this->user_mode === UserMode::AUTHOR;
+    }
+
+    public function switchUserMode() {
+        if ($this->isInAuthorMode()) {
+            $this->update(['user_mode' => UserMode::TRANSLATOR]);
+        } else {
+            $this->update(['user_mode' => UserMode::AUTHOR]);
+        }
     }
 }

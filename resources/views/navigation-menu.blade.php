@@ -3,7 +3,7 @@
         class="flex-shrink-0 relative h-16 bg-white flex items-center">
     {{-- Logo area --}}
     <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-        <a href="{{ route('dashboard') }}" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
+        <a href="{{ route('home') }}" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
             <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="Workflow">
         </a>
     </div>
@@ -29,17 +29,15 @@
     <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-end">
         <div class="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="Global" class="flex space-x-10">
-                <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{ __('Dashboard') }}
                 </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('queue') }}" :active="request()->routeIs('queue')">
-                    {{ __('Queue') }}
-                </x-jet-nav-link>
-
-                <x-jet-nav-link href="{{ route('request-translation') }}" :active="request()->routeIs('request-translation')">
-                    {{ __('Request Translation') }}
-                </x-jet-nav-link>
+                @if (Auth::user()->isInAuthorMode())
+                    <x-jet-nav-link href="{{ route('request-translation') }}" :active="request()->routeIs('request-translation')">
+                        {{ __('Request Translation') }}
+                    </x-jet-nav-link>
+                @endif
             </nav>
             <div class="flex items-center space-x-8">
                 <span class="inline-flex">
@@ -55,7 +53,9 @@
                             <x-jet-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                        <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                        <img class="h-8 w-8 rounded-full object-cover"
+                                             src="{{ Auth::user()->profile_photo_url }}"
+                                             alt="{{ Auth::user()->name }}" />
                                     </button>
                                 </x-slot>
 
@@ -67,6 +67,21 @@
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
+
+                                    <form method="POST" action="{{ route('switch-user-mode') }}">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="PUT" />
+
+                                        <x-jet-dropdown-link href="{{ route('switch-user-mode') }}"
+                                                             onclick="event.preventDefault();
+                                                             this.closest('form').submit();">
+                                            @if (Auth::user()->isInAuthorMode())
+                                                {{ __('Switch to Translator view') }}
+                                            @else
+                                                {{ __('Switch to Author view') }}
+                                            @endif
+                                        </x-jet-dropdown-link>
+                                    </form>
 
                                     <div class="border-t border-gray-100"></div>
 
@@ -115,7 +130,7 @@
              class="fixed z-40 inset-0 h-full w-full bg-white sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
              aria-label="Global">
             <div class="h-16 flex items-center justify-between px-4 sm:px-6">
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('home') }}">
                     <img class="block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=500" alt="Workflow">
                 </a>
                 <button type="button" class="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600" @click="open = false">
@@ -124,11 +139,8 @@
                 </button>
             </div>
             <div class="max-w-8xl mx-auto py-3 px-2 sm:px-4">
-                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{ __('Dashboard') }}
-                </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('queue') }}" :active="request()->routeIs('queue')">
-                    {{ __('Queue') }}
                 </x-jet-responsive-nav-link>
                 <x-jet-responsive-nav-link href="{{ route('request-translation') }}" :active="request()->routeIs('request-translation')">
                     {{ __('Request Translation') }}

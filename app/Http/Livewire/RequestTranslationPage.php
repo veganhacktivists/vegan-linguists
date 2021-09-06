@@ -66,7 +66,7 @@ class RequestTranslationPage extends Component
 
             session()->flash('flash.banner', __('Success! You will be notified when your content gets translated'));
 
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         });
     }
 

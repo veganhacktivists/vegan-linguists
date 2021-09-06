@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthorDashboardController;
-use App\Http\Controllers\TranslatorDashboardController;
+use App\Http\Controllers\SwitchUserModeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
 use App\Http\Livewire\SourcePage;
 use App\Http\Livewire\TranslatePage;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,23 +20,35 @@ use App\Http\Livewire\TranslatePage;
 */
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        if (Auth::user()->isInAuthorMode()) {
+            return App::call('App\Http\Controllers\AuthorDashboardController@__invoke');
+        } else {
+            return App::call('App\Http\Controllers\TranslatorDashboardController@__invoke');
+        }
+    }
+
     return view('welcome');
-});
+})->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
-    Route::get('/dashboard', AuthorDashboardController::class)->name('dashboard');
-    Route::get('/queue', TranslatorDashboardController::class)->name('queue');
-    Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
+    Route::put('/switch-user-mode', SwitchUserModeController::class)->name('switch-user-mode');
 
-    Route::get(
-        '/requests/{source}/translations/{translationRequest:language_id}',
-        SourcePage::class
-    )->name('translation');
+    Route::middleware('author')->group(function() {
+        Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
 
-    Route::get(
-        '/translate/{translationRequest}/{slug?}',
-        TranslatePage::class
-    )->name('translate');
+        Route::get(
+            '/requests/{source}/translations/{translationRequest:language_id}',
+            SourcePage::class
+        )->name('translation');
 
-    Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
+        Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
+    });
+
+    Route::middleware('translator')->group(function() {
+        Route::get(
+            '/translate/{translationRequest}/{slug?}',
+            TranslatePage::class
+        )->name('translate');
+    });
 });

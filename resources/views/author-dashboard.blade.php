@@ -2,30 +2,30 @@
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
     <x-slot name="sidebar">
-        <x-sidebar-link href="{{ route('dashboard') }}" icon="o-collection" :active="empty($filter)">
+        <x-sidebar-link href="{{ route('home') }}" icon="o-collection" :active="empty($filter)">
             {{ __('All') }}
         </x-sidebar-link>
 
-        <x-sidebar-link href="{{ route('dashboard', ['filter' => 'complete']) }}" :active="$filter === 'complete'" icon="o-check">
+        <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}" :active="$filter === 'complete'" icon="o-check">
             {{ __('Complete') }}
         </x-sidebar-link>
 
-        <x-sidebar-link href="{{ route('dashboard', ['filter' => 'incomplete']) }}" :active="$filter === 'incomplete'" icon="o-clock">
+        <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}" :active="$filter === 'incomplete'" icon="o-clock">
             {{ __('Incomplete') }}
         </x-sidebar-link>
     </x-slot>
 
     <x-slot name="picker">
         <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.location = $el.value">
-            <option value="{{ route('dashboard') }}" {{ empty($filter) ? 'selected' : '' }}>
+            <option value="{{ route('home') }}" {{ empty($filter) ? 'selected' : '' }}>
                 {{ __('All') }}
             </option>
 
-            <option value="{{ route('dashboard', ['filter' => 'complete']) }}" {{ $filter === 'complete' ? 'selected' : '' }}>
+            <option value="{{ route('home', ['filter' => 'complete']) }}" {{ $filter === 'complete' ? 'selected' : '' }}>
                 {{ __('Complete') }}
             </option>
 
-            <option value="{{ route('dashboard', ['filter' => 'incomplete']) }}" {{ $filter === 'incomplete' ? 'selected' : '' }}>
+            <option value="{{ route('home', ['filter' => 'incomplete']) }}" {{ $filter === 'incomplete' ? 'selected' : '' }}>
                 {{ __('Incomplete') }}
             </option>
         </x-navbar-picker>

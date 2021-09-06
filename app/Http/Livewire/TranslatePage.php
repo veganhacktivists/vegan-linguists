@@ -115,7 +115,7 @@ class TranslatePage extends Component
 
         session()->flash('flash.banner', __('Your translation has been submitted. Thank you for your contribution!'));
 
-        return redirect()->route('queue');
+        return redirect()->route('home');
     }
 
     protected function rules()
