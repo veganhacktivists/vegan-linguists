@@ -41,26 +41,38 @@
     @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())
         <x-header-action-bar class="bg-indigo-50">
             <div class="flex gap-2 justify-between items-center">
-                @if ($currentTranslationRequest->isComplete() || $currentTranslationRequest->isClaimed())
-                    <div class="truncate">
-                        <x-user-photo
-                            :user="$currentTranslationRequest->translator"
-                            class="h-10 w-10 inline-block" />
+                <div class="truncate">
+                    <x-user-photo
+                        :user="$currentTranslationRequest->translator"
+                        class="h-10 w-10 inline-block" />
 
-                        <span class="align-middle">
-                            {{ __(':translatorName has claimed this translation request', [
-                                'translatorName' => $currentTranslationRequest->translator->name,
-                            ]) }}
-                        </span>
-                    </div>
-                @endif
+                    <span class="align-middle">
+                        {{ __(':translatorName has claimed this translation request', [
+                            'translatorName' => $currentTranslationRequest->translator->name,
+                        ]) }}
+                    </span>
+                </div>
 
                 <div>
-                    @if ($currentTranslationRequest->isClaimed())
-                        <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
-                            {{ __('Revoke claim') }}
-                        </x-jet-danger-button>
-                    @endif
+                    <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
+                        {{ __('Revoke claim') }}
+                    </x-jet-danger-button>
+                </div>
+            </div>
+        </x-header-action-bar>
+    @elseif ($isViewingTranslation && $currentTranslationRequest->isComplete())
+        <x-header-action-bar class="bg-indigo-50">
+            <div class="flex gap-2 justify-between items-center">
+                <div class="truncate">
+                    <x-user-photo
+                        :user="$currentTranslationRequest->translator"
+                        class="h-10 w-10 inline-block" />
+
+                    <span class="align-middle">
+                        {{ __(':translatorName translated this content', [
+                            'translatorName' => $currentTranslationRequest->translator->name,
+                        ]) }}
+                    </span>
                 </div>
             </div>
         </x-header-action-bar>
