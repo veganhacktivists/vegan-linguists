@@ -1,28 +1,31 @@
 import Quill from 'quill'
 
 document.addEventListener('alpine:init', () => {
-  window.Alpine.data('richTextEditor', (isReadOnly = false) => ({
-    init() {
-      const content = JSON.parse(this.$refs.editorContent.innerText || '{}')
-      this.editor = new RichTextEditor(this.$refs.editorContainer, isReadOnly)
-        .setContent(content)
-        .on(
-          'text-change',
-          _.debounce(() => {
-            this.$dispatch('change', {
-              content: this.editor.getContent(),
-              plainText: this.editor.getPlainText(),
-            })
-          }, 300),
-        )
+  window.Alpine.data(
+    'richTextEditor',
+    (isReadOnly = false, autoFocus = false) => ({
+      init() {
+        const content = JSON.parse(this.$refs.editorContent.innerText || '{}')
+        this.editor = new RichTextEditor(this.$refs.editorContainer, isReadOnly)
+          .setContent(content)
+          .on(
+            'text-change',
+            _.debounce(() => {
+              this.$dispatch('change', {
+                content: this.editor.getContent(),
+                plainText: this.editor.getPlainText(),
+              })
+            }, 300),
+          )
 
-      if (!isReadOnly) {
-        this.editor.focus()
-      }
-    },
+        if (!isReadOnly && autoFocus) {
+          this.editor.focus()
+        }
+      },
 
-    editor: null,
-  }))
+      editor: null,
+    }),
+  )
 })
 
 class RichTextEditor {
@@ -41,6 +44,7 @@ class RichTextEditor {
           ['clean'],
         ]
 
+    this.el = el
     this.quill = new Quill(el, {
       theme: 'snow',
       modules: {
@@ -66,7 +70,9 @@ class RichTextEditor {
 
   focus() {
     const length = this.quill.getLength()
-    return this.quill.setSelection(length, length)
+    this.quill.setSelection(length, length)
+
+    return this
   }
 
   setContent(content) {
@@ -74,6 +80,10 @@ class RichTextEditor {
 
     return this
   }
-}
 
-window.RichTextEditor = RichTextEditor
+  clear() {
+    this.el.querySelector('.ql-editor').innerHTML = ''
+
+    return this
+  }
+}

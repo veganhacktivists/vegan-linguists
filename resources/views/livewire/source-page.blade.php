@@ -70,6 +70,12 @@
         <x-rich-text-editor
             :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
             :isReadOnly="true" />
+
+        @if ($isViewingTranslation)
+            <div class="max-w-prose mx-auto">
+                <livewire:comment-section :commentable="$currentTranslationRequest" />
+            </div>
+        @endif
     </div>
 
     @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())

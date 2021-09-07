@@ -44,6 +44,11 @@ class TranslationRequest extends Model
         return $this->hasOne(User::class, 'id', 'translator_id');
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function assignTo(User $user)
     {
         $this->update([

@@ -25,6 +25,7 @@
         <x-rich-text-editor
             class="px-8"
             wire:ignore
+            :autoFocus="true"
             x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
     </div>
 
@@ -57,14 +58,6 @@
                 <x-jet-label for="source-language" class="mb-1">
                     {{ __('Which language is your content written in?') }}
                 </x-jet-label>
-
-                {{-- <x-jet-select id="source-language" wire:model="sourceLanguageId" class="w-full">
-                    @foreach ($languages as $language)
-                        <x-jet-option value="{{ $language->id }}">
-                            {{ $language->fullName }}
-                        </x-jet-option>
-                    @endforeach
-                </x-jet-select> --}}
 
                 <x-language-picker
                     id="source-language"

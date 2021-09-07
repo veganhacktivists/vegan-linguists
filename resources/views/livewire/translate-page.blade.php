@@ -2,19 +2,19 @@
     <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
     <x-slot name="sidebar">
-        <div x-data="{ tab: 'source' }">
+        <div x-data="{ tab: 'source' }" @change-tab.window="tab = $event.detail">
             @if ($isMine)
                 <x-sidebar-link href="#"
                                 icon="o-document-text"
                                 aria-role="button"
-                                @click.prevent="tab = 'source'"
+                                @click.prevent="$dispatch('change-tab', 'source')"
                                 x-bind:class="{ active: tab === 'source' }" :active="true">
                     {{ __('Original content') }}
                 </x-sidebar-link>
                 <x-sidebar-link href="#"
                                 icon="o-annotation"
                                 aria-role="button"
-                                @click.prevent="tab = 'discussion'; alert('Coming soon')"
+                                @click.prevent="$dispatch('change-tab', 'discussion')"
                                 x-bind:class="{ active: tab === 'discussion' }">
                     {{ __('Discussion') }}
                 </x-sidebar-link>
@@ -38,13 +38,13 @@
                 <x-slot name="content">
                     <x-jet-dropdown-link href="#"
                                          aria-role="button"
-                                         @click.prevent="">
+                                         @click.prevent="$dispatch('change-tab', 'source')">
                         {{ __('Original content') }}
                     </x-jet-dropdown-link>
 
                     <x-jet-dropdown-link href="#"
                                          aria-role="button"
-                                         @click.prevent="alert('Coming soon')">
+                                         @click.prevent="$dispatch('change-tab', 'discussion')">
                         {{ __('Discussion') }}
                     </x-jet-dropdown-link>
 
@@ -130,13 +130,19 @@
         </x-slot>
     @endif
 
-    <div class="bg-white flex h-full">
+    <div class="bg-white flex h-full" x-data="{ tab: 'source' }" @change-tab.window="tab = $event.detail">
         <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-gray-200 w-full">
-            <div class="w-full overflow-auto {{ $isMine ? 'flex-1' : 'w-full' }}">
-                <x-rich-text-editor
-                    wire:ignore
-                    :content="$translationRequest->source->content"
-                    :isReadOnly="true" />
+            <div class="w-full overflow-auto relative {{ $isMine ? 'flex-1' : 'w-full' }}">
+                <div x-show="tab === 'source'">
+                    <x-rich-text-editor
+                        wire:ignore
+                        :content="$translationRequest->source->content"
+                        :isReadOnly="true" />
+                </div>
+
+                <div class="max-w-7xl mx-auto" x-show="tab === 'discussion'">
+                    <livewire:comment-section :commentable="$translationRequest" />
+                </div>
             </div>
 
             @if ($isMine)
@@ -148,14 +154,16 @@
                             :isReadOnly="$translationRequest->isComplete()"
                             x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                     </div>
-                    <div class="text-right p-2 hidden md:block flex gap-2 sticky bottom-0 bg-white">
-                        <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')" type="button">
-                            {{ __('Unclaim') }}
-                        </x-jet-danger-button>
-                        <x-jet-button wire:click="$toggle('isConfirmingSubmission')" type="button">
-                            {{ __('Submit translation') }}
-                        </x-jet-button>
-                    </div>
+                    @if (!$translationRequest->isComplete())
+                        <div class="text-right p-2 hidden md:block flex gap-2 sticky bottom-0 bg-white">
+                            <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')" type="button">
+                                {{ __('Unclaim') }}
+                            </x-jet-danger-button>
+                            <x-jet-button wire:click="$toggle('isConfirmingSubmission')" type="button">
+                                {{ __('Submit translation') }}
+                            </x-jet-button>
+                        </div>
+                    @endif
                 </div>
 
                 <x-success-toast

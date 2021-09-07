@@ -17,3 +17,11 @@
 .ql-editor[contenteditable="false"] *:first-child {
     @apply mt-0;
 }
+
+.styles-disabled .ql-container.ql-snow {
+    @apply mx-0 text-base w-auto max-w-none;
+}
+
+.styles-disabled .ql-editor {
+    @apply p-0;
+}

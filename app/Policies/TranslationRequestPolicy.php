@@ -50,4 +50,10 @@ class TranslationRequestPolicy
             && $translationRequest->translator_id === null
             && $user->claimedTranslationRequests()->count() < MAX_CLAIMED_TRANSLATION_REQUESTS;
     }
+
+    public function comment(User $user, TranslationRequest $translationRequest)
+    {
+        return ($translationRequest->isClaimed() && $translationRequest->isClaimedBy($user))
+            || $user->is($translationRequest->source->author);
+    }
 }
