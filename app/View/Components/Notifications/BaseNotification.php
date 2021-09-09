@@ -15,7 +15,12 @@ class BaseNotification extends Component
      *
      * @return void
      */
-    public function __construct(public User $user, public string $description, Carbon $date)
+    public function __construct(
+        public User $user,
+        Carbon $date,
+        public string $description = '',
+        public string $icon = '',
+    )
     {
         $this->dateDiff = $this->calculateDateDiff($date);
     }

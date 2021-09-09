@@ -3,6 +3,7 @@
     use App\Notifications\TranslationRequestUnclaimedNotification;
     use App\Notifications\TranslationSubmittedNotification;
     use App\Notifications\TranslationRequestClaimRevokedNotification;
+    use App\Notifications\ClaimedTranslationRequestDeletedNotification;
 
     $notifications = Auth::user()->notifications;
 @endphp
@@ -32,6 +33,9 @@
                     @break
                     @case (TranslationRequestClaimRevokedNotification::class)
                         <x-notifications.translation-request-claim-revoked :notification="$notification" />
+                    @break
+                    @case (ClaimedTranslationRequestDeletedNotification::class)
+                        <x-notifications.claimed-translation-request-deleted :notification="$notification" />
                     @break
                     @endswitch
                 </li>

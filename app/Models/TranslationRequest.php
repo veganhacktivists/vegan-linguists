@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\TranslationRequestDeletedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,6 +33,7 @@ class TranslationRequest extends Model
 
     protected $dispatchesEvents = [
         'updated' => TranslationRequestUpdatedEvent::class,
+        'deleted' => TranslationRequestDeletedEvent::class,
     ];
 
     public function source()

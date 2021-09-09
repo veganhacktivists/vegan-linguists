@@ -1,5 +1,5 @@
 @php
-    $sourceRoute = route('translate', [$translationRequest->source->id, $translationRequest->language->id]);
+    $sourceRoute = route('translate', [$translationRequest->id, $translationRequest->source->slug]);
     $sourceTitle = htmlentities($translationRequest->source->title);
 
     $translationRequestTitle = <<<HTML

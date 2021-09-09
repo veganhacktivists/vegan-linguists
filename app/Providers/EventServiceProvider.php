@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\TranslationRequestDeletedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
+use App\Listeners\TranslationRequestDeletedListener;
 use App\Listeners\TranslationRequestUpdatedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TranslationRequestUpdatedEvent::class => [
             TranslationRequestUpdatedListener::class,
+        ],
+        TranslationRequestDeletedEvent::class => [
+            TranslationRequestDeletedListener::class,
         ],
     ];
 
