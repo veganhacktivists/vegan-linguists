@@ -1,5 +1,6 @@
 @php
     use App\Notifications\TranslationRequestClaimedNotification;
+    use App\Notifications\TranslationSubmittedNotification;
 
     $notifications = Auth::user()->notifications;
 @endphp
@@ -19,8 +20,11 @@
                 <li class="p-4 rounded-md mt-4 {{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }}">
                     @switch ($notification->type)
                     @case (TranslationRequestClaimedNotification::class)
-                    <x-notifications.translation-request-claimed :notification="$notification" />
-                        @break
+                        <x-notifications.translation-request-claimed :notification="$notification" />
+                    @break
+                    @case (TranslationSubmittedNotification::class)
+                        <x-notifications.translation-submitted :notification="$notification" />
+                    @break
                     @endswitch
                 </li>
             @endforeach

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\TranslationRequestClaimedNotification;
+use App\Notifications\TranslationSubmittedNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -56,13 +57,6 @@ class TranslationRequest extends Model
             'translator_id' => $translator->id,
             'status' => TranslationRequestStatus::CLAIMED,
         ]);
-
-        $this->source->author->notify(
-            new TranslationRequestClaimedNotification(
-                $translator,
-                $this,
-            ),
-        );
     }
 
     public function unclaim()
@@ -127,5 +121,28 @@ class TranslationRequest extends Model
             ->when(is_iterable($languageId), function(Builder $q) use ($languageId) {
                 $q->whereIn('language_id', $languageId);
             });
+    }
+
+    protected static function booted()
+    {
+        static::updated(function (TranslationRequest $translationRequest) {
+            $prevStatus = $translationRequest->getOriginal('status');
+
+            if ($translationRequest->isComplete() && $prevStatus === TranslationRequestStatus::CLAIMED) {
+                $translationRequest->source->author->notify(
+                    new TranslationSubmittedNotification(
+                        $translationRequest->translator,
+                        $translationRequest,
+                    ),
+                );
+            } elseif ($translationRequest->isClaimed() && $prevStatus === TranslationRequestStatus::UNCLAIMED) {
+                $translationRequest->source->author->notify(
+                    new TranslationRequestClaimedNotification(
+                        $translationRequest->translator,
+                        $translationRequest,
+                    ),
+                );
+            }
+        });
     }
 }
