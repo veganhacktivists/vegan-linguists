@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Notifications\TranslationRequestClaimedNotification;
-use App\Notifications\TranslationSubmittedNotification;
+use App\Events\TranslationRequestUpdatedEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +28,10 @@ class TranslationRequest extends Model
         'status',
         'content',
         'plain_text',
+    ];
+
+    protected $dispatchesEvents = [
+        'updated' => TranslationRequestUpdatedEvent::class,
     ];
 
     public function source()
@@ -70,6 +73,11 @@ class TranslationRequest extends Model
     public function isComplete()
     {
         return $this->status === TranslationRequestStatus::COMPLETE;
+    }
+
+    public function isUnclaimed()
+    {
+        return $this->status === TranslationRequestStatus::UNCLAIMED;
     }
 
     public function isClaimed()
@@ -121,28 +129,5 @@ class TranslationRequest extends Model
             ->when(is_iterable($languageId), function(Builder $q) use ($languageId) {
                 $q->whereIn('language_id', $languageId);
             });
-    }
-
-    protected static function booted()
-    {
-        static::updated(function (TranslationRequest $translationRequest) {
-            $prevStatus = $translationRequest->getOriginal('status');
-
-            if ($translationRequest->isComplete() && $prevStatus === TranslationRequestStatus::CLAIMED) {
-                $translationRequest->source->author->notify(
-                    new TranslationSubmittedNotification(
-                        $translationRequest->translator,
-                        $translationRequest,
-                    ),
-                );
-            } elseif ($translationRequest->isClaimed() && $prevStatus === TranslationRequestStatus::UNCLAIMED) {
-                $translationRequest->source->author->notify(
-                    new TranslationRequestClaimedNotification(
-                        $translationRequest->translator,
-                        $translationRequest,
-                    ),
-                );
-            }
-        });
     }
 }
