@@ -1,3 +1,5 @@
+@php($numUnreadNotifications = Auth::user()->unreadNotifications()->count())
+
 <header x-data="{ open: false }"
         x-init="$refs.mobileMenu.classList.remove('hidden')"
         class="flex-shrink-0 relative h-16 bg-white flex items-center">
@@ -41,9 +43,14 @@
             </nav>
             <div class="flex items-center space-x-8">
                 <span class="inline-flex">
-                    <a href="#" class="-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500" x-data="" @click="alert('Coming soon')">
+                    <a href="{{ route('notifications') }}" class="-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 flex">
                         <span class="sr-only">{{ __('View notifications') }}</span>
                         <x-heroicon-o-bell class="h-6 w-6"/>
+                        @if ($numUnreadNotifications > 0)
+                            <x-badge color="indigo" x-data="" x-init="Livewire.on('all-notifications-read', () => $el.remove())">
+                                {{ $numUnreadNotifications }}
+                            </x-badge>
+                        @endif
                     </a>
                 </span>
 
@@ -155,9 +162,14 @@
                         <div class="text-base font-medium text-gray-800 truncate">{{ Auth::user()->name }}</div>
                         <div class="text-sm font-medium text-gray-500 truncate">{{ Auth::user()->email }}</div>
                     </div>
-                    <a href="#" class="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500">
+                    <a href="{{ route('notifications') }}" class="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500 flex">
                         <span class="sr-only">{{ __('View notifications') }}</span>
                         <x-heroicon-o-bell class="h-6 w-6"/>
+                        @if ($numUnreadNotifications > 0)
+                            <x-badge color="indigo" x-data="" x-init="Livewire.on('all-notifications-read', () => $el.remove())">
+                                {{ $numUnreadNotifications }}
+                            </x-badge>
+                        @endif
                     </a>
                 </div>
                 <div class="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">

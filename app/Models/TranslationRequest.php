@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\TranslationRequestClaimedNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,12 +50,19 @@ class TranslationRequest extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function assignTo(User $user)
+    public function assignTo(User $translator)
     {
         $this->update([
-            'translator_id' => $user->id,
+            'translator_id' => $translator->id,
             'status' => TranslationRequestStatus::CLAIMED,
         ]);
+
+        $this->source->author->notify(
+            new TranslationRequestClaimedNotification(
+                $translator,
+                $this,
+            ),
+        );
     }
 
     public function unclaim()

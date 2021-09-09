@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SwitchUserModeController;
+use App\Http\Livewire\NotificationsPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
 use App\Http\Livewire\SourcePage;
@@ -33,6 +34,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::put('/switch-user-mode', SwitchUserModeController::class)->name('switch-user-mode');
+    Route::get('/notifications', NotificationsPage::class)->name('notifications');
 
     Route::middleware('author')->group(function() {
         Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
