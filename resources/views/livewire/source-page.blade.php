@@ -61,7 +61,7 @@
             </div>
         </x-header-action-bar>
     @elseif ($isViewingTranslation && $currentTranslationRequest->isComplete())
-        <x-header-action-bar class="bg-indigo-50">
+        <x-header-action-bar>
             <div class="flex gap-2 justify-between items-center">
                 <div class="truncate">
                     <x-user-photo

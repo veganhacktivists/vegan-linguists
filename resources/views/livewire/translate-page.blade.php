@@ -18,10 +18,6 @@
                                 x-bind:class="{ active: tab === 'discussion' }">
                     {{ __('Discussion') }}
                 </x-sidebar-link>
-            @else
-                <x-sidebar-link href="#" icon="o-pencil" aria-role="button" @click.prevent="Livewire.emit('toggleClaimModal')">
-                    {{ __('Claim Translation Request') }}
-                </x-sidebar-link>
             @endcan
         </div>
     </x-slot>
@@ -123,6 +119,12 @@
                                     {{ __('You have reached the claimed translation request limit. Please finish your claimed requests before attempting to claim more.') }}
                                 </x-warning-alert>
                             </div>
+                        @else
+                            <x-jet-button class="col-span-2 mx-auto justify-center"
+                                          type="button"
+                                          @click.prevent="Livewire.emit('toggleClaimModal')">
+                                {{ __('Claim Translation Request') }}
+                            </x-jet-button>
                         @endcannot
                     </dl>
                 </div>
@@ -132,8 +134,17 @@
 
     <div class="bg-white flex h-full" x-data="{ tab: 'source' }" @change-tab.window="tab = $event.detail">
         <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-gray-200 w-full">
-            <div class="w-full overflow-auto relative {{ $isMine ? 'flex-1' : 'w-full' }}">
+            <div class="w-full overflow-auto {{ $isMine ? 'flex-1' : 'w-full' }}">
                 <div x-show="tab === 'source'">
+                    @if ($isMine)
+                        <div class="md:hidden sticky top-0 z-10">
+                            <x-header-action-bar>
+                                {{ __('Translating to :languageName', [
+                                    'languageName' => $translationRequest->language->native_name,
+                                ]) }}
+                            </x-header-action-bar>
+                        </div>
+                    @endif
                     <x-rich-text-editor
                         wire:ignore
                         :content="$translationRequest->source->content"
@@ -147,7 +158,7 @@
 
             @if ($isMine)
                 <div class="flex flex-col flex-1 w-full overflow-auto">
-                    <div class="mx-auto flex-1">
+                    <div class="mx-auto flex-1 max-w-full">
                         <x-rich-text-editor
                             wire:ignore
                             :content="$translationRequest->content"
@@ -155,14 +166,21 @@
                             x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                     </div>
                     @if (!$translationRequest->isComplete())
-                        <div class="text-right p-2 hidden md:block flex gap-2 sticky bottom-0 bg-white">
-                            <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')" type="button">
-                                {{ __('Unclaim') }}
-                            </x-jet-danger-button>
-                            <x-jet-button wire:click="$toggle('isConfirmingSubmission')" type="button">
-                                {{ __('Submit translation') }}
-                            </x-jet-button>
+                        <div class="flex items-center justify-between p-2 hidden md:flex sticky bottom-0 bg-gray-100 border-t border-gray-200">
+                            <div class="flex gap-2 items-center">
+                                <x-heroicon-o-translate class="w-6 h-6" />
+                                {{ $translationRequest->language->native_name }}
+                            </div>
+                            <div class="text-right flex gap-2">
+                                <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')" type="button">
+                                    {{ __('Unclaim') }}
+                                </x-jet-danger-button>
+                                <x-jet-button wire:click="$toggle('isConfirmingSubmission')" type="button">
+                                    {{ __('Submit translation') }}
+                                </x-jet-button>
+                            </div>
                         </div>
+
                     @endif
                 </div>
 

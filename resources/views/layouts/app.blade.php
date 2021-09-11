@@ -54,7 +54,7 @@
                             @endif
 
                             <div x-bind:class="{ 'max-h-0': !open, 'max-h-screen': open }"
-                                 class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-r border-gray-200 bg-gray-100 lg:block">
+                                 class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-b lg:border-b-none lg:border-r border-gray-200 bg-gray-100 lg:block">
                                 {{ $aside }}
                             </div>
                         </aside>
