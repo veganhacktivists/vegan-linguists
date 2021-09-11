@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\CommentCreatedEvent;
+use App\Events\CommentDeletedEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +17,11 @@ class Comment extends Model
         'author_id',
         'content',
         'plain_text',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => CommentCreatedEvent::class,
+        'deleted' => CommentDeletedEvent::class,
     ];
 
     public function author()

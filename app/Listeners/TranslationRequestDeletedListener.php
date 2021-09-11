@@ -43,6 +43,8 @@ class TranslationRequestDeletedListener
 
         Comment::where('commentable_type', TranslationRequest::class)
             ->where('commentable_id', $translationRequestId)
+            ->get()
+            ->each
             ->delete();
 
         if ($status !== TranslationRequestStatus::CLAIMED || !$translatorId) {

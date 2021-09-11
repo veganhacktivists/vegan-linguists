@@ -5,22 +5,26 @@
         <div class="flex-1 space-y-1">
             <div class="flex items-center justify-between">
                 <h3 class="font-medium">{{ $user->name }}</h3>
-                <p class="text-gray-500">
+                <p class="text-gray-500 whitespace-nowrap pl-2">
                     {{ $dateDiff }}
                 </p>
             </div>
-            <p class="text-gray-900">
+            <p class="text-gray-900 break-all">
                 {!! $description !!}
             </p>
 
-            {{ $slot }}
+            <div class="break-all">
+                {{ $slot }}
+            </div>
         </div>
     @elseif (isset($icon))
         <div class="flex-1 space-y-1">
-            <div class="flex items-start justify-between">
-                {{ $slot }}
+            <div class="flex items-start justify-between break-all">
+                <div class="w-full">
+                    {{ $slot }}
+                </div>
 
-                <p class="text-gray-500">
+                <p class="text-gray-500 whitespace-nowrap pl-2">
                     {{ $dateDiff }}
                 </p>
             </div>

@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\CommentCreatedEvent;
+use App\Events\CommentDeletedEvent;
 use App\Events\TranslationRequestDeletedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
+use App\Listeners\CommentCreatedListener;
+use App\Listeners\CommentDeletedListener;
 use App\Listeners\TranslationRequestDeletedListener;
 use App\Listeners\TranslationRequestUpdatedListener;
 use Illuminate\Auth\Events\Registered;
@@ -21,6 +25,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        CommentCreatedEvent::class => [
+            CommentCreatedListener::class,
+        ],
+        CommentDeletedEvent::class => [
+            CommentDeletedListener::class,
         ],
         TranslationRequestUpdatedEvent::class => [
             TranslationRequestUpdatedListener::class,
