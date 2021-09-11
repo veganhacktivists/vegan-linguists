@@ -136,7 +136,7 @@
                 </div>
 
                 @if ($isMine)
-                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-t border-gray-200"
+                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-b lg:border-t lg:border-b-0 border-gray-200"
                          x-data="{ tab: 'source' }"
                          @change-tab.window="tab = $event.detail">
                         @if ($isMine)
