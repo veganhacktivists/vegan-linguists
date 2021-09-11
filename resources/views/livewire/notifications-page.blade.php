@@ -18,9 +18,9 @@
 
 
     @if ($notifications->count() > 0)
-        <ul role="list" class="divide-y divide-gray-200">
+        <ul role="list" class="divide-y divide-gray-200 rounded-md overflow-hidden shadow mb-4">
             @foreach (Auth::user()->notifications as $notification)
-                <li class="p-4 rounded-md mt-4 {{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }}">
+                <li class="p-4 transition-colors ease-linear duration-200 {{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }}">
                     @switch ($notification->type)
                     @case (TranslationRequestClaimedNotification::class)
                         <x-notifications.translation-request-claimed :notification="$notification" />
