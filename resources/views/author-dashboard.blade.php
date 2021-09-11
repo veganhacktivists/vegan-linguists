@@ -1,20 +1,6 @@
 <x-app-layout>
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
-    <x-slot name="sidebar">
-        <x-sidebar-link href="{{ route('home') }}" icon="o-collection" :active="empty($filter)">
-            {{ __('All') }}
-        </x-sidebar-link>
-
-        <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}" :active="$filter === 'complete'" icon="o-check">
-            {{ __('Complete') }}
-        </x-sidebar-link>
-
-        <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}" :active="$filter === 'incomplete'" icon="o-clock">
-            {{ __('Incomplete') }}
-        </x-sidebar-link>
-    </x-slot>
-
     <x-slot name="picker">
         <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.location = $el.value">
             <option value="{{ route('home') }}" {{ empty($filter) ? 'selected' : '' }}>

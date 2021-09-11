@@ -7,20 +7,6 @@
 <x-app-layout>
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
-    <x-slot name="sidebar">
-        <x-sidebar-link href="{{ $claimedRoute }}" :active="empty($filter)" icon="o-pencil">
-            {{ __('Claimed') }}
-        </x-sidebar-link>
-
-        <x-sidebar-link href="{{ $unclaimedRoute }}" :active="$filter === 'unclaimed'" icon="o-search">
-            {{ __('Unclaimed') }}
-        </x-sidebar-link>
-
-        <x-sidebar-link href="{{ $completedRoute }}" :active="$filter === 'complete'" icon="o-check">
-            {{ __('Completed') }}
-        </x-sidebar-link>
-    </x-slot>
-
     <x-slot name="picker">
         <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.location = $el.value">
             <option value="{{ $claimedRoute }}" {{ empty($filter) ? 'selected' : '' }}>

@@ -27,11 +27,48 @@
         <div class="h-screen flex flex-col overflow-hidden">
             @include('navigation-menu')
 
+            @php
+                $filter = request()->input('filter');
+                $isOnDashboard = request()->routeIs('home');
+            @endphp
             <div class="min-h-0 flex-1 flex">
                 <x-sidebar>
-                    @if (isset($sidebar))
-                        {{ $sidebar }}
+                    @if (Auth::user()->isInAuthorMode())
+                        <x-sidebar-link href="{{ route('home') }}"
+                                        icon="o-collection"
+                                        :active="empty($filter) && $isOnDashboard">
+                            {{ __('All') }}
+                        </x-sidebar-link>
+
+                        <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}"
+                                        :active="$filter === 'complete' && $isOnDashboard"
+                                        icon="o-check">
+                            {{ __('Complete') }}
+                        </x-sidebar-link>
+
+                        <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}"
+                                        :active="$filter === 'incomplete' && $isOnDashboard"
+                                        icon="o-clock">
+                            {{ __('Incomplete') }}
+                        </x-sidebar-link>
                     @else
+                        <x-sidebar-link href="{{ route('home', \Request::except('filter')) }}"
+                                        :active="empty($filter) && $isOnDashboard"
+                                        icon="o-pencil">
+                            {{ __('Claimed') }}
+                        </x-sidebar-link>
+
+                        <x-sidebar-link href="{{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
+                                        :active="$filter === 'unclaimed' && $isOnDashboard"
+                                        icon="o-search">
+                            {{ __('Unclaimed') }}
+                        </x-sidebar-link>
+
+                        <x-sidebar-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
+                                        :active="$filter === 'complete' && $isOnDashboard"
+                                        icon="o-check">
+                            {{ __('Completed') }}
+                        </x-sidebar-link>
                     @endif
                 </x-sidebar>
 

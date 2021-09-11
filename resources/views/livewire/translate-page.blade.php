@@ -1,27 +1,6 @@
 <div class="bg-white h-full flex flex-col">
     <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
-    <x-slot name="sidebar">
-        <div x-data="{ tab: 'source' }" @change-tab.window="tab = $event.detail">
-            @if ($isMine)
-                <x-sidebar-link href="#"
-                                icon="o-document-text"
-                                aria-role="button"
-                                @click.prevent="$dispatch('change-tab', 'source')"
-                                x-bind:class="{ active: tab === 'source' }" :active="true">
-                    {{ __('Original content') }}
-                </x-sidebar-link>
-                <x-sidebar-link href="#"
-                                icon="o-annotation"
-                                aria-role="button"
-                                @click.prevent="$dispatch('change-tab', 'discussion')"
-                                x-bind:class="{ active: tab === 'discussion' }">
-                    {{ __('Discussion') }}
-                </x-sidebar-link>
-            @endcan
-        </div>
-    </x-slot>
-
     <x-slot name="picker">
         @if ($isMine)
             <x-jet-dropdown align="left" width="48">
@@ -35,7 +14,7 @@
                     <x-jet-dropdown-link href="#"
                                          aria-role="button"
                                          @click.prevent="$dispatch('change-tab', 'source')">
-                        {{ __('Original content') }}
+                        {{ __('Original Content') }}
                     </x-jet-dropdown-link>
 
                     <x-jet-dropdown-link href="#"
@@ -134,8 +113,8 @@
 
     <div class="bg-white flex h-full" x-data="{ tab: 'source' }" @change-tab.window="tab = $event.detail">
         <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-gray-200 w-full">
-            <div class="w-full overflow-auto {{ $isMine ? 'flex-1' : 'w-full' }}">
-                <div x-show="tab === 'source'">
+            <div class="w-full overflow-auto {{ $isMine ? 'flex flex-col flex-1' : 'w-full' }}">
+                <div x-show="tab === 'source'" class="flex-1">
                     @if ($isMine)
                         <div class="md:hidden sticky top-0 z-10">
                             <x-header-action-bar>
@@ -145,15 +124,36 @@
                             </x-header-action-bar>
                         </div>
                     @endif
+
                     <x-rich-text-editor
                         wire:ignore
                         :content="$translationRequest->source->content"
                         :isReadOnly="true" />
                 </div>
 
-                <div class="max-w-7xl mx-auto" x-show="tab === 'discussion'">
+                <div class="max-w-7xl mx-auto flex-1" x-show="tab === 'discussion'">
                     <livewire:comment-section :commentable="$translationRequest" />
                 </div>
+
+                @if ($isMine)
+                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-t border-gray-200"
+                         x-data="{ tab: 'source' }"
+                         @change-tab.window="tab = $event.detail">
+                        @if ($isMine)
+
+                            <button class="bg-indigo-500 text-white h-14 flex-1"
+                                    @click.prevent="$dispatch('change-tab', 'source')"
+                                    x-bind:class="{ 'bg-indigo-500 text-white': tab === 'source', 'bg-gray-100 hover:bg-gray-200': tab !== 'source' }">
+                                {{ __('Original Content') }}
+                            </button>
+                            <button class="h-14 flex-1"
+                                    @click.prevent="$dispatch('change-tab', 'discussion')"
+                                    x-bind:class="{ 'bg-indigo-500 text-white': tab === 'discussion', 'bg-gray-100 hover:bg-gray-200': tab !== 'discussion' }">
+                                {{ __('Discussion') }}
+                            </button>
+                        @endif
+                    </div>
+                @endif
             </div>
 
             @if ($isMine)
@@ -166,8 +166,8 @@
                             x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                     </div>
                     @if (!$translationRequest->isComplete())
-                        <div class="flex items-center justify-between p-2 hidden md:flex sticky bottom-0 bg-gray-100 border-t border-gray-200">
-                            <div class="flex gap-2 items-center">
+                        <div class="flex items-center justify-between px-2 hidden md:flex sticky bottom-0 bg-gray-100 border-t border-gray-200">
+                            <div class="flex gap-2 items-center h-14">
                                 <x-heroicon-o-translate class="w-6 h-6" />
                                 {{ $translationRequest->language->native_name }}
                             </div>
