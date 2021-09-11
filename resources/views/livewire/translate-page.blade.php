@@ -220,7 +220,7 @@
                     </x-slot>
                 </x-jet-confirmation-modal>
 
-                <x-jet-confirmation-modal wire:model="isConfirmingSubmission">
+                <x-jet-dialog-modal wire:model="isConfirmingSubmission">
                     <x-slot name="title">
                         {{ __('Submit Translation') }}
                     </x-slot>
@@ -241,9 +241,9 @@
                             {{ __('Submit') }}
                         </x-jet-button>
                     </x-slot>
-                </x-jet-confirmation-modal>
+                </x-jet-dialog-modal>
             @else
-                <x-jet-confirmation-modal wire:model="isConfirmingClaim">
+                <x-jet-dialog-modal wire:model="isConfirmingClaim">
                     <x-slot name="title">
                         {{ __('Claim Translation Request') }}
                     </x-slot>
@@ -267,7 +267,7 @@
                             </x-jet-button>
                         @endcan
                     </x-slot>
-                </x-jet-confirmation-modal>
+                </x-jet-dialog-modal>
             @endif
         </div>
     </div>
