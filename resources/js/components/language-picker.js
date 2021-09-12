@@ -14,6 +14,17 @@ window.LanguagePicker = class {
     this.chosenLanguages = []
     this.languages = languages
     this.el = el
+    this.isDisplayingResults = false
+
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && this.isDisplayingResults) {
+        e.preventDefault()
+      }
+    })
+
+    el.addEventListener('blur', (e) => {
+      this.isDisplayingResults = false
+    })
 
     this.autocomplete = autocomplete({
       input: el,
@@ -21,6 +32,7 @@ window.LanguagePicker = class {
       minLength: 1,
 
       fetch: (text, update) => {
+        this.isDisplayingResults = true
         text = text.toLocaleLowerCase()
 
         const results = languages.filter(({ code, name, native_name }) => {
@@ -37,6 +49,7 @@ window.LanguagePicker = class {
 
       onSelect: (language) => {
         onSelect(language, this.setChosenLanguages, this.setInputText)
+        this.isDisplayingResults = false
       },
 
       render: (language) => {
