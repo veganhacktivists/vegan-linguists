@@ -41,10 +41,11 @@ class NotificationModelCache {
             ->unique();
         $this->users = User::whereIn('id', $userIds)
             ->get()
+            ->concat([User::deletedUser()])
             ->keyBy('id');
     }
 
-    public function find(string $model, int $id)
+    public function find(string $model, int|null $id)
     {
         $collection = (function() use ($model) {
             switch ($model) {
@@ -62,10 +63,7 @@ class NotificationModelCache {
         })();
 
         $record = $collection->get($id);
-
-        if (!$record) {
-            return $model::find($id);
-        }
+        if (!$record) return $model::find($id);
 
         return $record;
     }
@@ -89,7 +87,6 @@ class NotificationModelCache {
     {
         return $notifications->pluck('data.translator_id')
             ->concat($notifications->pluck('data.author_id'))
-            ->concat($notifications->pluck('data.user_id'))
             ->filter();
     }
 }

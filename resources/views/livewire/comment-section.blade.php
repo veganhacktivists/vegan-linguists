@@ -1,3 +1,5 @@
+@php($deletedUser = App\Models\User::deletedUser())
+
 <div class="p-4" x-data="">
     <h2 class="text-3xl font-bold">
         {{ __('Discussion') }}
@@ -40,7 +42,7 @@
                                     <div>
                                         <div class="text-sm">
                                             <p class="font-medium text-gray-900">
-                                                {{ $comment->author->name }}
+                                                {{ ($comment->author ?? $deletedUser)->name }}
                                             </p>
                                         </div>
                                         <p class="mt-0.5 text-sm text-gray-500">

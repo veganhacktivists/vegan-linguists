@@ -6,10 +6,12 @@ use App\Events\CommentCreatedEvent;
 use App\Events\CommentDeletedEvent;
 use App\Events\TranslationRequestDeletedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
+use App\Events\UserDeletedEvent;
 use App\Listeners\CommentCreatedListener;
 use App\Listeners\CommentDeletedListener;
 use App\Listeners\TranslationRequestDeletedListener;
 use App\Listeners\TranslationRequestUpdatedListener;
+use App\Listeners\UserDeletedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -37,6 +39,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TranslationRequestDeletedEvent::class => [
             TranslationRequestDeletedListener::class,
+        ],
+        UserDeletedEvent::class => [
+            UserDeletedListener::class,
         ],
     ];
 

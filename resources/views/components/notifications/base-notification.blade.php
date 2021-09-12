@@ -1,5 +1,5 @@
 <div class="flex space-x-3">
-    @if (!empty($user->id))
+    @if (!empty($user))
         <x-user-photo class="h-6 w-6 mt-1" :user="$user" />
 
         <div class="flex-1 space-y-1">

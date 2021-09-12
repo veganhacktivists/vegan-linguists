@@ -1,4 +1,4 @@
-@props(['user'])
+@props(['user' => App\Models\User::deletedUser()])
 
 <img {{ $attributes->merge([
     'class' => 'rounded-full object-cover',

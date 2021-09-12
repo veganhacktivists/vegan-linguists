@@ -18,7 +18,10 @@ class TranslationRequestUnclaimedNotification extends Notification
      *
      * @return void
      */
-    public function __construct(private User $translator, private TranslationRequest $translationRequest)
+    public function __construct(
+        private mixed $translator, // prevent dependency injection
+        private TranslationRequest $translationRequest
+    )
     {
     }
 
@@ -56,7 +59,7 @@ class TranslationRequestUnclaimedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'translator_id' => $this->translator->id,
+            'translator_id' => optional($this->translator)->id,
             'translation_request_id' => $this->translationRequest->id,
         ];
     }

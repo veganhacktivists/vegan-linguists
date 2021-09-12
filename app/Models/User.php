@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\UserDeletedEvent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,6 +65,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    protected $dispatchesEvents = [
+        'deleted' => UserDeletedEvent::class,
+    ];
+
+    public static function deletedUser()
+    {
+        $user = new static([
+            'name' => __('Deleted User'),
+        ]);
+
+        return $user;
+    }
 
     public function languages()
     {

@@ -2,7 +2,6 @@
 
 namespace App\View\Components\Notifications;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\View\Component;
 
@@ -16,7 +15,7 @@ class BaseNotification extends Component
      * @return void
      */
     public function __construct(
-        public User $user,
+        public mixed $user = null, // prevent dependency injection
         Carbon $date,
         public string $description = '',
         public string $icon = '',
