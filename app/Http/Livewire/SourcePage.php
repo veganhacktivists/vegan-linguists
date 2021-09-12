@@ -15,6 +15,7 @@ class SourcePage extends Component
     public TranslationRequest $currentTranslationRequest;
     public bool $isViewingTranslation;
     public bool $isConfirmingClaimRevocation = false;
+    public bool $isConfirmingTranslationRequestDeletion = false;
 
     public function mount(
         Source $source,
@@ -39,8 +40,19 @@ class SourcePage extends Component
 
     public function revokeClaim()
     {
+        $this->authorize('view', $this->source);
+
         $this->currentTranslationRequest->unclaim();
 
         return redirect()->route('translation', [$this->source->id, $this->currentTranslationRequest->language->id]);
+    }
+
+    public function deleteTranslationRequest()
+    {
+        $this->authorize('view', $this->source);
+
+        $this->currentTranslationRequest->delete();
+
+        return redirect()->route('source', [$this->source->id, $this->source->slug]);
     }
 }

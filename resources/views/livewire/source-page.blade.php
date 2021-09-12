@@ -40,42 +40,49 @@
         </x-stacked-list>
     </x-slot>
 
-    @if ($isViewingTranslation && $currentTranslationRequest->isClaimed())
+    @if ($isViewingTranslation)
         <x-header-action-bar class="bg-indigo-50">
             <div class="flex gap-2 justify-between items-center">
-                <div class="truncate">
-                    <x-user-photo
-                        :user="$currentTranslationRequest->translator"
-                        class="h-10 w-10 inline-block" />
+                @if ($currentTranslationRequest->isClaimed())
+                    <div class="truncate">
+                        <x-user-photo
+                            :user="$currentTranslationRequest->translator"
+                            class="h-10 w-10 inline-block" />
 
-                    <span class="align-middle">
                         {{ __(':translatorName has claimed this translation request', [
                             'translatorName' => $currentTranslationRequest->translator->name,
                         ]) }}
-                    </span>
-                </div>
+                    </div>
+                    <div>
+                        <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
+                            {{ __('Revoke Claim') }}
+                        </x-jet-danger-button>
+                    </div>
+                @elseif ($currentTranslationRequest->isComplete())
+                    <div class="truncate">
+                        <x-user-photo
+                            :user="$currentTranslationRequest->translator"
+                            class="h-10 w-10 inline-block" />
 
-                <div>
-                    <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingClaimRevocation')">
-                        {{ __('Revoke claim') }}
-                    </x-jet-danger-button>
-                </div>
-            </div>
-        </x-header-action-bar>
-    @elseif ($isViewingTranslation && $currentTranslationRequest->isComplete())
-        <x-header-action-bar>
-            <div class="flex gap-2 justify-between items-center">
-                <div class="truncate">
-                    <x-user-photo
-                        :user="$currentTranslationRequest->translator"
-                        class="h-10 w-10 inline-block" />
-
-                    <span class="align-middle">
                         {{ __(':translatorName translated this content', [
                             'translatorName' => ($currentTranslationRequest->translator ?? $deletedUser)->name,
                         ]) }}
-                    </span>
-                </div>
+                    </div>
+                    <div>
+                        <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
+                            {{ __('Delete Translation') }}
+                        </x-jet-danger-button>
+                    </div>
+                @else
+                    <div class="truncate">
+                        {{ __('This request has not yet been claimed by a translator') }}
+                    </div>
+                    <div>
+                        <x-jet-danger-button class="whitespace-nowrap" type="button" wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
+                            {{ __('Delete Request') }}
+                        </x-jet-danger-button>
+                    </div>
+                @endif
             </div>
         </x-header-action-bar>
     @endif
@@ -99,7 +106,7 @@
             </x-slot>
 
             <x-slot name="content">
-                {{ __('Are you sure you would like to revoke :translatorName\'s claim on this translation request?', [
+                {{ __('Are you sure you want to revoke :translatorName\'s claim on this translation request?', [
                     'translatorName' => ($currentTranslationRequest->translator ?? $deletedUser)->name,
                 ]) }}
             </x-slot>
@@ -110,6 +117,34 @@
                 </x-jet-secondary-button>
 
                 <x-jet-danger-button class="ml-2" wire:click="revokeClaim" wire:loading.attr="disabled">
+                    {{ __('Yes') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-confirmation-modal>
+    @else
+        <x-jet-confirmation-modal wire:model="isConfirmingTranslationRequestDeletion">
+            <x-slot name="title">
+                {{ __('Delete Translation Request') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {!! __(
+                    $currentTranslationRequest->isComplete()
+                        ? 'Are you sure you want to delete the :languageName translation for ":sourceTitle?"'
+                        : 'Are you sure you want to delete the :languageName translation request for ":sourceTitle?"',
+                    [
+                        'languageName' => '<strong>'.optional($currentTranslationRequest->language)->name.'</strong>',
+                        'sourceTitle' => $source->title,
+                    ]
+                ) !!}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('isConfirmingTranslationRequestDeletion')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button class="ml-2" wire:click="deleteTranslationRequest" wire:loading.attr="disabled">
                     {{ __('Yes') }}
                 </x-jet-danger-button>
             </x-slot>
