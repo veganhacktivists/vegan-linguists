@@ -1,9 +1,9 @@
 @php
     $route = $isNotifyingAuthor
-        ? route('translation', [$translationRequest->source->id, $translationRequest->language->id])
-        : route('translate', [$translationRequest->id, $translationRequest->source->slug]);
+        ? route('translation', [$source->id, $translationRequest->language->id])
+        : route('translate', [$translationRequest->id, $source->slug]);
 
-    $title = htmlentities($translationRequest->source->title);
+    $title = htmlentities($source->title);
 
     $translationRequestTitle = <<<HTML
         <a class="font-bold text-indigo-700 hover:underline" href="$route">$title</a>
@@ -13,11 +13,11 @@
 
 <x-notifications.base-notification :date="$date" class="flex-col">
     <div class="flex gap-3 w-full">
-        <x-user-photo class="h-6 w-6" :user="$comment->author" />
+        <x-user-photo class="h-6 w-6" :user="$commentAuthor" />
 
         <div>
             {!! __(':userName left a comment on :translationRequestTitle:', [
-                'userName' => htmlentities($comment->author->name),
+                'userName' => htmlentities($commentAuthor->name),
                 'translationRequestTitle' => $translationRequestTitle,
             ]) !!}
 

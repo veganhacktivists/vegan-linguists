@@ -2,6 +2,8 @@
 
 namespace App\View\Components\Notifications;
 
+use App\Helpers\NotificationModelCache;
+use App\Models\Source;
 use App\Models\TranslationRequest;
 use App\Models\User;
 use Carbon\Carbon;
@@ -12,6 +14,7 @@ class TranslationRequestClaimed extends Component
 {
     public User $translator;
     public TranslationRequest $translationRequest;
+    public Source $source;
     public Carbon $date;
 
     /**
@@ -19,12 +22,11 @@ class TranslationRequestClaimed extends Component
      *
      * @return void
      */
-    public function __construct(DatabaseNotification $notification)
+    public function __construct(DatabaseNotification $notification, NotificationModelCache $modelCache)
     {
-        $this->translationRequest = TranslationRequest::where('id', $notification->data['translation_request_id'])
-            ->with('source')
-            ->first();
-        $this->translator = User::find($notification->data['translator_id']);
+        $this->translationRequest = $modelCache->find(TranslationRequest::class, $notification->data['translation_request_id'], true);
+        $this->source = $modelCache->find(Source::class, $this->translationRequest->source_id);
+        $this->translator = $modelCache->find(User::class, $notification->data['translator_id']);
         $this->date = $notification->created_at;
     }
 

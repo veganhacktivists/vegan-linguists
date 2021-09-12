@@ -2,7 +2,9 @@
 
 namespace App\View\Components\Notifications;
 
+use App\Helpers\NotificationModelCache;
 use App\Models\Comment;
+use App\Models\Source;
 use App\Models\TranslationRequest;
 use App\Models\User;
 use Carbon\Carbon;
@@ -12,7 +14,10 @@ use Illuminate\View\Component;
 class TranslationRequestCommentedOn extends Component
 {
     public Comment $comment;
+    public Source $source;
     public TranslationRequest $translationRequest;
+    public User $commentAuthor;
+
     public Carbon $date;
     public bool $isNotifyingAuthor;
 
@@ -21,16 +26,17 @@ class TranslationRequestCommentedOn extends Component
      *
      * @return void
      */
-    public function __construct(DatabaseNotification $notification)
+    public function __construct(DatabaseNotification $notification, NotificationModelCache $modelCache)
     {
-        $this->comment = Comment::where('id', $notification->data['comment_id'])
-            ->with('commentable', 'author', 'commentable.source', 'commentable.source.author')
-            ->first();
+        $this->comment = $modelCache->find(Comment::class, $notification->data['comment_id']);
+        $this->translationRequest = $modelCache->find(TranslationRequest::class, $this->comment->commentable_id);
+        $this->source = $modelCache->find(Source::class, $this->translationRequest->source_id);
+        $this->commentAuthor = $modelCache->find(User::class, $this->comment->author_id);
 
-        $this->translationRequest = $this->comment->commentable;
         $this->date = $notification->created_at;
 
-        $this->isNotifyingAuthor = !$this->comment->author->is($this->translationRequest->source->author);
+        $sourceAuthor = $modelCache->find(User::class, $this->source->author_id);
+        $this->isNotifyingAuthor = !$this->commentAuthor->is($sourceAuthor);
     }
 
     /**

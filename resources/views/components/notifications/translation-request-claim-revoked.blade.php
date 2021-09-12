@@ -1,6 +1,6 @@
 @php
-    $sourceRoute = route('translate', [$translationRequest->id, $translationRequest->source->slug]);
-    $sourceTitle = htmlentities($translationRequest->source->title);
+    $sourceRoute = route('translate', [$translationRequest->id, $source->slug]);
+    $sourceTitle = htmlentities($source->title);
 
     $translationRequestTitle = <<<HTML
         <a class="font-bold text-indigo-700 hover:underline" href="$sourceRoute">$sourceTitle</a>
