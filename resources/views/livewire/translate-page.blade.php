@@ -102,7 +102,7 @@
                             <x-jet-button class="col-span-2 mx-auto justify-center"
                                           type="button"
                                           @click.prevent="Livewire.emit('toggleClaimModal')">
-                                {{ __('Claim Translation Request') }}
+                                {{ __("I'll Translate This!") }}
                             </x-jet-button>
                         @endcannot
                     </dl>

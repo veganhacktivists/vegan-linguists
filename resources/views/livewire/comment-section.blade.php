@@ -1,7 +1,7 @@
 @php($deletedUser = App\Models\User::deletedUser())
 
 <div class="p-4" x-data="">
-    <h2 class="text-3xl font-bold">
+    <h2 class="text-2xl font-bold">
         {{ __('Discussion') }}
     </h2>
 

@@ -19,6 +19,16 @@
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-4">
+            <h2 class="text-2xl font-bold mb-4 text-center sm:text-left">
+                @if ($filter === 'complete')
+                    {{ __('Completed Translations') }}
+                @elseif ($filter === 'incomplete')
+                    {{ __('Incomplete Translation Requests') }}
+                @else
+                    {{ __('All Translation Requests') }}
+                @endif
+            </h2>
+
             @if ($sources->count() > 0)
                 <x-stacked-list class="sm:rounded-md">
                     @foreach ($sources as $source)

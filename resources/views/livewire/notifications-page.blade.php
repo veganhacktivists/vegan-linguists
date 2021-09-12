@@ -9,10 +9,16 @@
 
 <div class="max-w-7xl mx-auto px-4 pb-4">
 
-    <div class="text-right my-4">
-        <x-jet-secondary-button type="button" wire:click="markAllAsRead">
-            {{ __('Mark all as read') }}
-        </x-jet-secondary-button>
+    <div class="flex justify-between items-center my-4">
+        <h2 class="text-2xl font-bold">
+            {{ __('Notifications') }}
+        </h2>
+
+        <div>
+            <x-jet-secondary-button type="button" wire:click="markAllAsRead">
+                {{ __('Mark all as read') }}
+            </x-jet-secondary-button>
+        </div>
     </div>
 
     @if ($notifications->count() > 0)
