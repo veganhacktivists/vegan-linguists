@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\UserMode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -32,6 +33,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'user_mode' => count($input['languages']) === 1 ? UserMode::AUTHOR : UserMode::TRANSLATOR,
         ]);
 
         $user->languages()->attach($input['languages']);
