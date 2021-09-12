@@ -18,22 +18,30 @@ class NotificationModelCache {
     public function __construct(DatabaseNotificationCollection $notifications)
     {
         $commentIds = $this->pluckCommentIds($notifications)->unique();
-        $this->comments = Comment::whereIn('id', $commentIds)->get();
+        $this->comments = Comment::whereIn('id', $commentIds)
+            ->get()
+            ->keyBy('id');
 
         $translationRequestIds = $this->pluckTranslationRequestIds($notifications)->unique();
-        $this->translationRequests = TranslationRequest::whereIn('id', $translationRequestIds)->get();
+        $this->translationRequests = TranslationRequest::whereIn('id', $translationRequestIds)
+            ->get()
+            ->keyBy('id');
 
         $sourceIds = $this->pluckSourceIds($notifications)
             ->concat($this->translationRequests->pluck('source_id'))
             ->unique();
-        $this->sources = Source::whereIn('id', $sourceIds)->get();
+        $this->sources = Source::whereIn('id', $sourceIds)
+            ->get()
+            ->keyBy('id');
 
         $userIds = $this->pluckuserIds($notifications)
             ->concat($this->comments->pluck('author_id'))
             ->concat($this->sources->pluck('author_id'))
             ->concat($this->translationRequests->pluck('translator_id'))
             ->unique();
-        $this->users = User::whereIn('id', $userIds)->get();
+        $this->users = User::whereIn('id', $userIds)
+            ->get()
+            ->keyBy('id');
     }
 
     public function find(string $model, int $id)
@@ -53,7 +61,7 @@ class NotificationModelCache {
             }
         })();
 
-        $record = $collection->where('id', $id)->first();
+        $record = $collection->get($id);
 
         if (!$record) {
             return $model::find($id);
