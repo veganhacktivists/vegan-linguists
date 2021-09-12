@@ -10,10 +10,12 @@ use Livewire\Component;
 class NotificationsPage extends Component
 {
     public Collection $notifications;
+    public Collection $unreadNotifications;
 
     public function mount()
     {
         $this->notifications = Auth::user()->notifications;
+        $this->unreadNotifications = Auth::user()->unreadNotifications;
     }
 
     public function render()
@@ -25,7 +27,11 @@ class NotificationsPage extends Component
 
     public function markAllAsRead()
     {
-        Auth::user()->unreadNotifications->markAsRead();
+        $this->unreadNotifications->markAsRead();
+
+        $this->unreadNotifications = Auth::user()->unreadNotifications;
+        $this->notifications = Auth::user()->notifications;
+
         $this->emit('all-notifications-read');
     }
 }
