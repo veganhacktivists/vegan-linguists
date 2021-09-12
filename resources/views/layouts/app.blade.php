@@ -37,37 +37,37 @@
                         <x-sidebar-link href="{{ route('home') }}"
                                         icon="o-collection"
                                         :active="empty($filter) && $isOnDashboard">
-                            {{ __('All') }}
+                            {{ __('All Translation Requests') }}
                         </x-sidebar-link>
 
                         <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}"
                                         :active="$filter === 'complete' && $isOnDashboard"
                                         icon="o-check">
-                            {{ __('Complete') }}
+                            {{ __('Completed Translations') }}
                         </x-sidebar-link>
 
                         <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}"
                                         :active="$filter === 'incomplete' && $isOnDashboard"
                                         icon="o-clock">
-                            {{ __('Incomplete') }}
+                            {{ __('Incomplete Translation Requests') }}
                         </x-sidebar-link>
                     @else
                         <x-sidebar-link href="{{ route('home', \Request::except('filter')) }}"
                                         :active="empty($filter) && $isOnDashboard"
                                         icon="o-pencil">
-                            {{ __('Claimed') }}
+                            {{ __('Claimed Translation Requests') }}
                         </x-sidebar-link>
 
                         <x-sidebar-link href="{{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
                                         :active="$filter === 'unclaimed' && $isOnDashboard"
                                         icon="o-search">
-                            {{ __('Unclaimed') }}
+                            {{ __('Unclaimed Translation Requests') }}
                         </x-sidebar-link>
 
                         <x-sidebar-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
                                         :active="$filter === 'complete' && $isOnDashboard"
                                         icon="o-check">
-                            {{ __('Completed') }}
+                            {{ __('Completed Translations') }}
                         </x-sidebar-link>
                     @endif
                 </x-sidebar>
