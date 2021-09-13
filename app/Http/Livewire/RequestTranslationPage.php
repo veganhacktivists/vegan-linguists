@@ -21,11 +21,6 @@ class RequestTranslationPage extends Component
     public function mount()
     {
         $this->languages = Language::all();
-
-        $userLanguages = Auth::user()->languages;
-        if (count($userLanguages) > 0) {
-            $this->sourceLanguageId = $userLanguages->first()->id;
-        }
     }
 
     public function render()

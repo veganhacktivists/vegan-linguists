@@ -16,7 +16,20 @@
              @if ($multiSelect)
                  $watch('languages', languages => $wire.set('{{ $wireModel }}', languages.map(l => l.id)));
              @else
-                 $watch('languages', languages => $wire.set('{{ $wireModel }}', languages.length ? languages[0].id : null));
+                 $watch('languages', (languages) => {
+                     $wire.set('{{ $wireModel }}', languages.length ? languages[0].id : null);
+                     @if (!$multiSelect)
+                         if (languages.length > 0) {
+                             languagePicker.setInputText(
+                                 {{
+                                     $shouldDisplayTranslatedLanguage
+                                         ? '`${languages[0].name} (${languages[0].native_name})`'
+                                         : 'languages[0].native_name'
+                                 }}
+                             );
+                         }
+                     @endif
+                 });
              @endif
          @endif
         languages = {{ $defaultLanguages }};
@@ -54,7 +67,8 @@
                      displayTranslatedLanguageName: {{ $shouldDisplayTranslatedLanguage ? 'true' : 'false' }},
                  });
                  languagePicker.setChosenLanguages({{ $defaultLanguages }})
-         "/>
+                 "
+                 @blur="languages = languages.slice()" />
 
      @if ($multiSelect)
         <ul class="flex flex-wrap gap-2 mt-2" x-show="languages.length > 0">

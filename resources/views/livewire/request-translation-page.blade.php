@@ -63,7 +63,8 @@
                     id="source-language"
                     wire:model="sourceLanguageId"
                     :multiSelect="false"
-                    :languages="$languages" />
+                    :defaultLanguages="collect([Auth::user()->languages->first()])"
+                    :languages="Auth::user()->languages" />
             </div>
 
             <div class="mt-4">
