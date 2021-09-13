@@ -1,7 +1,7 @@
 @props(['user'])
 
 <img {{ $attributes->merge([
-    'class' => 'rounde-full object-cover',
+    'class' => 'rounded-full object-cover',
     'src' => user($user)->profile_photo_url,
     'alt' => user($user)->name,
 ]) }} />
