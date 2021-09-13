@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import Quill from 'quill'
 
 document.addEventListener('alpine:init', () => {
@@ -10,7 +11,7 @@ document.addEventListener('alpine:init', () => {
           .setContent(content)
           .on(
             'text-change',
-            _.debounce(() => {
+            debounce(() => {
               this.$dispatch('change', {
                 content: this.editor.getContent(),
                 plainText: this.editor.getPlainText(),
@@ -33,16 +34,16 @@ class RichTextEditor {
     const toolbar = readOnly
       ? false
       : [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          [{ font: [] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
-          [{ indent: '-1' }, { indent: '+1' }],
-          ['blockquote', 'link', 'image', 'video'],
-          [{ direction: 'rtl' }],
-          [{ color: [] }, { background: [] }],
-          ['clean'],
-        ]
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ font: [] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        ['blockquote', 'link', 'image', 'video'],
+        [{ direction: 'rtl' }],
+        [{ color: [] }, { background: [] }],
+        ['clean'],
+      ]
 
     this.el = el
     this.quill = new Quill(el, {

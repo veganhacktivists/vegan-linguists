@@ -1,14 +1,14 @@
 @php
-    $claimedRoute = route('home', \Request::except('filter'));
-    $unclaimedRoute = route('home', ['filter' => 'unclaimed'] + \Request::all());
-    $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
+$claimedRoute = route('home', \Request::except('filter'));
+$unclaimedRoute = route('home', ['filter' => 'unclaimed'] + \Request::all());
+$completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
 @endphp
 
 <x-app-layout>
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
     <x-slot name="picker">
-        <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.location = $el.value">
+        <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.Turbolinks.visit($el.value)">
             <option value="{{ $claimedRoute }}" {{ empty($filter) ? 'selected' : '' }}>
                 {{ __('Claimed') }}
             </option>
@@ -25,20 +25,16 @@
 
     <div class="max-w-7xl mx-auto">
         <div x-data="{ source: '{{ $sourceLanguageCode }}', target: '{{ $targetLanguageCode }}', url: new URL(window.location) }"
-             class="flex w-full max-w-2xl p-4 items-center gap-4">
+            class="flex w-full max-w-2xl p-4 items-center gap-4">
             <div class="w-full">
                 <x-jet-label class="mb-1" for="source-language">{{ __('Original Language') }}</x-jet-label>
-                <x-jet-select x-model="source"
-                              id="source-language"
-                              class="w-full"
-                              @change="url.searchParams.set('source', source); window.location = url">
+                <x-jet-select x-model="source" id="source-language" class="w-full"
+                    @change="url.searchParams.set('source', source); window.Turbolinks.visit(url)">
                     <x-jet-option value="">
                         {{ __('All') }}
                     </x-jet-option>
                     @foreach ($languages as $language)
-                        <x-jet-option
-                            :value="$language->code"
-                            :selected="$language->code === $sourceLanguageCode">
+                        <x-jet-option :value="$language->code" :selected="$language->code === $sourceLanguageCode">
                             {{ $language->native_name }}
                         </x-jet-option>
                     @endforeach
@@ -51,17 +47,13 @@
 
             <div class="w-full">
                 <x-jet-label class="mb-1" for="source-language">{{ __('Target Language') }}</x-jet-label>
-                <x-jet-select
-                    x-model="target"
-                    class="w-full"
-                    @change="url.searchParams.set('target', target); window.location = url">
+                <x-jet-select x-model="target" class="w-full"
+                    @change="url.searchParams.set('target', target); window.Turbolinks.visit(url)">
                     <x-jet-option value="">
                         {{ __('All') }}
                     </x-jet-option>
                     @foreach ($languages as $language)
-                        <x-jet-option
-                            :value="$language->code"
-                            :selected="$language->code === $targetLanguageCode">
+                        <x-jet-option :value="$language->code" :selected="$language->code === $targetLanguageCode">
                             {{ $language->native_name }}
                         </x-jet-option>
                     @endforeach
@@ -83,15 +75,13 @@
             @if ($translationRequests->count() > 0)
                 <x-stacked-list class="sm:rounded-md">
                     @foreach ($translationRequests as $translationRequest)
-                        <x-dashboard.translation-request-row
-                            :translationRequest="$translationRequest"
+                        <x-dashboard.translation-request-row :translationRequest="$translationRequest"
                             :href="route('translate', [$translationRequest->id, $translationRequest->source->slug])" />
-                        @endforeach
+                    @endforeach
                 </x-stacked-list>
             @elseif ($filter === 'unclaimed')
-                <x-empty-state class="bg-white shadow rounded p-8"
-                               icon="o-translate"
-                               :title="__('No translation requests found')">
+                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
+                    :title="__('No translation requests found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}
                     @else
@@ -99,9 +89,8 @@
                     @endif
                 </x-empty-state>
             @elseif ($filter === 'complete')
-                <x-empty-state class="bg-white shadow rounded p-8"
-                               icon="o-translate"
-                               :title="__('No translations found')">
+                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
+                    :title="__('No translations found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}
                     @else
@@ -115,9 +104,8 @@
                     </x-slot>
                 </x-empty-state>
             @else
-                <x-empty-state class="bg-white shadow rounded p-8"
-                               icon="o-translate"
-                               :title="__('No claimed translation requests')">
+                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
+                    :title="__('No claimed translation requests')">
 
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}

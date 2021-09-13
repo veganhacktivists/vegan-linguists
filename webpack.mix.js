@@ -13,15 +13,13 @@ const mix = require('laravel-mix')
 
 mix
   .js('resources/js/app.js', 'public/js')
-  .js('resources/js/components/language-picker.js', 'public/js')
-  .js('resources/js/components/rich-text-editor.js', 'public/js')
   .postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),
   ])
 
-// vendor CSS
-mix.copy('node_modules/quill/dist/quill.snow.css', 'public/css')
+// vendor JS
+mix.copy('node_modules/livewire-turbolinks/dist/livewire-turbolinks.js', 'public/js')
 
 if (mix.inProduction()) {
   mix.version()
