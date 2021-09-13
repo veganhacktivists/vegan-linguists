@@ -11,8 +11,7 @@
 <x-notifications.base-notification
     :user="$author"
     :date="$date"
-    :description="__(':userName has revoked your claim on the :languageName translation for :translationRequestTitle.', [
-        'userName' => $author->name,
+    :description="__('Revoked your claim on the :languageName translation for :translationRequestTitle.', [
         'languageName' => '<strong>'.$translationRequest->language->name.'</strong>',
         'translationRequestTitle' => $translationRequestTitle,
     ])" />

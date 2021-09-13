@@ -11,8 +11,7 @@
 <x-notifications.base-notification
     :user="$translator"
     :date="$date"
-    :description="__(':userName has claimed the :languageName translation for :translationRequestTitle.', [
-        'userName' => $translator->name,
+    :description="__('Claimed the :languageName translation for :translationRequestTitle.', [
         'languageName' => '<strong>'.$translationRequest->language->name.'</strong>',
         'translationRequestTitle' => $translationRequestTitle,
     ])" />

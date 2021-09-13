@@ -4,14 +4,16 @@ namespace App\Providers;
 
 use App\Events\CommentCreatedEvent;
 use App\Events\CommentDeletedEvent;
-use App\Events\TranslationRequestDeletedEvent;
+use App\Events\SourceDeletingEvent;
+use App\Events\TranslationRequestDeletingEvent;
 use App\Events\TranslationRequestUpdatedEvent;
-use App\Events\UserDeletedEvent;
+use App\Events\UserDeletingEvent;
 use App\Listeners\CommentCreatedListener;
 use App\Listeners\CommentDeletedListener;
-use App\Listeners\TranslationRequestDeletedListener;
+use App\Listeners\SourceDeletingListener;
+use App\Listeners\TranslationRequestDeletingListener;
 use App\Listeners\TranslationRequestUpdatedListener;
-use App\Listeners\UserDeletedListener;
+use App\Listeners\UserDeletingListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -34,14 +36,17 @@ class EventServiceProvider extends ServiceProvider
         CommentDeletedEvent::class => [
             CommentDeletedListener::class,
         ],
+        SourceDeletingEvent::class => [
+            SourceDeletingListener::class,
+        ],
         TranslationRequestUpdatedEvent::class => [
             TranslationRequestUpdatedListener::class,
         ],
-        TranslationRequestDeletedEvent::class => [
-            TranslationRequestDeletedListener::class,
+        TranslationRequestDeletingEvent::class => [
+            TranslationRequestDeletingListener::class,
         ],
-        UserDeletedEvent::class => [
-            UserDeletedListener::class,
+        UserDeletingEvent::class => [
+            UserDeletingListener::class,
         ],
     ];
 

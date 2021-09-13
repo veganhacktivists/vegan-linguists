@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SourceDeletingEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,10 @@ class Source extends Model
         'title',
         'content',
         'plain_text',
+    ];
+
+    protected $dispatchesEvents = [
+        'deleting' => SourceDeletingEvent::class,
     ];
 
     public function author()

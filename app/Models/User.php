@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Events\UserDeletedEvent;
+use App\Events\UserDeletingEvent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,7 +67,7 @@ class User extends Authenticatable
     ];
 
     protected $dispatchesEvents = [
-        'deleted' => UserDeletedEvent::class,
+        'deleting' => UserDeletingEvent::class,
     ];
 
     public static function deletedUser()

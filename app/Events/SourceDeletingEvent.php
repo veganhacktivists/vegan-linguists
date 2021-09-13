@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Source;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserDeletedEvent
+class SourceDeletingEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,7 +20,7 @@ class UserDeletedEvent
      *
      * @return void
      */
-    public function __construct(public User $user)
+    public function __construct(public Source $source)
     {
     }
 

@@ -11,8 +11,7 @@
 <x-notifications.base-notification
     :user="$translator"
     :date="$date"
-    :description="__(':userName has unclaimed the :languageName translation for :translationRequestTitle.', [
-        'userName' => $translator->name,
+    :description="__('Unclaimed the :languageName translation for :translationRequestTitle.', [
         'languageName' => '<strong>'.$translationRequest->language->name.'</strong>',
         'translationRequestTitle' => $translationRequestTitle,
     ])" />

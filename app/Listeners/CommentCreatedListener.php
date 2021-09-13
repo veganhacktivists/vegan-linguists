@@ -40,7 +40,7 @@ class CommentCreatedListener
     {
         if ($comment->author_id === $translationRequest->translator_id) {
             $translationRequest->source->author->notify(new TranslationRequestCommentedOnNotification($comment));
-        } else {
+        } elseif ($translationRequest->translator_id) {
             $translationRequest->translator->notify(new TranslationRequestCommentedOnNotification($comment));
         }
     }

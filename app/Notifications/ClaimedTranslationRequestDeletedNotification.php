@@ -18,7 +18,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification
      *
      * @return void
      */
-    public function __construct(private string $translationRequestTitle)
+    public function __construct(private string $translationRequestTitle, private string $languageName)
     {
     }
 
@@ -57,6 +57,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification
     {
         return [
             'translation_request_title' => $this->translationRequestTitle,
+            'language_name' => $this->languageName,
         ];
     }
 }

@@ -22,7 +22,12 @@ class NotificationModelCache {
             ->get()
             ->keyBy('id');
 
-        $translationRequestIds = $this->pluckTranslationRequestIds($notifications)->unique();
+        $translationRequestIds = $this->pluckTranslationRequestIds($notifications)
+            ->concat(
+                $this->comments->where('commentable_type', TranslationRequest::class)
+                               ->pluck('commentable_id')
+            )
+            ->unique();
         $this->translationRequests = TranslationRequest::whereIn('id', $translationRequestIds)
             ->get()
             ->keyBy('id');
@@ -63,7 +68,9 @@ class NotificationModelCache {
         })();
 
         $record = $collection->get($id);
-        if (!$record) return $model::find($id);
+        if (!$record) {
+            return $model::find($id);
+        }
 
         return $record;
     }
