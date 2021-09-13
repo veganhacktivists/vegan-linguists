@@ -1,5 +1,3 @@
-@php($deletedUser = App\Models\User::deletedUser())
-
 <div class="flex flex-col h-full">
     <x-slot name="pageTitle">{{ $source->title }}</x-slot>
 
@@ -73,7 +71,7 @@
                         class="h-10 w-10 inline-block" />
 
                     {{ __(':translatorName translated this content', [
-                        'translatorName' => ($currentTranslationRequest->translator ?? $deletedUser)->name,
+                        'translatorName' => user($currentTranslationRequest->translator)->name,
                     ]) }}
                 </div>
                 <div>
@@ -136,7 +134,7 @@
 
             <x-slot name="content">
                 {{ __('Are you sure you want to revoke :translatorName\'s claim on this translation request?', [
-                    'translatorName' => ($currentTranslationRequest->translator ?? $deletedUser)->name,
+                    'translatorName' => user($currentTranslationRequest->translator)->name,
                 ]) }}
             </x-slot>
 

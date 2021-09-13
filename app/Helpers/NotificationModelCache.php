@@ -9,7 +9,8 @@ use App\Models\User;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Collection;
 
-class NotificationModelCache {
+class NotificationModelCache
+{
     private Collection $comments;
     private Collection $sources;
     private Collection $translationRequests;
@@ -25,7 +26,7 @@ class NotificationModelCache {
         $translationRequestIds = $this->pluckTranslationRequestIds($notifications)
             ->concat(
                 $this->comments->where('commentable_type', TranslationRequest::class)
-                               ->pluck('commentable_id')
+                    ->pluck('commentable_id')
             )
             ->unique();
         $this->translationRequests = TranslationRequest::whereIn('id', $translationRequestIds)
@@ -52,7 +53,7 @@ class NotificationModelCache {
 
     public function find(string $model, int|null $id)
     {
-        $collection = (function() use ($model) {
+        $collection = (function () use ($model) {
             switch ($model) {
                 case Comment::class:
                     return $this->comments;
