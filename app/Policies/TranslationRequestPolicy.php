@@ -53,7 +53,8 @@ class TranslationRequestPolicy
 
     public function comment(User $user, TranslationRequest $translationRequest)
     {
-        return ($translationRequest->isClaimed() && $translationRequest->isClaimedBy($user))
+        return (($translationRequest->isClaimed() || $translationRequest->isComplete())
+            && $translationRequest->isClaimedBy($user))
             || $user->is($translationRequest->source->author);
     }
 }
