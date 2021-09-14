@@ -7,22 +7,6 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
 <x-app-layout>
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
-    <x-slot name="picker">
-        <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.Turbolinks.visit($el.value)">
-            <option value="{{ $claimedRoute }}" {{ empty($filter) ? 'selected' : '' }}>
-                {{ __('Claimed') }}
-            </option>
-
-            <option value="{{ $unclaimedRoute }}" {{ $filter === 'unclaimed' ? 'selected' : '' }}>
-                {{ __('Unclaimed') }}
-            </option>
-
-            <option value="{{ $completedRoute }}" {{ $filter === 'complete' ? 'selected' : '' }}>
-                {{ __('Complete') }}
-            </option>
-        </x-navbar-picker>
-    </x-slot>
-
     <div class="max-w-7xl mx-auto">
         <div x-data="{ source: '{{ $sourceLanguageCode }}', target: '{{ $targetLanguageCode }}', url: new URL(window.location) }"
             class="flex w-full max-w-2xl p-4 items-center gap-4">

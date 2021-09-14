@@ -1,24 +1,6 @@
 <x-app-layout>
     <x-slot name="pageTitle">{{ __('Dashboard') }}</x-slot>
 
-    <x-slot name="picker">
-        <x-navbar-picker title="{{ __('Filter by Status') }}" x-data="" @change="window.Turbolinks.visit($el.value)">
-            <option value="{{ route('home') }}" {{ empty($filter) ? 'selected' : '' }}>
-                {{ __('All') }}
-            </option>
-
-            <option value="{{ route('home', ['filter' => 'complete']) }}"
-                {{ $filter === 'complete' ? 'selected' : '' }}>
-                {{ __('Complete') }}
-            </option>
-
-            <option value="{{ route('home', ['filter' => 'incomplete']) }}"
-                {{ $filter === 'incomplete' ? 'selected' : '' }}>
-                {{ __('Incomplete') }}
-            </option>
-        </x-navbar-picker>
-    </x-slot>
-
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-4">
             <h2 class="text-2xl font-bold mb-4 text-center sm:text-left">
