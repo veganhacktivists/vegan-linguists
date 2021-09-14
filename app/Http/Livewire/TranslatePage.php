@@ -37,7 +37,6 @@ class TranslatePage extends Component
         $this->translationContent = $translationRequest->content;
         $this->translationPlainText = $translationRequest->plain_text;
         $this->isMine = $translationRequest->isClaimedBy(Auth::user());
-
     }
 
     public function render()
