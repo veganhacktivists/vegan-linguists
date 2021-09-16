@@ -32,12 +32,14 @@ Route::get('/', function () {
     return view('landing');
 })->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/switch-user-mode', SwitchUserModeController::class)->name('switch-user-mode');
     Route::get('/notifications', NotificationsPage::class)->name('notifications');
 
     Route::middleware('author')->group(function () {
-        Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
+        Route::get('/requests/new', RequestTranslationPage::class)
+            ->middleware('verified')
+            ->name('request-translation');
 
         Route::get(
             '/requests/{source}/translations/{translationRequest:language_id}',

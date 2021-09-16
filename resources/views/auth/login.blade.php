@@ -21,6 +21,14 @@
                 <div class="mt-8">
                     <x-jet-validation-errors class="mb-4" />
 
+                    @if (session('status'))
+                        <x-alert type="success"
+                                 :title="__('Success')"
+                                 icon="s-check-circle">
+                            {{ session('status') }}
+                        </x-alert>
+                    @endif
+
                     <form method="POST"
                           class="space-y-6"
                           action="{{ route('login') }}">

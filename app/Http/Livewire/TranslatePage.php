@@ -37,6 +37,10 @@ class TranslatePage extends Component
         $this->translationContent = $translationRequest->content;
         $this->translationPlainText = $translationRequest->plain_text;
         $this->isMine = $translationRequest->isClaimedBy(Auth::user());
+
+        if (session('status') === 'verification-link-sent') {
+            session()->flash('flash.banner', __('An email has been sent to you with a link to verify your email address!'));
+        }
     }
 
     public function render()

@@ -7,12 +7,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Notifications\Notification;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -109,11 +108,13 @@ class User extends Authenticatable
         return $this->languages()->wherePivot('language_id', $languageId)->exists();
     }
 
-    public function isInAuthorMode() {
+    public function isInAuthorMode()
+    {
         return $this->user_mode === UserMode::AUTHOR;
     }
 
-    public function switchUserMode() {
+    public function switchUserMode()
+    {
         if ($this->isInAuthorMode()) {
             $this->update(['user_mode' => UserMode::TRANSLATOR]);
         } else {

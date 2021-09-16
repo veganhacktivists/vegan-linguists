@@ -17,32 +17,37 @@
                 <x-stacked-list class="sm:rounded-md">
                     @foreach ($sources as $source)
                         <x-dashboard.source-row :source="$source"
-                            :href="route('source', [$source->id, $source->slug])" />
+                                                :href="route('source', [$source->id, $source->slug])" />
                     @endforeach
                 </x-stacked-list>
             @elseif ($filter === 'complete')
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('You have no completed translations')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('You have no completed translations')">
                     {{ __('Try coming back later to check the status of your translations') }}
                 </x-empty-state>
             @elseif ($filter === 'incomplete')
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('You have no incomplete translations')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('You have no incomplete translations')">
                     {{ __('Want to see something here?') }}
 
                     <x-slot name="action">
-                        <x-jet-button element="a" href="{{ route('request-translation') }}">
+                        <x-jet-button element="a"
+                                      href="{{ route('request-translation') }}">
                             {{ __('Request a translation') }}
                         </x-jet-button>
                     </x-slot>
                 </x-empty-state>
             @else
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('You haven\'t requested any translations yet')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('You haven\'t requested any translations yet')">
                     {{ __('Get started by requesting a translation') }}
 
                     <x-slot name="action">
-                        <x-jet-button element="a" href="{{ route('request-translation') }}">
+                        <x-jet-button element="a"
+                                      href="{{ route('request-translation') }}">
                             {{ __('Request a translation') }}
                         </x-jet-button>
                     </x-slot>

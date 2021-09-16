@@ -47,6 +47,7 @@ class TranslationRequestPolicy
     public function claim(User $user, TranslationRequest $translationRequest)
     {
         return $this->view($user, $translationRequest)
+            && $user->hasVerifiedEmail()
             && $translationRequest->translator_id === null
             && $user->claimedTranslationRequests()->count() < MAX_CLAIMED_TRANSLATION_REQUESTS;
     }

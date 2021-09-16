@@ -22,19 +22,16 @@
     </x-slot>
 
     <div class="flex-1 overflow-auto">
-        <x-rich-text-editor
-            class="px-8"
-            wire:ignore
-            :autoFocus="true"
-            x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+        <x-rich-text-editor class="px-8"
+                            wire:ignore
+                            :autoFocus="true"
+                            x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
     </div>
 
     <div class="text-right p-2 bg-white sticky bottom-0">
-        <x-jet-button
-            type="submit"
-            wire:click="$set('shouldDisplayLanguagePicker', true)"
-            :disabled="mb_strlen(trim($plainText)) === 0"
-        >
+        <x-jet-button type="submit"
+                      wire:click="$set('shouldDisplayLanguagePicker', true)"
+                      :disabled="mb_strlen(trim($plainText)) === 0">
             {{ __('Continue') }}
         </x-jet-button>
     </div>
@@ -48,62 +45,64 @@
             <x-jet-validation-errors class="mb-4" />
 
             <div>
-                <x-jet-label for="title" class="mb-1">
+                <x-jet-label for="title"
+                             class="mb-1">
                     {{ __('Title') }}
                 </x-jet-label>
-                <x-jet-input id="title" type="text" wire:model.lazy="title" class="w-full" />
+                <x-jet-input id="title"
+                             type="text"
+                             wire:model.lazy="title"
+                             class="w-full" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="source-language" class="mb-1">
+                <x-jet-label for="source-language"
+                             class="mb-1">
                     {{ __('Which language is your content written in?') }}
                 </x-jet-label>
 
-                <x-language-picker
-                    id="source-language"
-                    wire:model="sourceLanguageId"
-                    :multiSelect="false"
-                    :defaultLanguages="collect([Auth::user()->languages->first()])"
-                    :languages="Auth::user()->languages" />
+                <x-language-picker id="source-language"
+                                   wire:model="sourceLanguageId"
+                                   :multiSelect="false"
+                                   :defaultLanguages="collect([Auth::user()->languages->first()])"
+                                   :languages="Auth::user()->languages" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="language-picker" class="mb-1">
+                <x-jet-label for="language-picker"
+                             class="mb-1">
                     {{ __('Which languages would you like your content to be translated to?') }}
                 </x-jet-label>
-                <x-language-picker
-                    id="language-picker"
-                    wire:model="targetLanguages"
-                    :shouldDisplayTranslatedLanguage="true"
-                    :languages="$languages" />
+                <x-language-picker id="language-picker"
+                                   wire:model="targetLanguages"
+                                   :shouldDisplayTranslatedLanguage="true"
+                                   :languages="$languages" />
             </div>
 
             <div class="mt-4">
-                <x-warning-alert title="{{ __('Important') }}">
+                <x-alert title="{{ __('Important') }}"
+                         type="warning"
+                         icon="o-exclamation">
                     {{ __('Once your submit your content for translation, it cannot be changed.') }}
                     <strong>
                         {{ __('Please make sure to proofread your content thoroughly before submission.') }}
                     </strong>
-                </x-warning-alert>
+                </x-alert>
             </div>
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button
-                type="button"
-                wire:click="$set('shouldDisplayLanguagePicker', false)"
-            >
+            <x-jet-secondary-button type="button"
+                                    wire:click="$set('shouldDisplayLanguagePicker', false)">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
-            <x-jet-button
-                type="submit"
-                class="ml-2"
-                dusk="confirm-password-button"
-                wire:click="requestTranslation"
-                wire:loading.attr="disabled"
-                :disabled="count($targetLanguages) === 0"
-            >
+            <x-jet-button type="submit"
+                          class="ml-2"
+                          dusk="confirm-password-button"
+                          wire:click="requestTranslation"
+                          wire:loading.attr="disabled"
+                          :disabled="count($targetLanguages) === 0">
                 {{ __('Submit') }}
             </x-jet-button>
         </x-slot>
