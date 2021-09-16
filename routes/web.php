@@ -29,14 +29,14 @@ Route::get('/', function () {
         }
     }
 
-    return view('welcome');
+    return view('landing');
 })->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function() {
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::put('/switch-user-mode', SwitchUserModeController::class)->name('switch-user-mode');
     Route::get('/notifications', NotificationsPage::class)->name('notifications');
 
-    Route::middleware('author')->group(function() {
+    Route::middleware('author')->group(function () {
         Route::get('/requests/new', RequestTranslationPage::class)->name('request-translation');
 
         Route::get(
@@ -47,7 +47,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
         Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
     });
 
-    Route::middleware('translator')->group(function() {
+    Route::middleware('translator')->group(function () {
         Route::get(
             '/translate/{translationRequest}/{slug?}',
             TranslatePage::class
