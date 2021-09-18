@@ -10,7 +10,6 @@
     <x-slot name="form">
         <div class="col-span-12">
             <fieldset class="border-gray-200">
-                <legend class="sr-only">{{ __('Notifications') }}</legend>
                 <div class="divide-y divide-gray-200">
                     @foreach ($notificationSettings as $notificationSetting)
                         <div
