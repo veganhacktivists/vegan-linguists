@@ -9,9 +9,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TranslationRequestClaimedNotification extends Notification
+class TranslationRequestClaimedNotification extends Notification implements BaseNotification
 {
     use Queueable;
+
+    public static function getTitle()
+    {
+        return __('Translation Request Claimed');
+    }
+
+    public static function getDescription()
+    {
+        return __("Get notified when your content has been claimed by a translator");
+    }
 
     /**
      * Create a new notification instance.
@@ -30,7 +40,17 @@ class TranslationRequestClaimedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        $media = [];
+
+        if ($notifiable->shouldBeNotified(static::class, 'site')) {
+            $media[] = 'database';
+        }
+
+        if ($notifiable->shouldBeNotified(static::class, 'email')) {
+            $media[] = 'mail';
+        }
+
+        return $media;
     }
 
     /**

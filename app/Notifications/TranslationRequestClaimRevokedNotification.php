@@ -13,6 +13,16 @@ class TranslationRequestClaimRevokedNotification extends Notification
 {
     use Queueable;
 
+    public static function getTitle()
+    {
+        return __('Translation Request Claim Revoked');
+    }
+
+    public static function getDescription()
+    {
+        return __("Get notified when your claim on a translation request is revoked");
+    }
+
     /**
      * Create a new notification instance.
      *
@@ -30,7 +40,17 @@ class TranslationRequestClaimRevokedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        $media = [];
+
+        if ($notifiable->shouldBeNotified(static::class, 'site')) {
+            $media[] = 'database';
+        }
+
+        if ($notifiable->shouldBeNotified(static::class, 'email')) {
+            $media[] = 'mail';
+        }
+
+        return $media;
     }
 
     /**

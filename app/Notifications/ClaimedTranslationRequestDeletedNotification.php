@@ -9,9 +9,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ClaimedTranslationRequestDeletedNotification extends Notification
+class ClaimedTranslationRequestDeletedNotification extends Notification implements BaseNotification
 {
     use Queueable;
+
+    public static function getTitle()
+    {
+        return __('Claimed Translation Request Deleted');
+    }
+
+    public static function getDescription()
+    {
+        return __("Get notified when a translation request that you've claimed has been deleted");
+    }
 
     /**
      * Create a new notification instance.
@@ -30,7 +40,17 @@ class ClaimedTranslationRequestDeletedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        $media = [];
+
+        if ($notifiable->shouldBeNotified(static::class, 'site')) {
+            $media[] = 'database';
+        }
+
+        if ($notifiable->shouldBeNotified(static::class, 'email')) {
+            $media[] = 'mail';
+        }
+
+        return $media;
     }
 
     /**

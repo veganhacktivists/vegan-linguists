@@ -103,6 +103,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->translationRequests()->where('status', TranslationRequestStatus::COMPLETE);
     }
 
+    public function notificationSettings()
+    {
+        return $this->hasMany(NotificationSetting::class);
+    }
+
     public function speaksLanguage(int $languageId)
     {
         return $this->languages()->wherePivot('language_id', $languageId)->exists();
@@ -120,5 +125,18 @@ class User extends Authenticatable implements MustVerifyEmail
         } else {
             $this->update(['user_mode' => UserMode::AUTHOR]);
         }
+    }
+
+    public function shouldBeNotified(string $notificationType, string $medium)
+    {
+        if ($medium !== 'email' && $medium !== 'site') {
+            abort(500, __('Something went terribly wrong'));
+        }
+
+        $notificationSetting = $this->notificationSettings()->where('notification_type', $notificationType)->firstOrNew([
+            'notification_type' => $notificationType
+        ]);
+
+        return $notificationSetting->$medium;
     }
 }

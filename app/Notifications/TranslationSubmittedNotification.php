@@ -13,6 +13,17 @@ class TranslationSubmittedNotification extends Notification
 {
     use Queueable;
 
+    public static function getTitle()
+    {
+        return __('Translation Submitted');
+    }
+
+    public static function getDescription()
+    {
+
+        return __("Get notified when your content has been translated");
+    }
+
     /**
      * Create a new notification instance.
      *
@@ -31,7 +42,17 @@ class TranslationSubmittedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        $media = [];
+
+        if ($notifiable->shouldBeNotified(static::class, 'site')) {
+            $media[] = 'database';
+        }
+
+        if ($notifiable->shouldBeNotified(static::class, 'email')) {
+            $media[] = 'mail';
+        }
+
+        return $media;
     }
 
     /**

@@ -18,6 +18,12 @@
                 <x-jet-section-border />
             @endif
 
+            <div class="mt-10 sm:mt-0">
+                @livewire('profile.notification-settings')
+
+                <x-jet-section-border />
+            </div>
+
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.update-password-form')

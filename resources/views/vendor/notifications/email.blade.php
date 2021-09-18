@@ -1,3 +1,6 @@
+@php
+$profileSettingsUrl = route('profile.show');
+@endphp
 @component('mail::message')
 {{-- Greeting --}}
 @if (!empty($greeting))
@@ -61,6 +64,10 @@ $color = 'primary';
 'actionText' => $actionText,
 ]
 ) <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+
+{!! __("Don't want to receive these emails anymore? You can opt out of these types of notifications in your :profileSettings.", [
+'profileSettings' => "<a href=\"$profileSettingsUrl\">" . __('profile settings') . '</a>',
+]) !!}
 @endslot
 @endisset
 @endcomponent

@@ -13,6 +13,16 @@ class TranslationRequestUnclaimedNotification extends Notification
 {
     use Queueable;
 
+    public static function getTitle()
+    {
+        return __('Translation Request Unclaimed');
+    }
+
+    public static function getDescription()
+    {
+        return __("Get notified when a translator unclaims one of your translation requests");
+    }
+
     /**
      * Create a new notification instance.
      *
@@ -32,7 +42,17 @@ class TranslationRequestUnclaimedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        $media = [];
+
+        if ($notifiable->shouldBeNotified(static::class, 'site')) {
+            $media[] = 'database';
+        }
+
+        if ($notifiable->shouldBeNotified(static::class, 'email')) {
+            $media[] = 'mail';
+        }
+
+        return $media;
     }
 
     /**
