@@ -6,6 +6,8 @@
 @import './components/rich-text-editor.css';
 @import './components/sidebar-link.css';
 
+@import './pages/landing.css';
+
 .turbolinks-progress-bar {
     @apply bg-indigo-500 h-1;
 }
