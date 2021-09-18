@@ -40,6 +40,6 @@ class Comment extends Model
             return substr($this->plain_text, 0, 97) . '…';
         }
 
-        return $this->plain_text;
+        return trim($this->plain_text);
     }
 }
