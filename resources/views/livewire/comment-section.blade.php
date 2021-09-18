@@ -4,7 +4,7 @@
         {{ __('Discussion') }}
     </h2>
 
-    <div class="bg-white rounded-md overflow-hidden mt-4 shadow border border-gray-200">
+    <div class="bg-white rounded-md mt-4 shadow border border-gray-200">
         <x-rich-text-editor wire:ignore
                             x-init="$wire.on('comment-saved', () => editor.clear())"
                             x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />

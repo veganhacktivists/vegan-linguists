@@ -5,7 +5,7 @@
 }
 
 .ql-toolbar.ql-snow {
-    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-0 pt-6 sticky top-0 z-10;
+    @apply bg-white border-none flex flex-wrap gap-2 justify-center px-0 pt-6 sticky top-0 z-10 rounded-t-md;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
