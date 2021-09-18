@@ -31,7 +31,7 @@ class TranslationSubmittedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -43,9 +43,18 @@ class TranslationSubmittedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(__('Translation Submitted'))
+            ->line(
+                __(':translatorName has submitted the :languageName translation for :sourceTitle.', [
+                    'translatorName' => '**' . (optional($this->translator)->name ?: __('Someone')) . '**',
+                    'languageName' => '**' . $this->translationRequest->language->name . '**',
+                    'sourceTitle' => '**' . $this->translationRequest->source->title . '**',
+                ])
+            )
+            ->action(
+                __('View Translation'),
+                route('translation', [$this->translationRequest->source->id, $this->translationRequest->language->id])
+            );
     }
 
     /**

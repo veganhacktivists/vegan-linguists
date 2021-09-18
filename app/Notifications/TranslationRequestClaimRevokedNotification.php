@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use App\Models\TranslationRequest;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -31,7 +30,7 @@ class TranslationRequestClaimRevokedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -43,9 +42,17 @@ class TranslationRequestClaimRevokedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(__('Translation Request Claim Revoked'))
+            ->line(
+                __('Your claim on the :languageName translation for :sourceTitle has been revoked.', [
+                    'languageName' => '<strong>' . $this->translationRequest->language->name . '</strong>',
+                    'sourceTitle' => '<strong>' . $this->translationRequest->source->title . '</strong>',
+                ])
+            )
+            ->action(
+                __('View Your Claimed Translation Requests'),
+                route('home')
+            );
     }
 
     /**

@@ -29,7 +29,7 @@ class TranslationRequestCommentedOnNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -40,10 +40,28 @@ class TranslationRequestCommentedOnNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $translationRequest = $this->comment->commentable;
+        $source = $translationRequest->source;
+        $commenter = $this->comment->author;
+
+        $route = $commenter->id === $source->author_id
+            ? route('translate', [$translationRequest->id, $source->slug]) // notifying the translator
+            : route('translation', [$source->id, $translationRequest->language->id]); // notifying the author
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('New Comment on Translation Request')
+            ->line(
+                __(':userName has left a comment on the :languageName translation request for :sourceTitle.', [
+                    'userName' => '**' . $commenter->name . '**',
+                    'languageName' => '**' . $translationRequest->language->name . '**',
+                    'sourceTitle' => '**' . $translationRequest->source->title . '**',
+                ])
+            )
+            ->line("_{$this->comment->truncatedText}_")
+            ->action(
+                __('View Translation Request'),
+                $route,
+            );
     }
 
     /**

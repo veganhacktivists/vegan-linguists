@@ -21,8 +21,7 @@ class TranslationRequestUnclaimedNotification extends Notification
     public function __construct(
         private mixed $translator, // prevent dependency injection
         private TranslationRequest $translationRequest
-    )
-    {
+    ) {
     }
 
     /**
@@ -33,7 +32,7 @@ class TranslationRequestUnclaimedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -45,9 +44,18 @@ class TranslationRequestUnclaimedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(__('Translation Request Unclaimed'))
+            ->line(
+                __(':translatorName has unclaimed the :languageName translation for :sourceTitle.', [
+                    'translatorName' => '**' . (optional($this->translator)->name ?: __('Someone')) . '**',
+                    'languageName' => '**' . $this->translationRequest->language->name . '**',
+                    'sourceTitle' => '**' . $this->translationRequest->source->title . '**',
+                ])
+            )
+            ->action(
+                __('View Your Translation Requests'),
+                route('home')
+            );
     }
 
     /**

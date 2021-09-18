@@ -33,4 +33,13 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
+
+    public function getTruncatedTextAttribute()
+    {
+        if (strlen($this->plain_text) >= 100) {
+            return substr($this->plain_text, 0, 97) . '…';
+        }
+
+        return $this->plain_text;
+    }
 }

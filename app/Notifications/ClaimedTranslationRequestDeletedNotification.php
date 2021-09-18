@@ -30,7 +30,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -42,9 +42,17 @@ class ClaimedTranslationRequestDeletedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(__('Translation Request Deleted'))
+            ->line(
+                __('The :languageName translation request for :sourceTitle has been deleted.', [
+                    'languageName' => '**' . $this->languageName . '**',
+                    'sourceTitle' => '**' . $this->translationRequestTitle . '**',
+                ])
+            )
+            ->action(
+                __('View Your Claimed Translation Requests'),
+                route('home')
+            );
     }
 
     /**
