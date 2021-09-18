@@ -36,6 +36,9 @@ class CommentSection extends Component
             'plain_text' => $this->plainText,
         ]);
 
+        $this->plainText = '';
+        $this->content = '';
+
         $this->commentable->refresh();
         $this->emit('comment-saved');
     }
