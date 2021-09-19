@@ -21,13 +21,13 @@ class LanguagePicker extends Component
         Collection $defaultLanguages,
         public bool $shouldDisplayTranslatedLanguage = false,
         public bool $multiSelect = true,
-    )
-    {
+    ) {
+        $submittedLanguages = old('languages');
         $this->languages = $languages->isNotEmpty() ? $languages : Language::all();
-        $this->defaultLanguages = old(
-            'languages',
-            $defaultLanguages,
-        );
+
+        $this->defaultLanguages = !empty($submittedLanguages)
+            ? Language::whereIn('id', $submittedLanguages)->get()
+            : $defaultLanguages;
     }
 
     /**

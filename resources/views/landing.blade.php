@@ -15,7 +15,7 @@
           href="{{ mix('css/app.css') }}">
 </head>
 
-<body class="bg-brandBeige-100 bg-opacity-60 text-brandBrown-900">
+<body>
     <header>
         <div class="relative bg-brandBrown-900">
             <div
@@ -139,7 +139,7 @@
                 <div class="h-full w-full xl:grid xl:grid-cols-12">
                     <div class="h-full xl:relative xl:col-start-8 xl:col-span-5">
                         <img class="h-full w-full object-cover xl:absolute xl:inset-0"
-                             src="/img/our-story-bg.png"
+                             src="/img/animals-talking.png"
                              alt="Our story">
                     </div>
                 </div>
@@ -173,11 +173,11 @@
                 </h2>
                 <div class="flex flex-col items-center sm:flex-row gap-4 w-full sm:max-w-md">
                     <a href="{{ route('register') }}"
-                       class="bg-brandBeige-100 text-brandClay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
+                       class="border-2 border-brandBeige-100 bg-brandBeige-100 hover:bg-brandBeige-200 hover:border-brandBeige-200 text-brandClay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
                         {{ __('Submit content') }}
                     </a>
                     <a href="{{ route('register') }}"
-                       class="border-2 border-brandBeige-100 text-brandBeige-100 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
+                       class="border-2 border-brandBeige-100 text-brandBeige-100 hover:bg-brandBeige-100 hover:text-brandClay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
                         {{ __('Become a translator') }}
                     </a>
                 </div>

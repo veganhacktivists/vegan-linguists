@@ -1,18 +1,16 @@
 <x-guest-layout>
-    <div class="min-h-screen bg-white flex">
-        <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-            <div class="mx-auto w-full max-w-sm lg:w-96">
+    <div class="min-h-screen bg-noise flex">
+        <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 xl:flex-none xl:px-24">
+            <div class="mx-auto w-full max-w-sm xl:w-96">
                 <div>
-                    <img class="h-12 w-auto"
-                         src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                         alt="Workflow">
-                    <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                    <x-icon-logo-abbreviated class="h-12 w-auto" />
+                    <h2 class="mt-6 text-3xl font-extrabold">
                         {{ __('Log in to your account') }}
                     </h2>
-                    <p class="mt-2 text-sm text-gray-600">
+                    <p class="mt-2">
                         {{ __("Don't have an account yet?") }}
                         <a href="{{ route('register') }}"
-                           class="font-medium text-indigo-600 hover:text-indigo-500">
+                           class="text-brandGreen-500 hover:text-brandGreen-600 font-bold">
                             {{ __('Sign up') }}
                         </a>
                     </p>
@@ -65,14 +63,15 @@
                                 <label for="remember_me"
                                        class="flex items-center">
                                     <x-jet-checkbox id="remember_me"
-                                                    name="remember" />
-                                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                                                    name="remember"
+                                                    checked />
+                                    <span class="ml-2 text-sm">{{ __('Remember me') }}</span>
                                 </label>
                             </div>
 
                             <div class="text-sm">
                                 <a href="{{ route('password.request') }}"
-                                   class="font-medium text-indigo-600 hover:text-indigo-500">
+                                   class="text-brandGreen-500 hover:text-brandGreen-600 font-bold">
                                     {{ __('Forgot your password?') }}
                                 </a>
                             </div>
@@ -88,9 +87,9 @@
                 </div>
             </div>
         </div>
-        <div class="hidden lg:block relative w-0 flex-1">
-            <img class="absolute inset-0 h-full w-full object-cover"
-                 src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+        <div class="hidden xl:block relative w-0 flex-1">
+            <img class="absolute inset-0 h-full w-full p-20 object-contain"
+                 src="/img/animals-talking.png"
                  alt="">
         </div>
     </div>

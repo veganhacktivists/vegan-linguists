@@ -1,16 +1,12 @@
 .autocomplete {
-    @apply bg-white border border-gray-300 overflow-auto rounded shadow z-50;
+    @apply bg-white border-2 border-brandBlue-500 overflow-auto rounded-md shadow z-50;
 }
 
 .autocomplete > div {
     @apply p-2;
 }
 
-.autocomplete .group {
-    @apply bg-gray-50;
-}
-
 .autocomplete > div:hover:not(.group),
 .autocomplete > div.selected {
-    @apply bg-indigo-50 cursor-pointer;
+    @apply bg-brandBlue-50 cursor-pointer;
 }
