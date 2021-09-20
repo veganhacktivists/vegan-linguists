@@ -9,16 +9,20 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
 
     <div class="max-w-7xl mx-auto">
         <div x-data="{ source: '{{ $sourceLanguageCode }}', target: '{{ $targetLanguageCode }}', url: new URL(window.location) }"
-            class="flex w-full max-w-2xl p-4 items-center gap-4">
+             class="flex w-full max-w-2xl p-4 items-center gap-4">
             <div class="w-full">
-                <x-jet-label class="mb-1" for="source-language">{{ __('Original Language') }}</x-jet-label>
-                <x-jet-select x-model="source" id="source-language" class="w-full"
-                    @change="url.searchParams.set('source', source); window.Turbolinks.visit(url)">
+                <x-jet-label class="mb-1"
+                             for="source-language">{{ __('Original Language') }}</x-jet-label>
+                <x-jet-select x-model="source"
+                              id="source-language"
+                              class="w-full"
+                              @change="url.searchParams.set('source', source); window.Turbolinks.visit(url)">
                     <x-jet-option value="">
                         {{ __('All') }}
                     </x-jet-option>
                     @foreach ($languages as $language)
-                        <x-jet-option :value="$language->code" :selected="$language->code === $sourceLanguageCode">
+                        <x-jet-option :value="$language->code"
+                                      :selected="$language->code === $sourceLanguageCode">
                             {{ $language->native_name }}
                         </x-jet-option>
                     @endforeach
@@ -30,14 +34,17 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
             </div>
 
             <div class="w-full">
-                <x-jet-label class="mb-1" for="source-language">{{ __('Target Language') }}</x-jet-label>
-                <x-jet-select x-model="target" class="w-full"
-                    @change="url.searchParams.set('target', target); window.Turbolinks.visit(url)">
+                <x-jet-label class="mb-1"
+                             for="source-language">{{ __('Target Language') }}</x-jet-label>
+                <x-jet-select x-model="target"
+                              class="w-full"
+                              @change="url.searchParams.set('target', target); window.Turbolinks.visit(url)">
                     <x-jet-option value="">
                         {{ __('All') }}
                     </x-jet-option>
                     @foreach ($languages as $language)
-                        <x-jet-option :value="$language->code" :selected="$language->code === $targetLanguageCode">
+                        <x-jet-option :value="$language->code"
+                                      :selected="$language->code === $targetLanguageCode">
                             {{ $language->native_name }}
                         </x-jet-option>
                     @endforeach
@@ -46,7 +53,7 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
         </div>
 
         <div class="sm:mx-4">
-            <h2 class="text-2xl font-bold mb-4 text-center sm:text-left">
+            <h2 class="text-2xl font-bold mb-4 text-center px-4 sm:px-0 sm:text-left">
                 @if ($filter === 'complete')
                     {{ __('My Completed Translations') }}
                 @elseif ($filter === 'unclaimed')
@@ -60,12 +67,13 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                 <x-stacked-list class="sm:rounded-md">
                     @foreach ($translationRequests as $translationRequest)
                         <x-dashboard.translation-request-row :translationRequest="$translationRequest"
-                            :href="route('translate', [$translationRequest->id, $translationRequest->source->slug])" />
+                                                             :href="route('translate', [$translationRequest->id, $translationRequest->source->slug])" />
                     @endforeach
                 </x-stacked-list>
             @elseif ($filter === 'unclaimed')
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('No translation requests found')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('No translation requests found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}
                     @else
@@ -73,8 +81,9 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     @endif
                 </x-empty-state>
             @elseif ($filter === 'complete')
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('No translations found')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('No translations found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}
                     @else
@@ -82,14 +91,16 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     @endif
 
                     <x-slot name="action">
-                        <x-jet-button element="a" href="{{ $unclaimedRoute }}">
+                        <x-jet-button element="a"
+                                      href="{{ $unclaimedRoute }}">
                             {{ __('Find content to translate') }}
                         </x-jet-button>
                     </x-slot>
                 </x-empty-state>
             @else
-                <x-empty-state class="bg-white shadow rounded p-8" icon="o-translate"
-                    :title="__('No claimed translation requests')">
+                <x-empty-state class="bg-white shadow rounded p-8"
+                               icon="o-translate"
+                               :title="__('No claimed translation requests')">
 
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
                         {{ __('Try selecting different languages to broaden your search.') }}
@@ -98,7 +109,8 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     @endif
 
                     <x-slot name="action">
-                        <x-jet-button element="a" href="{{ $unclaimedRoute }}">
+                        <x-jet-button element="a"
+                                      href="{{ $unclaimedRoute }}">
                             {{ __('Find content to translate') }}
                         </x-jet-button>
                     </x-slot>
