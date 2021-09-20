@@ -79,7 +79,7 @@
                 @endif
             </x-sidebar>
 
-            <main class="min-w-0 flex-1 border-t border-gray-200 flex flex-col lg:flex-row overflow-auto">
+            <main class="min-w-0 flex-1 border-t border-brandBrown-200 flex flex-col lg:flex-row overflow-auto">
                 <section aria-labelledby="primary-heading"
                          class="min-w-0 flex-1 {{ !empty($containContent) ? 'h-full' : '' }} flex-col lg:order-last">
                     <x-jet-banner />
@@ -92,7 +92,7 @@
                            class="block flex-shrink-0 order-first">
                         @if (isset($asideTitle))
                             <button @click="open = !open; $el.scrollIntoView()"
-                                    class="lg:hidden px-2 py-4 flex gap-2 justify-center items-center w-full bg-indigo-50 relative">
+                                    class="lg:hidden px-2 py-4 flex gap-2 justify-center items-center w-full bg-brandClay-50 relative">
                                 {{ $asideTitle }}
                                 <x-heroicon-o-chevron-down class="h-6 w-6"
                                                            x-bind:class="{ hidden: open }" />
@@ -102,7 +102,7 @@
                         @endif
 
                         <div x-bind:class="{ 'max-h-0': !open, 'max-h-screen': open }"
-                             class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-b lg:border-b-none lg:border-r border-gray-200 bg-gray-100 lg:block">
+                             class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-b lg:border-b-none lg:border-r border-brandBrown-200 bg-brandBeige-50 lg:block">
                             {{ $aside }}
                         </div>
                     </aside>

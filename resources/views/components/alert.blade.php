@@ -3,7 +3,7 @@
 // This is silly, but it's to satisfy PostCSS purging
 if ($type === 'warning') {
     $classes = [
-        'container' => 'bg-yellow-50',
+        'container' => 'bg-yellow-50 border border-yellow-400',
         'icon' => 'text-yellow-400',
         'title' => 'text-yellow-800',
         'message' => 'text-yellow-700',

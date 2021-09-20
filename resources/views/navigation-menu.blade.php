@@ -141,7 +141,7 @@ $isOnDashboard = request()->routeIs('home');
          role="dialog"
          aria-modal="true">
 
-        <div class="hidden sm:block sm:fixed sm:inset-0 sm:bg-brandBeige-200 sm:bg-opacity-75"
+        <div class="hidden sm:block sm:fixed sm:inset-0 sm:bg-brandBrown-900 sm:bg-opacity-50"
              aria-hidden="true"></div>
 
         <nav x-show="open"
