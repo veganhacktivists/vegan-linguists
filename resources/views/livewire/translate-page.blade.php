@@ -54,7 +54,7 @@
 
             <div class="bg-white h-full overflow-hidden">
                 <div class="px-4 py-5 sm:px-6 flex gap-2 items-end">
-                    <x-user-photo class="w-12 h-12 ring-1 ring-gray-300 "
+                    <x-user-photo class="w-12 h-12"
                                   :user="$translationRequest->source->author" />
                     <div>
                         <h3 class="text-lg leading-6 font-medium text-gray-900">

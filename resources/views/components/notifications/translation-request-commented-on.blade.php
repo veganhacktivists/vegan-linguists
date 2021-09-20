@@ -4,7 +4,7 @@ $route = $isNotifyingAuthor ? route('translation', [$source->id, $translationReq
 $title = htmlentities($source->title);
 
 $translationRequestTitle = <<<HTML
-    <a class="font-bold text-indigo-700 hover:underline" href="$route">$title</a>
+    <a class="font-bold text-brandClay-700 hover:underline" href="$route">$title</a>
 HTML;
 
 @endphp
@@ -12,7 +12,7 @@ HTML;
 <x-notifications.base-notification :date="$date"
                                    class="flex-col">
     <div class="flex gap-3 w-full">
-        <x-user-photo class="h-6 w-6"
+        <x-user-photo class="h-6 w-6 mt-1"
                       :user="$commentAuthor" />
 
         <div>

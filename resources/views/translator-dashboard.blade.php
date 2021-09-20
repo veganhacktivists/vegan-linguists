@@ -71,7 +71,7 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     @endforeach
                 </x-stacked-list>
             @elseif ($filter === 'unclaimed')
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('No translation requests found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
@@ -81,7 +81,7 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     @endif
                 </x-empty-state>
             @elseif ($filter === 'complete')
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('No translations found')">
                     @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
@@ -98,7 +98,7 @@ $completedRoute = route('home', ['filter' => 'complete'] + \Request::all());
                     </x-slot>
                 </x-empty-state>
             @else
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('No claimed translation requests')">
 

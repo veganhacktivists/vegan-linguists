@@ -21,13 +21,13 @@
                     @endforeach
                 </x-stacked-list>
             @elseif ($filter === 'complete')
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('You have no completed translations')">
                     {{ __('Try coming back later to check the status of your translations') }}
                 </x-empty-state>
             @elseif ($filter === 'incomplete')
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('You have no incomplete translations')">
                     {{ __('Want to see something here?') }}
@@ -40,7 +40,7 @@
                     </x-slot>
                 </x-empty-state>
             @else
-                <x-empty-state class="bg-white shadow rounded p-8"
+                <x-empty-state class="bg-white shadow rounded-md p-8"
                                icon="o-translate"
                                :title="__('You haven\'t requested any translations yet')">
                     {{ __('Get started by requesting a translation') }}

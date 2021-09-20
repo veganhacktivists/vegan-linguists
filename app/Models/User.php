@@ -78,6 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $user;
     }
 
+    protected function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=B6674B&background=fff';
+    }
+
     public function languages()
     {
         return $this->belongsToMany(Language::class);

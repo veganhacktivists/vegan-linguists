@@ -73,9 +73,8 @@ $isOnDashboard = request()->routeIs('home');
                                 <x-slot name="trigger">
                                     <button
                                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-brandBrown-800 transition">
-                                        <img class="h-8 w-8 rounded-full object-cover"
-                                             src="{{ Auth::user()->profile_photo_url }}"
-                                             alt="{{ Auth::user()->name }}" />
+                                        <x-user-photo :user="Auth::user()"
+                                                      class="h-8 w-8" />
                                     </button>
                                 </x-slot>
 
