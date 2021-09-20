@@ -9,14 +9,14 @@
 
     <x-slot name="form">
         <div class="col-span-12">
-            <fieldset class="border-gray-200">
-                <div class="divide-y divide-gray-200">
+            <fieldset class="border-brandBrown-200">
+                <div class="divide-y divide-brandBrown-200">
                     @foreach ($notificationSettings as $notificationSetting)
                         <div
                              class="relative flex items-start {{ $loop->first ? '' : 'pt-4' }} {{ $loop->last ? '' : 'pb-4' }}">
                             <div class="min-w-0 flex-1 text-sm">
-                                <h4 class="font-medium text-gray-700">{{ $notificationSetting->title }}</h4>
-                                <p class="text-gray-500">
+                                <h4 class="font-medium text-brandBrown-900">{{ $notificationSetting->title }}</h4>
+                                <p class="text-brandBrown-500">
                                     {{ $notificationSetting->description }}
                                 </p>
                             </div>
@@ -32,7 +32,7 @@
                                            {{ $notificationSetting->site ? 'checked' : '' }} />
 
                                     <x-heroicon-o-desktop-computer data-tooltip="{{ __('Website') }}"
-                                                                   class="w-6 h-6 transition-color text-gray-400 peer-checked:text-gray-800" />
+                                                                   class="w-6 h-6 text-brandBrown-400 peer-checked:text-brandBrown-800" />
 
                                 </label>
                             </div>
@@ -48,7 +48,7 @@
                                            {{ $notificationSetting->email ? 'checked' : '' }} />
 
                                     <x-heroicon-o-mail data-tooltip="{{ __('Email') }}"
-                                                       class="w-6 h-6 transition-color text-gray-400 peer-checked:text-gray-800" />
+                                                       class="w-6 h-6 transition-color text-brandBrown-400 peer-checked:text-brandBrown-800" />
                                 </label>
                             </div>
                         </div>
