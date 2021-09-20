@@ -1,11 +1,11 @@
-@props(['active'])
+@props(['active' => false])
 
 @php
-$classes = ($active ?? false)
-            ? 'text-sm font-medium text-gray-900'
-            : 'text-sm font-medium text-gray-900';
+$classes = $active ? 'border-b border-brandBrown-900 text-brandBrown-900' : 'text-brandBrown-700 hover:text-brandBrown-900';
 @endphp
 
-<a {{ $attributes->merge(['class' => $classes]) }}>
+<a {{ $attributes->merge([
+    'class' => 'text-sm ' . $classes,
+]) }}>
     {{ $slot }}
 </a>

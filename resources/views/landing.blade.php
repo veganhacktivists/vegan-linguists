@@ -135,18 +135,18 @@
         </div>
 
         <div class="relative bg-brandBrown-900">
-            <div class="hidden xl:block h-80 absolute inset-x-0 bottom-0 xl:top-0 xl:h-full">
-                <div class="h-full w-full xl:grid xl:grid-cols-12">
-                    <div class="h-full xl:relative xl:col-start-8 xl:col-span-5">
-                        <img class="h-full w-full object-cover xl:absolute xl:inset-0"
+            <div class="hidden lg:block h-80 absolute inset-x-0 bottom-0 lg:top-0 lg:h-full">
+                <div class="h-full w-full lg:grid lg:grid-cols-12">
+                    <div class="h-full lg:relative lg:col-start-8 lg:col-span-5 bg-noise">
+                        <img class="h-full w-full p-8 object-contain lg:absolute lg:inset-0"
                              src="/img/animals-talking.png"
                              alt="Our story">
                     </div>
                 </div>
             </div>
             <div
-                 class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
-                <div class="relative py-12 sm:py-24 xl:col-start-1">
+                 class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-x-8">
+                <div class="relative py-12 sm:py-24 lg:col-start-1">
                     <h2 class="text-sm font-semibold tracking-wide uppercase">
                         <span class="text-brandGreen-300">
                             {{ __('Our Story') }}
@@ -390,7 +390,7 @@
                         </svg>
                     </a>
                 </div>
-                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+                <p class="mt-8 text-base text-gray-500 md:mt-0 md:order-1">
                     &copy; {{ date('Y') }} {{ __('Vegan Hacktivists. All rights reserved.') }}
                 </p>
             </div>

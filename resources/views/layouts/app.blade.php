@@ -30,7 +30,7 @@
     @stack('scripts')
 </head>
 
-<body class="font-sans bg-gray-100 antialiased">
+<body class="font-sans antialiased bg-brandBeige-100 bg-opacity-60 text-brandBrown-900">
     <div class="h-screen flex flex-col overflow-hidden">
         @include('navigation-menu')
 

@@ -5,39 +5,51 @@ if ($attributes->has('wire:model')) {
 @endphp
 
 <div x-data='{ languages: [], languagePicker: null }'
-    x-init="
-        @if (isset($wireModel))
-            @if ($multiSelect)
-                $watch('languages', languages => $wire.set('{{ $wireModel }}', languages.map(l => l.id)));
-            @else
-                $watch('languages', (languages) => {
-                    $wire.set('{{ $wireModel }}', languages.length ? languages[0].id : null);
-                    @if (!$multiSelect)
-                        if (languages.length > 0) {
-                            languagePicker.setInputText(
-                                {{ $shouldDisplayTranslatedLanguage ? '`${languages[0].name} (${languages[0].native_name})`' : 'languages[0].native_name' }}
-                            );
-                        }
-                    @endif
-                });
-            @endif
+     x-init="
+
+
+
+
+
+
+
+
+
+
+
+     @if (isset($wireModel))
+    @if ($multiSelect)
+        $watch('languages', languages => $wire.set('{{ $wireModel }}', languages.map(l => l.id)));
+    @else
+        $watch('languages', (languages) => {
+        $wire.set('{{ $wireModel }}', languages.length ? languages[0].id : null);
+        @if (!$multiSelect)
+            if (languages.length > 0) {
+            languagePicker.setInputText(
+            {{ $shouldDisplayTranslatedLanguage ? '`${languages[0].name} (${languages[0].native_name})`' : 'languages[0].native_name' }}
+            );
+            }
         @endif
-        languages = {{ $defaultLanguages }};
+        });
+    @endif
+    @endif
+    languages = {{ $defaultLanguages }};
     "
     {{ $attributes->except(['wire:model', 'id']) }}>
 
     @if (!$attributes->has('wire:model'))
         <template x-for="language in languages">
-            <input name="{{ $attributes->get('name') . '[]' }}" type="hidden" x-bind:value="language.id" />
+            <input name="{{ $attributes->get('name') . '[]' }}"
+                   type="hidden"
+                   x-bind:value="language.id" />
         </template>
     @endif
 
-    <x-jet-input
-        wire:ignore
-        class="w-full"
-        type="text"
-        id="{{ $attributes->get('id') }}"
-        x-init="languagePicker = new window.LanguagePicker({
+    <x-jet-input wire:ignore
+                 class="w-full"
+                 type="text"
+                 id="{{ $attributes->get('id') }}"
+                 x-init="languagePicker = new window.LanguagePicker({
              el: $el,
              onSelect(l, setChosenLanguages, setInputText) {
                  {{ $multiSelect ? 'languages.push(l)' : 'languages = [l]' }};
@@ -50,15 +62,16 @@ if ($attributes->has('wire:model')) {
          });
          languagePicker.setChosenLanguages({{ $defaultLanguages }})
          "
-         @blur="languages = languages.slice()" />
+                 @blur="languages = languages.slice()" />
 
     @if ($multiSelect)
-        <ul class="flex flex-wrap gap-2 mt-2" x-show="languages.length > 0">
+        <ul class="flex flex-wrap gap-2 mt-2"
+            x-show="languages.length > 0">
             <template x-for="language in languages">
-                <li class="bg-gray-200 flex gap-2 px-2 py-1 rounded">
+                <li class="bg-brandBlue-100 border border-brandBlue-500 flex gap-2 px-2 py-1 rounded">
                     <span x-text="language.code.toLocaleUpperCase()"></span>
                     <button type="button"
-                        @click="languages = languages.filter(l => l.id !== language.id); languagePicker.setChosenLanguages(languages)">
+                            @click="languages = languages.filter(l => l.id !== language.id); languagePicker.setChosenLanguages(languages)">
                         &times;
                     </button>
                 </li>

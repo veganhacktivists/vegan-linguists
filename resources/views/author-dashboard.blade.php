@@ -3,7 +3,7 @@
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-4">
-            <h2 class="text-2xl font-bold mb-4 text-center sm:text-left">
+            <h2 class="text-2xl font-bold mb-4 text-center px-4 sm:px-0 sm:text-left">
                 @if ($filter === 'complete')
                     {{ __('Completed Translations') }}
                 @elseif ($filter === 'incomplete')
