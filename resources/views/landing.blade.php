@@ -138,7 +138,7 @@
             <div class="hidden lg:block h-80 absolute inset-x-0 bottom-0 lg:top-0 lg:h-full">
                 <div class="h-full w-full lg:grid lg:grid-cols-12">
                     <div class="h-full lg:relative lg:col-start-8 lg:col-span-5 bg-noise">
-                        <img class="h-full w-full p-8 object-contain lg:absolute lg:inset-0"
+                        <img class="h-full w-full lg:p-8 xl:p-20 object-contain lg:absolute lg:inset-0"
                              src="/img/animals-talking.png"
                              alt="Our story">
                     </div>
