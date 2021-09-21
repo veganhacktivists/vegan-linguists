@@ -4,7 +4,7 @@
         {{ __('Discussion') }}
     </h2>
 
-    <div class="bg-white rounded-md mt-4 shadow border border-gray-200">
+    <div class="bg-white rounded-md mt-4 shadow border border-brandBrown-200">
         <x-rich-text-editor wire:ignore
                             x-init="$wire.on('comment-saved', () => editor.clear())"
                             x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
@@ -32,24 +32,22 @@
                             <div class="relative flex items-start space-x-3">
                                 <div class="relative">
                                     <x-user-photo :user="$comment->author"
-                                                  class="h-10 w-10 bg-gray-400 flex items-center justify-center ring-8 ring-white" />
+                                                  class="h-10 w-10 bg-brandClay-200 flex items-center justify-center ring-8 ring-white" />
 
                                     <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                                        <x-heroicon-s-chat-alt class="h-5 w-5 text-gray-400" />
+                                        <x-heroicon-s-chat-alt class="h-5 w-5 text-brandClay-400" />
                                     </span>
                                 </div>
                                 <div class="min-w-0 flex-1">
                                     <div>
-                                        <div class="text-sm">
-                                            <p class="font-medium text-gray-900">
-                                                {{ user($comment->author)->name }}
-                                            </p>
-                                        </div>
-                                        <p class="mt-0.5 text-sm text-gray-500">
+                                        <p class="text-sm">
+                                            {{ user($comment->author)->name }}
+                                        </p>
+                                        <p class="mt-0.5 text-sm text-brandBrown-500">
                                             {{ trans_choice('[0] Commented today|[1] Commented yesterday|[*] Commented :value days ago', Carbon\Carbon::now()->diffInDays($comment->created_at)) }}
                                         </p>
                                     </div>
-                                    <div class="mt-2 text-sm text-gray-700">
+                                    <div class="mt-2 text-sm">
                                         <x-rich-text-editor wire:ignore
                                                             :wire:key="$comment->id"
                                                             :content="$comment->content"
