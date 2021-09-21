@@ -20,7 +20,7 @@
 
 @screen 2xl {
     .landing-hero {
-        background: url(/img/hero-left.png) 5% center no-repeat, url(/img/hero-right.png) 95% center no-repeat, radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)), url(/img/noise.png);
+        background: url(/img/hero-left.png) 2% center no-repeat, url(/img/hero-right.png) 98% center no-repeat, radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)), url(/img/noise.png);
 
         background-size: contain, contain, 100%;
     }
