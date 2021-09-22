@@ -8,7 +8,7 @@
                 class="mx-auto h-12 w-12 text-brandBrown-700" />
     @endif
 
-    <h3 class="mt-2 font-medium text-brandBrown-900">
+    <h3 class="mt-2 text-brandBrown-900">
         {{ $title }}
     </h3>
 

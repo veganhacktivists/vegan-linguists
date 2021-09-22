@@ -24,7 +24,7 @@
                         {{ __('Discussion') }}
                     </x-jet-dropdown-link>
 
-                    <div class="border-t border-gray-100"></div>
+                    <div class="border-t border-brandBrown-200"></div>
 
                     <x-jet-dropdown-link href="#"
                                          aria-role="button"
@@ -57,37 +57,37 @@
                     <x-user-photo class="w-12 h-12"
                                   :user="$translationRequest->source->author" />
                     <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        <h3 class="text-lg leading-6">
                             {{ $translationRequest->source->title }}
                         </h3>
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        <p class="mt-1 max-w-2xl text-sm text-brandBrown-600">
                             {{ $translationRequest->source->author->name }}
                         </p>
                     </div>
                 </div>
-                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <div class="border-t border-brandBrown-200 px-4 py-5 sm:px-6">
                     <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                         <div class="sm:col-span-1">
-                            <dt class="text-sm font-medium text-gray-500">
+                            <dt class="text-sm text-brandBrown-600">
                                 {{ __('Original language') }}
                             </dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dd class="mt-1 text-sm">
                                 {{ $translationRequest->source->language->native_name }}
                             </dd>
                         </div>
                         <div class="sm:col-span-1">
-                            <dt class="text-sm font-medium text-gray-500">
+                            <dt class="text-sm text-brandBrown-600">
                                 {{ __('Target language') }}
                             </dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dd class="mt-1 text-sm">
                                 {{ $translationRequest->language->native_name }}
                             </dd>
                         </div>
                         <div class="sm:col-span-2">
-                            <dt class="text-sm font-medium text-gray-500">
+                            <dt class="text-sm text-brandBrown-600">
                                 {{ __('Time in translation queue') }}
                             </dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dd class="mt-1 text-sm">
                                 {{ trans_choice('{1} :count day|[*] :count days', 1 + Carbon\Carbon::now()->diffInDays($translationRequest->updated_at)) }}
                             </dd>
                         </div>
@@ -138,7 +138,7 @@
     <div class="bg-white flex h-full"
          x-data="{ tab: 'source' }"
          @change-tab.window="tab = $event.detail">
-        <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-gray-200 w-full">
+        <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-brandBrown-200 w-full">
             <div class="w-full overflow-auto {{ $isMine ? 'flex flex-col flex-1' : 'w-full' }}">
                 <div x-show="tab === 'source'"
                      class="flex-1">
@@ -163,19 +163,19 @@
                 </div>
 
                 @if ($isMine)
-                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-b lg:border-t lg:border-b-0 border-gray-200"
+                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-b lg:border-t lg:border-b-0 border-brandBrown-200"
                          x-data="{ tab: 'source' }"
                          @change-tab.window="tab = $event.detail">
                         @if ($isMine)
 
-                            <button class="bg-indigo-500 text-white h-14 flex-1"
+                            <button class="bg-brandClay-400 font-bold text-white h-14 flex-1"
                                     @click.prevent="$dispatch('change-tab', 'source')"
-                                    x-bind:class="{ 'bg-indigo-500 text-white': tab === 'source', 'bg-gray-100 hover:bg-gray-200': tab !== 'source' }">
+                                    x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'source', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'source' }">
                                 {{ __('Original Content') }}
                             </button>
                             <button class="h-14 flex-1"
                                     @click.prevent="$dispatch('change-tab', 'discussion')"
-                                    x-bind:class="{ 'bg-indigo-500 text-white': tab === 'discussion', 'bg-gray-100 hover:bg-gray-200': tab !== 'discussion' }">
+                                    x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'discussion', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'discussion' }">
                                 {{ __('Discussion') }}
                             </button>
                         @endif
@@ -193,17 +193,17 @@
                     </div>
                     @if (!$translationRequest->isComplete())
                         <div
-                             class="flex items-center justify-between px-2 hidden md:flex sticky bottom-0 bg-gray-100 border-t border-gray-200">
+                             class="flex items-center justify-between px-2 md:flex sticky bottom-0 bg-brandBeige-50 border-t border-brandBrown-200">
                             <div class="flex gap-2 items-center h-14">
                                 <x-heroicon-o-translate class="w-6 h-6" />
                                 {{ $translationRequest->language->native_name }}
                             </div>
                             <div class="text-right flex gap-2">
-                                <x-jet-danger-button wire:click="$toggle('isConfirmingUnclaim')"
+                                <x-jet-danger-button wire:click="toggleUnclaimModal"
                                                      type="button">
                                     {{ __('Unclaim') }}
                                 </x-jet-danger-button>
-                                <x-jet-button wire:click="$toggle('isConfirmingSubmission')"
+                                <x-jet-button wire:click="toggleSubmissionModal"
                                               type="button">
                                     {{ __('Submit translation') }}
                                 </x-jet-button>
@@ -213,7 +213,7 @@
                     @endif
                 </div>
 
-                <x-success-toast class="fixed right-4 bottom-4 flex items-center gap-2 hidden"
+                <x-success-toast class="fixed right-4 bottom-16 flex items-center gap-2 hidden"
                                  x-data="{ saved: false, timeout: null}"
                                  x-init="$el.classList.remove('hidden')"
                                  x-show="saved"
@@ -238,7 +238,7 @@
                     </x-slot>
 
                     <x-slot name="footer">
-                        <x-jet-secondary-button wire:click="$toggle('isConfirmingUnclaim')"
+                        <x-jet-secondary-button wire:click="toggleUnclaimModal"
                                                 wire:loading.attr="disabled">
                             {{ __('Cancel') }}
                         </x-jet-secondary-button>
@@ -261,10 +261,12 @@
                         <strong class="block mt-3">
                             {{ __(' Make sure you are finished, because this cannot be undone.') }}
                         </strong>
+
+                        <x-jet-validation-errors class="mt-3" />
                     </x-slot>
 
                     <x-slot name="footer">
-                        <x-jet-secondary-button wire:click="$toggle('isConfirmingSubmission')"
+                        <x-jet-secondary-button wire:click="toggleSubmissionModal"
                                                 wire:loading.attr="disabled">
                             {{ __('Cancel') }}
                         </x-jet-secondary-button>
@@ -291,7 +293,7 @@
                     </x-slot>
 
                     <x-slot name="footer">
-                        <x-jet-secondary-button wire:click="$toggle('isConfirmingClaim')"
+                        <x-jet-secondary-button wire:click="toggleClaimModal"
                                                 wire:loading.attr="disabled">
                             {{ __('Cancel') }}
                         </x-jet-secondary-button>

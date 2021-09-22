@@ -5,7 +5,7 @@
 
         <div class="flex-1 space-y-1">
             <div class="flex items-center justify-between">
-                <h3 class="font-medium">{{ $user->name }}</h3>
+                <h3>{{ $user->name }}</h3>
                 <p class="text-brandBrown-500 whitespace-nowrap pl-2">
                     {{ $dateDiff }}
                 </p>

@@ -72,9 +72,9 @@ $isOnDashboard = request()->routeIs('home');
                                             width="48">
                                 <x-slot name="trigger">
                                     <button
-                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-brandBrown-800 transition">
+                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-brandClay-500 transition">
                                         <x-user-photo :user="Auth::user()"
-                                                      class="h-8 w-8" />
+                                                      class="h-8 w-8 border-none" />
                                     </button>
                                 </x-slot>
 

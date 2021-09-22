@@ -15,7 +15,7 @@
                         <div
                              class="relative flex items-start {{ $loop->first ? '' : 'pt-4' }} {{ $loop->last ? '' : 'pb-4' }}">
                             <div class="min-w-0 flex-1 text-sm">
-                                <h4 class="font-medium text-brandBrown-900">{{ $notificationSetting->title }}</h4>
+                                <h4 class="text-brandBrown-900">{{ $notificationSetting->title }}</h4>
                                 <p class="text-brandBrown-500">
                                     {{ $notificationSetting->description }}
                                 </p>

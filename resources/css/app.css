@@ -9,7 +9,7 @@
 @import './pages/landing.css';
 
 .turbolinks-progress-bar {
-    @apply bg-indigo-500 h-1;
+    @apply bg-brandClay-600 h-1;
 }
 
 .bg-noise {

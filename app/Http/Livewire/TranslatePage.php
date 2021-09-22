@@ -63,6 +63,7 @@ class TranslatePage extends Component
     public function toggleSubmissionModal()
     {
         $this->isConfirmingSubmission = !$this->isConfirmingSubmission;
+        $this->resetErrorBag();
     }
 
     public function claimTranslationRequest()
@@ -126,6 +127,13 @@ class TranslatePage extends Component
         return [
             'translationContent' => ['required', 'string'],
             'translationPlainText' => ['required', 'string'],
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'translationPlainText.required' => __('You must enter content before submitting.'),
         ];
     }
 }

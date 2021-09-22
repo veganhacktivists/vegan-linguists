@@ -26,7 +26,7 @@ if ($type === 'warning') {
         </div>
         <div class="ml-3">
             @if (!empty($title))
-                <h3 class="text-sm font-medium mb-2 {{ $classes['title'] }}">
+                <h3 class="text-sm mb-2 {{ $classes['title'] }}">
                     {{ $title }}
                 </h3>
             @endif
