@@ -1,6 +1,6 @@
 import tippy from 'tippy.js/headless'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   const targets = document.querySelectorAll('[data-tooltip]')
 
   tippy(targets, {
