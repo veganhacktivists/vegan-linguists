@@ -79,6 +79,9 @@ module.exports = {
           900: 'rgb(31, 39, 13)',
         },
       },
+      spacing: {
+        144: '36rem',
+      },
     },
   },
 
