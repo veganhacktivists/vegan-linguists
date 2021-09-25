@@ -63,10 +63,12 @@ class RichTextEditor {
 
   getContent() {
     return JSON.stringify(this.quill.getContents())
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
   }
 
   getPlainText() {
-    return this.quill.getText()
+    return encodeURI(this.quill.getText())
   }
 
   focus() {
