@@ -22,13 +22,13 @@ class LanguageSeeder extends Seeder
             ],
             [
                 "code" => "zh_HANS",
-                "name" => "Chinese (Simplified)",
-                "native_name" => "中文 (简体)"
+                "name" => "Chinese - Simplified",
+                "native_name" => "中文 - 简体"
             ],
             [
                 "code" => "zh_HANT",
-                "name" => "Chinese (Traditional)",
-                "native_name" => "中文 (繁體)"
+                "name" => "Chinese - Traditional",
+                "native_name" => "中文 - 繁體"
             ],
             [
                 "code" => "en",

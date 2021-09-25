@@ -20,7 +20,7 @@ class RequestTranslationPage extends Component
 
     public function mount()
     {
-        $this->languages = Language::all();
+        $this->languages = Language::withCount('translators')->get();
     }
 
     public function render()
@@ -41,7 +41,7 @@ class RequestTranslationPage extends Component
             )
         );
 
-        return DB::transaction(function() {
+        return DB::transaction(function () {
             $source = Auth::user()->sources()->create([
                 'language_id' => $this->sourceLanguageId,
                 'title' => $this->title,
@@ -50,7 +50,7 @@ class RequestTranslationPage extends Component
             ]);
 
             $source->translationRequests()->createMany(
-                array_map(function($targetLanguageId) {
+                array_map(function ($targetLanguageId) {
                     return [
                         'language_id' => $targetLanguageId,
                         'content' => $this->content,

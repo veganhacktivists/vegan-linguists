@@ -56,7 +56,7 @@ window.LanguagePicker = class {
         const resultEl = document.createElement('div')
 
         resultEl.textContent = displayTranslatedLanguageName
-          ? `${language.name} (${language.native_name})`
+          ? language.full_name
           : language.native_name
 
         return resultEl
