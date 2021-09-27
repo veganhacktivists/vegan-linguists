@@ -14,7 +14,12 @@ $isOnDashboard = request()->routeIs('home');
     <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
         <a href="{{ route('home') }}"
            class="flex items-center justify-center h-16 px-4 md:bg-brandBrown-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brandBrown-600 md:w-20">
-            <x-icon-logo-abbreviated class="h-8 w-auto" />
+            <div class="hidden md:block">
+                <x-icon-logo-abbreviated class="h-8 w-auto" />
+            </div>
+            <div class="md:hidden">
+                <x-icon-logo-abbreviated-transparent class="h-8 w-auto" />
+            </div>
         </a>
     </div>
 
@@ -38,7 +43,11 @@ $isOnDashboard = request()->routeIs('home');
     </div>
 
     {{-- Desktop nav area --}}
-    <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-end">
+    <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
+        <a href="{{ route('home') }}"
+           class="ml-4 mt-2">
+            <x-icon-logo-text-only class="text-brandClay-400 h-6 w-auto" />
+        </a>
         <div class="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="{{ __('Global') }}"
                  class="flex space-x-10">
@@ -155,7 +164,7 @@ $isOnDashboard = request()->routeIs('home');
              aria-label="{{ __('Global') }}">
             <div class="h-16 flex items-center justify-between px-4 sm:px-6">
                 <a href="{{ route('home') }}">
-                    <x-icon-logo-abbreviated class="h-8 w-auto" />
+                    <x-icon-logo-abbreviated-transparent class="h-8 w-auto" />
                 </a>
                 <button type="button"
                         class="-mr-2 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset text-brandBrown-700 hover:border-brandBrown-700 hover:text-brandBrown-900 focus:ring-brandBrown-900"

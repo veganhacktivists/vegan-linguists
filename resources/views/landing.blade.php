@@ -23,7 +23,7 @@
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <a href="{{ route('home') }}">
                         <span class="sr-only">Vegan Linguists</span>
-                        <x-icon-logo-text-only class="h-5 -mb-2 w-auto sm:h-8 sm:-mb-3" />
+                        <x-icon-logo-text-only class="h-5 -mb-2 w-auto sm:h-8 sm:-mb-3 text-brandBeige-100" />
                     </a>
                 </div>
 
