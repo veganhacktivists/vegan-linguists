@@ -3,7 +3,7 @@
         <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 xl:flex-none xl:px-24">
             <div class="mx-auto w-full max-w-sm xl:w-96">
                 <div>
-                    <x-icon-logo-abbreviated class="h-12 w-auto" />
+                    <x-icon-logo-abbreviated-transparent class="h-12 w-auto" />
                     <h2 class="mt-6 text-3xl font-extrabold">
                         {{ __('Sign Up') }}
                     </h2>
