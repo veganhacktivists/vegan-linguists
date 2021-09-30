@@ -36,10 +36,12 @@ class Comment extends Model
 
     public function getTruncatedTextAttribute()
     {
-        if (strlen($this->plain_text) >= 100) {
-            return substr($this->plain_text, 0, 97) . '…';
+        $plainText = html_entity_decode($this->plain_text);
+
+        if (strlen($plainText) >= 100) {
+            return substr($plainText, 0, 97) . '…';
         }
 
-        return trim($this->plain_text);
+        return trim($plainText);
     }
 }

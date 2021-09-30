@@ -68,7 +68,7 @@ class RichTextEditor {
   }
 
   getPlainText() {
-    return encodeURI(this.quill.getText())
+    return this.quill.getText().replace(/</g, '&lt;').replace(/>/g, '&gt;')
   }
 
   focus() {
