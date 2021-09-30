@@ -82,7 +82,7 @@
                             <p class="mt-4 text-lg">
                                 {{ __("Every day, more and more people get connected to the internet. As a result, it's becoming increasingly more important to translate online content to reach more people. We want to break through language barriers and spread vegan content across the globe.") }}
                             </p>
-                            <p class="mt-4 text-lg text-brandBrown-800">
+                            <p class="mt-4 text-lg">
                                 {{ __("Our team of translators will translate your content for free. All you need to do is sign up and submit your content. We'll take care of the rest.") }}
                             </p>
                             <div class="mt-6">
