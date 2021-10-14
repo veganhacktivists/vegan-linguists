@@ -76,7 +76,8 @@
                 <x-language-picker id="language-picker"
                                    wire:model="targetLanguages"
                                    :shouldDisplayTranslatedLanguage="true"
-                                   :languages="$languages" />
+                                   :languages="$languages"
+                                   :defaultLanguages="Auth::user()->default_target_languages" />
             </div>
 
             <div class="mt-4">
