@@ -10,6 +10,12 @@
             @endif
 
             <div class="mt-10 sm:mt-0">
+                @livewire('profile.translation-request-settings')
+
+                <x-jet-section-border />
+            </div>
+
+            <div class="mt-10 sm:mt-0">
                 @livewire('profile.notification-settings')
 
                 <x-jet-section-border />

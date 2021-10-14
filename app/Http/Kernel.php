@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'author' => \App\Http\Middleware\AuthorUserMode::class,
+        'non_onboarded' => \App\Http\Middleware\NonOnboardedUser::class,
+        'onboarded' => \App\Http\Middleware\OnboardedUser::class,
         'translator' => \App\Http\Middleware\TranslatorUserMode::class,
     ];
 }

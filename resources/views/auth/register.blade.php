@@ -64,16 +64,6 @@
                             </div>
                         </div>
 
-                        <div>
-                            <x-jet-label for="languages"
-                                         value="{{ __('What language(s) do you speak?') }}" />
-                            <div class="mt-1">
-                                <x-language-picker id="languages"
-                                                   class="block mt-1"
-                                                   name="languages" />
-                            </div>
-                        </div>
-
                         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                             <div>
                                 <x-jet-label for="terms">

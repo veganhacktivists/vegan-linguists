@@ -108,6 +108,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->translationRequests()->where('status', TranslationRequestStatus::COMPLETE);
     }
 
+    public function settings()
+    {
+        return $this->hasMany(UserSetting::class);
+    }
+
     public function notificationSettings()
     {
         return $this->hasMany(NotificationSetting::class);
@@ -118,9 +123,32 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->languages()->wherePivot('language_id', $languageId)->exists();
     }
 
+    public function getDefaultTargetLanguagesAttribute()
+    {
+        $setting = $this->settings()->where('setting_key', UserSettingKeys::DEFAULT_TARGET_LANGUAGES)->first();
+
+        return $setting ? Language::whereIn('id', json_decode($setting->setting_value))->get() : collect();
+    }
+
+    public function setDefaultTargetLanguagesAttribute(iterable $languages)
+    {
+        $setting = UserSetting::firstOrNew([
+            'user_id' => $this->id,
+            'setting_key' => UserSettingKeys::DEFAULT_TARGET_LANGUAGES,
+        ]);
+
+        $setting->setting_value = json_encode($languages);
+        $setting->save();
+    }
+
     public function isInAuthorMode()
     {
         return $this->user_mode === UserMode::AUTHOR;
+    }
+
+    public function isOnboarded()
+    {
+        return $this->languages()->count() > 0;
     }
 
     public function switchUserMode()

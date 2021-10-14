@@ -14,7 +14,7 @@ By using our website, you hereby consent to our Privacy Policy and agree to its 
 
 If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.
 
-When you register for an account, we will ask for your name, email address, and the languages you are able to speak.
+When you register for an account, we will ask for your name and email address.
 
 ## How we use your information
 

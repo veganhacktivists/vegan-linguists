@@ -55,10 +55,10 @@
                     </p>
                     <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                         <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-4">
-                            <a href="{{ route('register') }}"
-                               class="flex items-center justify-center px-3 py-2 border border-transparent text-base rounded-md shadow-sm bg-brandGreen-400 hover:bg-brandGreen-500 text-white font-bold">
+                            <x-jet-primary-button element="a"
+                                                  href="{{ route('register') }}">
                                 {{ __('Get content translated') }}
-                            </a>
+                            </x-jet-primary-button>
                             <a href="{{ route('register') }}"
                                class="flex items-center justify-center px-3 py-2 border border-transparent text-base rounded-md shadow-sm text-white bg-brandClay-500 hover:bg-brandClay-600 font-bold">
                                 {{ __('Translate content') }}
@@ -86,10 +86,10 @@
                                 {{ __("Our team of translators will translate your content for free. All you need to do is sign up and submit your content. We'll take care of the rest.") }}
                             </p>
                             <div class="mt-6">
-                                <a href="{{ route('register') }}"
-                                   class="inline-flex px-4 py-2 border border-transparent text-base rounded-md shadow-sm bg-brandGreen-400 hover:bg-brandGreen-500 text-white font-bold">
+                                <x-jet-primary-button element="a"
+                                                      href="{{ route('register') }}">
                                     {{ __('Get started') }}
-                                </a>
+                                </x-jet-primary-button>
                             </div>
                         </div>
                     </div>
@@ -116,10 +116,10 @@
                                 {{ __('We need your help to build bridges across languages and cultures. Register to find vegan content that needs to be translated to the languages you speak.') }}
                             </p>
                             <div class="mt-6">
-                                <a href="{{ route('register') }}"
-                                   class="inline-flex px-4 py-2 border border-transparent text-base rounded-md shadow-sm bg-brandGreen-400 hover:bg-brandGreen-500 text-white font-bold">
+                                <x-jet-primary-button element="a"
+                                                      href="{{ route('register') }}">
                                     {{ __('Get started') }}
-                                </a>
+                                </x-jet-primary-button>
                             </div>
                         </div>
                     </div>
