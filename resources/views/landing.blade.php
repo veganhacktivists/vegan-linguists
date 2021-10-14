@@ -51,7 +51,7 @@
                         {{ __('Have vegan content? Get it translated.') }}
                     </h1>
                     <p class="mt-6 max-w-lg mx-auto text-center text-xl sm:max-w-xl">
-                        {{ __('Vegan Linguists is a free service run by vegans, for vegans. We want to translate content related to veganism to help build a more connected, more vegan world.') }}
+                        {{ __('Vegan Linguists is a free content translation service run by vegans, for vegans. We translate vegan-friendly content to help make veganism more accessible worldwide!') }}
                     </p>
                     <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                         <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-4">
