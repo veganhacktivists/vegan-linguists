@@ -25,7 +25,7 @@
         <x-rich-text-editor class="px-8"
                             wire:ignore
                             :autoFocus="true"
-                            x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+                            x-on:change="e => { window.hasChanges = true; $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
     </div>
 
     <div class="text-right p-2 bg-white sticky bottom-0">
@@ -101,6 +101,7 @@
             <x-jet-button type="submit"
                           class="ml-2"
                           dusk="confirm-password-button"
+                          @click="window.hasChanges = false"
                           wire:click="requestTranslation"
                           wire:loading.attr="disabled"
                           :disabled="count($targetLanguages) === 0">
@@ -108,4 +109,32 @@
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    <script data-no-turbolink>
+        (function() {
+            window.hasChanges = false;
+
+            const confirmLeave = function(e) {
+                if (window.hasChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                } else {
+                    window.removeEventListener("beforeunload", confirmLeave);
+                    window.removeEventListener("turbolinks:before-visit", confirmNavigation);
+                }
+            };
+
+            const confirmNavigation = function(e) {
+                if (window.hasChanges && !confirm({!! json_encode(__('Are you sure you want to leave this page? You have unsaved changes.')) !!})) {
+                    e.preventDefault();
+                } else {
+                    window.removeEventListener("beforeunload", confirmLeave);
+                    window.removeEventListener("turbolinks:before-visit", confirmNavigation);
+                }
+            };
+
+            window.addEventListener("beforeunload", confirmLeave);
+            window.addEventListener("turbolinks:before-visit", confirmNavigation);
+        })()
+    </script>
 </div>
