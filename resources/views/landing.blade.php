@@ -358,7 +358,7 @@
                         {{ __("Be the first to know what we're up to.") }}
                     </p>
                     <form class="mt-4 sm:flex sm:max-w-md items-center"
-                          action="https://veganhacktivists.us20.list-manage.com/subscribe/post?u=0baba35be8f6397f7ac1066f1&amp;id=5fd11d4221"
+                          action="https://veganhacktivists.us20.list-manage.com/subscribe/post?u=0baba35be8f6397f7ac1066f1&amp;id=f4cb014082"
                           method="post"
                           target="_blank">
                         <label for="email-address"
