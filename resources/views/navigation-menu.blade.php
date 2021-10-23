@@ -52,10 +52,11 @@ $isOnDashboard = request()->routeIs('home');
             <nav aria-label="{{ __('Global') }}"
                  class="flex space-x-10">
                 @if (Auth::user()->isInAuthorMode())
-                    <x-jet-nav-link href="{{ route('request-translation') }}"
-                                    :active="request()->routeIs('request-translation')">
+                    <x-jet-primary-button element="a"
+                                          href="{{ route('request-translation') }}"
+                                          class="text-xs">
                         {{ __('Request Translation') }}
-                    </x-jet-nav-link>
+                    </x-jet-primary-button>
                 @endif
             </nav>
             <div class="flex items-center space-x-8">
