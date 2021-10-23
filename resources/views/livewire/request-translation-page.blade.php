@@ -62,6 +62,7 @@
                 </x-jet-label>
 
                 <x-language-picker id="source-language"
+                                   resultsClass="z-50"
                                    wire:model="sourceLanguageId"
                                    :multiSelect="false"
                                    :defaultLanguages="collect([Auth::user()->languages->first()])"
@@ -74,6 +75,7 @@
                     {{ __('Which languages would you like your content to be translated to?') }}
                 </x-jet-label>
                 <x-language-picker id="language-picker"
+                                   resultsClass="z-50"
                                    wire:model="targetLanguages"
                                    :shouldDisplayTranslatedLanguage="true"
                                    :languages="$languages"

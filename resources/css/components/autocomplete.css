@@ -1,5 +1,5 @@
 .autocomplete {
-    @apply bg-white border-2 border-brandBlue-500 overflow-auto rounded-md shadow z-50;
+    @apply bg-white border-2 border-brandBlue-500 overflow-auto rounded-md shadow;
 }
 
 .autocomplete > div {

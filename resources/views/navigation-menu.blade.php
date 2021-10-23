@@ -9,7 +9,7 @@ $isOnDashboard = request()->routeIs('home');
 
 <header x-data="{ open: false }"
         x-init="$refs.mobileMenu.classList.remove('hidden')"
-        class="flex-shrink-0 relative h-16 bg-brandBeige-100 flex items-center">
+        class="flex-shrink-0 relative h-16 bg-brandBeige-100 flex items-center z-20">
     {{-- Logo area --}}
     <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
         <a href="{{ route('home') }}"
