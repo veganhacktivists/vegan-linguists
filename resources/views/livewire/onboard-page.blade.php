@@ -10,11 +10,11 @@ use App\Models\UserMode;
     @livewireScripts
 @endpush
 
-<form class="px-8 flex flex-col gap-12"
+<form class="px-8 flex flex-col gap-12 mt-12 mb-6"
       x-data="{ userMode: null }"
       @submit.prevent="$wire.completeOnboarding(userMode)">
     <div class="text-center">
-        <h1 class="text-4xl font-bold mt-12">
+        <h1 class="text-4xl font-bold">
             {{ __('Welcome to the Vegan Linguists!') }}
         </h1>
         <p class="text-xl mt-4">
