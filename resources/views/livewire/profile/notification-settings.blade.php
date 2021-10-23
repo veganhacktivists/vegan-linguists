@@ -13,7 +13,7 @@
                 <div class="divide-y divide-brandBrown-200">
                     @foreach ($notificationSettings as $notificationSetting)
                         <div
-                             class="relative flex items-start {{ $loop->first ? '' : 'pt-4' }} {{ $loop->last ? '' : 'pb-4' }}">
+                             class="relative flex items-center {{ $loop->first ? '' : 'pt-4' }} {{ $loop->last ? '' : 'pb-4' }}">
                             <div class="min-w-0 flex-1 text-sm">
                                 <h4 class="text-brandBrown-900">{{ $notificationSetting->title }}</h4>
                                 <p class="text-brandBrown-500">
