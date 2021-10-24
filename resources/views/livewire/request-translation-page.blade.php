@@ -23,9 +23,10 @@
 
     <div class="flex-1 overflow-auto">
         <x-rich-text-editor class="px-8"
-                            wire:ignore
+                            wireContentModel="content"
+                            wirePlainTextModel="plainText"
                             :autoFocus="true"
-                            x-on:change="e => { window.hasChanges = true; $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+                            x-on:change="e => { window.hasChanges = true }" />
     </div>
 
     <div class="text-right p-2 bg-white sticky bottom-0">

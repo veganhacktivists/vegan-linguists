@@ -5,9 +5,9 @@
     </h2>
 
     <div class="bg-white rounded-md mt-4 shadow border border-brandBrown-200">
-        <x-rich-text-editor wire:ignore
-                            x-init="$wire.on('comment-saved', () => editor.clear())"
-                            x-on:change="e => { $wire.set('content', e.detail.content); $wire.set('plainText', e.detail.plainText) }" />
+        <x-rich-text-editor x-init="$wire.on('comment-saved', () => clear())"
+                            wireContentModel="content"
+                            wirePlainTextModel="plainText" />
     </div>
 
     <div class="text-right mt-4">
@@ -48,8 +48,7 @@
                                         </p>
                                     </div>
                                     <div class="mt-2 text-sm">
-                                        <x-rich-text-editor wire:ignore
-                                                            :wire:key="$comment->id"
+                                        <x-rich-text-editor :wire:key="$comment->id"
                                                             :content="$comment->content"
                                                             :disableStyles="true"
                                                             :isReadOnly="true" />

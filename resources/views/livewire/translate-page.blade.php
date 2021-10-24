@@ -152,8 +152,7 @@
                         </div>
                     @endif
 
-                    <x-rich-text-editor wire:ignore
-                                        :content="$translationRequest->source->content"
+                    <x-rich-text-editor :content="$translationRequest->source->content"
                                         :isReadOnly="true" />
                 </div>
 
@@ -186,8 +185,7 @@
             @if ($isMine)
                 <div class="flex flex-col flex-1 w-full overflow-auto">
                     <div class="mx-auto flex-1 max-w-full">
-                        <x-rich-text-editor wire:ignore
-                                            :content="$translationRequest->content"
+                        <x-rich-text-editor :content="$translationRequest->content"
                                             :isReadOnly="$translationRequest->isComplete()"
                                             x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
                     </div>
