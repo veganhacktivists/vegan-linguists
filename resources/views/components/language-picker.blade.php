@@ -1,5 +1,5 @@
 @php
-$renderItemFunction = $shouldDisplayTranslatedLanguage ? "({ name, native_name }) => `\${name} (\${native_name})`" : '({ name }) => name';
+$renderItemFunction = $shouldDisplayTranslatedLanguage ? "({ full_name }) => `\${full_name}`" : '({ name }) => name';
 @endphp
 
 <x-autocomplete {{ $attributes }}

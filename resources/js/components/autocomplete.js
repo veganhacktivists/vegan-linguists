@@ -68,6 +68,7 @@ document.addEventListener('alpine:init', () => {
 
           customize: function (input, inputRect, container, maxHeight) {
             container.classList.add(resultsClass)
+
             if (
               window.innerHeight - MIN_CLEARANCE_UNDER_INPUT <
               inputRect.bottom
@@ -78,7 +79,9 @@ document.addEventListener('alpine:init', () => {
               container.style.bottom = `${bottom + RESULTS_GAP * 2}px`
               container.style.maxHeight = `${inputRect.top - RESULTS_GAP * 4}px`
             } else {
-              container.style.top = `${inputRect.bottom + RESULTS_GAP}px`
+              container.style.top = `${
+                inputRect.bottom + window.scrollY + RESULTS_GAP
+              }px`
               container.style.maxHeight = `${maxHeight - RESULTS_GAP * 2}px`
             }
           },
