@@ -40,45 +40,55 @@
             $isOnDashboard = request()->routeIs('home');
         @endphp
         <div class="min-h-0 flex-1 flex">
-            <x-sidebar>
-                @if (Auth::user()->isInAuthorMode())
-                    <x-sidebar-link href="{{ route('home') }}"
-                                    icon="o-folder-open"
-                                    :active="empty($filter) && $isOnDashboard">
-                        {{ __('All Translation Requests') }}
-                    </x-sidebar-link>
+            <nav aria-label="Sidebar"
+                 class="hidden md:block md:flex-shrink-0 md:bg-brandBrown-900 md:overflow-y-auto">
+                <div class="relative w-20 p-3 flex flex-col space-y-3 justify-between h-full">
+                    <div class="flex flex-col space-y-3">
+                        @if (Auth::user()->isInAuthorMode())
+                            <x-sidebar-link href="{{ route('home') }}"
+                                            icon="o-folder-open"
+                                            :active="empty($filter) && $isOnDashboard">
+                                {{ __('All Translation Requests') }}
+                            </x-sidebar-link>
 
-                    <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}"
-                                    :active="$filter === 'incomplete' && $isOnDashboard"
-                                    icon="o-clock">
-                        {{ __('In-progress Translations') }}
-                    </x-sidebar-link>
+                            <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}"
+                                            :active="$filter === 'incomplete' && $isOnDashboard"
+                                            icon="o-clock">
+                                {{ __('In-progress Translations') }}
+                            </x-sidebar-link>
 
-                    <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}"
-                                    :active="$filter === 'complete' && $isOnDashboard"
-                                    icon="o-check">
-                        {{ __('Completed Translations') }}
-                    </x-sidebar-link>
-                @else
-                    <x-sidebar-link href="{{ route('home', \Request::except('filter')) }}"
-                                    :active="empty($filter) && $isOnDashboard"
-                                    icon="o-document-text">
-                        {{ __('Claimed Translation Requests') }}
-                    </x-sidebar-link>
+                            <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}"
+                                            :active="$filter === 'complete' && $isOnDashboard"
+                                            icon="o-check">
+                                {{ __('Completed Translations') }}
+                            </x-sidebar-link>
+                        @else
+                            <x-sidebar-link href="{{ route('home', \Request::except('filter')) }}"
+                                            :active="empty($filter) && $isOnDashboard"
+                                            icon="o-document-text">
+                                {{ __('Claimed Translation Requests') }}
+                            </x-sidebar-link>
 
-                    <x-sidebar-link href="{{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
-                                    :active="$filter === 'unclaimed' && $isOnDashboard"
-                                    icon="o-search">
-                        {{ __('Available Translation Requests') }}
-                    </x-sidebar-link>
+                            <x-sidebar-link href="{{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
+                                            :active="$filter === 'unclaimed' && $isOnDashboard"
+                                            icon="o-search">
+                                {{ __('Available Translation Requests') }}
+                            </x-sidebar-link>
 
-                    <x-sidebar-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
-                                    :active="$filter === 'complete' && $isOnDashboard"
-                                    icon="o-check">
-                        {{ __('Completed Translations') }}
+                            <x-sidebar-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
+                                            :active="$filter === 'complete' && $isOnDashboard"
+                                            icon="o-check">
+                                {{ __('Completed Translations') }}
+                            </x-sidebar-link>
+                        @endif
+                    </div>
+                    <x-sidebar-link href="https://veganhacktivists.org/contact"
+                                    class="justify-self-end"
+                                    target="_blank"
+                                    icon="o-at-symbol">
+                        {{ __('Contact Us') }}
                     </x-sidebar-link>
-                @endif
-            </x-sidebar>
+            </nav>
 
             <main class="min-w-0 flex-1 border-t border-brandBrown-200 flex flex-col lg:flex-row overflow-auto">
                 <section aria-labelledby="primary-heading"
