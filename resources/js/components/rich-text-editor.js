@@ -40,6 +40,7 @@ document.addEventListener('alpine:init', () => {
             toolbar,
           },
           readonly,
+          scrollingContainer: getScrollParent(this.$refs.editorContainer),
         })
         editor.setContents(content, 'api')
 
@@ -92,3 +93,23 @@ document.addEventListener('alpine:init', () => {
     }),
   )
 })
+
+const getScrollParent = (node) => {
+  if (!node) {
+    return document.documentElement
+  }
+
+  const overflowY =
+    (node instanceof HTMLElement && window.getComputedStyle(node).overflowY) ||
+    ''
+
+  const isScrollable = !(
+    overflowY.includes('hidden') || overflowY.includes('visible')
+  )
+
+  if (isScrollable && node.scrollHeight >= node.clientHeight) {
+    return node
+  }
+
+  return getScrollParent(node.parentNode)
+}

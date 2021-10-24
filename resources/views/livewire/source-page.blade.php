@@ -103,10 +103,11 @@
         </div>
     </x-header-action-bar>
 
-    <div class="bg-white p-6 w-full overflow-auto flex-1"
+    <div class="bg-white px-6 pb-6 w-full overflow-auto flex-1"
          wire:key="rich-text-editor"
          wire:ignore>
-        <x-rich-text-editor :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
+        <x-rich-text-editor class="mt-6"
+                            :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
                             :isReadOnly="true" />
 
         @if ($isViewingTranslation)
