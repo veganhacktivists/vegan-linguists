@@ -6,41 +6,44 @@
             {{ __('Change Language') }}
         </x-slot>
 
-        <x-stacked-list class="sticky top-0">
-            <li
-                class="{{ $isViewingTranslation ? 'bg-white hover:bg-brandBeige-50' : 'bg-brandClay-400 text-white font-bold' }}">
-                <a href="{{ route('source', [$source->id, $source->slug]) }}"
-                   class="block">
-                    <div class="px-4 py-4 sm:px-6 truncate">
-                        {{ __(':languageName (Original)', ['languageName' => $source->language->native_name]) }}
-                    </div>
-                </a>
-            </li>
-
-            @foreach ($source->translationRequests as $translationRequest)
+        <div class="overflow-hidden lg:h-full lg:overflow-auto">
+            <x-stacked-list>
                 <li
-                    class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-brandClay-400 text-white font-bold' : 'bg-white hover:bg-brandClay-50' }}">
-                    <a href="{{ route('translation', [$source->id, $translationRequest->language->id]) }}"
-                       class="px-4 py-4 sm:px-6 flex justify-between items-center">
-                        <div class="truncate">
-                            {{ $translationRequest->language->name }}
-                            ({{ $translationRequest->language->native_name }})
-                        </div>
-                        <div
-                             class="{{ $translationRequest->is($currentTranslationRequest) ? 'text-white' : 'text-brandClay-400' }}">
-                            @if ($translationRequest->isComplete())
-                                <x-heroicon-o-check class="w-6 h-6" />
-                            @elseif ($translationRequest->isClaimed())
-                                <x-heroicon-o-beaker class="w-6 h-6" />
-                            @else
-                                <x-heroicon-o-clock class="w-6 h-6" />
-
-                            @endif
+                    class="{{ $isViewingTranslation ? 'bg-white hover:bg-brandBeige-50' : 'bg-brandClay-400 text-white font-bold' }}">
+                    <a href="{{ route('source', [$source->id, $source->slug]) }}"
+                       class="block">
+                        <div class="px-4 py-4 sm:px-6 truncate">
+                            {{ __(':languageName (Original)', ['languageName' => $source->language->native_name]) }}
                         </div>
                     </a>
                 </li>
-            @endforeach
-        </x-stacked-list>
+
+                @foreach ($source->translationRequests as $translationRequest)
+                    <li
+                        class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-brandClay-400 text-white font-bold' : 'bg-white hover:bg-brandClay-50' }}">
+                        <a href="{{ route('translation', [$source->id, $translationRequest->language->id]) }}"
+                           class="px-4 py-4 sm:px-6 flex justify-between items-center">
+                            <div class="truncate">
+                                {{ $translationRequest->language->name }}
+                                ({{ $translationRequest->language->native_name }})
+                            </div>
+                            <div
+                                 class="{{ $translationRequest->is($currentTranslationRequest) ? 'text-white' : 'text-brandClay-400' }}">
+                                @if ($translationRequest->isComplete())
+                                    <x-heroicon-o-check class="w-6 h-6" />
+                                @elseif ($translationRequest->isClaimed())
+                                    <x-heroicon-o-beaker class="w-6 h-6" />
+                                @else
+                                    <x-heroicon-o-clock class="w-6 h-6" />
+
+                                @endif
+                            </div>
+                        </a>
+                    </li>
+                @endforeach
+            </x-stacked-list>
+        </div>
+
     </x-slot>
 
     <x-header-action-bar>
