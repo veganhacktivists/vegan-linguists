@@ -139,59 +139,57 @@
          x-data="{ tab: 'source' }"
          @change-tab.window="tab = $event.detail">
         <div class="flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-brandBrown-200 w-full">
-            <div class="w-full overflow-auto {{ $isMine ? 'flex flex-col flex-1' : 'w-full' }}">
-                <div x-show="tab === 'source'"
-                     class="flex-1">
-                    @if ($isMine)
-                        <div class="md:hidden sticky top-0 z-10">
-                            <x-header-action-bar>
-                                {{ __('Translating to :languageName', [
-    'languageName' => $translationRequest->language->native_name,
-]) }}
-                            </x-header-action-bar>
-                        </div>
-                    @endif
+            <div class="flex flex-col flex-1 w-full overflow-hidden">
+                <div class="overflow-auto h-full">
+                    <div x-show="tab === 'source'"
+                         class="flex-1">
+                        @if ($isMine)
+                            <div class="md:hidden sticky top-0 z-10">
+                                <x-header-action-bar>
+                                    {{ __('Translating to :languageName', ['languageName' => $translationRequest->language->native_name]) }}
+                                </x-header-action-bar>
+                            </div>
+                        @endif
 
-                    <x-rich-text-editor :content="$translationRequest->source->content"
-                                        :isReadOnly="true" />
+                        <x-rich-text-editor :content="$translationRequest->source->content"
+                                            :isReadOnly="true" />
+                    </div>
+
+                    <div class="max-w-7xl mx-auto flex-1"
+                         x-show="tab === 'discussion'">
+                        <livewire:comment-section :commentable="$translationRequest" />
+                    </div>
                 </div>
-
-                <div class="max-w-7xl mx-auto flex-1"
-                     x-show="tab === 'discussion'">
-                    <livewire:comment-section :commentable="$translationRequest" />
-                </div>
-
                 @if ($isMine)
-                    <div class="hidden md:flex order-first lg:order-none lg:sticky bottom-0 border-b lg:border-t lg:border-b-0 border-brandBrown-200"
+                    <div class="hidden md:flex order-first lg:order-none border-b lg:border-t lg:border-b-0 border-brandBrown-200"
                          x-data="{ tab: 'source' }"
                          @change-tab.window="tab = $event.detail">
-                        @if ($isMine)
-
-                            <button class="bg-brandClay-400 font-bold text-white h-14 flex-1"
-                                    @click.prevent="$dispatch('change-tab', 'source')"
-                                    x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'source', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'source' }">
-                                {{ __('Original Content') }}
-                            </button>
-                            <button class="h-14 flex-1"
-                                    @click.prevent="$dispatch('change-tab', 'discussion')"
-                                    x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'discussion', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'discussion' }">
-                                {{ __('Discussion') }}
-                            </button>
-                        @endif
+                        <button class="bg-brandClay-400 font-bold text-white h-14 flex-1"
+                                @click.prevent="$dispatch('change-tab', 'source')"
+                                x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'source', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'source' }">
+                            {{ __('Original Content') }}
+                        </button>
+                        <button class="h-14 flex-1"
+                                @click.prevent="$dispatch('change-tab', 'discussion')"
+                                x-bind:class="{ 'bg-brandClay-400 font-bold text-white': tab === 'discussion', 'bg-brandBeige-50 hover:bg-brandBeige-100': tab !== 'discussion' }">
+                            {{ __('Discussion') }}
+                        </button>
                     </div>
                 @endif
             </div>
 
             @if ($isMine)
-                <div class="flex flex-col flex-1 w-full overflow-auto">
-                    <div class="mx-auto flex-1 max-w-full">
-                        <x-rich-text-editor :content="$translationRequest->content"
-                                            :isReadOnly="$translationRequest->isComplete()"
-                                            x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
+                <div class="flex flex-col flex-1 w-full overflow-hidden">
+                    <div class="overflow-auto h-full">
+                        <div class="mx-auto flex-1 max-w-full">
+                            <x-rich-text-editor :content="$translationRequest->content"
+                                                :isReadOnly="$translationRequest->isComplete()"
+                                                x-on:change="e => { $wire.saveTranslation(e.detail.content, e.detail.plainText) }" />
+                        </div>
                     </div>
                     @if (!$translationRequest->isComplete())
                         <div
-                             class="flex items-center justify-between px-2 md:flex sticky bottom-0 bg-brandBeige-50 border-t border-brandBrown-200">
+                             class="hidden md:flex items-center justify-between px-2 bg-brandBeige-50 border-t border-brandBrown-200">
                             <div class="flex gap-2 items-center h-14">
                                 <x-heroicon-o-translate class="w-6 h-6" />
                                 {{ $translationRequest->language->native_name }}
@@ -207,13 +205,12 @@
                                 </x-jet-button>
                             </div>
                         </div>
-
                     @endif
                 </div>
 
-                <x-success-toast class="fixed right-4 bottom-16 flex items-center gap-2 hidden"
+                <x-success-toast class="fixed right-4 bottom-16 items-center gap-2 hidden"
                                  x-data="{ saved: false, timeout: null}"
-                                 x-init="$el.classList.remove('hidden')"
+                                 x-init="$el.classList.remove('hidden'); $el.classList.add('flex')"
                                  x-show="saved"
                                  x-transition:enter="transition-opacity ease-out duration-500"
                                  x-transition:enter-start="opacity-0"
