@@ -39,7 +39,7 @@ document.addEventListener('alpine:init', () => {
           modules: {
             toolbar,
           },
-          readonly,
+          readOnly: readonly,
           scrollingContainer: getScrollParent(this.$refs.editorContainer),
         })
         editor.setContents(content, 'api')
