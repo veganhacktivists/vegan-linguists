@@ -56,7 +56,7 @@ document.addEventListener('alpine:init', () => {
             }
 
             if (wirePlainTextModel) {
-              this.$wire.set(wirePlainTextModel, content)
+              this.$wire.set(wirePlainTextModel, plainText)
             }
 
             this.$dispatch('change', { content, plainText })
