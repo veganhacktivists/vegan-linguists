@@ -9,7 +9,7 @@
 <div x-data="richTextEditor({
     readonly: {{ $isReadOnly ? 'true' : 'false' }},
     autofocus: {{ $autoFocus ? ' true' : 'false' }},
-    content: {{ $content }},
+    content: {{ html_entity_decode($content) }},
     wireContentModel: {{ json_encode($wireContentModel) }},
     wirePlainTextModel: {{ json_encode($wirePlainTextModel) }},
 })"
