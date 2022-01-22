@@ -17,25 +17,25 @@ function user(User|null $user)
  */
 function unclaimedTranslationRequestsRoute()
 {
-    return route('translation-requests.index', Request::except('filter'));
+    return route('translation-requests.index');
 }
 
 function claimedTranslationRequestsRoute()
 {
-    return route('translation-requests.index', ['filter' => 'mine'] + Request::all());
+    return route('translation-requests.index', ['filter' => 'mine']);
 }
 
 function reviewableTranslationRequestsRoute()
 {
-    return route('translation-requests.index', ['filter' => 'reviewable'] + Request::all());
+    return route('translation-requests.index', ['filter' => 'reviewable']);
 }
 
 function underReviewTranslationRequestsRoute()
 {
-    return route('translation-requests.index', ['filter' => 'under-review'] + Request::all());
+    return route('translation-requests.index', ['filter' => 'under-review']);
 }
 
 function completedTranslationRequestsRoute()
 {
-    return route('translation-requests.index', ['filter' => 'completed'] + Request::all());
+    return route('translation-requests.index', ['filter' => 'completed']);
 }
