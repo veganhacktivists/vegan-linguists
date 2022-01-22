@@ -72,7 +72,7 @@ class TranslationRequestsPage extends Component
                 Auth::user()->translationRequestsClaimedForReview()->complete()->select('translation_requests.*')
             );
         } else {
-            $translationRequests = TranslationRequest::unclaimed();
+            $translationRequests = TranslationRequest::unclaimed()->excludingSourceAuthor(Auth::user());
         }
 
         $sourceLanguage = $this->languages->where('code', $this->sourceLanguageCode)->first();
