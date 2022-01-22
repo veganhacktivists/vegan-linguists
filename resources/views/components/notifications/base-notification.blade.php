@@ -6,26 +6,26 @@
         <div class="flex-1 space-y-1">
             <div class="flex items-center justify-between">
                 <h3>{{ $user->name }}</h3>
-                <p class="text-brandBrown-500 whitespace-nowrap pl-2">
+                <p class="text-brand-brown-500 whitespace-nowrap pl-2">
                     {{ $dateDiff }}
                 </p>
             </div>
-            <p class="text-brandBrown-900 break-all">
+            <p class="text-brand-brown-900 break-words">
                 {!! $description !!}
             </p>
 
-            <div class="break-all">
+            <div class="break-words">
                 {{ $slot }}
             </div>
         </div>
     @elseif (isset($icon))
         <div class="flex-1 space-y-1">
-            <div class="flex items-start justify-between break-all">
+            <div class="flex items-start justify-between break-words">
                 <div class="w-full">
                     {{ $slot }}
                 </div>
 
-                <p class="text-brandBrown-500 whitespace-nowrap pl-2">
+                <p class="text-brand-brown-500 whitespace-nowrap pl-2">
                     {{ $dateDiff }}
                 </p>
             </div>

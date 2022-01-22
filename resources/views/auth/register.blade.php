@@ -10,7 +10,7 @@
                     <p class="mt-2 text-sm">
                         {{ __('Already have an account?') }}
                         <a href="{{ route('login') }}"
-                           class="text-brandGreen-500 hover:text-brandGreen-600 font-bold">
+                           class="text-brand-green-500 hover:text-brand-green-600 font-bold">
                             {{ __('Log in') }}
                         </a>
                     </p>
@@ -73,8 +73,8 @@
 
                                         <div class="ml-2">
                                             {!! __('I agree to the :terms_of_service and :privacy_policy', [
-    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-brandBrown-700 hover:text-brandBrown-900">' . __('Terms of Service') . '</a>',
-    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-brandBrown-700 hover:text-brandBrown-900">' . __('Privacy Policy') . '</a>',
+    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-brand-brown-700 hover:text-brand-brown-900">' . __('Terms of Service') . '</a>',
+    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-brand-brown-700 hover:text-brand-brown-900">' . __('Privacy Policy') . '</a>',
 ]) !!}
                                         </div>
                                     </div>

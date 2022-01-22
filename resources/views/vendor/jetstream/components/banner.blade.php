@@ -1,7 +1,7 @@
 @props(['style' => session('flash.bannerStyle', 'success'), 'message' => session('flash.banner')])
 
 <div x-data="{{ json_encode(['show' => true, 'style' => $style, 'message' => $message]) }}"
-     :class="{ 'bg-brandGreen-400': style == 'success', 'bg-red-700': style == 'danger' }"
+     :class="{ 'bg-brand-green-400': style == 'success', 'bg-red-700': style == 'danger' }"
      style="display: none;"
      x-show="show && message"
      x-init="
@@ -15,7 +15,7 @@
         <div class="flex items-center justify-between flex-wrap">
             <div class="w-0 flex-1 flex items-center min-w-0">
                 <span class="flex p-2 rounded-lg"
-                      :class="{ 'bg-brandGreen-500': style == 'success', 'bg-red-600': style == 'danger' }">
+                      :class="{ 'bg-brand-green-500': style == 'success', 'bg-red-600': style == 'danger' }">
                     <x-heroicon-o-check-circle class="h-5 w-5 text-white" />
                 </span>
 
@@ -26,7 +26,7 @@
             <div class="flex-shrink-0 sm:ml-3">
                 <button type="button"
                         class="-mr-1 flex p-2 rounded-md focus:outline-none sm:-mr-2 transition"
-                        :class="{ 'hover:bg-brandGreen-500 focus:bg-brandGreen-500': style == 'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
+                        :class="{ 'hover:bg-brand-green-500 focus:bg-brand-green-500': style == 'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
                         aria-label="Dismiss"
                         x-on:click="show = false">
                     <x-heroicon-o-x class="h-5 w-5 text-white" />

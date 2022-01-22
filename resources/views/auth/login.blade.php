@@ -10,7 +10,7 @@
                     <p class="mt-2">
                         {{ __("Don't have an account yet?") }}
                         <a href="{{ route('register') }}"
-                           class="text-brandGreen-500 hover:text-brandGreen-600 font-bold">
+                           class="text-brand-green-500 hover:text-brand-green-600 font-bold">
                             {{ __('Sign up') }}
                         </a>
                     </p>
@@ -71,7 +71,7 @@
 
                             <div class="text-sm">
                                 <a href="{{ route('password.request') }}"
-                                   class="text-brandGreen-500 hover:text-brandGreen-600 font-bold">
+                                   class="text-brand-green-500 hover:text-brand-green-600 font-bold">
                                     {{ __('Forgot your password?') }}
                                 </a>
                             </div>

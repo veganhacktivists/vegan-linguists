@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TranslationSubmittedNotification extends Notification
+class TranslationSubmittedNotification extends Notification implements BaseNotification, ShouldQueue
 {
     use Queueable;
 
@@ -63,15 +63,27 @@ class TranslationSubmittedNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $subject = $this->translationRequest->isUnderReview()
+            ? __('Translation Submitted for Review')
+            : __('Translation Completed');
+
+        $body = $this->translationRequest->isUnderReview()
+            ?  __(':translatorName has submitted the :languageName translation for :sourceTitle. It is now awaiting review.', [
+                'translatorName' => '**' . (optional($this->translator)->name ?: __('Someone')) . '**',
+                'languageName' => '**' . $this->translationRequest->language->name . '**',
+                'sourceTitle' => '**' . $this->translationRequest->source->title . '**',
+            ])
+
+            :
+            __(':translatorName has completed the :languageName translation for :sourceTitle.', [
+                'translatorName' => '**' . (optional($this->translator)->name ?: __('Someone')) . '**',
+                'languageName' => '**' . $this->translationRequest->language->name . '**',
+                'sourceTitle' => '**' . $this->translationRequest->source->title . '**',
+            ]);
+
         return (new MailMessage)
-            ->subject(__('Translation Submitted'))
-            ->line(
-                __(':translatorName has submitted the :languageName translation for :sourceTitle.', [
-                    'translatorName' => '**' . (optional($this->translator)->name ?: __('Someone')) . '**',
-                    'languageName' => '**' . $this->translationRequest->language->name . '**',
-                    'sourceTitle' => '**' . $this->translationRequest->source->title . '**',
-                ])
-            )
+            ->subject($subject)
+            ->line($body)
             ->action(
                 __('View Translation'),
                 route('translation', [$this->translationRequest->source->id, $this->translationRequest->language->id])

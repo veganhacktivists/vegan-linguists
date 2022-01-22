@@ -5,8 +5,10 @@ use App\Http\Livewire\NotificationsPage;
 use App\Http\Livewire\OnboardPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
+use App\Http\Livewire\ReviewSectionPage;
 use App\Http\Livewire\SourcePage;
 use App\Http\Livewire\TranslatePage;
+use App\Http\Livewire\TranslationRequestsPage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,6 +59,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         Route::middleware('translator')->group(function () {
+            Route::get('/review', ReviewSectionPage::class)->name('review-section');
+
+            Route::get('/requests', TranslationRequestsPage::class)->name('translation-requests.index');
+
             Route::get(
                 '/translate/{translationRequest}/{slug?}',
                 TranslatePage::class

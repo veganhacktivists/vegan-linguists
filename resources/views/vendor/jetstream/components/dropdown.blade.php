@@ -40,10 +40,10 @@ switch ($width) {
          x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
-         class="absolute z-50 mt-2 rounded-md shadow-lg ring-1 ring-brandBeige-200 focus:outline-none {{ $width }} {{ $alignmentClasses }} {{ $dropdownClasses }}"
+         class="absolute z-50 mt-2 rounded-md shadow-lg ring-1 ring-brand-beige-200 focus:outline-none {{ $width }} {{ $alignmentClasses }} {{ $dropdownClasses }}"
          style="display: none;"
          @click="open = false">
-        <div class="rounded-md ring-1 ring-brandBeige-200 {{ $contentClasses }}">
+        <div class="rounded-md ring-1 ring-brand-beige-200 {{ $contentClasses }}">
             {{ $content }}
         </div>
     </div>

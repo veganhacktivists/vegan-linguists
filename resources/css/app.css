@@ -5,13 +5,14 @@
 @import './components/autocomplete.css';
 @import './components/rich-text-editor.css';
 @import './components/sidebar-link.css';
+@import './components/tour.css';
 
 @import './pages/landing.css';
 
 .turbolinks-progress-bar {
-    @apply bg-brandClay-600 h-1;
+  @apply bg-brand-clay-600 h-1;
 }
 
 .bg-noise {
-    background-image: url(/img/noise.png);
+  background-image: url(/img/noise.png);
 }

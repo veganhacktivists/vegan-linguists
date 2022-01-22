@@ -1,4 +1,4 @@
-@props(['content' => '{}', 'isReadOnly' => false, 'disableStyles' => false, 'autoFocus' => false, 'wireContentModel' => null, 'wirePlainTextModel' => null])
+@props(['content' => '{}', 'isReadOnly' => false, 'disableStyles' => false, 'autoFocus' => false, 'wireContentModel' => null, 'wirePlainTextModel' => null, 'inlineToolbar' => null])
 
 @push('scripts')
     {{-- This prevents the editor breaking due to Livewire/Turbolinks issues --}}
@@ -12,8 +12,16 @@
     content: {{ html_entity_decode($content) }},
     wireContentModel: {{ json_encode($wireContentModel) }},
     wirePlainTextModel: {{ json_encode($wirePlainTextModel) }},
+    hasInlineToolbar: {{ !empty($inlineToolbar) ? 'true' : 'false' }},
 })"
      wire:ignore
      {{ $attributes->merge(['class' => $disableStyles ? 'styles-disabled' : '']) }}>
     <div x-ref="editorContainer"></div>
+
+    @if (!empty($inlineToolbar))
+        <div x-ref="inlineToolbar"
+             class="absolute hidden">
+            {{ $inlineToolbar }}
+        </div>
+    @endif
 </div>

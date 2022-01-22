@@ -4,12 +4,12 @@
             <x-icon-logo-with-text class="w-full" />
         </x-slot>
 
-        <div class="mb-4 text-sm text-brandBrown-600">
+        <div class="mb-4 text-sm text-brand-brown-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
 
         @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-brandGreen-500">
+            <div class="mb-4 font-medium text-sm text-brand-green-500">
                 {{ session('status') }}
             </div>
         @endif

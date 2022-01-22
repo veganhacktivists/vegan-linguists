@@ -4,12 +4,12 @@
             <x-icon-logo-with-text class="w-full" />
         </x-slot>
 
-        <div class="mb-4 text-sm text-brandBrown-600">
+        <div class="mb-4 text-sm text-brand-brown-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-brandGreen-500">
+            <div class="mb-4 font-medium text-sm text-brand-green-500">
                 {{ __('A new verification link has been sent to the email address you provided during registration.') }}
             </div>
         @endif
@@ -31,7 +31,7 @@
                 @csrf
 
                 <button type="submit"
-                        class="underline text-sm text-brandBrown-600 hover:text-brandBrown-900">
+                        class="underline text-sm text-brand-brown-600 hover:text-brand-brown-900">
                     {{ __('Log Out') }}
                 </button>
             </form>

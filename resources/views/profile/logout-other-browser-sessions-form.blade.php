@@ -77,7 +77,7 @@
             <x-jet-button type="submit"
                           wire:click="confirmLogout"
                           wire:loading.attr="disabled">
-                {{ __('Log Out Other Browser Sessions') }}
+                {{ __('Log out other browser sessions') }}
             </x-jet-button>
 
             <x-jet-action-message class="ml-3"
@@ -89,7 +89,7 @@
         {{-- Log Out Other Devices Confirmation Modal --}}
         <x-jet-dialog-modal wire:model="confirmingLogout">
             <x-slot name="title">
-                {{ __('Log Out Other Browser Sessions') }}
+                {{ __('Log out other browser sessions') }}
             </x-slot>
 
             <x-slot name="content">
@@ -120,7 +120,7 @@
                               type="submit"
                               wire:click="logoutOtherBrowserSessions"
                               wire:loading.attr="disabled">
-                    {{ __('Log Out Other Browser Sessions') }}
+                    {{ __('Log out other browser sessions') }}
                 </x-jet-button>
             </x-slot>
         </x-jet-dialog-modal>

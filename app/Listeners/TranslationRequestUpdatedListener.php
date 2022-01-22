@@ -10,7 +10,6 @@ use App\Notifications\TranslationRequestClaimRevokedNotification;
 use App\Notifications\TranslationRequestUnclaimedNotification;
 use App\Notifications\TranslationSubmittedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
 
 class TranslationRequestUpdatedListener
@@ -35,7 +34,10 @@ class TranslationRequestUpdatedListener
         $translationRequest = $event->translationRequest;
         $prevStatus = $translationRequest->getOriginal('status');
 
-        if ($translationRequest->isComplete() && $prevStatus === TranslationRequestStatus::CLAIMED) {
+        if (
+            ($translationRequest->isComplete() || $translationRequest->isUnderReview())
+            && ($prevStatus === TranslationRequestStatus::CLAIMED)
+        ) {
             $translationRequest->source->author->notify(
                 new TranslationSubmittedNotification(
                     $translationRequest->translator,

@@ -9,7 +9,7 @@
         <div class="overflow-hidden lg:h-full lg:overflow-auto">
             <x-stacked-list>
                 <li
-                    class="{{ $isViewingTranslation ? 'bg-white hover:bg-brandBeige-50' : 'bg-brandClay-400 text-white font-bold' }}">
+                    class="{{ $isViewingTranslation ? 'bg-white hover:bg-brand-beige-50' : 'bg-brand-clay-400 text-white font-bold' }}">
                     <a href="{{ route('source', [$source->id, $source->slug]) }}"
                        class="block">
                         <div class="px-4 py-4 sm:px-6 truncate">
@@ -20,22 +20,34 @@
 
                 @foreach ($source->translationRequests as $translationRequest)
                     <li
-                        class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-brandClay-400 text-white font-bold' : 'bg-white hover:bg-brandClay-50' }}">
+                        class="{{ $translationRequest->is($currentTranslationRequest) ? 'bg-brand-clay-200 font-bold' : 'bg-white hover:bg-brand-clay-50' }}">
                         <a href="{{ route('translation', [$source->id, $translationRequest->language->id]) }}"
                            class="px-4 py-4 sm:px-6 flex justify-between items-center">
                             <div class="truncate">
                                 {{ $translationRequest->language->name }}
                                 ({{ $translationRequest->language->native_name }})
                             </div>
-                            <div
-                                 class="{{ $translationRequest->is($currentTranslationRequest) ? 'text-white' : 'text-brandClay-400' }}">
+                            <div>
                                 @if ($translationRequest->isComplete())
-                                    <x-heroicon-o-check class="w-6 h-6" />
+                                    <x-progress-indicator progress="100"
+                                                          data-tooltip="{{ __('Completed') }}"
+                                                          data-tippy-placement="right"
+                                                          class="w-6 h-6" />
+                                @elseif ($translationRequest->isUnderReview())
+                                    <x-progress-indicator progress="75"
+                                                          data-tooltip="{{ __('Under Review') }}"
+                                                          data-tippy-placement="right"
+                                                          class="w-6 h-6" />
                                 @elseif ($translationRequest->isClaimed())
-                                    <x-heroicon-o-beaker class="w-6 h-6" />
+                                    <x-progress-indicator progress="50"
+                                                          data-tooltip="{{ __('Translation In Progress') }}"
+                                                          data-tippy-placement="right"
+                                                          class="w-6 h-6" />
                                 @else
-                                    <x-heroicon-o-clock class="w-6 h-6" />
-
+                                    <x-progress-indicator progress="25"
+                                                          data-tooltip="{{ __('Submitted For Translation') }}"
+                                                          data-tippy-placement="right"
+                                                          class="w-6 h-6" />
                                 @endif
                             </div>
                         </a>
@@ -65,8 +77,8 @@
                                   class="h-10 w-10 inline-block mr-2" />
 
                     {{ __(':translatorName has claimed this translation request', [
-    'translatorName' => $currentTranslationRequest->translator->name,
-]) }}
+                        'translatorName' => $currentTranslationRequest->translator->name,
+                    ]) }}
                 </div>
                 <div>
                     <x-jet-danger-button class="whitespace-nowrap"
@@ -75,20 +87,36 @@
                         {{ __('Revoke Claim') }}
                     </x-jet-danger-button>
                 </div>
-            @elseif ($currentTranslationRequest->isComplete())
+            @elseif ($currentTranslationRequest->isUnderReview())
                 <div class="truncate">
                     <x-user-photo :user="$currentTranslationRequest->translator"
-                                  class="h-10 w-10 inline-block" />
+                                  class="h-10 w-10 inline-block mr-2" />
 
-                    {{ __(':translatorName translated this content', [
-    'translatorName' => user($currentTranslationRequest->translator)->name,
-]) }}
+                    {{ __(':translatorName\'s translation is currently under review', [
+                        'translatorName' => user($currentTranslationRequest->translator)->name,
+                    ]) }}
                 </div>
                 <div>
                     <x-jet-danger-button class="whitespace-nowrap"
                                          type="button"
                                          wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
-                        {{ __('Delete Translation') }}
+                        {{ __('Delete Request') }}
+                    </x-jet-danger-button>
+                </div>
+            @elseif ($currentTranslationRequest->isComplete())
+                <div class="truncate">
+                    <x-user-photo :user="$currentTranslationRequest->translator"
+                                  class="h-10 w-10 inline-block mr-2" />
+
+                    {{ __(':translatorName translated this content', [
+                        'translatorName' => user($currentTranslationRequest->translator)->name,
+                    ]) }}
+                </div>
+                <div>
+                    <x-jet-danger-button class="whitespace-nowrap"
+                                         type="button"
+                                         wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
+                        {{ __('Delete translation') }}
                     </x-jet-danger-button>
                 </div>
             @else
@@ -99,7 +127,7 @@
                     <x-jet-danger-button class="whitespace-nowrap"
                                          type="button"
                                          wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
-                        {{ __('Delete Request') }}
+                        {{ __('Delete request') }}
                     </x-jet-danger-button>
                 </div>
             @endif
@@ -111,6 +139,7 @@
          wire:ignore>
         <x-rich-text-editor class="mt-6"
                             :content="$isViewingTranslation ? $currentTranslationRequest->content : $source->content"
+                            @highlight-annotation.window="highlight($event.detail.index, $event.detail.length)"
                             :isReadOnly="true" />
 
         @if ($isViewingTranslation)
@@ -153,8 +182,8 @@
 
             <x-slot name="content">
                 {{ __('Are you sure you want to revoke :translatorName\'s claim on this translation request?', [
-    'translatorName' => user($currentTranslationRequest->translator)->name,
-]) }}
+                    'translatorName' => user($currentTranslationRequest->translator)->name,
+                ]) }}
             </x-slot>
 
             <x-slot name="footer">

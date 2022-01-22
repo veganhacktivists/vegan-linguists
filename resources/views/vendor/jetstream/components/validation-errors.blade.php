@@ -1,12 +1,12 @@
 @if ($errors->any())
     <div {{ $attributes->merge([
-    'class' => 'rounded-md bg-brandClay-50 border border-brandClay-500 p-4',
-]) }}>
+        'class' => 'rounded-md bg-brand-clay-50 border border-brand-clay-500 p-4',
+    ]) }}>
         <div class="flex">
             <div class="flex-shrink-0">
-                <x-heroicon-s-x-circle class="h-5 w-5 text-brandClay-500" />
+                <x-heroicon-s-x-circle class="h-5 w-5 text-brand-clay-500" />
             </div>
-            <div class="ml-3 text-brandClay-800">
+            <div class="ml-3 text-brand-clay-800">
                 <h3 class="text-sm">
                     {{ __('Whoops! Something went wrong.') }}
                 </h3>

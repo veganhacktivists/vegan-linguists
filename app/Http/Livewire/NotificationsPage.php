@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Helpers\NotificationModelCache;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -27,7 +28,9 @@ class NotificationsPage extends Component
 
     public function markAllAsRead()
     {
-        $this->unreadNotifications->markAsRead();
+        if ($this->unreadNotifications instanceof DatabaseNotificationCollection) {
+            $this->unreadNotifications->markAsRead();
+        }
 
         $this->unreadNotifications = Auth::user()->unreadNotifications;
         $this->notifications = Auth::user()->notifications;

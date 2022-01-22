@@ -3,71 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Models\TranslationRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TranslatorDashboardController extends Controller
 {
-    public function __invoke(Request $request)
+    const MAX_TRANSLATION_REQUESTS_DISPLAYED = 5;
+
+    public function __invoke()
     {
-        $filter = $request->query('filter', '') ?? '';
-        $sourceLanguageCode = $request->query('source', '') ?? '';
-        $targetLanguageCode = $request->query('target', '')?? '';
+        $languageIds = Auth::user()->languages()->select('languages.id')->pluck('language.id');
 
-        $translationRequests = $this->getTranslationRequests($filter, $sourceLanguageCode, $targetLanguageCode);
-
-        $languages = Auth::user()->languages;
+        $translationRequests = $this->getUnclaimedTranslationRequestsQuery($languageIds)
+            ->union($this->getInProgressTranslationsQuery($languageIds))
+            ->union($this->getReviewableTranslationRequestsQuery())
+            ->union($this->getTranslationRequestsClaimedForReviewQuery())
+            ->with('source', 'source.language', 'source.author', 'reviewers')
+            ->get()
+            ->groupBy(function (TranslationRequest $translationRequest) {
+                if ($translationRequest->isUnclaimed())             return 'unclaimed';
+                if ($translationRequest->isClaimedBy(Auth::user())) return 'in_progress';
+                if ($translationRequest->hasReviewer(Auth::user())) return 'claimed_for_review';
+                return 'reviewable';
+            });
 
         return view('translator-dashboard', [
-            'filter' => $filter,
-            'translationRequests' => $translationRequests,
-            'languages' => $languages,
-            'sourceLanguageCode' => $sourceLanguageCode,
-            'targetLanguageCode' => $targetLanguageCode,
+            'unclaimedTranslationRequests' => $translationRequests['unclaimed'] ?? collect(),
+            'inProgressTranslations' => $translationRequests['in_progress'] ?? collect(),
+            'translationRequestsClaimedForReview' => $translationRequests['claimed_for_review'] ?? collect(),
+            'reviewableTranslationRequests' => $translationRequests['reviewable'] ?? collect(),
         ]);
     }
 
-    private function getTranslationRequests(string $filter, string $sourceLanguageCode, string $targetLanguageCode)
-    {
-        $languages = Auth::user()->languages;
-
-        if ($filter === 'unclaimed') {
-            $translationRequests = $this->getUnclaimedTranslationRequests();
-        } elseif ($filter === 'complete') {
-            $translationRequests = $this->getCompletedTranslationRequests();
-        } else {
-            $translationRequests = $this->getClaimedTranslationRequests();
-        }
-
-        $sourceLanguage = $languages->where('code', $sourceLanguageCode)->first();
-        $targetLanguage = $languages->where('code', $targetLanguageCode)->first();
-
-        return $translationRequests
-            ->with('source', 'source.author', 'source.language')
-            ->whereSourceLanguageId(
-                $sourceLanguage ? $sourceLanguage->id : $languages->pluck('id')
-            )
-            ->whereLanguageId(
-                $targetLanguage ? $targetLanguage->id : $languages->pluck('id')
-            )
-            ->get();
-    }
-
-    private function getClaimedTranslationRequests()
-    {
-        return Auth::user()->claimedTranslationRequests();
-    }
-
-    private function getCompletedTranslationRequests()
-    {
-        return Auth::user()->completedTranslationRequests();
-    }
-
-    private function getUnclaimedTranslationRequests()
+    private function getUnclaimedTranslationRequestsQuery(iterable $languageIds)
     {
         return TranslationRequest::query()
             ->unclaimed()
             ->excludingSourceAuthor(Auth::user())
+            ->limit(self::MAX_TRANSLATION_REQUESTS_DISPLAYED)
+            ->whereSourceLanguageId($languageIds)
+            ->whereLanguageId($languageIds)
             ->orderBy('created_at', 'desc');
+    }
+
+    private function getInProgressTranslationsQuery(iterable $languageIds)
+    {
+        return TranslationRequest::query()
+            ->needsReviewers()
+            ->excludingTranslator(Auth::user())
+            ->excludingReviewer(Auth::user())
+            ->whereSourceLanguageId($languageIds)
+            ->whereLanguageId($languageIds)
+            ->orderBy('created_at', 'desc')
+            ->limit(self::MAX_TRANSLATION_REQUESTS_DISPLAYED);
+    }
+
+    private function getTranslationRequestsClaimedForReviewQuery()
+    {
+        return Auth::user()
+            ->translationRequests()
+            ->incomplete()
+            ->limit(self::MAX_TRANSLATION_REQUESTS_DISPLAYED)
+            ->orderByStatus()
+            ->orderBy('translation_requests.created_at', 'desc');
+    }
+
+    private function getReviewableTranslationRequestsQuery()
+    {
+        return Auth::user()
+            ->translationRequestsClaimedForReview()
+            ->underReview()
+            ->select('translation_requests.*')
+            ->limit(self::MAX_TRANSLATION_REQUESTS_DISPLAYED)
+            ->orderBy('translation_requests.created_at', 'desc');
     }
 }

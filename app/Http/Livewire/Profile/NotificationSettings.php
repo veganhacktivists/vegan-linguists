@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Profile;
 use App\Models\NotificationSetting;
 use App\Models\User;
 use App\Notifications\ClaimedTranslationRequestDeletedNotification;
+use App\Notifications\TranslationRequestCommentResolvedNotification;
+use App\Notifications\TranslationRequestApprovedNotification;
 use App\Notifications\TranslationRequestClaimedNotification;
 use App\Notifications\TranslationRequestClaimRevokedNotification;
 use App\Notifications\TranslationRequestCommentedOnNotification;
+use App\Notifications\TranslationRequestReviewerAddedNotification;
 use App\Notifications\TranslationRequestUnclaimedNotification;
 use App\Notifications\TranslationSubmittedNotification;
 use Illuminate\Support\Collection;
@@ -58,7 +61,10 @@ class NotificationSettings extends Component
             TranslationRequestClaimedNotification::class,
             TranslationRequestUnclaimedNotification::class,
             TranslationSubmittedNotification::class,
+            TranslationRequestReviewerAddedNotification::class,
+            TranslationRequestApprovedNotification::class,
             TranslationRequestCommentedOnNotification::class,
+            TranslationRequestCommentResolvedNotification::class,
             TranslationRequestClaimRevokedNotification::class,
             ClaimedTranslationRequestDeletedNotification::class,
         ])->map(function (string $notificationType) use ($user) {

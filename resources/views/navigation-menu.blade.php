@@ -9,11 +9,11 @@ $isOnDashboard = request()->routeIs('home');
 
 <header x-data="{ open: false }"
         x-init="$refs.mobileMenu.classList.remove('hidden')"
-        class="flex-shrink-0 relative h-16 bg-brandBeige-100 flex items-center z-30">
+        class="flex-shrink-0 relative h-16 bg-brand-beige-100 flex items-center z-30">
     {{-- Logo area --}}
     <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
         <a href="{{ route('home') }}"
-           class="flex items-center justify-center h-16 px-4 md:bg-brandBrown-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brandBrown-600 md:w-20">
+           class="flex items-center justify-center h-16 px-4 md:bg-brand-brown-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-brown-600 md:w-20">
             <div class="hidden md:block">
                 <x-icon-logo-abbreviated class="h-8 w-auto" />
             </div>
@@ -35,7 +35,7 @@ $isOnDashboard = request()->routeIs('home');
     {{-- Menu button area --}}
     <div class="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
         <button type="button"
-                class="-mr-2 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset text-brandBrown-700 hover:border-brandBrown-700 hover:text-brandBrown-900 focus:ring-brandBrown-900"
+                class="-mr-2 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset text-brand-brown-700 hover:border-brand-brown-700 hover:text-brand-brown-900 focus:ring-brand-brown-900"
                 @click="open = true">
             <span class="sr-only">{{ __('Open main menu') }}</span>
             <x-heroicon-o-menu class="block h-6 w-6" />
@@ -46,7 +46,7 @@ $isOnDashboard = request()->routeIs('home');
     <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
         <a href="{{ route('home') }}"
            class="ml-4 mt-2">
-            <x-icon-logo-text-only class="text-brandClay-400 h-6 w-auto" />
+            <x-icon-logo-text-only class="text-brand-clay-400 h-6 w-auto" />
         </a>
         <div class="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="{{ __('Global') }}"
@@ -62,11 +62,11 @@ $isOnDashboard = request()->routeIs('home');
             <div class="flex items-center space-x-8">
                 <span class="inline-flex">
                     <a href="{{ route('notifications') }}"
-                       class="-mx-1 p-1 rounded-full text-brandBrown-600 hover:text-brandBrown-800 flex">
+                       class="-mx-1 p-1 rounded-full text-brand-brown-600 hover:text-brand-brown-800 flex">
                         <span class="sr-only">{{ __('View notifications') }}</span>
                         <x-heroicon-o-bell class="h-6 w-6" />
                         @if ($numUnreadNotifications > 0)
-                            <x-badge class="bg-brandClay-500 text-white"
+                            <x-badge class="bg-brand-clay-500 text-white text-xs"
                                      x-data=""
                                      x-init="Livewire.on('all-notifications-read', () => $el.remove())">
                                 {{ $numUnreadNotifications }}
@@ -82,14 +82,14 @@ $isOnDashboard = request()->routeIs('home');
                                             width="48">
                                 <x-slot name="trigger">
                                     <button
-                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-brandClay-500 transition">
+                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-brand-clay-500 transition">
                                         <x-user-photo :user="Auth::user()"
                                                       class="h-8 w-8 border-none" />
                                     </button>
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <div class="block px-4 py-2 text-xs text-brandBrown-500">
+                                    <div class="block px-4 py-2 text-xs text-brand-brown-500">
                                         {{ __('Manage Account') }}
                                     </div>
 
@@ -115,7 +115,7 @@ $isOnDashboard = request()->routeIs('home');
                                         </x-jet-dropdown-link>
                                     </form>
 
-                                    <div class="border-t border-brandBeige-100"></div>
+                                    <div class="border-t border-brand-beige-100"></div>
 
                                     <form method="POST"
                                           action="{{ route('logout') }}">
@@ -150,7 +150,7 @@ $isOnDashboard = request()->routeIs('home');
          role="dialog"
          aria-modal="true">
 
-        <div class="hidden sm:block sm:fixed sm:inset-0 sm:bg-brandBrown-900 sm:bg-opacity-50"
+        <div class="hidden sm:block sm:fixed sm:inset-0 sm:bg-brand-brown-900 sm:bg-opacity-50"
              aria-hidden="true"></div>
 
         <nav x-show="open"
@@ -161,14 +161,14 @@ $isOnDashboard = request()->routeIs('home');
              x-transition:leave-start="transform opacity-100 scale-100 sm:translate-x-0 sm:scale-100 sm:opacity-100"
              x-transition:leave-end="transform opacity-0 scale-110  sm:translate-x-full sm:scale-100 sm:opacity-100"
              @click.away="open = false"
-             class="fixed z-40 inset-0 h-full w-full bg-brandBeige-50 sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
+             class="fixed z-40 inset-0 h-full w-full bg-brand-beige-50 sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
              aria-label="{{ __('Global') }}">
             <div class="h-16 flex items-center justify-between px-4 sm:px-6">
                 <a href="{{ route('home') }}">
                     <x-icon-logo-abbreviated-transparent class="h-8 w-auto" />
                 </a>
                 <button type="button"
-                        class="-mr-2 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset text-brandBrown-700 hover:border-brandBrown-700 hover:text-brandBrown-900 focus:ring-brandBrown-900"
+                        class="-mr-2 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset text-brand-brown-700 hover:border-brand-brown-700 hover:text-brand-brown-900 focus:ring-brand-brown-900"
                         @click="open = false">
                     <span class="sr-only">{{ __('Close main menu') }}</span>
                     <x-heroicon-o-x class="block h-6 w-6" />
@@ -212,22 +212,22 @@ $isOnDashboard = request()->routeIs('home');
                     </x-jet-responsive-nav-link>
                 @endif
             </div>
-            <div class="border-t border-brandBeige-100 pt-4 pb-3">
+            <div class="border-t border-brand-beige-100 pt-4 pb-3">
                 <div class="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
                     <div class="flex-shrink-0">
                         <x-user-photo :user="Auth::user()"
                                       class="h-10 w-10" />
                     </div>
                     <div class="ml-3 min-w-0 flex-1">
-                        <div class="text-base text-brandBrown-900 truncate">{{ Auth::user()->name }}</div>
-                        <div class="text-sm text-brandBrown-600 truncate">{{ Auth::user()->email }}</div>
+                        <div class="text-base text-brand-brown-900 truncate">{{ Auth::user()->name }}</div>
+                        <div class="text-sm text-brand-brown-600 truncate">{{ Auth::user()->email }}</div>
                     </div>
                     <a href="{{ route('notifications') }}"
-                       class="ml-auto flex-shrink-0 p-2 text-brandBrown-600 hover:text-brandBrown-800 flex">
+                       class="ml-auto flex-shrink-0 p-2 text-brand-brown-600 hover:text-brand-brown-800 flex">
                         <span class="sr-only">{{ __('View notifications') }}</span>
                         <x-heroicon-o-bell class="h-6 w-6" />
                         @if ($numUnreadNotifications > 0)
-                            <x-badge class="bg-brandClay-500 text-white"
+                            <x-badge class="bg-brand-clay-500 text-white text-xs"
                                      x-data=""
                                      x-init="Livewire.on('all-notifications-read', () => $el.remove())">
                                 {{ $numUnreadNotifications }}

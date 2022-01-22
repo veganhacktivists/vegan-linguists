@@ -14,6 +14,8 @@ class Source extends Model
 {
     use HasFactory;
 
+    protected $with = ['language'];
+
     protected $fillable = [
         'author_id',
         'language_id',
@@ -39,23 +41,13 @@ class Source extends Model
     public function translationRequests()
     {
         return $this->hasMany(TranslationRequest::class)
-            ->orderBy(
-                DB::raw(
-                    sprintf(
-                        "FIELD(status, '%s')",
-                        implode(
-                            "','",
-                            [
-                                TranslationRequestStatus::COMPLETE,
-                                TranslationRequestStatus::CLAIMED,
-                                TranslationRequestStatus::UNCLAIMED,
-                            ]
-                        )
-                    ),
-                    'asc'
-                )
-            )
+            ->orderByStatus('desc')
             ->orderBy('language_id', 'asc');
+    }
+
+    public function isOwnedBy(User $user)
+    {
+        return $this->author_id === $user->id;
     }
 
     public function getNumCompleteTranslationRequestsAttribute()
@@ -68,13 +60,14 @@ class Source extends Model
         return Str::slug($this->title);
     }
 
-    public function scopeOrderByRecency(Builder $builder, string $order = 'desc') {
+    public function scopeOrderByRecency(Builder $builder, string $order = 'desc')
+    {
         return $builder->orderBy('created_at', $order);
     }
 
     public function scopeComplete(Builder $builder)
     {
-        return $builder->whereNotExists(function(QueryBuilder $query) {
+        return $builder->whereNotExists(function (QueryBuilder $query) {
             $query->select(DB::raw(1))
                 ->from('translation_requests')
                 ->where('status', '<>', TranslationRequestStatus::COMPLETE)
@@ -84,7 +77,7 @@ class Source extends Model
 
     public function scopeIncomplete(Builder $builder)
     {
-        return $builder->whereExists(function(QueryBuilder $query) {
+        return $builder->whereExists(function (QueryBuilder $query) {
             $query->select(DB::raw(1))
                 ->from('translation_requests')
                 ->where('status', '<>', TranslationRequestStatus::COMPLETE)

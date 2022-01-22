@@ -3,14 +3,13 @@
 namespace App\Policies;
 
 use App\Models\TranslationRequest;
-use App\Models\TranslationRequestStatus;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-define('MAX_CLAIMED_TRANSLATION_REQUESTS', 3);
-
 class TranslationRequestPolicy
 {
+    const MAX_CLAIMED_TRANSLATION_REQUESTS = 3;
+
     use HandlesAuthorization;
 
     public function viewAny(User $user)
@@ -20,13 +19,23 @@ class TranslationRequestPolicy
 
     public function view(User $user, TranslationRequest $translationRequest)
     {
-        if ($translationRequest->isClaimed() || $translationRequest->isComplete()) {
-            return $translationRequest->isClaimedBy($user);
+        if ($translationRequest->isClaimedBy($user) || $translationRequest->hasReviewer($user)) {
+            return true;
         }
 
-        return $translationRequest->status === TranslationRequestStatus::UNCLAIMED
-            && $translationRequest->source->author_id !== $user->id
-            && $user->speaksLanguage($translationRequest->language_id);
+        if ($translationRequest->source->isOwnedBy($user)) {
+            return false;
+        }
+
+        if ($translationRequest->isUnclaimed() || $translationRequest->doesNeedReviewers()) {
+            return $user->speaksLanguages([
+                $translationRequest->language_id,
+                $translationRequest->source->language_id
+            ]);
+        }
+
+
+        return false;
     }
 
     public function create(User $user)
@@ -36,26 +45,59 @@ class TranslationRequestPolicy
 
     public function update(User $user, TranslationRequest $translationRequest)
     {
-        return $translationRequest->source->author_id === $user->id;
+        return $translationRequest->source->isOwnedBy($user);
     }
 
     public function delete(User $user, TranslationRequest $translationRequest)
     {
-        return $translationRequest->source->author_id === $user->id;
+        return $translationRequest->source->isOwnedBy($user);
     }
 
     public function claim(User $user, TranslationRequest $translationRequest)
     {
-        return $this->view($user, $translationRequest)
-            && $user->hasVerifiedEmail()
+        return $translationRequest->isUnclaimed()
             && $translationRequest->translator_id === null
-            && $user->claimedTranslationRequests()->count() < MAX_CLAIMED_TRANSLATION_REQUESTS;
+            && $user->hasVerifiedEmail()
+            && $user->speaksLanguages([
+                $translationRequest->language_id,
+                $translationRequest->source->language_id
+            ])
+            && $user->num_claimed_translation_requests < self::MAX_CLAIMED_TRANSLATION_REQUESTS;
+    }
+
+    public function claimForReview(User $user, TranslationRequest $translationRequest)
+    {
+        return $translationRequest->isUnderReview()
+            && $user->hasVerifiedEmail()
+            && !$translationRequest->isClaimedBy($user)
+            && $translationRequest->doesNeedReviewers()
+            && !$translationRequest->hasReviewer($user)
+            && !$translationRequest->source->isOwnedBy($user)
+            && $user->speaksLanguages([
+                $translationRequest->language_id,
+                $translationRequest->source->language_id
+            ]);
+    }
+
+    public function review(User $user, TranslationRequest $translationRequest)
+    {
+        return $translationRequest->hasReviewer($user);
+    }
+
+    public function approve(User $user, TranslationRequest $translationRequest)
+    {
+        return !$translationRequest->hasBeenApprovedBy($user);
     }
 
     public function comment(User $user, TranslationRequest $translationRequest)
     {
-        return (($translationRequest->isClaimed() || $translationRequest->isComplete())
-            && $translationRequest->isClaimedBy($user))
-            || $user->is($translationRequest->source->author);
+        return $translationRequest->isClaimedBy($user)
+            || $translationRequest->hasReviewer($user)
+            || $translationRequest->source->isOwnedBy($user);
+    }
+
+    public function resolveComment(User $user, TranslationRequest $translationRequest)
+    {
+        return $translationRequest->isClaimedBy($user);
     }
 }

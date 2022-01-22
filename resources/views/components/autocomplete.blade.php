@@ -36,7 +36,7 @@
         <ul class="flex flex-wrap gap-2 mt-2"
             x-show="selectedItems.length > 0">
             <template x-for="item in selectedItems">
-                <li class="bg-brandBlue-50 border border-brandBlue-200 flex gap-2 px-2 py-1 rounded">
+                <li class="bg-brand-blue-50 border border-brand-blue-200 flex gap-2 px-2 py-1 rounded">
                     <span x-text="renderItemLabel(item)"></span>
                     <button type="button"
                             @click="unselect(item)">

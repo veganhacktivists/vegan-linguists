@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="px-6 py-4 bg-brandBeige-100 text-right">
+    <div class="px-6 py-4 bg-brand-beige-100 text-right">
         {{ $footer }}
     </div>
 </x-jet-modal>

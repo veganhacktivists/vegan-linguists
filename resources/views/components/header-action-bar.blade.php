@@ -1,7 +1,7 @@
-<div class="bg-brandBeige-50 shadow relative z-20">
+<div class="bg-brand-beige-50 shadow relative z-20">
     <div {{ $attributes->merge([
-    'class' => 'max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 w-full',
-]) }}>
+        'class' => 'max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 w-full',
+    ]) }}>
         {{ $slot }}
     </div>
 </div>

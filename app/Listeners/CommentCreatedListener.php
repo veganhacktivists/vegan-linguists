@@ -7,9 +7,8 @@ use App\Models\Comment;
 use App\Models\TranslationRequest;
 use App\Notifications\TranslationRequestCommentedOnNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class CommentCreatedListener
+class CommentCreatedListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -38,10 +37,21 @@ class CommentCreatedListener
 
     private function handleTranslationRequestComment(Comment $comment, TranslationRequest $translationRequest)
     {
-        if ($comment->author_id === $translationRequest->translator_id) {
-            $translationRequest->source->author->notify(new TranslationRequestCommentedOnNotification($comment));
-        } elseif ($translationRequest->translator_id) {
-            $translationRequest->translator->notify(new TranslationRequestCommentedOnNotification($comment));
+        $users = $translationRequest
+            ->reviewers()
+            ->where('users.id', '<>', $comment->author_id)
+            ->get();
+
+        if ($comment->author_id !== $translationRequest->source->author_id) {
+            $users->add($translationRequest->source->author);
+        }
+
+        if ($comment->author_id !== $translationRequest->translator_id) {
+            $users->add($translationRequest->translator);
+        }
+
+        foreach ($users as $user) {
+            $user->notify(new TranslationRequestCommentedOnNotification($comment));
         }
     }
 }

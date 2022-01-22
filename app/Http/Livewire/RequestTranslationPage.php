@@ -10,12 +10,13 @@ use Livewire\Component;
 
 class RequestTranslationPage extends Component
 {
-    public bool $shouldDisplayLanguagePicker = false;
+    public bool $shouldDisplaySubmissionModal = false;
     public string $title = '';
     public string $content = '';
     public string $plainText = '';
     public ?int $sourceLanguageId = null;
     public array $targetLanguages = [];
+    public string $numReviewers = '0';
     public Collection $languages;
 
     public function mount()
@@ -55,6 +56,7 @@ class RequestTranslationPage extends Component
                         'language_id' => $targetLanguageId,
                         'content' => $this->content,
                         'plain_text' => $this->plainText,
+                        'num_approvals_required' => $this->numReviewers,
                     ];
                 }, $this->targetLanguages)
             );
@@ -72,6 +74,7 @@ class RequestTranslationPage extends Component
             'content' => ['required', 'string'],
             'plainText' => ['required', 'string'],
             'sourceLanguageId' => ['required', 'exists:languages,id'],
+            'numReviewers' => ['required', 'integer', 'min:0', 'max:3'],
             'targetLanguages' => [
                 'required',
                 'array',
@@ -82,6 +85,13 @@ class RequestTranslationPage extends Component
                     }
                 }
             ],
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'numReviewers.*' => __('Please choose a number of reviewers from 0 to 3.'),
         ];
     }
 }

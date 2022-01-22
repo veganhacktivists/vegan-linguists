@@ -1,8 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     './vendor/laravel/jetstream/**/*.blade.php',
     './storage/framework/views/*.php',
@@ -17,8 +16,8 @@ module.exports = {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        // Design palette: https://grayscale.design/app?lums=92.72,85.96,76.12,48.53,32.68,20.15,15.15,11.44,6.93,1.73&palettes=%2345A3DD,%23191515,%23B6674B,%23E8E1DB,%23A1C64F&filters=0%7C0,-8.8%7C0,0%7C0,0%7C0,0%7C0&names=brandBlue,brandBrown,brandClay,brandBeige,brandGreen&labels=,,,,
-        brandBlue: {
+        // Design palette: https://grayscale.design/app?lums=92.72,85.96,76.12,48.53,32.68,20.15,15.15,11.44,6.93,1.73&palettes=%2345A3DD,%23191515,%23B6674B,%23E8E1DB,%23A1C64F&filters=0%7C0,-8.8%7C0,0%7C0,0%7C0,0%7C0&names=brand-blue,brand-brown,brand-clay,brand-beige,brand-green&labels=,,,,
+        'brand-blue': {
           50: 'rgb(241, 248, 252)',
           100: 'rgb(227, 241, 250)',
           200: 'rgb(205, 230, 246)',
@@ -30,7 +29,7 @@ module.exports = {
           800: 'rgb(21, 79, 115)',
           900: 'rgb(10, 38, 55)',
         },
-        brandBrown: {
+        'brand-brown': {
           50: 'rgb(246, 247, 245)',
           100: 'rgb(238, 239, 236)',
           200: 'rgb(227, 227, 221)',
@@ -42,7 +41,7 @@ module.exports = {
           800: 'rgb(84, 72, 70)',
           900: 'rgb(41, 34, 34)',
         },
-        brandClay: {
+        'brand-clay': {
           50: 'rgb(251, 246, 244)',
           100: 'rgb(246, 237, 233)',
           200: 'rgb(240, 223, 217)',
@@ -54,7 +53,7 @@ module.exports = {
           800: 'rgb(110, 62, 45)',
           900: 'rgb(53, 30, 22)',
         },
-        brandBeige: {
+        'brand-beige': {
           50: 'rgb(248, 246, 244)',
           100: 'rgb(242, 238, 235)',
           200: 'rgb(232, 225, 219)',
@@ -66,7 +65,7 @@ module.exports = {
           800: 'rgb(88, 71, 56)',
           900: 'rgb(42, 34, 27)',
         },
-        brandGreen: {
+        'brand-green': {
           50: 'rgb(245, 249, 236)',
           100: 'rgb(234, 242, 215)',
           200: 'rgb(217, 232, 184)',
@@ -85,12 +84,27 @@ module.exports = {
     },
   },
 
-  variants: {
-    extend: {
-      opacity: ['disabled'],
-      backgroundColor: ['group-focus'],
-    },
-  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    // expose colors as variables
+    function ({ addBase, theme }) {
+      function extractColorVars(colorObj, colorGroup = '') {
+        return Object.keys(colorObj).reduce((vars, colorKey) => {
+          const value = colorObj[colorKey]
 
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+          const newVars =
+            typeof value === 'string'
+              ? { [`--color${colorGroup}-${colorKey}`]: value }
+              : extractColorVars(value, `-${colorKey}`)
+
+          return { ...vars, ...newVars }
+        }, {})
+      }
+
+      addBase({
+        ':root': extractColorVars(theme('colors')),
+      })
+    },
+  ],
 }

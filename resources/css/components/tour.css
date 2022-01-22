@@ -1,0 +1,93 @@
+.shepherd-button:not(.shepherd-button-secondary) {
+  @apply inline-flex px-4 py-2 bg-brand-brown-800 border border-transparent rounded-md font-bold text-xs text-brand-beige-100 hover:bg-brand-brown-700 active:bg-brand-brown-900 focus:outline-none focus:border-brand-brown-900 focus:ring focus:ring-brand-brown-300 disabled:opacity-50 disabled:hover:bg-brand-brown-800 transition;
+}
+
+.shepherd-button.shepherd-button-secondary {
+  @apply inline-flex px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-brand-blue-300 focus:ring focus:ring-brand-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition;
+}
+
+.shepherd-footer {
+  @apply rounded-bl-md rounded-br-md justify-end gap-2 flex p-4;
+}
+
+.shepherd-cancel-icon {
+  @apply bg-transparent border-0 text-gray-400 hover:text-gray-600 cursor-pointer text-2xl transition-colors;
+}
+
+.shepherd-title {
+  @apply flex flex-1 font-bold;
+}
+
+.shepherd-header {
+  @apply flex items-center justify-end rounded-tl-md rounded-tr-md px-4 py-2;
+}
+
+.shepherd-text {
+  @apply px-4;
+}
+
+.shepherd-content {
+  @apply rounded-md;
+}
+
+.shepherd-element {
+  @apply bg-white rounded-md shadow-md max-w-sm opacity-0 invisible w-full z-[1000] transition-all;
+}
+
+.shepherd-enabled.shepherd-element {
+  @apply opacity-100 visible;
+}
+
+.shepherd-element[data-popper-reference-hidden]:not(.shepherd-centered) {
+  @apply opacity-0 pointer-events-none invisible;
+}
+
+.shepherd-arrow,
+.shepherd-arrow:before {
+  @apply h-3 w-3 absolute z-[-1];
+}
+
+.shepherd-arrow:before {
+  @apply bg-white rotate-45;
+
+  content: '';
+}
+
+.shepherd-element.shepherd-centered > .shepherd-arrow {
+  @apply opacity-0;
+}
+
+.shepherd-element[data-popper-placement='right-start'] > .shepherd-arrow {
+  @apply -left-1 !-top-4;
+}
+
+.shepherd-element[data-popper-placement='left-start'] > .shepherd-arrow {
+  @apply -right-1 !-top-4;
+}
+
+.shepherd-element[data-popper-placement='top-end'] > .shepherd-arrow {
+  @apply -bottom-1;
+}
+
+.shepherd-target-click-disabled.shepherd-enabled.shepherd-target,
+.shepherd-target-click-disabled.shepherd-enabled.shepherd-target * {
+  @apply pointer-events-none;
+}
+
+.shepherd-modal-overlay-container {
+  @apply opacity-0 h-0 fixed left-0 right-0 top-0 bottom-0 overflow-hidden pointer-events-none w-screen z-[500];
+
+  transition: all 0.3s ease-in, height 0ms 0.3s, opacity 0.3s 0ms;
+}
+
+.shepherd-modal-overlay-container.shepherd-modal-is-visible {
+  @apply h-screen opacity-50;
+
+  transition: all 0.3s ease-out, height 0s 0s, opacity 0.3s 0s;
+}
+
+.shepherd-modal-overlay-container.shepherd-modal-is-visible path {
+  @apply fill-brand-beige-900;
+
+  pointer-events: all;
+}

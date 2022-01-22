@@ -17,7 +17,7 @@ class SourcePolicy
 
     public function view(User $user, Source $source)
     {
-        return $source->author_id === $user->id;
+        return $source->isOwnedBy($user);
     }
 
     public function create(User $user)
@@ -27,11 +27,11 @@ class SourcePolicy
 
     public function update(User $user, Source $source)
     {
-        return $source->author_id === $user->id;
+        return $source->isOwnedBy($user);
     }
 
     public function delete(User $user, Source $source)
     {
-        return $source->author_id === $user->id;
+        return $source->isOwnedBy($user);
     }
 }

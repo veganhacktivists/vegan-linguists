@@ -15,7 +15,7 @@ document.addEventListener('turbolinks:load', () => {
 
       popper.appendChild(box)
 
-      box.className = 'bg-brandBeige-800 text-white p-2 shadow rounded'
+      box.className = 'bg-brand-beige-800 text-white p-2 shadow rounded'
       box.textContent = instance.props.content
 
       function onUpdate(prevProps, nextProps) {

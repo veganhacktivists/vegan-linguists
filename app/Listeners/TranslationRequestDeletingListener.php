@@ -41,11 +41,22 @@ class TranslationRequestDeletingListener
 
         $translationRequest->comments->each->delete();
 
-        if ($translationRequest->isClaimed()) {
+        if ($translationRequest->isClaimed() || $translationRequest->isUnderReview()) {
             $translationRequest->translator->notify(new ClaimedTranslationRequestDeletedNotification(
                 $translationRequest->source->title,
                 $translationRequest->language->name,
+                ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_TRANSLATOR,
             ));
         }
+
+        if ($translationRequest->isUnderReview()) {
+            $translationRequest->reviewers->each->notify(new ClaimedTranslationRequestDeletedNotification(
+                $translationRequest->source->title,
+                $translationRequest->language->name,
+                ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_REVIEWER,
+            ));
+        }
+
+        $translationRequest->reviewers()->detach();
     }
 }

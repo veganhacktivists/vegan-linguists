@@ -3,23 +3,24 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TranslationRequestCommentedOnNotification extends Notification
+class TranslationRequestCommentedOnNotification extends Notification implements BaseNotification, ShouldQueue
 {
     use Queueable;
 
     public static function getTitle()
     {
-        return __('Translation Request Commented On');
+        return __('Translation Commented On');
     }
 
     public static function getDescription()
     {
-        return __("Get notified when someone comments on a translation request");
+        return __("Get notified when someone comments on a translation");
     }
 
     /**
@@ -55,29 +56,29 @@ class TranslationRequestCommentedOnNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  User  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(User $notifiable)
     {
         $translationRequest = $this->comment->commentable;
         $source = $translationRequest->source;
         $commenter = $this->comment->author;
 
-        $route = $commenter->id === $source->author_id
-            ? route('translate', [$translationRequest->id, $source->slug]) // notifying the translator
-            : route('translation', [$source->id, $translationRequest->language->id]); // notifying the author
+        $route = $notifiable->id === $source->author_id
+            ? route('translation', [$source->id, $translationRequest->language->id]) // notifying the author
+            : route('translate', [$translationRequest->id, $source->slug, '#discussion']); // notifying a translator or reviewer
 
         return (new MailMessage)
-            ->subject('New Comment on Translation Request')
+            ->subject(__('New Comment on Translation'))
             ->line(
-                __(':userName has left a comment on the :languageName translation request for :sourceTitle.', [
+                __(':userName has left a comment on the :languageName translation for :sourceTitle.', [
                     'userName' => '**' . $commenter->name . '**',
                     'languageName' => '**' . $translationRequest->language->name . '**',
                     'sourceTitle' => '**' . $translationRequest->source->title . '**',
                 ])
             )
-            ->line("_{$this->comment->truncatedText}_")
+            ->line("_{$this->comment->truncated_text}_")
             ->action(
                 __('View Translation Request'),
                 $route,

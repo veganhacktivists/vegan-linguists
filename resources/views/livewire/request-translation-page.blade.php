@@ -8,14 +8,14 @@
 
         <div class="bg-white h-full overflow-hidden">
             <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 text-brandBrown-900">
+                <h3 class="text-lg leading-6 text-brand-brown-900">
                     {{ __('Submit content for translation') }}
                 </h3>
-                <p class="mt-1 max-w-2xl text-sm text-brandBrown-700">
+                <p class="mt-1 max-w-2xl text-sm text-brand-brown-700">
                     {{ __("Enter your content into the editor. Make sure that it's formatted the way you'd like before submitting it.") }}
                 </p>
             </div>
-            <div class="border-t border-brandBrown-200 px-4 py-5 sm:px-6">
+            <div class="border-t border-brand-brown-200 px-4 py-5 sm:px-6">
                 {{ __('Once your content is submitted, it will be available for translators to get to work on it. You will receive notifications to keep you updated on the status of your translations.') }}
             </div>
         </div>
@@ -31,13 +31,13 @@
 
     <div class="text-right p-2 bg-white sticky bottom-0">
         <x-jet-button type="submit"
-                      wire:click="$set('shouldDisplayLanguagePicker', true)"
+                      wire:click="$set('shouldDisplaySubmissionModal', true)"
                       :disabled="mb_strlen(trim($plainText)) === 0">
             {{ __('Continue') }}
         </x-jet-button>
     </div>
 
-    <x-jet-dialog-modal wire:model="shouldDisplayLanguagePicker">
+    <x-jet-dialog-modal wire:model="shouldDisplaySubmissionModal">
         <x-slot name="title">
             {{ __('Choose languages') }}
         </x-slot>
@@ -52,8 +52,7 @@
                 </x-jet-label>
                 <x-jet-input id="title"
                              type="text"
-                             wire:model.lazy="title"
-                             class="w-full" />
+                             wire:model.lazy="title" />
             </div>
 
             <div class="mt-4">
@@ -84,6 +83,16 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="num-reviewers"
+                             class="mb-1">
+                    {{ __('How many reviewers would you like to review the submitted translations?') }}
+                </x-jet-label>
+                <x-jet-input id="num-reviewers"
+                             type="text"
+                             wire:model.lazy="numReviewers" />
+            </div>
+
+            <div class="mt-4">
                 <x-alert title="{{ __('Important') }}"
                          type="warning"
                          icon="o-exclamation">
@@ -97,7 +106,7 @@
 
         <x-slot name="footer">
             <x-jet-secondary-button type="button"
-                                    wire:click="$set('shouldDisplayLanguagePicker', false)">
+                                    wire:click="$set('shouldDisplaySubmissionModal', false)">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 

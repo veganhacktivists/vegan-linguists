@@ -40,7 +40,7 @@ class NotificationModelCache
             ->get()
             ->keyBy('id');
 
-        $userIds = $this->pluckuserIds($notifications)
+        $userIds = $this->pluckUserIds($notifications)
             ->concat($this->comments->pluck('author_id'))
             ->concat($this->sources->pluck('author_id'))
             ->concat($this->translationRequests->pluck('translator_id'))
@@ -95,6 +95,7 @@ class NotificationModelCache
     {
         return $notifications->pluck('data.translator_id')
             ->concat($notifications->pluck('data.author_id'))
+            ->concat($notifications->pluck('data.reviewer_id'))
             ->filter();
     }
 }

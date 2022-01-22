@@ -1,7 +1,7 @@
 .sidebar-link {
-    @apply flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg text-brandBeige-200 focus:outline-none hover:bg-brandBeige-800 focus:bg-brandBeige-800;
+  @apply flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg text-brand-beige-200 focus:outline-none hover:bg-brand-beige-800 focus:bg-brand-beige-800;
 }
 
 .sidebar-link.active {
-    @apply bg-brandBeige-800;
+  @apply bg-brand-beige-800;
 }

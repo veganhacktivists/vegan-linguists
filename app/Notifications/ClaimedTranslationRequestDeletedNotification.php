@@ -2,16 +2,17 @@
 
 namespace App\Notifications;
 
-use App\Models\TranslationRequest;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ClaimedTranslationRequestDeletedNotification extends Notification implements BaseNotification
+class ClaimedTranslationRequestDeletedNotification extends Notification implements BaseNotification, ShouldQueue
 {
     use Queueable;
+
+    const RELATIONSHIP_TRANSLATOR = 'translator';
+    const RELATIONSHIP_REVIEWER = 'reviewer';
 
     public static function getTitle()
     {
@@ -20,7 +21,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
 
     public static function getDescription()
     {
-        return __("Get notified when a translation request that you've claimed has been deleted");
+        return __("Get notified when a translation request that you've claimed for translation or for review has been deleted");
     }
 
     /**
@@ -28,7 +29,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
      *
      * @return void
      */
-    public function __construct(private string $translationRequestTitle, private string $languageName)
+    public function __construct(private string $translationRequestTitle, private string $languageName, public string $userRelationship)
     {
     }
 
@@ -61,6 +62,14 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
      */
     public function toMail($notifiable)
     {
+        $actionText = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
+            ? __('View Your Translations')
+            : __('View Your Translation Under Review');
+
+        $actionRoute = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
+            ? claimedTranslationRequestsRoute()
+            : underReviewTranslationRequestsRoute();
+
         return (new MailMessage)
             ->subject(__('Translation Request Deleted'))
             ->line(
@@ -69,10 +78,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
                     'sourceTitle' => '**' . $this->translationRequestTitle . '**',
                 ])
             )
-            ->action(
-                __('View Your Claimed Translation Requests'),
-                route('home')
-            );
+            ->action($actionText, $actionRoute);
     }
 
     /**

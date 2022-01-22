@@ -2,7 +2,7 @@
                                    :date="$date">
 
     <div class="flex gap-3 pr-4">
-        <x-heroicon-o-exclamation class="h-6 w-6 text-brandClay-700" />
+        <x-heroicon-o-exclamation class="h-6 w-6 text-brand-clay-700" />
 
         <span class="flex-1">
             {!! __('The :languageName translation request for :translationRequestTitle has been deleted.', [

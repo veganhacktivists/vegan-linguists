@@ -103,9 +103,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->translationRequests()->where('status', TranslationRequestStatus::CLAIMED);
     }
 
+    public function translationRequestsClaimedForReview()
+    {
+        return $this->belongsToMany(
+            TranslationRequest::class,
+            'reviewer_translation_request',
+            'reviewer_id',
+            'translation_request_id'
+        );
+    }
+
     public function completedTranslationRequests()
     {
-        return $this->translationRequests()->where('status', TranslationRequestStatus::COMPLETE);
+        return $this->translationRequests()->complete();
     }
 
     public function settings()
@@ -118,9 +128,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(NotificationSetting::class);
     }
 
-    public function speaksLanguage(int $languageId)
+    public function speaksLanguages(iterable $languageIds)
     {
-        return $this->languages()->wherePivot('language_id', $languageId)->exists();
+        if ($this->relationLoaded('languages')) {
+            return $this->languages->whereIn(['pivot', 'language_id'], $languageIds)->count() === count($languageIds);
+        }
+
+        return $this->languages()->wherePivotIn('language_id', $languageIds)->count() === count($languageIds);
     }
 
     public function getDefaultTargetLanguagesAttribute()
@@ -141,6 +155,15 @@ class User extends Authenticatable implements MustVerifyEmail
         $setting->save();
     }
 
+    public function getNumClaimedTranslationRequestsCount()
+    {
+        if ($this->relationLoaded('claimedTranslationRequests')) {
+            return $this->claimedTranslationRequests->count();
+        }
+
+        return $this->claimedTranslationRequests()->count();
+    }
+
     public function isInAuthorMode()
     {
         return $this->user_mode === UserMode::AUTHOR;
@@ -148,7 +171,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isOnboarded()
     {
-        return $this->languages()->count() > 0;
+        // This function only gets called in middlewares, so we might as well load the relationship
+        // to save potential queries later
+        return $this->languages->count() > 0;
     }
 
     public function switchUserMode()

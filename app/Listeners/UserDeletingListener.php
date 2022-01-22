@@ -47,5 +47,11 @@ class UserDeletingListener
         )->update([
             'data' => DB::raw("JSON_SET(data, '$.translator_id', null)")
         ]);
+
+        DatabaseNotification::whereRaw(
+            "json_extract(data, '$.reviewer_id') = {$user->id}"
+        )->update([
+            'data' => DB::raw("JSON_SET(data, '$.reviewer_id', null)")
+        ]);
     }
 }

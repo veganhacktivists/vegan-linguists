@@ -31,30 +31,33 @@
     @stack('scripts')
 </head>
 
-<body class="font-sans antialiased bg-brandBeige-100 bg-opacity-60 text-brandBrown-900">
+<body class="font-sans antialiased bg-brand-beige-100 bg-opacity-60 text-brand-brown-900">
     <div class="h-screen flex flex-col overflow-hidden">
         @include('navigation-menu')
 
         @php
             $filter = request()->input('filter');
+            $isOnTranslationRequestsPage = request()->routeIs('translation-requests.index');
             $isOnDashboard = request()->routeIs('home');
         @endphp
         <div class="min-h-0 flex-1 flex">
             <nav aria-label="Sidebar"
-                 class="hidden md:block md:flex-shrink-0 md:bg-brandBrown-900 md:overflow-y-auto">
+                 class="hidden md:block md:flex-shrink-0 md:bg-brand-brown-900 md:overflow-y-auto">
                 <div class="relative w-20 p-3 flex flex-col space-y-3 justify-between h-full">
                     <div class="flex flex-col space-y-3">
-                        @if (Auth::user()->isInAuthorMode())
-                            <x-sidebar-link href="{{ route('home') }}"
-                                            icon="o-folder-open"
-                                            :active="empty($filter) && $isOnDashboard">
-                                {{ __('All Translation Requests') }}
-                            </x-sidebar-link>
+                        <x-sidebar-link href="{{ route('home') }}"
+                                        icon="o-home"
+                                        :active="empty($filter) && $isOnDashboard">
+                            {{ __('Dashboard') }}
+                        </x-sidebar-link>
 
+                        <x-sidebar-separator />
+
+                        @if (Auth::user()->isInAuthorMode())
                             <x-sidebar-link href="{{ route('home', ['filter' => 'incomplete']) }}"
-                                            :active="$filter === 'incomplete' && $isOnDashboard"
-                                            icon="o-clock">
-                                {{ __('In-progress Translations') }}
+                                            icon="o-folder-open"
+                                            :active="$filter === 'incomplete' && $isOnDashboard">
+                                {{ __('My Translation Requests') }}
                             </x-sidebar-link>
 
                             <x-sidebar-link href="{{ route('home', ['filter' => 'complete']) }}"
@@ -63,20 +66,36 @@
                                 {{ __('Completed Translations') }}
                             </x-sidebar-link>
                         @else
-                            <x-sidebar-link href="{{ route('home', \Request::except('filter')) }}"
-                                            :active="empty($filter) && $isOnDashboard"
-                                            icon="o-document-text">
-                                {{ __('Claimed Translation Requests') }}
-                            </x-sidebar-link>
-
-                            <x-sidebar-link href="{{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
-                                            :active="$filter === 'unclaimed' && $isOnDashboard"
+                            <x-sidebar-link href="{{ unclaimedTranslationRequestsRoute() }}"
+                                            :active="empty($filter) && $isOnTranslationRequestsPage"
                                             icon="o-search">
-                                {{ __('Available Translation Requests') }}
+                                {{ __('Browse Translation Requests') }}
                             </x-sidebar-link>
 
-                            <x-sidebar-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
-                                            :active="$filter === 'complete' && $isOnDashboard"
+                            <x-sidebar-link href="{{ claimedTranslationRequestsRoute() }}"
+                                            :active="$filter === 'mine' && $isOnTranslationRequestsPage"
+                                            icon="o-document-text">
+                                {{ __('My Translations') }}
+                            </x-sidebar-link>
+
+                            <x-sidebar-separator />
+
+                            <x-sidebar-link href="{{ reviewableTranslationRequestsRoute() }}"
+                                            :active="$filter === 'reviewable' && $isOnTranslationRequestsPage"
+                                            icon="o-document-search">
+                                {{ __('Browse Reviewable Translations') }}
+                            </x-sidebar-link>
+
+                            <x-sidebar-link href="{{ underReviewTranslationRequestsRoute() }}"
+                                            :active="$filter === 'under-review' && $isOnTranslationRequestsPage"
+                                            icon="o-switch-horizontal">
+                                {{ __('Translations Under Review') }}
+                            </x-sidebar-link>
+
+                            <x-sidebar-separator />
+
+                            <x-sidebar-link href="{{ completedTranslationRequestsRoute() }}"
+                                            :active="$filter === 'completed' && $isOnTranslationRequestsPage"
                                             icon="o-check">
                                 {{ __('Completed Translations') }}
                             </x-sidebar-link>
@@ -90,7 +109,7 @@
                     </x-sidebar-link>
             </nav>
 
-            <main class="min-w-0 flex-1 border-t border-brandBrown-200 flex flex-col lg:flex-row overflow-auto">
+            <main class="min-w-0 flex-1 border-t border-brand-brown-200 flex flex-col lg:flex-row overflow-auto">
                 <section aria-labelledby="primary-heading"
                          class="min-w-0 flex-1 {{ !empty($containContent) ? 'h-full' : '' }} flex-col lg:order-last">
                     <x-jet-banner />
@@ -103,7 +122,7 @@
                            class="block flex-shrink-0 order-first">
                         @if (isset($asideTitle))
                             <button @click="open = !open; $el.scrollIntoView()"
-                                    class="lg:hidden px-2 py-4 flex gap-2 justify-center items-center w-full bg-brandClay-50 relative">
+                                    class="lg:hidden px-2 py-4 flex gap-2 justify-center items-center w-full bg-brand-clay-50 relative">
                                 {{ $asideTitle }}
                                 <x-heroicon-o-chevron-down class="h-6 w-6"
                                                            x-bind:class="{ hidden: open }" />
@@ -113,7 +132,7 @@
                         @endif
 
                         <div x-bind:class="{ 'max-h-0': !open, 'max-h-screen': open }"
-                             class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-b lg:border-b-none lg:border-r border-brandBrown-200 bg-brandBeige-50 lg:block">
+                             class="max-h-0 lg:h-full lg:max-h-full transition-all relative flex flex-col lg:w-96 border-b lg:border-b-none lg:border-r border-brand-brown-200 bg-brand-beige-50 lg:block">
                             {{ $aside }}
                         </div>
                     </aside>

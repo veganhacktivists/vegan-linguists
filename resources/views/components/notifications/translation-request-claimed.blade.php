@@ -3,7 +3,7 @@ $sourceRoute = route('translation', [$source->id, $translationRequest->language-
 $sourceTitle = htmlentities($source->title);
 
 $translationRequestTitle = <<<HTML
-    <a class="font-bold text-brandClay-700 hover:underline" href="$sourceRoute">$sourceTitle</a>
+    <a class="font-bold text-brand-clay-700 hover:underline" href="$sourceRoute">$sourceTitle</a>
 HTML;
 
 @endphp

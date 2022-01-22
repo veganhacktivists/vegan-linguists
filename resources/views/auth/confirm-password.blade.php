@@ -4,7 +4,7 @@
             <x-icon-logo-with-text class="w-full" />
         </x-slot>
 
-        <div class="mb-4 text-sm text-brandBrown-600">
+        <div class="mb-4 text-sm text-brand-brown-600">
             {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
         </div>
 

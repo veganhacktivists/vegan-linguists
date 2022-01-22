@@ -9,6 +9,7 @@ use App\Models\TranslationRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class TranslationRequestCommentedOn extends Component
@@ -36,7 +37,7 @@ class TranslationRequestCommentedOn extends Component
         $this->date = $notification->created_at;
 
         $sourceAuthor = $modelCache->find(User::class, $this->source->author_id);
-        $this->isNotifyingAuthor = !$this->commentAuthor->is($sourceAuthor);
+        $this->isNotifyingAuthor = $sourceAuthor->is(Auth::user());
     }
 
     /**

@@ -1,12 +1,12 @@
 @props(['active'])
 
 @php
-$classes = $active ?? false ? 'bg-brandBeige-200' : 'hover:bg-brandBeige-100';
+$classes = $active ?? false ? 'bg-brand-beige-200' : 'hover:bg-brand-beige-100';
 @endphp
 
 <a
    {{ $attributes->merge([
-    'class' => 'block rounded-md py-2 px-3 text-base text-brandBrown-900 ' . $classes,
-]) }}>
+       'class' => 'block rounded-md py-2 px-3 text-base text-brand-brown-900 ' . $classes,
+   ]) }}>
     {{ $slot }}
 </a>

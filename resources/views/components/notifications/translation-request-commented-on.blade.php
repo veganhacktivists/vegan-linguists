@@ -1,10 +1,10 @@
 @php
-$route = $isNotifyingAuthor ? route('translation', [$source->id, $translationRequest->language->id]) : route('translate', [$translationRequest->id, $source->slug]);
+$route = $isNotifyingAuthor ? route('translation', [$source->id, $translationRequest->language->id]) : route('translate', [$translationRequest->id, $source->slug, '#discussion']);
 
 $title = htmlentities($source->title);
 
 $translationRequestTitle = <<<HTML
-    <a class="font-bold text-brandClay-700 hover:underline" href="$route">$title</a>
+    <a class="font-bold text-brand-clay-700 hover:underline" href="$route">$title</a>
 HTML;
 
 @endphp

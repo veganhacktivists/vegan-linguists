@@ -42,11 +42,11 @@ use App\Models\UserMode;
             </legend>
             <div class="bg-white rounded-md -space-y-px">
                 <label class="rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none"
-                       x-bind:class="{ 'bg-brandBlue-50 border-brandBlue-200 z-10': userMode === '{{ UserMode::TRANSLATOR }}', 'border-brandBrown-200': userMode !== '{{ UserMode::TRANSLATOR }}' }">
+                       x-bind:class="{ 'bg-brand-blue-50 border-brand-blue-200 z-10': userMode === '{{ UserMode::TRANSLATOR }}', 'border-brand-brown-200': userMode !== '{{ UserMode::TRANSLATOR }}' }">
                     <input type="radio"
                            name="user-mode"
                            value="{{ UserMode::TRANSLATOR }}"
-                           class="h-4 w-4 mt-0.5 cursor-pointer text-brandBlue-600 border-brandBrown-300 focus:ring-brandBlue-500"
+                           class="h-4 w-4 mt-0.5 cursor-pointer text-brand-blue-600 border-brand-brown-300 focus:ring-brand-blue-500"
                            aria-labelledby="user-mode-0-label"
                            required
                            wire:model="userMode"
@@ -54,43 +54,43 @@ use App\Models\UserMode;
                     <div class="ml-3 flex flex-col">
                         <span id="user-mode-0-label"
                               class="block text-sm"
-                              x-bind:class="{ 'text-brandBlue-900': userMode === '{{ UserMode::TRANSLATOR }}', 'text-brandBrown-900': userMode !== '{{ UserMode::TRANSLATOR }}' }">
+                              x-bind:class="{ 'text-brand-blue-900': userMode === '{{ UserMode::TRANSLATOR }}', 'text-brand-brown-900': userMode !== '{{ UserMode::TRANSLATOR }}' }">
                             {{ __('I want to translate content.') }}
                         </span>
                     </div>
                 </label>
 
                 <label class="relative border p-4 flex cursor-pointer focus:outline-none"
-                       x-bind:class="{ 'bg-brandBlue-50 border-brandBlue-200 z-10': userMode === '{{ UserMode::AUTHOR }}', 'border-brandBrown-200': userMode !== '{{ UserMode::AUTHOR }}' }">
+                       x-bind:class="{ 'bg-brand-blue-50 border-brand-blue-200 z-10': userMode === '{{ UserMode::AUTHOR }}', 'border-brand-brown-200': userMode !== '{{ UserMode::AUTHOR }}' }">
                     <input type="radio"
                            name="user-mode"
                            value="{{ UserMode::AUTHOR }}"
-                           class="h-4 w-4 mt-0.5 cursor-pointer text-brandBlue-600 border-brandBrown-300 focus:ring-brandBlue-500"
+                           class="h-4 w-4 mt-0.5 cursor-pointer text-brand-blue-600 border-brand-brown-300 focus:ring-brand-blue-500"
                            aria-labelledby="user-mode-1-label"
                            wire:model="userMode"
                            @change="userMode = '{{ UserMode::AUTHOR }}'">
                     <div class="ml-3 flex flex-col">
                         <span id="user-mode-1-label"
                               class="block text-sm"
-                              x-bind:class="{ 'text-brandBlue-900': userMode === '{{ UserMode::AUTHOR }}', 'text-brandBrown-900': userMode !== '{{ UserMode::AUTHOR }}' }">
+                              x-bind:class="{ 'text-brand-blue-900': userMode === '{{ UserMode::AUTHOR }}', 'text-brand-brown-900': userMode !== '{{ UserMode::AUTHOR }}' }">
                             {{ __('I want to submit content to be translated.') }}
                         </span>
                     </div>
                 </label>
 
                 <label class="rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none"
-                       x-bind:class="{ 'bg-brandBlue-50 border-brandBlue-200 z-10': userMode === 'both', 'border-brandBrown-200': userMode !== 'both' }">
+                       x-bind:class="{ 'bg-brand-blue-50 border-brand-blue-200 z-10': userMode === 'both', 'border-brand-brown-200': userMode !== 'both' }">
                     <input type="radio"
                            name="user-mode"
                            value="both"
-                           class="h-4 w-4 mt-0.5 cursor-pointer text-brandBlue-600 border-brandBrown-300 focus:ring-brandBlue-500"
+                           class="h-4 w-4 mt-0.5 cursor-pointer text-brand-blue-600 border-brand-brown-300 focus:ring-brand-blue-500"
                            aria-labelledby="user-mode-2-label"
                            wire:model="userMode"
                            @change="userMode = 'both'">
                     <div class="ml-3 flex flex-col">
                         <span id="user-mode-2-label"
                               class="block text-sm"
-                              x-bind:class="{ 'text-brandBlue-900': userMode === 'both', 'text-brandBrown-900': userMode !== 'both' }">
+                              x-bind:class="{ 'text-brand-blue-900': userMode === 'both', 'text-brand-brown-900': userMode !== 'both' }">
                             {{ __('I want to do both.') }}
                         </span>
                     </div>

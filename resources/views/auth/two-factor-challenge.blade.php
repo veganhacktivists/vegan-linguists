@@ -5,12 +5,12 @@
         </x-slot>
 
         <div x-data="{ recovery: false }">
-            <div class="mb-4 text-sm text-brandBrown-600"
+            <div class="mb-4 text-sm text-brand-brown-600"
                  x-show="! recovery">
                 {{ __('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
             </div>
 
-            <div class="mb-4 text-sm text-brandBrown-600"
+            <div class="mb-4 text-sm text-brand-brown-600"
                  x-show="recovery">
                 {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
             </div>
@@ -49,7 +49,7 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <button type="button"
-                            class="text-sm text-brandBrown-600 hover:text-brandBrown-900 underline cursor-pointer"
+                            class="text-sm text-brand-brown-600 hover:text-brand-brown-900 underline cursor-pointer"
                             x-show="! recovery"
                             x-on:click="
                                         recovery = true;
@@ -59,7 +59,7 @@
                     </button>
 
                     <button type="button"
-                            class="text-sm text-brandBrown-600 hover:text-brandBrown-900 underline cursor-pointer"
+                            class="text-sm text-brand-brown-600 hover:text-brand-brown-900 underline cursor-pointer"
                             x-show="recovery"
                             x-on:click="
                                         recovery = false;

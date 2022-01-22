@@ -26,7 +26,7 @@
     @stack('scripts')
 </head>
 
-<body class="bg-brandBeige-100 bg-opacity-60 text-brandBrown-900">
+<body class="bg-brand-beige-100 bg-opacity-60 text-brand-brown-900">
     <div class="font-sans antialiased">
         {{ $slot }}
     </div>

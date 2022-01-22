@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TranslationRequestUnclaimedNotification extends Notification
+class TranslationRequestUnclaimedNotification extends Notification implements BaseNotification, ShouldQueue
 {
     use Queueable;
 

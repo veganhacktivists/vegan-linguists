@@ -17,23 +17,23 @@
 
 <body>
     <header>
-        <div class="relative bg-brandBrown-900">
+        <div class="relative bg-brand-brown-900">
             <div
                  class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <a href="{{ route('home') }}">
                         <span class="sr-only">Vegan Linguists</span>
-                        <x-icon-logo-text-only class="h-5 -mb-2 w-auto sm:h-8 sm:-mb-3 text-brandBeige-100" />
+                        <x-icon-logo-text-only class="h-5 -mb-2 w-auto sm:h-8 sm:-mb-3 text-brand-beige-100" />
                     </a>
                 </div>
 
                 <div class=" flex items-center justify-end md:flex-1 lg:w-0">
                     <a href="{{ route('login') }}"
-                       class="whitespace-nowrap text-base text-brandBeige-300 hover:text-brandBeige-100 font-bold">
+                       class="whitespace-nowrap text-base text-brand-beige-300 hover:text-brand-beige-100 font-bold">
                         {{ __('Log in') }}
                     </a>
                     <a href="{{ route('register') }}"
-                       class="hidden sm:inline-flex ml-4 sm:ml-8 whitespace-nowrap items-center justify-center bg-brandClay-500 hover:bg-brandClay-600 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-bold text-white">
+                       class="hidden sm:inline-flex ml-4 sm:ml-8 whitespace-nowrap items-center justify-center bg-brand-clay-500 hover:bg-brand-clay-600 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-bold text-white">
                         {{ __('Sign up') }}
                     </a>
                 </div>
@@ -60,7 +60,7 @@
                                 {{ __('Get content translated') }}
                             </x-jet-primary-button>
                             <a href="{{ route('register') }}"
-                               class="flex items-center justify-center px-3 py-2 border border-transparent text-base rounded-md shadow-sm text-white bg-brandClay-500 hover:bg-brandClay-600 font-bold">
+                               class="flex items-center justify-center px-3 py-2 border border-transparent text-base rounded-md shadow-sm text-white bg-brand-clay-500 hover:bg-brand-clay-600 font-bold">
                                 {{ __('Translate content') }}
                             </a>
                         </div>
@@ -109,10 +109,10 @@
                             <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
                                 {{ __('Translate for the animals') }}
                             </h2>
-                            <p class="mt-4 text-lg text-brandBrown-800">
+                            <p class="mt-4 text-lg text-brand-brown-800">
                                 {{ __('If you speak more than one language, you can help the vegan movement from the comfort of your own home. Your activism will help make vegan content more accessible around the world.') }}
                             </p>
-                            <p class="mt-4 text-lg text-brandBrown-800">
+                            <p class="mt-4 text-lg text-brand-brown-800">
                                 {{ __('We need your help to build bridges across languages and cultures. Register to find vegan content that needs to be translated to the languages you speak.') }}
                             </p>
                             <div class="mt-6">
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="relative bg-brandBrown-900">
+        <div class="relative bg-brand-brown-900">
             <div class="hidden lg:block h-80 absolute inset-x-0 bottom-0 lg:top-0 lg:h-full">
                 <div class="h-full w-full lg:grid lg:grid-cols-12">
                     <div class="h-full lg:relative lg:col-start-8 lg:col-span-5 bg-noise">
@@ -148,19 +148,19 @@
                  class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-x-8">
                 <div class="relative py-12 sm:py-24 lg:col-start-1">
                     <h2 class="text-sm font-semibold tracking-wide uppercase">
-                        <span class="text-brandGreen-300">
+                        <span class="text-brand-green-300">
                             {{ __('Our Story') }}
                         </span>
                     </h2>
-                    <p class="mt-3 text-3xl font-extrabold text-brandBeige-200">
+                    <p class="mt-3 text-3xl font-extrabold text-brand-beige-200">
                         {{ __('Who are the Vegan Linguists?') }}
                     </p>
-                    <p class="mt-5 text-xl text-brandBeige-300">
+                    <p class="mt-5 text-xl text-brand-beige-300">
                         {!! __("Vegan Linguists is a project created by the :veganHacktivists.  Since the beginning of our journey, we've had hundreds of vegans approach us with the desire to help, but without the technical skills necessary to build software. However, these activists did have something equally as valuable: the ability to speak multiple languages.", [
-    'veganHacktivists' => '<a href="https://veganhacktivists.org" target="_blank" class="text-brandGreen-400 hover:text-brandGreen-500">Vegan Hacktivists</a>',
+    'veganHacktivists' => '<a href="https://veganhacktivists.org" target="_blank" class="text-brand-green-400 hover:text-brand-green-500">Vegan Hacktivists</a>',
 ]) !!}
                     </p>
-                    <p class="mt-5 text-xl text-brandBeige-300">
+                    <p class="mt-5 text-xl text-brand-beige-300">
                         {{ __("We've realized that there are huge accessibility gaps when it comes to information related to veganism, simply due to language barriers. However, there are also many people out there who want to help, but haven't been provided the tools or the opportunity to do so. Knowing these things, it only made sense to build a service that would help multiply the effectiveness of existing work, while also enabling an entirely new group of activists.") }}
                     </p>
                 </div>
@@ -170,23 +170,23 @@
         <div class="landing-get-started">
             <div class="flex flex-col gap-12 items-center py-32 px-4 sm:px-6 lg:px-8">
                 <h2
-                    class="text-brandBeige-100 text-4xl font-extrabold tracking-tight sm:text-4xl space-y-2 text-center">
+                    class="text-brand-beige-100 text-4xl font-extrabold tracking-tight sm:text-4xl space-y-2 text-center">
                     {{ __('Ready to get started?') }}
                 </h2>
                 <div class="flex flex-col items-center sm:flex-row gap-4 w-full sm:max-w-md">
                     <a href="{{ route('register') }}"
-                       class="border-2 border-brandBeige-100 bg-brandBeige-100 hover:bg-brandBeige-200 hover:border-brandBeige-200 text-brandClay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
+                       class="border-2 border-brand-beige-100 bg-brand-beige-100 hover:bg-brand-beige-200 hover:border-brand-beige-200 text-brand-clay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
                         {{ __('Submit content') }}
                     </a>
                     <a href="{{ route('register') }}"
-                       class="border-2 border-brandBeige-100 text-brandBeige-100 hover:bg-brandBeige-100 hover:text-brandClay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
+                       class="border-2 border-brand-beige-100 text-brand-beige-100 hover:bg-brand-beige-100 hover:text-brand-clay-500 font-bold rounded-md w-3/4 sm:w-1/2 py-2 text-lg text-center">
                         {{ __('Become a translator') }}
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="bg-brandGreen-400">
+        <div class="bg-brand-green-400">
             <div
                  class="max-w-7xl w-5/6 md:w-auto mx-auto text-white flex flex-col md:flex-row justify-between md:items-center py-8 md:px-6 lg:px-8 gap-6 text-center md:text-left">
                 <div class="flex gap-6">
@@ -201,7 +201,7 @@
                 <div>
                     <a href="https://patreon.com/veganhacktivists"
                        target="_blank"
-                       class=" bg-white hover:bg-brandGreen-50 text-brandGreen-400 font-bold rounded-md px-8 py-2 text-lg text-center whitespace-nowrap">
+                       class=" bg-white hover:bg-brand-green-50 text-brand-green-400 font-bold rounded-md px-8 py-2 text-lg text-center whitespace-nowrap">
                         {{ __('Support us') }}
                     </a>
                 </div>
