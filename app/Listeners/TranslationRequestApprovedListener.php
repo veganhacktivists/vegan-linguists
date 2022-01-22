@@ -7,7 +7,7 @@ use App\Notifications\TranslationRequestApprovedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class TranslationRequestApprovedListener implements ShouldQueue
+class TranslationRequestApprovedListener
 {
     /**
      * Create the event listener.
