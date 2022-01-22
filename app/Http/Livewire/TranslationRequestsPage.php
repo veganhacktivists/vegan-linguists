@@ -59,6 +59,9 @@ class TranslationRequestsPage extends Component
 
     private function getTranslationRequests()
     {
+        $sourceLanguage = $this->languages->where('code', $this->sourceLanguageCode)->first();
+        $targetLanguage = $this->languages->where('code', $this->targetLanguageCode)->first();
+
         if ($this->isMinePage()) {
             $translationRequests = Auth::user()->translationRequests()->incomplete();
         } elseif ($this->isReviewablePage()) {
@@ -69,14 +72,19 @@ class TranslationRequestsPage extends Component
             $translationRequests = Auth::user()->translationRequestsClaimedForReview()->underReview();
         } elseif ($this->isCompletedPage()) {
             $translationRequests = Auth::user()->completedTranslationRequests()->union(
-                Auth::user()->translationRequestsClaimedForReview()->complete()->select('translation_requests.*')
+                Auth::user()->translationRequestsClaimedForReview()
+                    ->complete()
+                    ->whereSourceLanguageId(
+                        $sourceLanguage ? $sourceLanguage->id : $this->languages->pluck('id')
+                    )
+                    ->whereLanguageId(
+                        $targetLanguage ? $targetLanguage->id : $this->languages->pluck('id')
+                    )
+                    ->select('translation_requests.*')
             );
         } else {
             $translationRequests = TranslationRequest::unclaimed()->excludingSourceAuthor(Auth::user());
         }
-
-        $sourceLanguage = $this->languages->where('code', $this->sourceLanguageCode)->first();
-        $targetLanguage = $this->languages->where('code', $this->targetLanguageCode)->first();
 
         return $translationRequests
             ->with('source', 'source.author', 'source.language', 'reviewers')
