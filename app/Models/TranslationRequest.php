@@ -169,28 +169,28 @@ class TranslationRequest extends Model
 
     public function scopeUnclaimed(Builder $query)
     {
-        return $query->where('status', TranslationRequestStatus::UNCLAIMED);
+        return $query->where('translation_requests.status', TranslationRequestStatus::UNCLAIMED);
     }
 
     public function scopeNeedsReviewers(Builder $query)
     {
-        return $query->where('status', TranslationRequestStatus::UNDER_REVIEW)
+        return $query->where('translation_requests.status', TranslationRequestStatus::UNDER_REVIEW)
             ->has('reviewers', '<', DB::raw('translation_requests.num_approvals_required'));
     }
 
     public function scopeUnderReview(Builder $query)
     {
-        return $query->where('status', TranslationRequestStatus::UNDER_REVIEW);
+        return $query->where('translation_requests.status', TranslationRequestStatus::UNDER_REVIEW);
     }
 
     public function scopeIncomplete(Builder $query)
     {
-        return $query->where('status', '<>', TranslationRequestStatus::COMPLETE);
+        return $query->where('translation_requests.status', '<>', TranslationRequestStatus::COMPLETE);
     }
 
     public function scopeComplete(Builder $query)
     {
-        return $query->where('status', TranslationRequestStatus::COMPLETE);
+        return $query->where('translation_requests.status', TranslationRequestStatus::COMPLETE);
     }
 
     public function scopeExcludingTranslator(Builder $query, User $user)

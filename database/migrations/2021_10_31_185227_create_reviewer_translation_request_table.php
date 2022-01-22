@@ -17,7 +17,7 @@ class CreateReviewerTranslationRequestTable extends Migration
             $table->id();
             $table->foreignId('reviewer_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('translation_request_id')->constrained('translation_requests')->cascadeOnDelete();
-            $table->string('status');
+            $table->boolean('approved');
             $table->timestamps();
 
             // custom index name because the default is too long
