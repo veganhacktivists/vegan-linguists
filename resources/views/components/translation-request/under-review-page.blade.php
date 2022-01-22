@@ -162,7 +162,11 @@ $helpTourSteps = [
                             </x-jet-button>
                         @else
                             <div class="w-full text-center px-4">
-                                {{ __('You have approved this translation. It is now awaiting more approvals.') }}
+                                @if ($translationRequest->isComplete())
+                                    {{ __('You approved this translation. Thanks for your contribution!') }}
+                                @else
+                                    {{ __('You have approved this translation. It is now awaiting more approvals.') }}
+                                @endif
                             </div>
                         @endcan
                     </div>
