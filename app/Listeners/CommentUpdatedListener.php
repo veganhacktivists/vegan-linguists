@@ -26,7 +26,7 @@ class CommentUpdatedListener implements ShouldQueue
      */
     public function __construct()
     {
-        $this->resolvedCommentBatchEmailIntervalInMinutes = env('RESOLVED_COMMENT_BATCH_EMAIL_INTERVAL_MINUTES', 30);
+        $this->resolvedCommentBatchEmailIntervalInMinutes = config('vl.notifications.resolved_comment_batch_interval', 30);
         $this->timeout = ($this->resolvedCommentBatchEmailIntervalInMinutes + 2) * 60;
     }
 
