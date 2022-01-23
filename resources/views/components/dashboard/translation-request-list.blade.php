@@ -10,7 +10,7 @@
                         <x-user-photo :user="$translationRequest->source->author"
                                       class="w-8 h-8" />
                     </div>
-                    <div class="flex-1">
+                    <div class="flex-1 overflow-hidden">
                         <p class="text-sm font-medium text-brand-brown-900 truncate">
                             <a href="{{ route('translate', [$translationRequest->id, $translationRequest->source->slug]) }}"
                                class="hover:underline">

@@ -108,14 +108,16 @@
                             {{ $translationRequest->language->native_name }}
                         </div>
                         <div class="text-right flex gap-2">
-                            <x-jet-danger-button wire:click="toggleUnclaimModal"
-                                                 type="button">
-                                {{ __('Unclaim') }}
-                            </x-jet-danger-button>
-                            <x-jet-button wire:click="toggleSubmissionModal"
-                                          type="button">
-                                {{ __('Submit translation') }}
-                            </x-jet-button>
+                            @if ($translationRequest->isClaimed())
+                                <x-jet-danger-button wire:click="toggleUnclaimModal"
+                                                     type="button">
+                                    {{ __('Unclaim') }}
+                                </x-jet-danger-button>
+                                <x-jet-button wire:click="toggleSubmissionModal"
+                                              type="button">
+                                    {{ __('Submit translation') }}
+                                </x-jet-button>
+                            @endif
                         </div>
                 </div>
                 @endif

@@ -5,7 +5,7 @@
        {{ $attributes->only('href') }}>
         <div class="px-4 py-4 sm:px-6">
             <div class="flex items-center justify-between">
-                <p class="text-brand-clay-600 truncate">
+                <p class="text-brand-clay-600 pr-12 [word-break:break-word]">
                     {{ $source->title }}
                 </p>
                 <div class="absolute top-1/2 right-4 transform -translate-y-1/2">

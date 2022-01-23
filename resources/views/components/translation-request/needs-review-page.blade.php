@@ -13,7 +13,12 @@
         </x-slot>
 
         <div class="bg-white h-full overflow-hidden">
-            <div class="px-4 py-5 sm:px-6 flex gap-2 items-end">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 [word-break:break-word]">
+                    {{ $translationRequest->source->title }}
+                </h3>
+            </div>
+            <div class="border-t border-brand-brown-200 px-4 py-5 sm:px-6 flex gap-2 items-start">
                 <x-user-photo class="w-12 h-12"
                               :user="$translationRequest->source->author" />
                 <div>
@@ -25,7 +30,7 @@
                     </p>
                 </div>
             </div>
-            <div class="border-t border-brand-brown-200 px-4 py-5 sm:px-6 flex gap-2 items-end">
+            <div class="border-t border-brand-brown-200 px-4 py-5 sm:px-6 flex gap-2 items-start">
                 <x-user-photo class="w-12 h-12"
                               :user="$translationRequest->translator" />
                 <div>

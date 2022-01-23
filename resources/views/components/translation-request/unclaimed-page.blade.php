@@ -13,11 +13,11 @@
         </x-slot>
 
         <div class="bg-white h-full overflow-hidden">
-            <div class="px-4 py-5 sm:px-6 flex gap-2 items-end">
+            <div class="px-4 py-5 sm:px-6 flex gap-2 items-start">
                 <x-user-photo class="w-12 h-12"
                               :user="$translationRequest->source->author" />
                 <div>
-                    <h3 class="text-lg leading-6">
+                    <h3 class="text-lg leading-6 [word-break:break-word]">
                         {{ $translationRequest->source->title }}
                     </h3>
                     <p class="mt-1 max-w-2xl text-sm text-brand-brown-600">

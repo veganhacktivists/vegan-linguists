@@ -10,17 +10,17 @@
                     {{ $dateDiff }}
                 </p>
             </div>
-            <p class="text-brand-brown-900 break-words">
+            <p class="text-brand-brown-900 [word-break:break-word]">
                 {!! $description !!}
             </p>
 
-            <div class="break-words">
+            <div class="[word-break:break-word]">
                 {{ $slot }}
             </div>
         </div>
     @elseif (isset($icon))
         <div class="flex-1 space-y-1">
-            <div class="flex items-start justify-between break-words">
+            <div class="flex items-start justify-between [word-break:break-word]">
                 <div class="w-full">
                     {{ $slot }}
                 </div>
