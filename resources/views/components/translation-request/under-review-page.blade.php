@@ -146,15 +146,14 @@ $helpTourSteps = [
                 <div class="hidden md:flex bg-brand-beige-50 border-t border-brand-brown-200">
                     <div class="flex items-center justify-end gap-2 px-2 h-14 w-full">
                         @can('approve', $translationRequest)
-                            <div class="mr-auto">
-                                <x-tour :steps="$helpTourSteps"
-                                        element="button"
-                                        type="button"
-                                        id="helpButton"
-                                        @click="start()">
-                                    <x-heroicon-o-question-mark-circle class="h-6 w-6" />
-                                </x-tour>
-                            </div>
+                            <x-tour :steps="$helpTourSteps"
+                                    element="button"
+                                    type="button"
+                                    class="-mx-1 p-1 rounded-full text-brand-brown-600 hover:text-brand-brown-800 flex mr-auto ml-2"
+                                    id="helpButton"
+                                    @click="start()">
+                                <x-heroicon-o-question-mark-circle class="h-6 w-6" />
+                            </x-tour>
                             <x-jet-button wire:click="toggleApprovalModal"
                                           type="button"
                                           id="approveButton">
