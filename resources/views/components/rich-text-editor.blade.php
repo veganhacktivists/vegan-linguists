@@ -1,4 +1,4 @@
-@props(['content' => '{}', 'isReadOnly' => false, 'disableStyles' => false, 'autoFocus' => false, 'wireContentModel' => null, 'wirePlainTextModel' => null, 'inlineToolbar' => null])
+@props(['content' => '{}', 'isReadOnly' => false, 'disableStyles' => false, 'autoFocus' => false, 'wireContentModel' => null, 'wirePlainTextModel' => null, 'inlineToolbar' => null, 'placeholder' => ''])
 
 @push('scripts')
     {{-- This prevents the editor breaking due to Livewire/Turbolinks issues --}}
@@ -13,6 +13,7 @@
     wireContentModel: {{ json_encode($wireContentModel) }},
     wirePlainTextModel: {{ json_encode($wirePlainTextModel) }},
     hasInlineToolbar: {{ !empty($inlineToolbar) ? 'true' : 'false' }},
+    placeholder: {{ json_encode($placeholder) }}
 })"
      wire:ignore
      {{ $attributes->merge(['class' => $disableStyles ? 'styles-disabled' : '']) }}>

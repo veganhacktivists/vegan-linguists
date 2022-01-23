@@ -26,6 +26,7 @@
                             wireContentModel="content"
                             wirePlainTextModel="plainText"
                             :autoFocus="true"
+                            :placeholder="__('Type here to get started…')"
                             x-on:change="e => { window.hasChanges = true }" />
     </div>
 

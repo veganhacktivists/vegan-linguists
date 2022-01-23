@@ -13,6 +13,7 @@ document.addEventListener('alpine:init', () => {
       wireContentModel = null,
       wirePlainTextModel = null,
       hasInlineToolbar = false,
+      placeholder = '',
     }) => ({
       getEditor: null,
       selection: {
@@ -52,6 +53,7 @@ document.addEventListener('alpine:init', () => {
           },
           readOnly: readonly,
           scrollingContainer,
+          placeholder,
         })
         editor.setContents(content)
 

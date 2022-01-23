@@ -37,3 +37,8 @@
 .styles-disabled .ql-editor {
   @apply p-0;
 }
+
+/* Placeholder */
+.ql-editor.ql-blank::before {
+  @apply ml-[9px];
+}
