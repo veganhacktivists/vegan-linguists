@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Language;
 use App\Models\UserMode;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -12,9 +14,11 @@ class OnboardPage extends Component
     public string $userMode = '';
     public array $languages = [];
     public array $targetLanguages = [];
+    public Collection $defaultLanguages;
 
     public function render()
     {
+        $this->defaultLanguages = Language::where('code', 'en')->get();
         return view('livewire.onboard-page')->layout('layouts.guest');
     }
 

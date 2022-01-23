@@ -109,6 +109,7 @@ use App\Models\UserMode;
                 </div>
             </legend>
             <x-language-picker class="w-full"
+                               :defaultLanguages="$defaultLanguages"
                                wire:model="languages" />
         </fieldset>
 
