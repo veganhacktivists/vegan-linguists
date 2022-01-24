@@ -85,7 +85,7 @@
                         <div>
                             <x-jet-button type="submit"
                                           class="w-full justify-center">
-                                {{ __('Sign Up') }}
+                                {{ __('Sign up') }}
                             </x-jet-button>
                         </div>
                     </form>

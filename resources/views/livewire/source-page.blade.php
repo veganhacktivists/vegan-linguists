@@ -68,7 +68,7 @@
                     <x-jet-danger-button class="whitespace-nowrap"
                                          type="button"
                                          wire:click="$toggle('isConfirmingSourceDeletion')">
-                        {{ __('Delete Content') }}
+                        {{ __('Delete content') }}
                     </x-jet-danger-button>
                 </div>
             @elseif ($currentTranslationRequest->isClaimed())
@@ -84,7 +84,7 @@
                     <x-jet-danger-button class="whitespace-nowrap"
                                          type="button"
                                          wire:click="$toggle('isConfirmingClaimRevocation')">
-                        {{ __('Revoke Claim') }}
+                        {{ __('Revoke claim') }}
                     </x-jet-danger-button>
                 </div>
             @elseif ($currentTranslationRequest->isUnderReview())
@@ -100,7 +100,7 @@
                     <x-jet-danger-button class="whitespace-nowrap"
                                          type="button"
                                          wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
-                        {{ __('Delete Request') }}
+                        {{ __('Delete request') }}
                     </x-jet-danger-button>
                 </div>
             @elseif ($currentTranslationRequest->isComplete())

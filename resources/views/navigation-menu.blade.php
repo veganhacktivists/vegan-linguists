@@ -55,7 +55,7 @@ $isOnDashboard = request()->routeIs('home');
                     <x-jet-primary-button element="a"
                                           href="{{ route('request-translation') }}"
                                           class="text-xs">
-                        {{ __('Request Translation') }}
+                        {{ __('Request translation') }}
                     </x-jet-primary-button>
                 @endif
             </nav>

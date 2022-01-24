@@ -3,7 +3,7 @@
 
     <x-slot name="picker">
         <x-jet-button @click="Livewire.emit('toggleStartReviewingModal')">
-            {{ __('Start Reviewing') }}
+            {{ __('Start reviewing') }}
         </x-jet-button>
     </x-slot>
 
@@ -64,7 +64,7 @@
                         <x-jet-button class="col-span-2 mx-auto justify-center"
                                       type="button"
                                       @click.prevent="Livewire.emit('toggleStartReviewingModal')">
-                            {{ __("I'll Review This!") }}
+                            {{ __("I'll review this!") }}
                         </x-jet-button>
                     @else
                         <div class="sm:col-span-2">
@@ -128,7 +128,7 @@
             <x-jet-button class="ml-2"
                           wire:click="startReviewing"
                           wire:loading.attr="disabled">
-                {{ __('Start Review') }}
+                {{ __('Start review') }}
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>

@@ -55,7 +55,7 @@
                         <x-jet-button class="col-span-2 mx-auto justify-center"
                                       type="button"
                                       @click.prevent="Livewire.emit('toggleClaimModal')">
-                            {{ __("I'll Translate This!") }}
+                            {{ __("I'll translate this!") }}
                         </x-jet-button>
                     @else
                         <div class="sm:col-span-2">
