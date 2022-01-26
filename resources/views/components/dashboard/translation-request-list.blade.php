@@ -31,7 +31,7 @@
                                 @if ($translationRequest->isClaimed())
                                     {{ __('Claimed') }}
                                 @elseif ($translationRequest->isUnderReview())
-                                    @if ($translationRequest->reviewers->find(Auth::user()))
+                                    @if ($translationRequest->hasBeenApprovedBy(Auth::user()))
                                         {{ __('Approved') }}
                                     @else
                                         {{ __('Under Review') }}

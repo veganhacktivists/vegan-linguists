@@ -33,12 +33,14 @@ class TranslationRequestApprovedListener
             $translationRequest->update(['status' => TranslationRequestStatus::COMPLETE]);
         }
 
-        $translationRequest->translator->notify(
-            new TranslationRequestApprovedNotification(
-                $translationRequest,
-                $reviewer
-            )
-        );
+        if ($translationRequest->translator) {
+            $translationRequest->translator->notify(
+                new TranslationRequestApprovedNotification(
+                    $translationRequest,
+                    $reviewer
+                )
+            );
+        }
 
         $translationRequest->source->author->notify(
             new TranslationRequestApprovedNotification(

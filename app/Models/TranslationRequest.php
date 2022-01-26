@@ -32,6 +32,7 @@ class TranslationRequest extends Model
         'status',
         'content',
         'plain_text',
+        'num_approvals_required',
     ];
 
     protected $dispatchesEvents = [
@@ -112,6 +113,14 @@ class TranslationRequest extends Model
 
     public function hasBeenApprovedBy(User $user)
     {
+        if ($this->relationLoaded('reviewers')) {
+            return (bool) optional(
+                optional(
+                    $this->reviewers->find($user)
+                )->pivot
+            )->approved;
+        }
+
         $user = $this->reviewers()->where('users.id', $user->id)->first();
 
         return $user && $user->pivot->approved;

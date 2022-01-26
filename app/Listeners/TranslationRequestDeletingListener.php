@@ -41,7 +41,10 @@ class TranslationRequestDeletingListener
 
         $translationRequest->comments->each->delete();
 
-        if ($translationRequest->isClaimed() || $translationRequest->isUnderReview()) {
+        if (
+            $translationRequest->translator &&
+            ($translationRequest->isClaimed() || $translationRequest->isUnderReview())
+        ) {
             $translationRequest->translator->notify(new ClaimedTranslationRequestDeletedNotification(
                 $translationRequest->source->title,
                 $translationRequest->language->name,
