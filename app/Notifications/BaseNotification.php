@@ -36,7 +36,6 @@ abstract class BaseNotification extends Notification
 
         if (
             static::isMailEnabled() &&
-            $user->hasVerifiedEmail() &&
             $user->shouldBeNotified(static::class, 'email')
         ) {
             $media[] = 'mail';
