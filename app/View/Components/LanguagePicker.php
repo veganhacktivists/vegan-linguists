@@ -23,10 +23,10 @@ class LanguagePicker extends Component
         public bool $multiSelect = true,
     ) {
         $submittedLanguages = old('languages');
-        $this->languages = $languages->isNotEmpty() ? $languages : Language::all();
+        $this->languages = $languages->isNotEmpty() ? $languages : Language::orderByName()->get();
 
         $this->defaultLanguages = !empty($submittedLanguages)
-            ? Language::whereIn('id', $submittedLanguages)->get()
+            ? Language::whereIn('id', $submittedLanguages)->orderByName()->get()
             : $defaultLanguages;
     }
 

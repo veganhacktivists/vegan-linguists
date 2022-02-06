@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class TranslationSubmittedNotification extends Notification implements BaseNotification, ShouldQueue
+class TranslationSubmittedNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -24,44 +23,11 @@ class TranslationSubmittedNotification extends Notification implements BaseNotif
         return __("Get notified when your content has been translated");
     }
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct(private User $translator, private TranslationRequest $translationRequest)
     {
-        //
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if ($notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail(User $notifiable)
     {
         $subject = $this->translationRequest->isUnderReview()
             ? __('Translation Submitted for Review')
@@ -85,18 +51,12 @@ class TranslationSubmittedNotification extends Notification implements BaseNotif
             ->subject($subject)
             ->line($body)
             ->action(
-                __('View Translation'),
+                __('View translation'),
                 route('translation', [$this->translationRequest->source->id, $this->translationRequest->language->id])
             );
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'translator_id' => $this->translator->id,

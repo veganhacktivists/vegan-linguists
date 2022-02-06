@@ -2,12 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class ClaimedTranslationRequestDeletedNotification extends Notification implements BaseNotification, ShouldQueue
+class ClaimedTranslationRequestDeletedNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -24,47 +24,18 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
         return __("Get notified when a translation request that you've claimed for translation or for review has been deleted");
     }
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct(private string $translationRequestTitle, private string $languageName, public string $userRelationship)
-    {
+    public function __construct(
+        private string $translationRequestTitle,
+        private string $languageName,
+        private string $userRelationship
+    ) {
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if ($notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail(User $notifiable)
     {
         $actionText = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
-            ? __('View Your Translations')
-            : __('View Your Translation Under Review');
+            ? __('View your translations')
+            : __('View your translation under review');
 
         $actionRoute = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
             ? claimedTranslationRequestsRoute()
@@ -81,13 +52,7 @@ class ClaimedTranslationRequestDeletedNotification extends Notification implemen
             ->action($actionText, $actionRoute);
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'translation_request_title' => $this->translationRequestTitle,

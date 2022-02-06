@@ -66,6 +66,7 @@ class TranslationRequestsPage extends Component
             $translationRequests = Auth::user()->translationRequests()->incomplete();
         } elseif ($this->isReviewablePage()) {
             $translationRequests = TranslationRequest::needsReviewers()
+                ->excludingSourceAuthor(Auth::user())
                 ->excludingTranslator(Auth::user())
                 ->excludingReviewer(Auth::user());
         } elseif ($this->isUnderReviewPage()) {

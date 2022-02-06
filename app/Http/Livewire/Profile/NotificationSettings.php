@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Profile;
 use App\Models\NotificationSetting;
 use App\Models\User;
 use App\Notifications\ClaimedTranslationRequestDeletedNotification;
+use App\Notifications\NewTranslationRequestsNotification;
 use App\Notifications\TranslationRequestCommentResolvedNotification;
 use App\Notifications\TranslationRequestApprovedNotification;
 use App\Notifications\TranslationRequestClaimedNotification;
@@ -58,6 +59,7 @@ class NotificationSettings extends Component
     private function getDefaultNotificationSettings(User $user)
     {
         return collect([
+            NewTranslationRequestsNotification::class,
             TranslationRequestClaimedNotification::class,
             TranslationRequestUnclaimedNotification::class,
             TranslationSubmittedNotification::class,

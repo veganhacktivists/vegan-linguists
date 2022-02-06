@@ -83,7 +83,7 @@ class Comment extends Model
         return $builder->whereRaw("json_extract(metadata, '$.resolved_at') <> 'null'");
     }
 
-    public function scopeOrderByResolveDate(Builder $builder, string $order = 'desc')
+    public function scopeOrderByResolveDate(Builder $builder, string $order = 'asc')
     {
         $order = ($order === 'asc') ? 'asc' : 'desc'; // since we're putting a variable in a raw query
 

@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class TranslationRequestCommentedOnNotification extends Notification implements BaseNotification, ShouldQueue
+class TranslationRequestCommentedOnNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -23,42 +22,10 @@ class TranslationRequestCommentedOnNotification extends Notification implements 
         return __("Get notified when someone comments on a translation");
     }
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct(private Comment $comment)
     {
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if ($notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  User  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail(User $notifiable)
     {
         $translationRequest = $this->comment->commentable;
@@ -80,18 +47,12 @@ class TranslationRequestCommentedOnNotification extends Notification implements 
             )
             ->line("_{$this->comment->truncated_text}_")
             ->action(
-                __('View Translation Request'),
+                __('View translation request'),
                 $route,
             );
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'comment_id' => $this->comment->id,

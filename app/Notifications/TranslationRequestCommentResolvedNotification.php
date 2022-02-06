@@ -7,10 +7,9 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 
-class TranslationRequestCommentResolvedNotification extends Notification implements BaseNotification, ShouldQueue
+class TranslationRequestCommentResolvedNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -24,42 +23,10 @@ class TranslationRequestCommentResolvedNotification extends Notification impleme
         return __("Get notified when a translator resolves a comment on a translation");
     }
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct(private Collection $comments, private bool $isBatched)
     {
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if (!$this->isBatched && $notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($this->isBatched && $notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail(User $notifiable)
     {
         $translationRequest = $this->comments->first()->commentable;
@@ -86,20 +53,14 @@ class TranslationRequestCommentResolvedNotification extends Notification impleme
         }
 
         $mail->action(
-            __('View Translation Request'),
+            __('View translation request'),
             $route,
         );
 
         return $mail;
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'comment_id' => $this->comments->first()->id,

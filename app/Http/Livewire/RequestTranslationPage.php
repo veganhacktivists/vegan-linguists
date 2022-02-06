@@ -21,7 +21,7 @@ class RequestTranslationPage extends Component
 
     public function mount()
     {
-        $this->languages = Language::withCount('translators')->get();
+        $this->languages = Language::withCount('translators')->orderByName()->get();
     }
 
     public function render()

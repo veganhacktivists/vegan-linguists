@@ -14,8 +14,8 @@ class TranslatorDashboardController extends Controller
         $languageIds = Auth::user()->languages()->select('languages.id')->pluck('language.id');
 
         $translationRequests = $this->getUnclaimedTranslationRequestsQuery($languageIds)
-            ->union($this->getInProgressTranslationsQuery($languageIds))
-            ->union($this->getReviewableTranslationRequestsQuery())
+            ->union($this->getInProgressTranslationsQuery())
+            ->union($this->getReviewableTranslationRequestsQuery($languageIds))
             ->union($this->getTranslationRequestsClaimedForReviewQuery())
             ->with('source', 'source.language', 'source.author', 'reviewers')
             ->get()
@@ -45,7 +45,7 @@ class TranslatorDashboardController extends Controller
             ->orderBy('created_at', 'desc');
     }
 
-    private function getInProgressTranslationsQuery(iterable $languageIds)
+    private function getReviewableTranslationRequestsQuery(iterable $languageIds)
     {
         return TranslationRequest::query()
             ->needsReviewers()
@@ -57,7 +57,7 @@ class TranslatorDashboardController extends Controller
             ->limit(self::MAX_TRANSLATION_REQUESTS_DISPLAYED);
     }
 
-    private function getTranslationRequestsClaimedForReviewQuery()
+    private function getInProgressTranslationsQuery()
     {
         return Auth::user()
             ->translationRequests()
@@ -67,7 +67,7 @@ class TranslatorDashboardController extends Controller
             ->orderBy('translation_requests.created_at', 'desc');
     }
 
-    private function getReviewableTranslationRequestsQuery()
+    private function getTranslationRequestsClaimedForReviewQuery()
     {
         return Auth::user()
             ->translationRequestsClaimedForReview()

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\UserDeletingEvent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -85,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function languages()
     {
-        return $this->belongsToMany(Language::class);
+        return $this->belongsToMany(Language::class)->orderByName();
     }
 
     public function sources()
@@ -141,7 +142,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $setting = $this->settings()->where('setting_key', UserSettingKeys::DEFAULT_TARGET_LANGUAGES)->first();
 
-        return $setting ? Language::whereIn('id', json_decode($setting->setting_value))->get() : collect();
+        return $setting ? Language::whereIn('id', json_decode($setting->setting_value))->orderByName()->get() : collect();
     }
 
     public function setDefaultTargetLanguagesAttribute(iterable $languages)
@@ -196,5 +197,15 @@ class User extends Authenticatable implements MustVerifyEmail
         ]);
 
         return $notificationSetting->$medium;
+    }
+
+    public function scopeWhereHasVerifiedEmail(Builder $query)
+    {
+        return $query->whereNotNull('email_verified_at');
+    }
+
+    public function scopeWhereSpeaksMultipleLanguages(Builder $query)
+    {
+        return $query->has('languages', '>', 1);
     }
 }

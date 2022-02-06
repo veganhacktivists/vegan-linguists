@@ -35,4 +35,14 @@ class NotificationSetting extends Model
     {
         return $this->notification_type::getDescription();
     }
+
+    public function isDatabaseEnabled()
+    {
+        return $this->notification_type::isDatabaseEnabled();
+    }
+
+    public function isMailEnabled()
+    {
+        return $this->notification_type::isMailEnabled();
+    }
 }

@@ -9,7 +9,7 @@ $profileSettingsUrl = route('profile.show');
 @if ($level === 'error')
 # @lang('Whoops!')
 @else
-# @lang('Hello!')
+# @lang('Hey there!')
 @endif
 @endif
 

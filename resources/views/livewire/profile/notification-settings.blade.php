@@ -20,37 +20,42 @@
                                     {{ $notificationSetting->description }}
                                 </p>
                             </div>
-                            <div class="ml-3 flex items-center h-5">
-                                <label class="cursor-pointer">
-                                    <div class="sr-only">
-                                        {{ $notificationSetting->description }} ({{ __('Website') }})
-                                    </div>
+                            @if ($notificationSetting->isDatabaseEnabled())
+                                <div class="ml-3 flex items-center h-5">
+                                    <label class="cursor-pointer">
+                                        <div class="sr-only">
+                                            {{ $notificationSetting->description }} ({{ __('Website') }})
+                                        </div>
 
-                                    <input type="checkbox"
-                                           class="sr-only peer"
-                                           wire:change="updateWebsiteNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
-                                           {{ $notificationSetting->site ? 'checked' : '' }} />
+                                        <input type="checkbox"
+                                               class="sr-only peer"
+                                               wire:change="updateWebsiteNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
+                                               {{ $notificationSetting->site ? 'checked' : '' }} />
 
-                                    <x-heroicon-o-desktop-computer data-tooltip="{{ __('Website') }}"
-                                                                   class="w-6 h-6 text-brand-brown-400 peer-checked:text-brand-brown-800" />
+                                        <x-heroicon-o-desktop-computer data-tooltip="{{ __('Website') }}"
+                                                                       class="w-6 h-6 text-brand-brown-400 peer-checked:text-brand-brown-800" />
 
-                                </label>
-                            </div>
-                            <div class="ml-3 flex items-center h-5">
-                                <label class="cursor-pointer">
-                                    <div class="sr-only">
-                                        {{ $notificationSetting->description }} ({{ __('Email') }})
-                                    </div>
+                                    </label>
+                                </div>
+                            @endif
 
-                                    <input type="checkbox"
-                                           class="sr-only peer"
-                                           wire:change="updateEmailNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
-                                           {{ $notificationSetting->email ? 'checked' : '' }} />
+                            @if ($notificationSetting->isMailEnabled())
+                                <div class="ml-3 flex items-center h-5">
+                                    <label class="cursor-pointer">
+                                        <div class="sr-only">
+                                            {{ $notificationSetting->description }} ({{ __('Email') }})
+                                        </div>
 
-                                    <x-heroicon-o-mail data-tooltip="{{ __('Email') }}"
-                                                       class="w-6 h-6 transition-color text-brand-brown-400 peer-checked:text-brand-brown-800" />
-                                </label>
-                            </div>
+                                        <input type="checkbox"
+                                               class="sr-only peer"
+                                               wire:change="updateEmailNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
+                                               {{ $notificationSetting->email ? 'checked' : '' }} />
+
+                                        <x-heroicon-o-mail data-tooltip="{{ __('Email') }}"
+                                                           class="w-6 h-6 transition-color text-brand-brown-400 peer-checked:text-brand-brown-800" />
+                                    </label>
+                                </div>
+                            @endif
                         </div>
                     @endforeach
                 </div>

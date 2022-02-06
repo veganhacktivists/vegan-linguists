@@ -6,6 +6,7 @@ use App\Events\TranslationRequestApprovedEvent;
 use App\Events\TranslationRequestDeletingEvent;
 use App\Events\TranslationRequestReviewerAddedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -275,5 +276,10 @@ class TranslationRequest extends Model
                 'asc'
             )
         );
+    }
+
+    public function scopeWhereCreatedAfter(Builder $query, Carbon $date)
+    {
+        return $query->where('created_at', '>', $date);
     }
 }

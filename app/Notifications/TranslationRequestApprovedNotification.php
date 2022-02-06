@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class TranslationRequestApprovedNotification extends Notification implements BaseNotification, ShouldQueue
+class TranslationRequestApprovedNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -30,27 +29,6 @@ class TranslationRequestApprovedNotification extends Notification implements Bas
      */
     public function __construct(private TranslationRequest $translationRequest, private User $reviewer)
     {
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if ($notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
     }
 
     /**
@@ -90,7 +68,7 @@ class TranslationRequestApprovedNotification extends Notification implements Bas
             ->subject($subject)
             ->line($body)
             ->action(
-                __('View Translation'),
+                __('View translation'),
                 $route,
             );
     }
@@ -101,7 +79,7 @@ class TranslationRequestApprovedNotification extends Notification implements Bas
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'translation_request_id' => $this->translationRequest->id,

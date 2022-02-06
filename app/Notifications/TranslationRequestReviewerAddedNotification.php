@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class TranslationRequestReviewerAddedNotification extends Notification implements BaseNotification, ShouldQueue
+class TranslationRequestReviewerAddedNotification extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
@@ -23,42 +22,10 @@ class TranslationRequestReviewerAddedNotification extends Notification implement
         return __("Get notified when someone starts reviewing a translation request");
     }
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct(private TranslationRequest $translationRequest, private User $reviewer)
     {
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        $media = [];
-
-        if ($notifiable->shouldBeNotified(static::class, 'site')) {
-            $media[] = 'database';
-        }
-
-        if ($notifiable->shouldBeNotified(static::class, 'email')) {
-            $media[] = 'mail';
-        }
-
-        return $media;
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail(User $notifiable)
     {
         $source = $this->translationRequest->source;
@@ -77,18 +44,12 @@ class TranslationRequestReviewerAddedNotification extends Notification implement
                 ])
             )
             ->action(
-                __('View Translation'),
+                __('View translation'),
                 $route,
             );
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'translation_request_id' => $this->translationRequest->id,

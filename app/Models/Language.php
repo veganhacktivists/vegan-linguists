@@ -20,13 +20,9 @@ class Language extends Model
         'full_name',
     ];
 
-    protected static function boot()
+    public function translators()
     {
-        parent::boot();
-
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('name', 'asc');
-        });
+        return $this->belongsToMany(User::class);
     }
 
     public function getFullNameAttribute()
@@ -40,8 +36,8 @@ class Language extends Model
         return $fullName;
     }
 
-    public function translators()
+    public function scopeOrderByName(Builder $builder, string $order = 'asc')
     {
-        return $this->belongsToMany(User::class);
+        return $builder->orderBy('name', $order);
     }
 }
