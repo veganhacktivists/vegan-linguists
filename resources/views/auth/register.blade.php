@@ -64,6 +64,22 @@
                             </div>
                         </div>
 
+                        <div>
+                            <x-jet-label for="newsletter"
+                                         id="newsletter-description">
+                                <div class="flex items-center">
+                                    <x-jet-checkbox id="newsletter"
+                                                    aria-describedby="newsletter-description"
+                                                    name="newsletter"
+                                                    checked />
+
+                                    <div class="ml-2">
+                                        {{ __('Keep me updated with news related to Vegan Linguists') }}
+                                    </div>
+                                </div>
+                            </x-jet-label>
+                        </div>
+
                         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                             <div>
                                 <x-jet-label for="terms">

@@ -100,6 +100,21 @@
             <x-jet-input-error for="languages"
                                class="mt-2" />
         </div>
+
+        {{-- Newsletter --}}
+        <div class="col-span-6 sm:col-span-4"
+             id="newsletter-description">
+            <x-jet-label for="newsletter">
+                <div class="flex items-center">
+                    <x-jet-checkbox id="newsletter"
+                                    aria-describedby="newsletter-description"
+                                    wire:model="state.is_subscribed_to_newsletter" />
+                    <div class="ml-2">
+                        {{ __('Keep me updated with news related to Vegan Linguists') }}
+                    </div>
+                </div>
+            </x-jet-label>
+        </div>
     </x-slot>
 
     <x-slot name="actions">

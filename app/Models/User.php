@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $attributes = [
         'user_mode' => UserMode::TRANSLATOR,
+        'is_subscribed_to_newsletter' => false,
     ];
 
     /**
@@ -34,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'user_mode',
+        'is_subscribed_to_newsletter',
     ];
 
     /**

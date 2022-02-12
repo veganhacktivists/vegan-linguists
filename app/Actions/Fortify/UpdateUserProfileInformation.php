@@ -2,6 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Actions\Newsletter\SubscribeUser;
+use App\Actions\Newsletter\UnsubscribeUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -18,7 +20,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
-
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -30,8 +31,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->updateProfilePhoto($input['photo']);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email &&
+            $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
@@ -41,6 +44,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         }
 
         $user->languages()->sync($input['languages']);
+
+        if ($input['is_subscribed_to_newsletter'] && !$user->is_subscribed_to_newsletter) {
+            app(SubscribeUser::class)($user);
+        } elseif (!$input['is_subscribed_to_newsletter'] && $user->is_subscribed_to_newsletter) {
+            app(UnsubscribeUser::class)($user);
+        }
     }
 
     /**

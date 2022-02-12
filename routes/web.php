@@ -74,3 +74,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/onboard', OnboardPage::class)->name('onboard');
     });
 });
+
+Route::webhooks('mailchimp-webhook', 'mailchimp');
