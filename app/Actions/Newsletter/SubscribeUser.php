@@ -38,7 +38,7 @@ class SubscribeUser
 
             Log::error(
                 "Mailchimp API error (subscribing): $errorMessage",
-                ['user_id' => $user->id, 'email' => $user->email]
+                ['user_id' => $user->id]
             );
 
             throw new NewsletterException($errorMessage);
@@ -62,7 +62,7 @@ class SubscribeUser
 
             Log::error(
                 "Mailchimp API error (tagging): $errorMessage",
-                ['user_id' => $user->id, 'email' => $user->email]
+                ['user_id' => $user->id]
             );
         }
     }

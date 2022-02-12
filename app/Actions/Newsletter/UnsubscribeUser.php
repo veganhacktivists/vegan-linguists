@@ -39,7 +39,7 @@ class UnsubscribeUser
 
             Log::error(
                 "Mailchimp API error (unsubscribe): $errorMessage",
-                ['user_id' => $user->id, 'email' => $user->email]
+                ['user_id' => $user->id]
             );
 
             throw new NewsletterException($errorMessage);
