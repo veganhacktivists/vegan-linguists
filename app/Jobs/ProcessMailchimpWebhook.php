@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Actions\Newsletter\SubscribeUser;
 use App\Actions\Newsletter\UnsubscribeUser;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -12,12 +13,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\Models\WebhookCall;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
-class ProcessMailchimpWebhook implements ShouldQueue
+class ProcessMailchimpWebhook extends ProcessWebhookJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    private WebhookCall $webhookCall;
 
     public function handle()
     {
@@ -30,6 +30,8 @@ class ProcessMailchimpWebhook implements ShouldQueue
 
         if ($payload['type'] === 'unsubscribe') {
             $this->handleUnsubscribe(Arr::get($payload, 'data.email', ''));
+        } elseif ($payload['type'] === 'unsubscribe') {
+            $this->handleSubscribe(Arr::get($payload, 'data.email', ''));
         }
     }
 
@@ -39,6 +41,15 @@ class ProcessMailchimpWebhook implements ShouldQueue
 
         if ($user) {
             app(UnsubscribeUser::class)($user);
+        }
+    }
+
+    private function handleSubscribe(string $email)
+    {
+        $user = User::whereEmail($email)->first();
+
+        if ($user) {
+            app(SubscribeUser::class)($user);
         }
     }
 }

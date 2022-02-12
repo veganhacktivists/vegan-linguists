@@ -25,8 +25,10 @@ class UnsubscribeUser
                 md5(strtolower($user->email)),
                 [
                     'tags' => [
-                        'name' => config('mailchimp.audience.tag'),
-                        'status' => 'inactive',
+                        [
+                            'name' => config('mailchimp.audience.tag'),
+                            'status' => 'inactive',
+                        ]
                     ],
                 ]
             );

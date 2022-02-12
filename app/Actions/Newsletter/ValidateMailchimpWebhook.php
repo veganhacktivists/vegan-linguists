@@ -12,13 +12,15 @@ class ValidateMailchimpWebhook implements SignatureValidator
 {
     public function isValid(Request $request, WebhookConfig $config): bool
     {
+        $data = $request->post('data');
+
         Log::info(
             'Validating Mailchimp webhook',
-            Arr::except($request->post(), ['data.email', 'data.merges.EMAIL'])
+            Arr::except($data, ['email', 'merges.EMAIL'])
         );
 
         // Unfortunately, marketing emails do not contain a signature,
         // so we just verify that the audience ID matches
-        return $request->post('data.list_id') === config('mailchimp.audience.id');
+        return $data['list_id'] === config('mailchimp.audience.id');
     }
 }

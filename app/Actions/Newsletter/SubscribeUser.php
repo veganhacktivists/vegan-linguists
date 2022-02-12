@@ -25,6 +25,7 @@ class SubscribeUser
                 md5(strtolower($user->email)),
                 [
                     'email_address' => $user->email,
+                    'status_if_new' => 'subscribed',
                     'status' => 'subscribed',
                 ]
             );
@@ -49,8 +50,10 @@ class SubscribeUser
                 md5(strtolower($user->email)),
                 [
                     'tags' => [
-                        'name' => config('mailchimp.audience.tag'),
-                        'status' => 'active',
+                        [
+                            'name' => config('mailchimp.audience.tag'),
+                            'status' => 'active',
+                        ]
                     ],
                 ]
             );
