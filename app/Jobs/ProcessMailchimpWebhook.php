@@ -30,7 +30,7 @@ class ProcessMailchimpWebhook extends ProcessWebhookJob
 
         if ($payload['type'] === 'unsubscribe') {
             $this->handleUnsubscribe(Arr::get($payload, 'data.email', ''));
-        } elseif ($payload['type'] === 'unsubscribe') {
+        } elseif ($payload['type'] === 'subscribe') {
             $this->handleSubscribe(Arr::get($payload, 'data.email', ''));
         }
     }
