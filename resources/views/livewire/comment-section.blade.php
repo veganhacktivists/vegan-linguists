@@ -9,10 +9,11 @@
                             wireContentModel="content"
                             wirePlainTextModel="plainText"
                             @comment-quote.window="
-       setContent($event.detail.content, 'blockquote', true);
-       $wire.set('metadata', $event.detail.metadata);
-       insertText('\n\n');
-       setTimeout(() => focus(), 0)
+       setContent($event.detail.content, 'blockquote', true).then(() => {
+        $wire.set('metadata', $event.detail.metadata);
+        insertText('\n\n');
+        setTimeout(() => focus(), 0)
+       })
        " />
     </div>
 

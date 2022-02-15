@@ -1,8 +1,6 @@
 import debounce from 'lodash/debounce'
 import Quill from 'quill'
 
-const Delta = Quill.import('delta')
-
 document.addEventListener('alpine:init', () => {
   window.Alpine.data(
     'richTextEditor',
@@ -112,15 +110,35 @@ document.addEventListener('alpine:init', () => {
       },
 
       setContent(content, format = null, formatValue = null) {
-        const editor = this.getEditor()
-        const length = editor.getLength()
+        return new Promise((resolve) => {
+          /**
+           * For some reason, formatting do not get applied when the editor
+           * is not visible on the screen. During the review process, if a
+           * reviewer starts a review comment while the "Discussion" tab is
+           * closed, we hit a race condition where the the blockquote formatting
+           * does not get applied because the tab hasn't yet finished switching.
+           * To work around this, we use a recursive setTimeout until the editor
+           * is visible on the page.
+           */
+          if (this.$refs.editorContainer.offsetParent === null) {
+            setTimeout(() => {
+              this.setContent(content, format, formatValue).then(resolve)
+            }, 5)
+            return
+          }
 
-        editor.setContents(content)
-        editor.setSelection(0, length)
-        if (format && formatValue) {
-          editor.format(format, formatValue)
-        }
-        editor.setSelection(length, 0)
+          const editor = this.getEditor()
+          const length = editor.getLength()
+
+          editor.setContents(content)
+          editor.setSelection(0, length)
+          if (format && formatValue) {
+            editor.format(format, formatValue)
+          }
+          editor.setSelection(editor.getLength(), 0)
+
+          resolve()
+        })
       },
 
       insertText(text) {
