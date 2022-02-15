@@ -49,6 +49,7 @@ class TranslatorDashboardController extends Controller
     {
         return TranslationRequest::query()
             ->needsReviewers()
+            ->excludingSourceAuthor(Auth::user())
             ->excludingTranslator(Auth::user())
             ->excludingReviewer(Auth::user())
             ->whereSourceLanguageId($languageIds)
