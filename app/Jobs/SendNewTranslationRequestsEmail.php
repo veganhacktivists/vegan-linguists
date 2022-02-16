@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
 {
@@ -33,6 +34,7 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
+        Log::info('Sending new translation requests email');
         $unclaimedTranslationRequests = TranslationRequest::query()
             ->unclaimed()
             ->with('source', 'reviewers')
@@ -45,6 +47,11 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
             ->needsReviewers()
             ->with('source', 'reviewers')
             ->get();
+
+        Log::info('Requests', [
+            'unclaimed' => $unclaimedTranslationRequests->count(),
+            'reviewable' => $reviewableTranslationRequests->count()
+        ]);
 
         User::whereSpeaksMultipleLanguages()
             ->with('languages:id')
@@ -73,6 +80,12 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
 
                 if ($numUnclaimedTranslationRequests + $numReviewableTranslationRequests === 0) return;
 
+                Log::info('Notifying user', [
+                    'user_id' => $user->id,
+                    'unclaimed' => $numUnclaimedTranslationRequests,
+                    'reviewable' => $numReviewableTranslationRequests,
+                ]);
+
                 $user->notify(
                     new NewTranslationRequestsNotification(
                         $numUnclaimedTranslationRequests,
@@ -80,5 +93,7 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
                     )
                 );
             });
+
+        Log::info('New translation email job completed');
     }
 }
