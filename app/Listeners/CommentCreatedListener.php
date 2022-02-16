@@ -51,7 +51,9 @@ class CommentCreatedListener implements ShouldQueue
         }
 
         foreach ($users as $user) {
-            $user->notify(new TranslationRequestCommentedOnNotification($comment));
+            if (!empty($user)) {
+                $user->notify(new TranslationRequestCommentedOnNotification($comment));
+            }
         }
     }
 }
