@@ -13,6 +13,8 @@
 
     <link rel="stylesheet"
           href="{{ mix('css/app.css') }}">
+
+    <x-google-analytics />
 </head>
 
 <body>
