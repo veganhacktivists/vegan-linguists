@@ -32,7 +32,7 @@
                                  name="code"
                                  autofocus
                                  x-ref="code"
-                                 autocomplete="one-time-code" />
+                                 autocomplete="off" />
                 </div>
 
                 <div class="mt-4"
@@ -44,7 +44,7 @@
                                  type="text"
                                  name="recovery_code"
                                  x-ref="recovery_code"
-                                 autocomplete="one-time-code" />
+                                 autocomplete="off" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
