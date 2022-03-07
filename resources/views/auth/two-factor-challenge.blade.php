@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-icon-logo-with-text class="w-full" />
+            <x-icon-logo-with-text class="w-56 sm:w-80" />
         </x-slot>
 
         <div x-data="{ recovery: false }">
