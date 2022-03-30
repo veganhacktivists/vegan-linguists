@@ -45,7 +45,6 @@
 
     <main>
         <div class="landing-hero">
-            <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="relative px-4 py-16 sm:px-6 lg:px-8">
                     <x-icon-logo-with-text class="h-40 sm:h-64 mx-auto max-w-full" />
@@ -70,6 +69,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="landing-video-section md:pt-4 md:pb-8 md:px-16 lg:pt-6 lg:pb-10 lg:px-32 xl:px-48">
+            <h2 class="hidden md:block text-white text-center text-2xl lg:text-3xl font-semibold mb-3 lg:mb-6">
+                {{ __('Build bridges across languages and cultures') }}
+            </h2>
+
+            <iframe class="w-full aspect-video max-w-7xl mx-auto"
+                    src="https://www.youtube.com/embed/4ff-UfXfumM?rel=0&modestbranding=1"
+                    title="{{ __('Vegan Linguists introduction video') }}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
         </div>
 
         <div class="relative pt-16 pb-32 overflow-hidden">
