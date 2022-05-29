@@ -71,8 +71,8 @@
             </div>
         </div>
 
-        <div class="landing-video-section md:pt-4 md:pb-8 md:px-16 lg:pt-6 lg:pb-10 lg:px-32 xl:px-48">
-            <h2 class="hidden md:block text-white text-center text-2xl lg:text-3xl font-semibold mb-3 lg:mb-6">
+        <div class="landing-video-section md:pt-12 md:pb-8 md:px-16 md:pb-12 lg:px-32 xl:px-48">
+            <h2 class="hidden md:block text-white text-center text-2xl lg:text-3xl font-semibold md:mb-12">
                 {{ __('Build bridges across languages and cultures') }}
             </h2>
 
