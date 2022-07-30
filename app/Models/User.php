@@ -250,6 +250,8 @@ class User extends Authenticatable implements MustVerifyEmail
         if ($extension === 'jpg' || $extension === 'jpeg') {
             imagejpeg($resizedImage, $photoPath, 85);
         } elseif ($extension === 'png') {
+            imagealphablending($resizedImage, false);
+            imagesavealpha($resizedImage, true);
             imagepng($resizedImage, $photoPath);
         }
     }
