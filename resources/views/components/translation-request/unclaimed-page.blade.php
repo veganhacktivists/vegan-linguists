@@ -113,6 +113,23 @@
                 <x-slot name="content">
                     @can('claim', $translationRequest)
                         {{ __('Are you sure you would like to claim this translation request?') }}
+                    @elseif (!Auth::user()->hasVerifiedEmail())
+                        {{ __('Before being able to translate content, you must verify your email address.') }}
+                        <form method="POST"
+                              action="{{ route('verification.send') }}"
+                              class="mt-2">
+                            @csrf
+                            <input type="hidden"
+                                    name="_method"
+                                    value="POST" />
+
+                            <x-jet-button element="a"
+                                            href="{{ route('verification.send') }}"
+                                            onclick="event.preventDefault(); this.closest('form').submit();"
+                                            class="w-full justify-center">
+                                {{ __('Resend verification email') }}
+                            </x-jet-button>
+                        </form>
                     @else
                         {{ __('You have reached the claimed translation request limit. Please finish your claimed requests before attempting to claim more.') }}
                     @endcan
