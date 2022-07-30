@@ -123,7 +123,7 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-    <script data-no-turbolink>
+    <script nonce="{{ csp_nonce() }}" data-no-turbolink>
         (function() {
             window.hasChanges = false;
 

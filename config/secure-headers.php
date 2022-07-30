@@ -595,7 +595,7 @@ return [
 
             'unsafe-inline' => false,
 
-            'unsafe-eval' => false,
+            'unsafe-eval' => true,
 
             // https://www.w3.org/TR/CSP3/#unsafe-hashes-usage
             'unsafe-hashes' => false,

@@ -21,8 +21,7 @@
 
     {{-- Scripts --}}
     <x-google-analytics />
-    <script src="{{ mix('js/app.js') }}"
-            defer></script>
+    <script src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}" defer></script>
     @stack('scripts')
 </head>
 

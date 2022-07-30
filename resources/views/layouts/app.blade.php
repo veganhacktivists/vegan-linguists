@@ -27,6 +27,7 @@
 
     <x-google-analytics />
     <script src="{{ mix('js/app.js') }}"
+    nonce="{{ csp_nonce() }}"
             defer></script>
     @stack('scripts')
 </head>
@@ -144,8 +145,8 @@
     <x-cookie-banner />
     @stack('modals')
 
-    @livewireScripts
-    <script src="{{ mix('js/livewire-turbolinks.js') }}"
+    @livewireScripts(['nonce' => csp_nonce()])
+    <script nonce="{{ csp_nonce() }}" src="{{ mix('js/livewire-turbolinks.js') }}"
             data-turbolinks-eval="false"></script>
 </body>
 

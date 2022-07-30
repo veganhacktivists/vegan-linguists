@@ -72,6 +72,10 @@ use App\Notifications\TranslationSubmittedNotification;
                 </li>
             @endforeach
         </ul>
+
+        <div class="mt-4">
+            {{ $notifications->links()  }}
+        </div>
     @else
         <x-empty-state class="bg-white shadow rounded-md p-8"
                        icon="o-bell"

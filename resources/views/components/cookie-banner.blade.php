@@ -12,7 +12,7 @@
         <x-heroicon-o-x class="h-6 w-6" />
     </button>
 </div>
-<script>
+<script nonce="{{ csp_nonce() }}">
 (function() {
     const isDismissed = localStorage.getItem('cookieBannerDismissed')
     if (!isDismissed) {

@@ -7,22 +7,32 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NotificationsPage extends Component
 {
-    public Collection $notifications;
+    use WithPagination;
+
+    const NUM_NOTIFICATIONS_PER_PAGE = 20;
+
     public Collection $unreadNotifications;
+
+    protected $queryString = [
+        'page' => ['except' => 1],
+    ];
 
     public function mount()
     {
-        $this->notifications = Auth::user()->notifications;
         $this->unreadNotifications = Auth::user()->unreadNotifications;
     }
 
     public function render()
     {
+        $notifications = Auth::user()->notifications()->paginate(self::NUM_NOTIFICATIONS_PER_PAGE);
+
         return view('livewire.notifications-page', [
-            'modelCache' => new NotificationModelCache($this->notifications),
+            'notifications' => $notifications,
+            'modelCache' => new NotificationModelCache($notifications->getCollection()),
         ]);
     }
 
@@ -33,7 +43,6 @@ class NotificationsPage extends Component
         }
 
         $this->unreadNotifications = Auth::user()->unreadNotifications;
-        $this->notifications = Auth::user()->notifications;
 
         $this->emit('all-notifications-read');
     }
