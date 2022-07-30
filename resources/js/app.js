@@ -11,4 +11,3 @@ window.Alpine = Alpine
 window.Turbolinks = Turbolinks
 
 Alpine.start()
-Turbolinks.start()
