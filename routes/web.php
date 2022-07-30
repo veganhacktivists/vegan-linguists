@@ -5,7 +5,6 @@ use App\Http\Livewire\NotificationsPage;
 use App\Http\Livewire\OnboardPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RequestTranslationPage;
-use App\Http\Livewire\ReviewSectionPage;
 use App\Http\Livewire\SourcePage;
 use App\Http\Livewire\TranslatePage;
 use App\Http\Livewire\TranslationRequestsPage;

@@ -80,8 +80,9 @@
 
                                         <x-jet-button element="a"
                                                       href="{{ route('verification.send') }}"
-                                                      onclick="event.preventDefault(); this.closest('form').submit();"
-                                                      class="w-full justify-center">
+                                                      class="w-full justify-center"
+                                                      x-data=""
+                                                      @click="$event.preventDefault(); $el.closest('form').submit();">
                                             {{ __('Resend verification email') }}
                                         </x-jet-button>
                                     </form>
@@ -125,8 +126,9 @@
 
                             <x-jet-button element="a"
                                             href="{{ route('verification.send') }}"
-                                            onclick="event.preventDefault(); this.closest('form').submit();"
-                                            class="w-full justify-center">
+                                            class="w-full justify-center"
+                                            x-data=""
+                                            @click="$event.preventDefault(); $el.closest('form').submit();">
                                 {{ __('Resend verification email') }}
                             </x-jet-button>
                         </form>

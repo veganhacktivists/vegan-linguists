@@ -18,7 +18,8 @@ use App\Models\UserMode;
 
         <a href="{{ route('logout') }}"
            class="hover:underline"
-           onclick="event.preventDefault(); this.closest('form').submit();">
+           x-data
+           @click="$event.preventDefault(); $el.closest('form').submit();">
             {{ __('Log Out') }}
         </a>
     </form>

@@ -69,7 +69,6 @@
                     @else
                         <div class="sm:col-span-2">
                             @if (!Auth::user()->hasVerifiedEmail())
-
                                 <x-alert title="{{ __('Email verification required') }}"
                                          type="warning"
                                          icon="o-exclamation">
@@ -83,16 +82,17 @@
                                                value="POST" />
 
                                         <x-jet-button element="a"
+                                                      class="w-full justify-center"
                                                       href="{{ route('verification.send') }}"
-                                                      onclick="event.preventDefault(); this.closest('form').submit();"
-                                                      class="w-full justify-center">
+                                                      x-data=""
+                                                      @click="$event.preventDefault(); $el.closest('form').submit();">
                                             {{ __('Resend verification email') }}
                                         </x-jet-button>
                                     </form>
                                 </x-alert>
                             @endif
                         </div>
-                    @endcannot
+                    @endcan
                 </dl>
             </div>
         </div>
@@ -116,7 +116,29 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to review this translation?') }}
+            @can('claimForReview', $translationRequest)
+                {{ __('Are you sure you would like to review this translation?') }}
+            @else
+                @if (!Auth::user()->hasVerifiedEmail())
+                    {{ __('Before being able to review translations, you must verify your email address.') }}
+                    <form method="POST"
+                            action="{{ route('verification.send') }}"
+                            class="mt-2">
+                        @csrf
+                        <input type="hidden"
+                                name="_method"
+                                value="POST" />
+
+                        <x-jet-button element="a"
+                                        class="w-full justify-center"
+                                        href="{{ route('verification.send') }}"
+                                        x-data=""
+                                        @click="$event.preventDefault(); $el.closest('form').submit();">
+                            {{ __('Resend verification email') }}
+                        </x-jet-button>
+                    </form>
+                @endif
+            @endcan
         </x-slot>
 
         <x-slot name="footer">

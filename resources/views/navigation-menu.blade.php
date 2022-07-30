@@ -105,8 +105,9 @@ $isOnDashboard = request()->routeIs('home');
                                                value="PUT" />
 
                                         <x-jet-dropdown-link href="{{ route('switch-user-mode') }}"
-                                                             onclick="event.preventDefault();
-                                                             this.closest('form').submit();">
+                                                             x-data=""
+                                                             @click="$event.preventDefault();
+                                                             $el.closest('form').submit();">
                                             @if (Auth::user()->isInAuthorMode())
                                                 {{ __('Switch to Translator view') }}
                                             @else
@@ -122,8 +123,9 @@ $isOnDashboard = request()->routeIs('home');
                                         @csrf
 
                                         <x-jet-dropdown-link href="{{ route('logout') }}"
-                                                             onclick="event.preventDefault();
-                                                             this.closest('form').submit();">
+                                                             x-data=""
+                                                             @click="$event.preventDefault();
+                                                             $el.closest('form').submit();">
                                             {{ __('Log Out') }}
                                         </x-jet-dropdown-link>
                                     </form>
@@ -249,8 +251,9 @@ $isOnDashboard = request()->routeIs('home');
                                value="PUT" />
 
                         <x-jet-responsive-nav-link href="{{ route('switch-user-mode') }}"
-                                                   onclick="event.preventDefault();
-                                                             this.closest('form').submit();">
+                                                   x-data=""
+                                                   @click="$event.preventDefault();
+                                                   $el.closest('form').submit();">
                             @if (Auth::user()->isInAuthorMode())
                                 {{ __('Switch to Translator view') }}
                             @else
@@ -264,8 +267,9 @@ $isOnDashboard = request()->routeIs('home');
                         @csrf
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                                                   x-data=""
+                                                   @click="$event.preventDefault();
+                                                   $el.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-jet-responsive-nav-link>
                     </form>
