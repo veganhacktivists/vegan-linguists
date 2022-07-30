@@ -26,6 +26,7 @@ class Kernel extends HttpKernel
         LaravelPageSpeed\Middleware\ElideAttributes::class,
         LaravelPageSpeed\Middleware\InsertDNSPrefetch::class,
         LaravelPageSpeed\Middleware\RemoveComments::class,
+        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
     ];
 
     /**
