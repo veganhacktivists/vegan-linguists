@@ -30,6 +30,8 @@
     <div class="font-sans antialiased">
         {{ $slot }}
     </div>
+
+    <x-cookie-banner />
 </body>
 
 </html>

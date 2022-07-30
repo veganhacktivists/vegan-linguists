@@ -422,6 +422,7 @@
             </div>
         </div>
     </footer>
+    <x-cookie-banner />
 </body>
 
 </html>
