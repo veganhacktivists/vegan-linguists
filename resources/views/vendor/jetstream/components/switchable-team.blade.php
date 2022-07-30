@@ -11,7 +11,7 @@
         :component="$component"
         href="#"
         x-data
-        @click="$event.preventDefault(); $el.closest('form').submit();"
+        @click.prevent="$el.closest('form').submit();"
     >
         <div class="flex items-center">
             @if (Auth::user()->isCurrentTeam($team))

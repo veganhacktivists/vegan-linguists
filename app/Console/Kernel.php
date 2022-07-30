@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\ResizeNewProfilePhotos;
 use App\Jobs\SendNewTranslationRequestsEmail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -30,6 +31,9 @@ class Kernel extends ConsoleKernel
             ->wednesdays()
             ->at('0:0')
             ->withoutOverlapping();
+
+        $schedule->job(new ResizeNewProfilePhotos)
+            ->hourly();
     }
 
     /**

@@ -85,7 +85,7 @@
                                                       class="w-full justify-center"
                                                       href="{{ route('verification.send') }}"
                                                       x-data=""
-                                                      @click="$event.preventDefault(); $el.closest('form').submit();">
+                                                      @click.prevent="$el.closest('form').submit();">
                                             {{ __('Resend verification email') }}
                                         </x-jet-button>
                                     </form>
@@ -133,7 +133,7 @@
                                         class="w-full justify-center"
                                         href="{{ route('verification.send') }}"
                                         x-data=""
-                                        @click="$event.preventDefault(); $el.closest('form').submit();">
+                                        @click.prevent="$el.closest('form').submit();">
                             {{ __('Resend verification email') }}
                         </x-jet-button>
                     </form>

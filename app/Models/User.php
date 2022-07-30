@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -19,6 +20,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const MAX_PROFILE_PHOTO_SIZE = 128; // px
 
     protected $attributes = [
         'user_mode' => UserMode::TRANSLATOR,
@@ -209,5 +212,45 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeWhereSpeaksMultipleLanguages(Builder $query)
     {
         return $query->has('languages', '>', 1);
+    }
+
+    public function resizeProfilePhoto()
+    {
+        $photoPath = storage_path('app/public') . DIRECTORY_SEPARATOR . $this->profile_photo_path;
+
+        $extension = pathinfo($photoPath)['extension'];
+
+        if ($extension === 'jpg' || $extension === 'jpeg') {
+            $image = imagecreatefromjpeg($photoPath);
+        } elseif ($extension === 'png') {
+            $image = imagecreatefrompng($photoPath);
+        } else {
+            Log::info('Unhandled file extension: ' . $extension);
+            return;
+        }
+
+        $width = imagesx($image);
+        $height = imagesy($image);
+
+        if ($width <= self::MAX_PROFILE_PHOTO_SIZE || $height <= self::MAX_PROFILE_PHOTO_SIZE) {
+            // The image is already small enough
+            return;
+        }
+
+        Log::info('Resizing photo for user: ' . $this->id);
+
+        $ratio = $height > 0 ? $width / $height : 1;
+
+        $resizedImage = imagescale(
+            $image,
+            $width <= $height ? self::MAX_PROFILE_PHOTO_SIZE : self::MAX_PROFILE_PHOTO_SIZE * $ratio,
+            $width >= $height ? self::MAX_PROFILE_PHOTO_SIZE : self::MAX_PROFILE_PHOTO_SIZE * $ratio,
+        );
+
+        if ($extension === 'jpg' || $extension === 'jpeg') {
+            imagejpeg($resizedImage, $photoPath, 85);
+        } elseif ($extension === 'png') {
+            imagepng($resizedImage, $photoPath);
+        }
     }
 }
