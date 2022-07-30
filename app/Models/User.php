@@ -239,12 +239,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         Log::info('Resizing photo for user: ' . $this->id);
 
-        $ratio = $height > 0 ? $width / $height : 1;
-
         $resizedImage = imagescale(
             $image,
-            $width <= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * $ratio),
-            $width >= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * $ratio),
+            $width <= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * ($width / $height)),
+            $width >= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * ($height / $width)),
         );
 
         if ($extension === 'jpg' || $extension === 'jpeg') {
