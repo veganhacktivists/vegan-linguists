@@ -17,7 +17,7 @@ $completedRoute = completedTranslationRequestsRoute();
             <x-jet-select x-model="source"
                           id="source-language"
                           class="w-full"
-                          @change="url.searchParams.set('source', source); window.Turbolinks.visit(url)">
+                          @change="url.searchParams.set('source', source); window.location.href = url">
                 <x-jet-option value="">
                     {{ __('All') }}
                 </x-jet-option>
@@ -39,7 +39,7 @@ $completedRoute = completedTranslationRequestsRoute();
                          for="source-language">{{ __('Target Language') }}</x-jet-label>
             <x-jet-select x-model="target"
                           class="w-full"
-                          @change="url.searchParams.set('target', target); window.Turbolinks.visit(url)">
+                          @change="url.searchParams.set('target', target); window.location.href = url">
                 <x-jet-option value="">
                     {{ __('All') }}
                 </x-jet-option>

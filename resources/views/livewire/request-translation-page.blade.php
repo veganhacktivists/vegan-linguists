@@ -123,7 +123,7 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-    <script nonce="{{ csp_nonce() }}" data-no-turbolink>
+    <script nonce="{{ csp_nonce() }}">
         (function() {
             window.hasChanges = false;
 
@@ -133,7 +133,6 @@
                     e.returnValue = '';
                 } else {
                     window.removeEventListener("beforeunload", confirmLeave);
-                    window.removeEventListener("turbolinks:before-visit", confirmNavigation);
                 }
             };
 
@@ -142,12 +141,10 @@
                     e.preventDefault();
                 } else {
                     window.removeEventListener("beforeunload", confirmLeave);
-                    window.removeEventListener("turbolinks:before-visit", confirmNavigation);
                 }
             };
 
             window.addEventListener("beforeunload", confirmLeave);
-            window.addEventListener("turbolinks:before-visit", confirmNavigation);
         })()
     </script>
 </div>

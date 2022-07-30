@@ -18,12 +18,6 @@ mix
     require('tailwindcss'),
   ])
 
-// vendor JS
-mix.copy(
-  'node_modules/livewire-turbolinks/dist/livewire-turbolinks.js',
-  'public/js',
-)
-
 mix.disableSuccessNotifications()
 
 if (mix.inProduction()) {

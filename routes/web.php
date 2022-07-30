@@ -59,8 +59,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         Route::middleware('translator')->group(function () {
-            Route::get('/review', ReviewSectionPage::class)->name('review-section');
-
             Route::get('/requests', TranslationRequestsPage::class)->name('translation-requests.index');
 
             Route::get(

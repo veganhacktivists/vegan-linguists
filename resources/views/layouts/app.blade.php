@@ -146,8 +146,6 @@
     @stack('modals')
 
     @livewireScripts(['nonce' => csp_nonce()])
-    <script nonce="{{ csp_nonce() }}" src="{{ mix('js/livewire-turbolinks.js') }}"
-            data-turbolinks-eval="false"></script>
 </body>
 
 </html>
