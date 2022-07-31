@@ -14,8 +14,7 @@
             <x-language-picker id="target-languages"
                                class="mt-1 block"
                                wire:model="targetLanguages"
-                               :defaultLanguages="Auth::user()->default_target_languages"
-                               shouldDisplayTranslatedLanguage />
+                               :defaultLanguages="Auth::user()->default_target_languages" />
             <x-jet-input-error for="target-languages"
                                class="mt-2" />
         </div>

@@ -8,7 +8,7 @@ $renderItemFunction = $shouldDisplayTranslatedLanguage ? "({ full_name }) => `\$
                 :multiSelect="$multiSelect"
                 :emptyMessage="__('No languages found')"
                 :renderItem="$renderItemFunction"
-                renderItemLabel="({ code }) => code.toLocaleUpperCase()"
+                :renderItemLabel="$renderItemFunction"
                 getItemValue="({ id }) => id"
                 comparator="(text, { code, name, native_name }) => (
                     code.toLocaleLowerCase().includes(text) ||
