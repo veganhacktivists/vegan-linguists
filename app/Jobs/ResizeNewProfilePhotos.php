@@ -25,9 +25,13 @@ class ResizeNewProfilePhotos implements ShouldQueue
     {
         Log::info('Resizing profile photos');
 
-        $startTime = CarbonImmutable::now()->startOf('hour')->subtract('hour', 1);
+        $startTime = CarbonImmutable::now()
+            ->startOf('hour')
+            ->subtract('hour', 1);
 
-        $users = User::where('updated_at', '>=', $startTime)->whereNotNull('profile_photo_path')->get();
+        $users = User::where('updated_at', '>=', $startTime)
+            ->whereNotNull('profile_photo_path')
+            ->get();
         $count = $users->count();
 
         Log::info("User IDs ($count)", $users->pluck('id')->toArray());

@@ -16,7 +16,11 @@ class NonOnboardedUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (request()->user()->isOnboarded()) {
+        if (
+            request()
+                ->user()
+                ->isOnboarded()
+        ) {
             return redirect()->route('home');
         }
 

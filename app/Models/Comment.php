@@ -80,13 +80,19 @@ class Comment extends Model
 
     public function scopeResolved(Builder $builder)
     {
-        return $builder->whereRaw("json_extract(metadata, '$.resolved_at') <> 'null'");
+        return $builder->whereRaw(
+            "json_extract(metadata, '$.resolved_at') <> 'null'"
+        );
     }
 
-    public function scopeOrderByResolveDate(Builder $builder, string $order = 'asc')
-    {
-        $order = ($order === 'asc') ? 'asc' : 'desc'; // since we're putting a variable in a raw query
+    public function scopeOrderByResolveDate(
+        Builder $builder,
+        string $order = 'asc'
+    ) {
+        $order = $order === 'asc' ? 'asc' : 'desc'; // since we're putting a variable in a raw query
 
-        return $builder->orderByRaw("json_extract(metadata, '$.resolved_at') $order");
+        return $builder->orderByRaw(
+            "json_extract(metadata, '$.resolved_at') $order"
+        );
     }
 }

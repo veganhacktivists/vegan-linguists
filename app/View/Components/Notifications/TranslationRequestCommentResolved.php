@@ -26,16 +26,33 @@ class TranslationRequestCommentResolved extends Component
      *
      * @return void
      */
-    public function __construct(DatabaseNotification $notification, NotificationModelCache $modelCache)
-    {
-        $this->comment = $modelCache->find(Comment::class, $notification->data['comment_id']);
-        $this->translationRequest = $modelCache->find(TranslationRequest::class, $this->comment->commentable_id);
-        $this->source = $modelCache->find(Source::class, $this->translationRequest->source_id);
-        $this->translator = $modelCache->find(User::class, $this->translationRequest->translator_id);
+    public function __construct(
+        DatabaseNotification $notification,
+        NotificationModelCache $modelCache
+    ) {
+        $this->comment = $modelCache->find(
+            Comment::class,
+            $notification->data['comment_id']
+        );
+        $this->translationRequest = $modelCache->find(
+            TranslationRequest::class,
+            $this->comment->commentable_id
+        );
+        $this->source = $modelCache->find(
+            Source::class,
+            $this->translationRequest->source_id
+        );
+        $this->translator = $modelCache->find(
+            User::class,
+            $this->translationRequest->translator_id
+        );
 
         $this->date = $notification->created_at;
 
-        $sourceAuthor = $modelCache->find(User::class, $this->source->author_id);
+        $sourceAuthor = $modelCache->find(
+            User::class,
+            $this->source->author_id
+        );
         $this->isNotifyingAuthor = $sourceAuthor->is(Auth::user());
     }
 
@@ -46,6 +63,8 @@ class TranslationRequestCommentResolved extends Component
      */
     public function render()
     {
-        return view('components.notifications.translation-request-comment-resolved');
+        return view(
+            'components.notifications.translation-request-comment-resolved'
+        );
     }
 }

@@ -36,10 +36,9 @@ class SubscribeUser
         } catch (ApiException $e) {
             $errorMessage = $e->getMessage();
 
-            Log::error(
-                "Mailchimp API error (subscribing): $errorMessage",
-                ['user_id' => $user->id]
-            );
+            Log::error("Mailchimp API error (subscribing): $errorMessage", [
+                'user_id' => $user->id,
+            ]);
 
             throw new NewsletterException($errorMessage);
         }
@@ -53,17 +52,16 @@ class SubscribeUser
                         [
                             'name' => config('mailchimp.audience.tag'),
                             'status' => 'active',
-                        ]
+                        ],
                     ],
                 ]
             );
         } catch (ApiException $e) {
             $errorMessage = $e->getMessage();
 
-            Log::error(
-                "Mailchimp API error (tagging): $errorMessage",
-                ['user_id' => $user->id]
-            );
+            Log::error("Mailchimp API error (tagging): $errorMessage", [
+                'user_id' => $user->id,
+            ]);
         }
     }
 }

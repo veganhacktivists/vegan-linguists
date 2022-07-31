@@ -15,10 +15,17 @@ class CreateSourcesTable extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table
+                ->foreignId('author_id')
+                ->constrained('users', 'id')
+                ->cascadeOnDelete();
             $table->text('content');
             $table->text('plain_text');
-            $table->foreignId('language_id')->nullable()->constrained()->nullOnDelete();
+            $table
+                ->foreignId('language_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

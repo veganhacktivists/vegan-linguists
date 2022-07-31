@@ -35,8 +35,10 @@ class CommentCreatedListener implements ShouldQueue
         }
     }
 
-    private function handleTranslationRequestComment(Comment $comment, TranslationRequest $translationRequest)
-    {
+    private function handleTranslationRequestComment(
+        Comment $comment,
+        TranslationRequest $translationRequest
+    ) {
         $users = $translationRequest
             ->reviewers()
             ->where('users.id', '<>', $comment->author_id)
@@ -52,7 +54,9 @@ class CommentCreatedListener implements ShouldQueue
 
         foreach ($users as $user) {
             if (!empty($user)) {
-                $user->notify(new TranslationRequestCommentedOnNotification($comment));
+                $user->notify(
+                    new TranslationRequestCommentedOnNotification($comment)
+                );
             }
         }
     }

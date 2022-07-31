@@ -15,12 +15,18 @@ class RemoveDeleteCascades extends Migration
     {
         Schema::table('sources', function (Blueprint $table) {
             $table->dropForeign(['author_id']);
-            $table->foreign('author_id')->references('id')->on('users');
+            $table
+                ->foreign('author_id')
+                ->references('id')
+                ->on('users');
         });
 
         Schema::table('translation_requests', function (Blueprint $table) {
             $table->dropForeign(['source_id']);
-            $table->foreign('source_id')->references('id')->on('sources');
+            $table
+                ->foreign('source_id')
+                ->references('id')
+                ->on('sources');
         });
     }
 
@@ -33,12 +39,20 @@ class RemoveDeleteCascades extends Migration
     {
         Schema::table('sources', function (Blueprint $table) {
             $table->dropForeign(['author_id']);
-            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
+            $table
+                ->foreign('author_id')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnDelete();
         });
 
         Schema::table('translation_requests', function (Blueprint $table) {
             $table->dropForeign(['source_id']);
-            $table->foreign('source_id')->references('id')->on('sources')->cascadeOnDelete();
+            $table
+                ->foreign('source_id')
+                ->references('id')
+                ->on('sources')
+                ->cascadeOnDelete();
         });
     }
 }

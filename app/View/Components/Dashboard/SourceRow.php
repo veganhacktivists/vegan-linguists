@@ -17,7 +17,8 @@ class SourceRow extends Component
      */
     public function __construct(public Source $source)
     {
-        $this->numCompleteTranslationRequests = $source->num_complete_translation_requests;
+        $this->numCompleteTranslationRequests =
+            $source->num_complete_translation_requests;
         $this->totalTranslationRequests = $source->translationRequests->count();
     }
 

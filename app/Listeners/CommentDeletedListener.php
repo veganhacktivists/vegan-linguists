@@ -28,6 +28,8 @@ class CommentDeletedListener
     {
         $commentId = $event->comment->getOriginal('id');
 
-        DatabaseNotification::whereRaw("json_extract(data, '$.comment_id') = $commentId")->delete();
+        DatabaseNotification::whereRaw(
+            "json_extract(data, '$.comment_id') = $commentId"
+        )->delete();
     }
 }

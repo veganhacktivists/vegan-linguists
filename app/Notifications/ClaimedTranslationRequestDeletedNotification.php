@@ -7,7 +7,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ClaimedTranslationRequestDeletedNotification extends BaseNotification implements ShouldQueue
+class ClaimedTranslationRequestDeletedNotification
+    extends BaseNotification
+    implements ShouldQueue
 {
     use Queueable;
 
@@ -21,7 +23,9 @@ class ClaimedTranslationRequestDeletedNotification extends BaseNotification impl
 
     public static function getDescription()
     {
-        return __("Get notified when a translation request that you've claimed for translation or for review has been deleted");
+        return __(
+            "Get notified when a translation request that you've claimed for translation or for review has been deleted"
+        );
     }
 
     public function __construct(
@@ -33,21 +37,27 @@ class ClaimedTranslationRequestDeletedNotification extends BaseNotification impl
 
     public function toMail(User $notifiable)
     {
-        $actionText = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
-            ? __('View your translations')
-            : __('View your translation under review');
+        $actionText =
+            $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
+                ? __('View your translations')
+                : __('View your translation under review');
 
-        $actionRoute = $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
-            ? claimedTranslationRequestsRoute()
-            : underReviewTranslationRequestsRoute();
+        $actionRoute =
+            $this->userRelationship === self::RELATIONSHIP_TRANSLATOR
+                ? claimedTranslationRequestsRoute()
+                : underReviewTranslationRequestsRoute();
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(__('Translation Request Deleted'))
             ->line(
-                __('The :languageName translation request for :sourceTitle has been deleted.', [
-                    'languageName' => '**' . $this->languageName . '**',
-                    'sourceTitle' => '**' . $this->translationRequestTitle . '**',
-                ])
+                __(
+                    'The :languageName translation request for :sourceTitle has been deleted.',
+                    [
+                        'languageName' => '**' . $this->languageName . '**',
+                        'sourceTitle' =>
+                            '**' . $this->translationRequestTitle . '**',
+                    ]
+                )
             )
             ->action($actionText, $actionRoute);
     }

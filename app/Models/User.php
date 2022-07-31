@@ -67,9 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected $appends = ['profile_photo_url'];
 
     protected $dispatchesEvents = [
         'deleting' => UserDeletingEvent::class,
@@ -86,7 +84,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function defaultProfilePhotoUrl()
     {
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=B6674B&background=fff';
+        return 'https://ui-avatars.com/api/?name=' .
+            urlencode($this->name) .
+            '&color=B6674B&background=fff';
     }
 
     public function languages()
@@ -106,7 +106,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function claimedTranslationRequests()
     {
-        return $this->translationRequests()->where('status', TranslationRequestStatus::CLAIMED);
+        return $this->translationRequests()->where(
+            'status',
+            TranslationRequestStatus::CLAIMED
+        );
     }
 
     public function translationRequestsClaimedForReview()
@@ -137,17 +140,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function speaksLanguages(iterable $languageIds)
     {
         if ($this->relationLoaded('languages')) {
-            return $this->languages->whereIn(['pivot', 'language_id'], $languageIds)->count() === count($languageIds);
+            return $this->languages
+                ->whereIn(['pivot', 'language_id'], $languageIds)
+                ->count() === count($languageIds);
         }
 
-        return $this->languages()->wherePivotIn('language_id', $languageIds)->count() === count($languageIds);
+        return $this->languages()
+            ->wherePivotIn('language_id', $languageIds)
+            ->count() === count($languageIds);
     }
 
     public function getDefaultTargetLanguagesAttribute()
     {
-        $setting = $this->settings()->where('setting_key', UserSettingKeys::DEFAULT_TARGET_LANGUAGES)->first();
+        $setting = $this->settings()
+            ->where('setting_key', UserSettingKeys::DEFAULT_TARGET_LANGUAGES)
+            ->first();
 
-        return $setting ? Language::whereIn('id', json_decode($setting->setting_value))->orderByName()->get() : collect();
+        return $setting
+            ? Language::whereIn('id', json_decode($setting->setting_value))
+                ->orderByName()
+                ->get()
+            : collect();
     }
 
     public function setDefaultTargetLanguagesAttribute(iterable $languages)
@@ -197,9 +210,11 @@ class User extends Authenticatable implements MustVerifyEmail
             abort(500, __('Something went terribly wrong'));
         }
 
-        $notificationSetting = $this->notificationSettings()->where('notification_type', $notificationType)->firstOrNew([
-            'notification_type' => $notificationType
-        ]);
+        $notificationSetting = $this->notificationSettings()
+            ->where('notification_type', $notificationType)
+            ->firstOrNew([
+                'notification_type' => $notificationType,
+            ]);
 
         return $notificationSetting->$medium;
     }
@@ -216,7 +231,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function resizeProfilePhoto()
     {
-        $photoPath = storage_path('app/public') . DIRECTORY_SEPARATOR . $this->profile_photo_path;
+        $photoPath =
+            storage_path('app/public') .
+            DIRECTORY_SEPARATOR .
+            $this->profile_photo_path;
 
         $extension = pathinfo($photoPath)['extension'];
 
@@ -232,7 +250,10 @@ class User extends Authenticatable implements MustVerifyEmail
         $width = imagesx($image);
         $height = imagesy($image);
 
-        if ($width <= self::MAX_PROFILE_PHOTO_SIZE || $height <= self::MAX_PROFILE_PHOTO_SIZE) {
+        if (
+            $width <= self::MAX_PROFILE_PHOTO_SIZE ||
+            $height <= self::MAX_PROFILE_PHOTO_SIZE
+        ) {
             // The image is already small enough
             return;
         }
@@ -241,8 +262,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $resizedImage = imagescale(
             $image,
-            $width <= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * ($width / $height)),
-            $width >= $height ? self::MAX_PROFILE_PHOTO_SIZE : round(self::MAX_PROFILE_PHOTO_SIZE * ($height / $width)),
+            $width <= $height
+                ? self::MAX_PROFILE_PHOTO_SIZE
+                : round(self::MAX_PROFILE_PHOTO_SIZE * ($width / $height)),
+            $width >= $height
+                ? self::MAX_PROFILE_PHOTO_SIZE
+                : round(self::MAX_PROFILE_PHOTO_SIZE * ($height / $width))
         );
 
         if ($extension === 'jpg' || $extension === 'jpeg') {

@@ -8,15 +8,12 @@
     wirePlainTextModel: {{ json_encode($wirePlainTextModel) }},
     hasInlineToolbar: {{ !empty($inlineToolbar) ? 'true' : 'false' }},
     placeholder: {{ json_encode($placeholder) }}
-})"
-     wire:ignore
-     {{ $attributes->merge(['class' => $disableStyles ? 'styles-disabled' : '']) }}>
-    <div x-ref="editorContainer"></div>
+})" wire:ignore {{ $attributes->merge(['class' => $disableStyles ? 'styles-disabled' : '']) }}>
+  <div x-ref="editorContainer"></div>
 
-    @if (!empty($inlineToolbar))
-        <div x-ref="inlineToolbar"
-             class="absolute hidden">
-            {{ $inlineToolbar }}
-        </div>
-    @endif
+  @if (!empty($inlineToolbar))
+    <div x-ref="inlineToolbar" class="absolute hidden">
+      {{ $inlineToolbar }}
+    </div>
+  @endif
 </div>

@@ -52,7 +52,9 @@ class Source extends Model
 
     public function getNumCompleteTranslationRequestsAttribute()
     {
-        return $this->translationRequests->where('status', TranslationRequestStatus::COMPLETE)->count();
+        return $this->translationRequests
+            ->where('status', TranslationRequestStatus::COMPLETE)
+            ->count();
     }
 
     public function getSlugAttribute()
@@ -60,15 +62,18 @@ class Source extends Model
         return Str::slug($this->title);
     }
 
-    public function scopeOrderByRecency(Builder $builder, string $order = 'desc')
-    {
+    public function scopeOrderByRecency(
+        Builder $builder,
+        string $order = 'desc'
+    ) {
         return $builder->orderBy('created_at', $order);
     }
 
     public function scopeComplete(Builder $builder)
     {
         return $builder->whereNotExists(function (QueryBuilder $query) {
-            $query->select(DB::raw(1))
+            $query
+                ->select(DB::raw(1))
                 ->from('translation_requests')
                 ->where('status', '<>', TranslationRequestStatus::COMPLETE)
                 ->whereColumn('sources.id', 'translation_requests.source_id');
@@ -78,7 +83,8 @@ class Source extends Model
     public function scopeIncomplete(Builder $builder)
     {
         return $builder->whereExists(function (QueryBuilder $query) {
-            $query->select(DB::raw(1))
+            $query
+                ->select(DB::raw(1))
                 ->from('translation_requests')
                 ->where('status', '<>', TranslationRequestStatus::COMPLETE)
                 ->whereColumn('sources.id', 'translation_requests.source_id');

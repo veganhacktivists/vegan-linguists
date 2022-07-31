@@ -22,11 +22,22 @@ class TranslationSubmitted extends Component
      *
      * @return void
      */
-    public function __construct(DatabaseNotification $notification, NotificationModelCache $modelCache)
-    {
-        $this->translationRequest = $modelCache->find(TranslationRequest::class, $notification->data['translation_request_id']);
-        $this->source = $modelCache->find(Source::class, $this->translationRequest->source_id);
-        $this->translator = $modelCache->find(User::class, $notification->data['translator_id']);
+    public function __construct(
+        DatabaseNotification $notification,
+        NotificationModelCache $modelCache
+    ) {
+        $this->translationRequest = $modelCache->find(
+            TranslationRequest::class,
+            $notification->data['translation_request_id']
+        );
+        $this->source = $modelCache->find(
+            Source::class,
+            $this->translationRequest->source_id
+        );
+        $this->translator = $modelCache->find(
+            User::class,
+            $notification->data['translator_id']
+        );
         $this->date = $notification->created_at;
     }
 

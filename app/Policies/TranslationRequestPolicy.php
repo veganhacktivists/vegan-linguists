@@ -19,7 +19,10 @@ class TranslationRequestPolicy
 
     public function view(User $user, TranslationRequest $translationRequest)
     {
-        if ($translationRequest->isClaimedBy($user) || $translationRequest->hasReviewer($user)) {
+        if (
+            $translationRequest->isClaimedBy($user) ||
+            $translationRequest->hasReviewer($user)
+        ) {
             return true;
         }
 
@@ -27,13 +30,15 @@ class TranslationRequestPolicy
             return false;
         }
 
-        if ($translationRequest->isUnclaimed() || $translationRequest->doesNeedReviewers()) {
+        if (
+            $translationRequest->isUnclaimed() ||
+            $translationRequest->doesNeedReviewers()
+        ) {
             return $user->speaksLanguages([
                 $translationRequest->language_id,
-                $translationRequest->source->language_id
+                $translationRequest->source->language_id,
             ]);
         }
-
 
         return false;
     }
@@ -55,27 +60,30 @@ class TranslationRequestPolicy
 
     public function claim(User $user, TranslationRequest $translationRequest)
     {
-        return $translationRequest->isUnclaimed()
-            && $translationRequest->translator_id === null
-            && $user->hasVerifiedEmail()
-            && $user->speaksLanguages([
+        return $translationRequest->isUnclaimed() &&
+            $translationRequest->translator_id === null &&
+            $user->hasVerifiedEmail() &&
+            $user->speaksLanguages([
                 $translationRequest->language_id,
-                $translationRequest->source->language_id
-            ])
-            && $user->num_claimed_translation_requests < self::MAX_CLAIMED_TRANSLATION_REQUESTS;
+                $translationRequest->source->language_id,
+            ]) &&
+            $user->num_claimed_translation_requests <
+                self::MAX_CLAIMED_TRANSLATION_REQUESTS;
     }
 
-    public function claimForReview(User $user, TranslationRequest $translationRequest)
-    {
-        return $translationRequest->isUnderReview()
-            && $user->hasVerifiedEmail()
-            && !$translationRequest->isClaimedBy($user)
-            && $translationRequest->doesNeedReviewers()
-            && !$translationRequest->hasReviewer($user)
-            && !$translationRequest->source->isOwnedBy($user)
-            && $user->speaksLanguages([
+    public function claimForReview(
+        User $user,
+        TranslationRequest $translationRequest
+    ) {
+        return $translationRequest->isUnderReview() &&
+            $user->hasVerifiedEmail() &&
+            !$translationRequest->isClaimedBy($user) &&
+            $translationRequest->doesNeedReviewers() &&
+            !$translationRequest->hasReviewer($user) &&
+            !$translationRequest->source->isOwnedBy($user) &&
+            $user->speaksLanguages([
                 $translationRequest->language_id,
-                $translationRequest->source->language_id
+                $translationRequest->source->language_id,
             ]);
     }
 
@@ -91,13 +99,15 @@ class TranslationRequestPolicy
 
     public function comment(User $user, TranslationRequest $translationRequest)
     {
-        return $translationRequest->isClaimedBy($user)
-            || $translationRequest->hasReviewer($user)
-            || $translationRequest->source->isOwnedBy($user);
+        return $translationRequest->isClaimedBy($user) ||
+            $translationRequest->hasReviewer($user) ||
+            $translationRequest->source->isOwnedBy($user);
     }
 
-    public function resolveComment(User $user, TranslationRequest $translationRequest)
-    {
+    public function resolveComment(
+        User $user,
+        TranslationRequest $translationRequest
+    ) {
         return $translationRequest->isClaimedBy($user);
     }
 }

@@ -14,12 +14,7 @@ class NotificationSetting extends Model
         'email' => true,
     ];
 
-    protected $fillable = [
-        'user_id',
-        'notification_type',
-        'site',
-        'email',
-    ];
+    protected $fillable = ['user_id', 'notification_type', 'site', 'email'];
 
     public function user()
     {

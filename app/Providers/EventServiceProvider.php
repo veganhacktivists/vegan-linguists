@@ -33,21 +33,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-        CommentCreatedEvent::class => [
-            CommentCreatedListener::class,
-        ],
-        CommentUpdatedEvent::class => [
-            CommentUpdatedListener::class,
-        ],
-        CommentDeletedEvent::class => [
-            CommentDeletedListener::class,
-        ],
-        SourceDeletingEvent::class => [
-            SourceDeletingListener::class,
-        ],
+        Registered::class => [SendEmailVerificationNotification::class],
+        CommentCreatedEvent::class => [CommentCreatedListener::class],
+        CommentUpdatedEvent::class => [CommentUpdatedListener::class],
+        CommentDeletedEvent::class => [CommentDeletedListener::class],
+        SourceDeletingEvent::class => [SourceDeletingListener::class],
         TranslationRequestApprovedEvent::class => [
             TranslationRequestApprovedListener::class,
         ],
@@ -60,9 +50,7 @@ class EventServiceProvider extends ServiceProvider
         TranslationRequestReviewerAddedEvent::class => [
             TranslationRequestReviewerAddedListener::class,
         ],
-        UserDeletingEvent::class => [
-            UserDeletingListener::class,
-        ],
+        UserDeletingEvent::class => [UserDeletingListener::class],
     ];
 
     /**

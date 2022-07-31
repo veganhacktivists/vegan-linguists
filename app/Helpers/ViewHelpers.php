@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Request;
 
 function user(User|null $user)
 {
-    if (!$user) return User::deletedUser();
+    if (!$user) {
+        return User::deletedUser();
+    }
 
     return $user;
 }

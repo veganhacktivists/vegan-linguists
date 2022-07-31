@@ -43,21 +43,26 @@ class TranslationRequestDeletingListener
 
         if (
             $translationRequest->translator &&
-            ($translationRequest->isClaimed() || $translationRequest->isUnderReview())
+            ($translationRequest->isClaimed() ||
+                $translationRequest->isUnderReview())
         ) {
-            $translationRequest->translator->notify(new ClaimedTranslationRequestDeletedNotification(
-                $translationRequest->source->title,
-                $translationRequest->language->name,
-                ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_TRANSLATOR,
-            ));
+            $translationRequest->translator->notify(
+                new ClaimedTranslationRequestDeletedNotification(
+                    $translationRequest->source->title,
+                    $translationRequest->language->name,
+                    ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_TRANSLATOR
+                )
+            );
         }
 
         if ($translationRequest->isUnderReview()) {
-            $translationRequest->reviewers->each->notify(new ClaimedTranslationRequestDeletedNotification(
-                $translationRequest->source->title,
-                $translationRequest->language->name,
-                ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_REVIEWER,
-            ));
+            $translationRequest->reviewers->each->notify(
+                new ClaimedTranslationRequestDeletedNotification(
+                    $translationRequest->source->title,
+                    $translationRequest->language->name,
+                    ClaimedTranslationRequestDeletedNotification::RELATIONSHIP_REVIEWER
+                )
+            );
         }
 
         $translationRequest->reviewers()->detach();

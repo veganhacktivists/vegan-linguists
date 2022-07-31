@@ -11,26 +11,41 @@ class TranslatorDashboardController extends Controller
 
     public function __invoke()
     {
-        $languageIds = Auth::user()->languages()->select('languages.id')->pluck('language.id');
+        $languageIds = Auth::user()
+            ->languages()
+            ->select('languages.id')
+            ->pluck('language.id');
 
-        $translationRequests = $this->getUnclaimedTranslationRequestsQuery($languageIds)
+        $translationRequests = $this->getUnclaimedTranslationRequestsQuery(
+            $languageIds
+        )
             ->union($this->getInProgressTranslationsQuery())
             ->union($this->getReviewableTranslationRequestsQuery($languageIds))
             ->union($this->getTranslationRequestsClaimedForReviewQuery())
             ->with('source', 'source.language', 'source.author', 'reviewers')
             ->get()
             ->groupBy(function (TranslationRequest $translationRequest) {
-                if ($translationRequest->isUnclaimed())             return 'unclaimed';
-                if ($translationRequest->isClaimedBy(Auth::user())) return 'in_progress';
-                if ($translationRequest->hasReviewer(Auth::user())) return 'claimed_for_review';
+                if ($translationRequest->isUnclaimed()) {
+                    return 'unclaimed';
+                }
+                if ($translationRequest->isClaimedBy(Auth::user())) {
+                    return 'in_progress';
+                }
+                if ($translationRequest->hasReviewer(Auth::user())) {
+                    return 'claimed_for_review';
+                }
                 return 'reviewable';
             });
 
         return view('translator-dashboard', [
-            'unclaimedTranslationRequests' => $translationRequests['unclaimed'] ?? collect(),
-            'inProgressTranslations' => $translationRequests['in_progress'] ?? collect(),
-            'translationRequestsClaimedForReview' => $translationRequests['claimed_for_review'] ?? collect(),
-            'reviewableTranslationRequests' => $translationRequests['reviewable'] ?? collect(),
+            'unclaimedTranslationRequests' =>
+                $translationRequests['unclaimed'] ?? collect(),
+            'inProgressTranslations' =>
+                $translationRequests['in_progress'] ?? collect(),
+            'translationRequestsClaimedForReview' =>
+                $translationRequests['claimed_for_review'] ?? collect(),
+            'reviewableTranslationRequests' =>
+                $translationRequests['reviewable'] ?? collect(),
         ]);
     }
 
@@ -45,8 +60,9 @@ class TranslatorDashboardController extends Controller
             ->orderBy('created_at', 'desc');
     }
 
-    private function getReviewableTranslationRequestsQuery(iterable $languageIds)
-    {
+    private function getReviewableTranslationRequestsQuery(
+        iterable $languageIds
+    ) {
         return TranslationRequest::query()
             ->needsReviewers()
             ->excludingSourceAuthor(Auth::user())

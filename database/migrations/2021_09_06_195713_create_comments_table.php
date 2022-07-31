@@ -17,7 +17,11 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->text('content');
             $table->text('plain_text');
-            $table->foreignId('author_id')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table
+                ->foreignId('author_id')
+                ->nullable()
+                ->constrained('users', 'id')
+                ->nullOnDelete();
             $table->morphs('commentable');
             $table->timestamps();
         });

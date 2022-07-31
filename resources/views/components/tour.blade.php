@@ -34,7 +34,7 @@ $options = json_encode([
 @endphp
 
 <{{ $element }} {{ $attributes->merge([
-     'x-data' => "tour($options)",
- ]) }}>
-    {{ $slot }}
-    </{{ $element }}>
+    'x-data' => "tour($options)",
+]) }}>
+  {{ $slot }}
+  </{{ $element }}>

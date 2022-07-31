@@ -15,9 +15,20 @@ class CreateTranslationRequestsTable extends Migration
     {
         Schema::create('translation_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('source_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('language_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('translator_id')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table
+                ->foreignId('source_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
+                ->foreignId('language_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+            $table
+                ->foreignId('translator_id')
+                ->nullable()
+                ->constrained('users', 'id')
+                ->nullOnDelete();
             $table->string('status');
             $table->text('content');
             $table->text('plain_text');

@@ -7,5 +7,5 @@ $classes = $active ? 'border-b border-brand-brown-900 text-brand-brown-900' : 't
 <a {{ $attributes->merge([
     'class' => 'text-sm ' . $classes,
 ]) }}>
-    {{ $slot }}
+  {{ $slot }}
 </a>

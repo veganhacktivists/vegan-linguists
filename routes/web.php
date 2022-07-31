@@ -30,9 +30,13 @@ Route::get('/', function () {
         }
 
         if ($user->isInAuthorMode()) {
-            return App::call('App\Http\Controllers\AuthorDashboardController@__invoke');
+            return App::call(
+                'App\Http\Controllers\AuthorDashboardController@__invoke'
+            );
         } else {
-            return App::call('App\Http\Controllers\TranslatorDashboardController@__invoke');
+            return App::call(
+                'App\Http\Controllers\TranslatorDashboardController@__invoke'
+            );
         }
     }
 
@@ -41,8 +45,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('onboarded')->group(function () {
-        Route::put('/switch-user-mode', SwitchUserModeController::class)->name('switch-user-mode');
-        Route::get('/notifications', NotificationsPage::class)->name('notifications');
+        Route::put('/switch-user-mode', SwitchUserModeController::class)->name(
+            'switch-user-mode'
+        );
+        Route::get('/notifications', NotificationsPage::class)->name(
+            'notifications'
+        );
 
         Route::middleware('author')->group(function () {
             Route::get('/requests/new', RequestTranslationPage::class)
@@ -54,11 +62,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 SourcePage::class
             )->name('translation');
 
-            Route::get('/requests/{source}/{slug?}', SourcePage::class)->name('source');
+            Route::get('/requests/{source}/{slug?}', SourcePage::class)->name(
+                'source'
+            );
         });
 
         Route::middleware('translator')->group(function () {
-            Route::get('/requests', TranslationRequestsPage::class)->name('translation-requests.index');
+            Route::get('/requests', TranslationRequestsPage::class)->name(
+                'translation-requests.index'
+            );
 
             Route::get(
                 '/translate/{translationRequest}/{slug?}',

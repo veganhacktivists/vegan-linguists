@@ -23,13 +23,19 @@ class NotificationModelCache
             ->get()
             ->keyBy('id');
 
-        $translationRequestIds = $this->pluckTranslationRequestIds($notifications)
+        $translationRequestIds = $this->pluckTranslationRequestIds(
+            $notifications
+        )
             ->concat(
-                $this->comments->where('commentable_type', TranslationRequest::class)
+                $this->comments
+                    ->where('commentable_type', TranslationRequest::class)
                     ->pluck('commentable_id')
             )
             ->unique();
-        $this->translationRequests = TranslationRequest::whereIn('id', $translationRequestIds)
+        $this->translationRequests = TranslationRequest::whereIn(
+            'id',
+            $translationRequestIds
+        )
             ->get()
             ->keyBy('id');
 
@@ -76,24 +82,28 @@ class NotificationModelCache
         return $record;
     }
 
-    private function pluckCommentIds(DatabaseNotificationCollection $notifications)
-    {
+    private function pluckCommentIds(
+        DatabaseNotificationCollection $notifications
+    ) {
         return $notifications->pluck('data.comment_id')->filter();
     }
 
-    private function pluckSourceIds(DatabaseNotificationCollection $notifications)
-    {
+    private function pluckSourceIds(
+        DatabaseNotificationCollection $notifications
+    ) {
         return $notifications->pluck('data.source_id')->filter();
     }
 
-    private function pluckTranslationRequestIds(DatabaseNotificationCollection $notifications)
-    {
+    private function pluckTranslationRequestIds(
+        DatabaseNotificationCollection $notifications
+    ) {
         return $notifications->pluck('data.translation_request_id')->filter();
     }
 
     private function pluckUserIds(DatabaseNotificationCollection $notifications)
     {
-        return $notifications->pluck('data.translator_id')
+        return $notifications
+            ->pluck('data.translator_id')
             ->concat($notifications->pluck('data.author_id'))
             ->concat($notifications->pluck('data.reviewer_id'))
             ->filter();

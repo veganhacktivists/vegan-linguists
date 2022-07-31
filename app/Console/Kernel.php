@@ -26,14 +26,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new SendNewTranslationRequestsEmail)
+        $schedule
+            ->job(new SendNewTranslationRequestsEmail())
             ->weekly()
             ->wednesdays()
             ->at('0:0')
             ->withoutOverlapping();
 
-        $schedule->job(new ResizeNewProfilePhotos)
-            ->hourly();
+        $schedule->job(new ResizeNewProfilePhotos())->hourly();
     }
 
     /**

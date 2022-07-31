@@ -14,36 +14,28 @@
     multiSelect: {{ $multiSelect ? 'true' : 'false' }},
     wireModel: {{ json_encode($wireModel) }},
     resultsClass: {{ json_encode($resultsClass) }},
-})"
-     wire:ignore
-     {{ $attributes->except(['wire:model', 'id', 'x-data']) }}>
+})" wire:ignore {{ $attributes->except(['wire:model', 'id', 'x-data']) }}>
 
-    @if (empty($wireModel))
-        <template x-for="item in selectedItems">
-            <input name="{{ $attributes->get('name') . ($multiSelect ? '[]' : '') }}"
-                   type="hidden"
-                   x-bind:value="getItemValue(item)" />
-        </template>
-    @endif
+  @if (empty($wireModel))
+    <template x-for="item in selectedItems">
+      <input name="{{ $attributes->get('name') . ($multiSelect ? '[]' : '') }}" type="hidden"
+        x-bind:value="getItemValue(item)" />
+    </template>
+  @endif
 
-    <x-jet-input id="{{ $attributes->get('id') }}"
-                 type="text"
-                 x-ref="input"
-                 autocomplete="off"
-                 @blur="attemptToSelectItem()" />
+  <x-jet-input id="{{ $attributes->get('id') }}" type="text" x-ref="input" autocomplete="off"
+    @blur="attemptToSelectItem()" />
 
-    @if ($multiSelect)
-        <ul class="flex flex-wrap gap-2 mt-2"
-            x-show="selectedItems.length > 0">
-            <template x-for="item in selectedItems">
-                <li class="bg-brand-blue-50 border border-brand-blue-200 flex gap-2 px-2 py-1 rounded">
-                    <span x-text="renderItemLabel(item)"></span>
-                    <button type="button"
-                            @click="unselect(item)">
-                        &times;
-                    </button>
-                </li>
-            </template>
-        </ul>
-    @endif
+  @if ($multiSelect)
+    <ul class="mt-2 flex flex-wrap gap-2" x-show="selectedItems.length > 0">
+      <template x-for="item in selectedItems">
+        <li class="flex gap-2 rounded border border-brand-blue-200 bg-brand-blue-50 px-2 py-1">
+          <span x-text="renderItemLabel(item)"></span>
+          <button type="button" @click="unselect(item)">
+            &times;
+          </button>
+        </li>
+      </template>
+    </ul>
+  @endif
 </div>

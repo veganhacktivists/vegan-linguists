@@ -8,9 +8,7 @@ HTML;
 
 @endphp
 
-<x-notifications.base-notification :user="$author"
-                                   :date="$date"
-                                   :description="__('Revoked your claim on the :languageName translation for :translationRequestTitle.', [
-        'languageName' => '<strong>'.$translationRequest->language->name.'</strong>',
-        'translationRequestTitle' => $translationRequestTitle,
-    ])" />
+<x-notifications.base-notification :user="$author" :date="$date" :description="__('Revoked your claim on the :languageName translation for :translationRequestTitle.', [
+    'languageName' => '<strong>' . $translationRequest->language->name . '</strong>',
+    'translationRequestTitle' => $translationRequestTitle,
+])" />

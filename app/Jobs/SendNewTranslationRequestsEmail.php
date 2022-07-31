@@ -28,9 +28,7 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
         $unclaimedTranslationRequests = TranslationRequest::query()
             ->unclaimed()
             ->with('source', 'reviewers')
-            ->whereCreatedAfter(
-                Carbon::now()->subtract('week', 1)
-            )
+            ->whereCreatedAfter(Carbon::now()->subtract('week', 1))
             ->get();
 
         $reviewableTranslationRequests = TranslationRequest::query()
@@ -40,35 +38,58 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
 
         Log::info('Requests', [
             'unclaimed' => $unclaimedTranslationRequests->count(),
-            'reviewable' => $reviewableTranslationRequests->count()
+            'reviewable' => $reviewableTranslationRequests->count(),
         ]);
 
         User::whereSpeaksMultipleLanguages()
             ->with('languages:id')
             ->lazy()
-            ->each(function (User $user) use ($unclaimedTranslationRequests, $reviewableTranslationRequests) {
+            ->each(function (User $user) use (
+                $unclaimedTranslationRequests,
+                $reviewableTranslationRequests
+            ) {
                 $languageIds = $user->languages->pluck('id');
 
                 $numUnclaimedTranslationRequests = $unclaimedTranslationRequests
-                    ->filter(function (TranslationRequest $translationRequest) use ($user, $languageIds) {
-                        return $translationRequest->source->author_id !== $user->id
-                            && !$translationRequest->reviewers->contains($user)
-                            && $languageIds->contains($translationRequest->source->language_id)
-                            && $languageIds->contains($translationRequest->language_id);
+                    ->filter(function (
+                        TranslationRequest $translationRequest
+                    ) use ($user, $languageIds) {
+                        return $translationRequest->source->author_id !==
+                            $user->id &&
+                            !$translationRequest->reviewers->contains($user) &&
+                            $languageIds->contains(
+                                $translationRequest->source->language_id
+                            ) &&
+                            $languageIds->contains(
+                                $translationRequest->language_id
+                            );
                     })
                     ->count();
 
                 $numReviewableTranslationRequests = $reviewableTranslationRequests
-                    ->filter(function (TranslationRequest $translationRequest) use ($user, $languageIds) {
-                        return $translationRequest->source->author_id !== $user->id
-                            && !$translationRequest->reviewers->contains($user)
-                            && $translationRequest->translator_id !== $user->id
-                            && $languageIds->contains($translationRequest->source->language_id)
-                            && $languageIds->contains($translationRequest->language_id);
+                    ->filter(function (
+                        TranslationRequest $translationRequest
+                    ) use ($user, $languageIds) {
+                        return $translationRequest->source->author_id !==
+                            $user->id &&
+                            !$translationRequest->reviewers->contains($user) &&
+                            $translationRequest->translator_id !== $user->id &&
+                            $languageIds->contains(
+                                $translationRequest->source->language_id
+                            ) &&
+                            $languageIds->contains(
+                                $translationRequest->language_id
+                            );
                     })
                     ->count();
 
-                if ($numUnclaimedTranslationRequests + $numReviewableTranslationRequests === 0) return;
+                if (
+                    $numUnclaimedTranslationRequests +
+                        $numReviewableTranslationRequests ===
+                    0
+                ) {
+                    return;
+                }
 
                 Log::info('Notifying user', [
                     'user_id' => $user->id,
@@ -79,7 +100,7 @@ class SendNewTranslationRequestsEmail implements ShouldQueue, ShouldBeUnique
                 $user->notify(
                     new NewTranslationRequestsNotification(
                         $numUnclaimedTranslationRequests,
-                        $numReviewableTranslationRequests,
+                        $numReviewableTranslationRequests
                     )
                 );
             });

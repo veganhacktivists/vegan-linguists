@@ -35,38 +35,47 @@ class TranslationRequestUpdatedListener
         $prevStatus = $translationRequest->getOriginal('status');
 
         if (
-            ($translationRequest->isComplete() || $translationRequest->isUnderReview())
-            && ($prevStatus === TranslationRequestStatus::CLAIMED)
+            ($translationRequest->isComplete() ||
+                $translationRequest->isUnderReview()) &&
+            $prevStatus === TranslationRequestStatus::CLAIMED
         ) {
             $translationRequest->source->author->notify(
                 new TranslationSubmittedNotification(
                     $translationRequest->translator,
-                    $translationRequest,
-                ),
+                    $translationRequest
+                )
             );
-        } elseif ($translationRequest->isClaimed() && $prevStatus === TranslationRequestStatus::UNCLAIMED) {
+        } elseif (
+            $translationRequest->isClaimed() &&
+            $prevStatus === TranslationRequestStatus::UNCLAIMED
+        ) {
             $translationRequest->source->author->notify(
                 new TranslationRequestClaimedNotification(
                     $translationRequest->translator,
-                    $translationRequest,
-                ),
+                    $translationRequest
+                )
             );
-        } elseif ($translationRequest->isUnclaimed() && $prevStatus === TranslationRequestStatus::CLAIMED) {
-            $translator = User::find($translationRequest->getOriginal('translator_id'));
+        } elseif (
+            $translationRequest->isUnclaimed() &&
+            $prevStatus === TranslationRequestStatus::CLAIMED
+        ) {
+            $translator = User::find(
+                $translationRequest->getOriginal('translator_id')
+            );
 
             if ($translationRequest->source->author->is(Auth::user())) {
                 $translator->notify(
                     new TranslationRequestClaimRevokedNotification(
                         $translationRequest->source->author,
-                        $translationRequest,
-                    ),
+                        $translationRequest
+                    )
                 );
             } else {
                 $translationRequest->source->author->notify(
                     new TranslationRequestUnclaimedNotification(
                         $translator,
-                        $translationRequest,
-                    ),
+                        $translationRequest
+                    )
                 );
             }
         }

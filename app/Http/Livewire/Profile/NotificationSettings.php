@@ -32,11 +32,15 @@ class NotificationSettings extends Component
         return view('livewire.profile.notification-settings');
     }
 
-    public function updateWebsiteNotificationSetting(string $notificationType, bool $enabled)
-    {
-        $notificationSetting = Auth::user()->notificationSettings()->firstOrNew([
-            'notification_type' => $notificationType,
-        ]);
+    public function updateWebsiteNotificationSetting(
+        string $notificationType,
+        bool $enabled
+    ) {
+        $notificationSetting = Auth::user()
+            ->notificationSettings()
+            ->firstOrNew([
+                'notification_type' => $notificationType,
+            ]);
 
         $notificationSetting->site = $enabled;
         $notificationSetting->save();
@@ -44,11 +48,15 @@ class NotificationSettings extends Component
         $this->refreshNotificationSettings();
     }
 
-    public function updateEmailNotificationSetting(string $notificationType, bool $enabled)
-    {
-        $notificationSetting = Auth::user()->notificationSettings()->firstOrNew([
-            'notification_type' => $notificationType,
-        ]);
+    public function updateEmailNotificationSetting(
+        string $notificationType,
+        bool $enabled
+    ) {
+        $notificationSetting = Auth::user()
+            ->notificationSettings()
+            ->firstOrNew([
+                'notification_type' => $notificationType,
+            ]);
 
         $notificationSetting->email = $enabled;
         $notificationSetting->save();
@@ -81,8 +89,10 @@ class NotificationSettings extends Component
     {
         $user = Auth::user();
 
-        $this->notificationSettings = $this->getDefaultNotificationSettings($user)->merge(
-            $user->notificationSettings
-        )->keyBy('notification_type');
+        $this->notificationSettings = $this->getDefaultNotificationSettings(
+            $user
+        )
+            ->merge($user->notificationSettings)
+            ->keyBy('notification_type');
     }
 }

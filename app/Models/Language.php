@@ -10,15 +10,9 @@ class Language extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'code',
-        'name',
-        'native_name',
-    ];
+    protected $fillable = ['code', 'name', 'native_name'];
 
-    protected $appends = [
-        'full_name',
-    ];
+    protected $appends = ['full_name'];
 
     public function translators()
     {
@@ -30,7 +24,12 @@ class Language extends Model
         $fullName = "{$this->name} ({$this->native_name})";
 
         if (isset($this->translators_count)) {
-            $fullName .= " " . trans_choice('[1] (:count translator)|[*] (:count translators)', $this->translators_count);
+            $fullName .=
+                ' ' .
+                trans_choice(
+                    '[1] (:count translator)|[*] (:count translators)',
+                    $this->translators_count
+                );
         }
 
         return $fullName;

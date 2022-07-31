@@ -28,17 +28,23 @@ class NotificationsPage extends Component
 
     public function render()
     {
-        $notifications = Auth::user()->notifications()->paginate(self::NUM_NOTIFICATIONS_PER_PAGE);
+        $notifications = Auth::user()
+            ->notifications()
+            ->paginate(self::NUM_NOTIFICATIONS_PER_PAGE);
 
         return view('livewire.notifications-page', [
             'notifications' => $notifications,
-            'modelCache' => new NotificationModelCache($notifications->getCollection()),
+            'modelCache' => new NotificationModelCache(
+                $notifications->getCollection()
+            ),
         ]);
     }
 
     public function markAllAsRead()
     {
-        if ($this->unreadNotifications instanceof DatabaseNotificationCollection) {
+        if (
+            $this->unreadNotifications instanceof DatabaseNotificationCollection
+        ) {
             $this->unreadNotifications->markAsRead();
         }
 

@@ -26,6 +26,8 @@ class SourceDeletingListener
      */
     public function handle(SourceDeletingEvent $event)
     {
-        TranslationRequest::where('source_id', $event->source->id)->get()->each->delete();
+        TranslationRequest::where('source_id', $event->source->id)
+            ->get()
+            ->each->delete();
     }
 }

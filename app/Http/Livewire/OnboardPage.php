@@ -47,12 +47,12 @@ class OnboardPage extends Component
                 'required',
                 'array',
                 Rule::when($this->isTranslator(), 'min:2'),
-                'exists:languages,id'
+                'exists:languages,id',
             ],
             'targetLanguages' => [
                 Rule::requiredIf($this->isAuthor()),
                 'array',
-                'exists:languages,id'
+                'exists:languages,id',
             ],
         ];
     }
@@ -63,10 +63,18 @@ class OnboardPage extends Component
 
         return [
             'languages.required' => $isTranslator
-                ? __('Please indicate which languages you can read and write fluently.')
-                : __('Please indicate which languages your content is written in.'),
-            'languages.min' => __('In order to translate content, you must be able to read and write in multiple languages.'),
-            'targetLanguages.required' => __('Please indicate which languages you would like your content to be translated to.')
+                ? __(
+                    'Please indicate which languages you can read and write fluently.'
+                )
+                : __(
+                    'Please indicate which languages your content is written in.'
+                ),
+            'languages.min' => __(
+                'In order to translate content, you must be able to read and write in multiple languages.'
+            ),
+            'targetLanguages.required' => __(
+                'Please indicate which languages you would like your content to be translated to.'
+            ),
         ];
     }
 

@@ -45,20 +45,30 @@ class SourcePage extends Component
 
         $this->currentTranslationRequest->unclaim();
 
-        session()->flash('flash.banner', __('Revoked :translatorName\'s claim.', [
-            'translatorName' => $this->currentTranslationRequest->translator->name,
-        ]));
+        session()->flash(
+            'flash.banner',
+            __('Revoked :translatorName\'s claim.', [
+                'translatorName' =>
+                    $this->currentTranslationRequest->translator->name,
+            ])
+        );
 
-        return redirect()->route('translation', [$this->source->id, $this->currentTranslationRequest->language->id]);
+        return redirect()->route('translation', [
+            $this->source->id,
+            $this->currentTranslationRequest->language->id,
+        ]);
     }
 
     public function deleteSource()
     {
         $this->authorize('delete', $this->source);
 
-        session()->flash('flash.banner', __('Deleted :sourceTitle.', [
-            'sourceTitle' => $this->source->title,
-        ]));
+        session()->flash(
+            'flash.banner',
+            __('Deleted :sourceTitle.', [
+                'sourceTitle' => $this->source->title,
+            ])
+        );
 
         $this->source->delete();
 
@@ -69,13 +79,23 @@ class SourcePage extends Component
     {
         $this->authorize('delete', $this->source);
 
-        session()->flash('flash.banner', __('The :languageName translation of ":sourceTitle" has been deleted.', [
-            'languageName' => $this->currentTranslationRequest->language->name,
-            'sourceTitle' => $this->source->title
-        ]));
+        session()->flash(
+            'flash.banner',
+            __(
+                'The :languageName translation of ":sourceTitle" has been deleted.',
+                [
+                    'languageName' =>
+                        $this->currentTranslationRequest->language->name,
+                    'sourceTitle' => $this->source->title,
+                ]
+            )
+        );
 
         $this->currentTranslationRequest->delete();
 
-        return redirect()->route('source', [$this->source->id, $this->source->slug]);
+        return redirect()->route('source', [
+            $this->source->id,
+            $this->source->slug,
+        ]);
     }
 }

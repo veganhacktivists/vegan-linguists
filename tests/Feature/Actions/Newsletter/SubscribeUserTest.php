@@ -89,19 +89,19 @@ define('SUBSCRIBE_SUCCESS_RESPONSE', [
 
 uses(RefreshDatabase::class);
 
-dataset('newsletter_unsubscribed_users', [
-    fn () => User::factory()->create(),
-]);
+dataset('newsletter_unsubscribed_users', [fn() => User::factory()->create()]);
 
 it('subscribes a user to the newsletter', function (User $user) {
     expect($user->is_subscribed_to_newsletter)->toBeFalse();
 
     $mailchimp = mock(ApiClient::class)->makePartial();
     $mailchimp->lists = mock(ListsApi::class);
-    $mailchimp->lists->shouldReceive([
-        'setListMember' => SUBSCRIBE_SUCCESS_RESPONSE,
-        'updateListMemberTags' => '',
-    ])->once();
+    $mailchimp->lists
+        ->shouldReceive([
+            'setListMember' => SUBSCRIBE_SUCCESS_RESPONSE,
+            'updateListMemberTags' => '',
+        ])
+        ->once();
 
     Log::shouldReceive('error')->never();
 
@@ -111,42 +111,51 @@ it('subscribes a user to the newsletter', function (User $user) {
     expect($user->is_subscribed_to_newsletter)->toBeTrue();
 })->with('newsletter_unsubscribed_users');
 
-it('does not subscribe the user when the API client throws an exception on the subscribe endpoint', function (User $user) {
-    expect($user->is_subscribed_to_newsletter)->toBeFalse();
+it(
+    'does not subscribe the user when the API client throws an exception on the subscribe endpoint',
+    function (User $user) {
+        expect($user->is_subscribed_to_newsletter)->toBeFalse();
 
-    $mailchimp = mock(ApiClient::class)->makePartial();
-    $mailchimp->lists = mock(ListsApi::class);
-    $mailchimp->lists->shouldReceive('setListMember')
-        ->once()
-        ->andThrow(new ApiException);
-    $mailchimp->lists->shouldReceive('updateListMemberTags')->never();
+        $mailchimp = mock(ApiClient::class)->makePartial();
+        $mailchimp->lists = mock(ListsApi::class);
+        $mailchimp->lists
+            ->shouldReceive('setListMember')
+            ->once()
+            ->andThrow(new ApiException());
+        $mailchimp->lists->shouldReceive('updateListMemberTags')->never();
 
-    Log::shouldReceive('error')->once();
+        Log::shouldReceive('error')->once();
 
-    $subscribeUser = app(SubscribeUser::class);
-    $subscribeUser($user, $mailchimp);
+        $subscribeUser = app(SubscribeUser::class);
+        $subscribeUser($user, $mailchimp);
 
-    expect($user->is_subscribed_to_newsletter)->toBeFalse();
-})->throws(NewsletterException::class)
+        expect($user->is_subscribed_to_newsletter)->toBeFalse();
+    }
+)
+    ->throws(NewsletterException::class)
     ->with('newsletter_unsubscribed_users');
 
+it(
+    'subscribes the user when the API client throws an exception on the tag endpoint, but logs the error',
+    function (User $user) {
+        expect($user->is_subscribed_to_newsletter)->toBeFalse();
 
-it('subscribes the user when the API client throws an exception on the tag endpoint, but logs the error', function (User $user) {
-    expect($user->is_subscribed_to_newsletter)->toBeFalse();
+        $mailchimp = mock(ApiClient::class)->makePartial();
+        $mailchimp->lists = mock(ListsApi::class);
+        $mailchimp->lists
+            ->shouldReceive('setListMember')
+            ->once()
+            ->andReturn(SUBSCRIBE_SUCCESS_RESPONSE);
+        $mailchimp->lists
+            ->shouldReceive('updateListMemberTags')
+            ->once()
+            ->andThrow(new ApiException());
 
-    $mailchimp = mock(ApiClient::class)->makePartial();
-    $mailchimp->lists = mock(ListsApi::class);
-    $mailchimp->lists->shouldReceive('setListMember')
-        ->once()
-        ->andReturn(SUBSCRIBE_SUCCESS_RESPONSE);
-    $mailchimp->lists->shouldReceive('updateListMemberTags')
-        ->once()
-        ->andThrow(new ApiException);
+        Log::shouldReceive('error')->once();
 
-    Log::shouldReceive('error')->once();
+        $subscribeUser = app(SubscribeUser::class);
+        $subscribeUser($user, $mailchimp);
 
-    $subscribeUser = app(SubscribeUser::class);
-    $subscribeUser($user, $mailchimp);
-
-    expect($user->is_subscribed_to_newsletter)->toBeTrue();
-})->with('newsletter_unsubscribed_users');
+        expect($user->is_subscribed_to_newsletter)->toBeTrue();
+    }
+)->with('newsletter_unsubscribed_users');

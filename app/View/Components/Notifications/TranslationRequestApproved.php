@@ -25,14 +25,28 @@ class TranslationRequestApproved extends Component
      *
      * @return void
      */
-    public function __construct(DatabaseNotification $notification, NotificationModelCache $modelCache)
-    {
-        $this->translationRequest = $modelCache->find(TranslationRequest::class, $notification->data['translation_request_id']);
-        $this->source = $modelCache->find(Source::class, $this->translationRequest->source_id);
-        $this->reviewer = $modelCache->find(User::class, $notification->data['reviewer_id']);
+    public function __construct(
+        DatabaseNotification $notification,
+        NotificationModelCache $modelCache
+    ) {
+        $this->translationRequest = $modelCache->find(
+            TranslationRequest::class,
+            $notification->data['translation_request_id']
+        );
+        $this->source = $modelCache->find(
+            Source::class,
+            $this->translationRequest->source_id
+        );
+        $this->reviewer = $modelCache->find(
+            User::class,
+            $notification->data['reviewer_id']
+        );
         $this->date = $notification->created_at;
 
-        $sourceAuthor = $modelCache->find(User::class, $this->source->author_id);
+        $sourceAuthor = $modelCache->find(
+            User::class,
+            $this->source->author_id
+        );
         $this->isNotifyingAuthor = $sourceAuthor->is(Auth::user());
     }
 

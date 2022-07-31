@@ -8,7 +8,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class TranslationRequestClaimRevokedNotification extends BaseNotification implements ShouldQueue
+class TranslationRequestClaimRevokedNotification
+    extends BaseNotification
+    implements ShouldQueue
 {
     use Queueable;
 
@@ -19,26 +21,39 @@ class TranslationRequestClaimRevokedNotification extends BaseNotification implem
 
     public static function getDescription()
     {
-        return __("Get notified when your claim on a translation request is revoked");
+        return __(
+            'Get notified when your claim on a translation request is revoked'
+        );
     }
 
-    public function __construct(private User $author, private TranslationRequest $translationRequest)
-    {
+    public function __construct(
+        private User $author,
+        private TranslationRequest $translationRequest
+    ) {
     }
 
     public function toMail(User $notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(__('Translation Request Claim Revoked'))
             ->line(
-                __('Your claim on the :languageName translation for :sourceTitle has been revoked.', [
-                    'languageName' => '<strong>' . $this->translationRequest->language->name . '</strong>',
-                    'sourceTitle' => '<strong>' . $this->translationRequest->source->title . '</strong>',
-                ])
+                __(
+                    'Your claim on the :languageName translation for :sourceTitle has been revoked.',
+                    [
+                        'languageName' =>
+                            '<strong>' .
+                            $this->translationRequest->language->name .
+                            '</strong>',
+                        'sourceTitle' =>
+                            '<strong>' .
+                            $this->translationRequest->source->title .
+                            '</strong>',
+                    ]
+                )
             )
             ->action(
                 __('View your claimed translation requests'),
-                claimedTranslationRequestsRoute(),
+                claimedTranslationRequestsRoute()
             );
     }
 

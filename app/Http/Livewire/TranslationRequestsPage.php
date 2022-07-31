@@ -23,7 +23,10 @@ class TranslationRequestsPage extends Component
         $this->targetLanguageCode = $request->query('target', '') ?? '';
         $this->languages = Auth::user()->languages;
 
-        $this->translationRequests = $this->getTranslationRequests($this->sourceLanguageCode, $this->targetLanguageCode);
+        $this->translationRequests = $this->getTranslationRequests(
+            $this->sourceLanguageCode,
+            $this->targetLanguageCode
+        );
 
         return view('livewire.translation-requests-page');
     }
@@ -35,10 +38,11 @@ class TranslationRequestsPage extends Component
 
     public function isAvailablePage()
     {
-        return !($this->isMinePage()
-            || $this->isReviewablePage()
-            || $this->isUnderReviewPage()
-            || $this->isCompletedPage()
+        return !(
+            $this->isMinePage() ||
+            $this->isReviewablePage() ||
+            $this->isUnderReviewPage() ||
+            $this->isCompletedPage()
         );
     }
 
@@ -59,41 +63,62 @@ class TranslationRequestsPage extends Component
 
     private function getTranslationRequests()
     {
-        $sourceLanguage = $this->languages->where('code', $this->sourceLanguageCode)->first();
-        $targetLanguage = $this->languages->where('code', $this->targetLanguageCode)->first();
+        $sourceLanguage = $this->languages
+            ->where('code', $this->sourceLanguageCode)
+            ->first();
+        $targetLanguage = $this->languages
+            ->where('code', $this->targetLanguageCode)
+            ->first();
 
         if ($this->isMinePage()) {
-            $translationRequests = Auth::user()->translationRequests()->incomplete();
+            $translationRequests = Auth::user()
+                ->translationRequests()
+                ->incomplete();
         } elseif ($this->isReviewablePage()) {
             $translationRequests = TranslationRequest::needsReviewers()
                 ->excludingSourceAuthor(Auth::user())
                 ->excludingTranslator(Auth::user())
                 ->excludingReviewer(Auth::user());
         } elseif ($this->isUnderReviewPage()) {
-            $translationRequests = Auth::user()->translationRequestsClaimedForReview()->underReview();
+            $translationRequests = Auth::user()
+                ->translationRequestsClaimedForReview()
+                ->underReview();
         } elseif ($this->isCompletedPage()) {
-            $translationRequests = Auth::user()->completedTranslationRequests()->union(
-                Auth::user()->translationRequestsClaimedForReview()
-                    ->complete()
-                    ->whereSourceLanguageId(
-                        $sourceLanguage ? $sourceLanguage->id : $this->languages->pluck('id')
-                    )
-                    ->whereLanguageId(
-                        $targetLanguage ? $targetLanguage->id : $this->languages->pluck('id')
-                    )
-                    ->select('translation_requests.*')
-            );
+            $translationRequests = Auth::user()
+                ->completedTranslationRequests()
+                ->union(
+                    Auth::user()
+                        ->translationRequestsClaimedForReview()
+                        ->complete()
+                        ->whereSourceLanguageId(
+                            $sourceLanguage
+                                ? $sourceLanguage->id
+                                : $this->languages->pluck('id')
+                        )
+                        ->whereLanguageId(
+                            $targetLanguage
+                                ? $targetLanguage->id
+                                : $this->languages->pluck('id')
+                        )
+                        ->select('translation_requests.*')
+                );
         } else {
-            $translationRequests = TranslationRequest::unclaimed()->excludingSourceAuthor(Auth::user());
+            $translationRequests = TranslationRequest::unclaimed()->excludingSourceAuthor(
+                Auth::user()
+            );
         }
 
         return $translationRequests
             ->with('source', 'source.author', 'source.language', 'reviewers')
             ->whereSourceLanguageId(
-                $sourceLanguage ? $sourceLanguage->id : $this->languages->pluck('id')
+                $sourceLanguage
+                    ? $sourceLanguage->id
+                    : $this->languages->pluck('id')
             )
             ->whereLanguageId(
-                $targetLanguage ? $targetLanguage->id : $this->languages->pluck('id')
+                $targetLanguage
+                    ? $targetLanguage->id
+                    : $this->languages->pluck('id')
             )
             ->get();
     }

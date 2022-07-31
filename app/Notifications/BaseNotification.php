@@ -30,7 +30,10 @@ abstract class BaseNotification extends Notification
     {
         $media = [];
 
-        if (static::isDatabaseEnabled() && $user->shouldBeNotified(static::class, 'site')) {
+        if (
+            static::isDatabaseEnabled() &&
+            $user->shouldBeNotified(static::class, 'site')
+        ) {
             $media[] = 'database';
         }
 

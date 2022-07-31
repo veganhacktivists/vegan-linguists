@@ -18,6 +18,5 @@ background: conic-gradient(var(--color-{$color}) {$progress}%, white {$progress}
 CSS;
 @endphp
 
-<div
-     {{ $attributes->merge(['class' => "border-2 border-white ring $ringColor rounded-full", 'style' => $gradient]) }}>
+<div {{ $attributes->merge(['class' => "border-2 border-white ring $ringColor rounded-full", 'style' => $gradient]) }}>
 </div>

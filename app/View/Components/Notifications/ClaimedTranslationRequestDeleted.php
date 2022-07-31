@@ -19,7 +19,8 @@ class ClaimedTranslationRequestDeleted extends Component
      */
     public function __construct(DatabaseNotification $notification)
     {
-        $this->translationRequestTitle = $notification->data['translation_request_title'];
+        $this->translationRequestTitle =
+            $notification->data['translation_request_title'];
         $this->languageName = $notification->data['language_name'];
         $this->date = $notification->created_at;
     }
@@ -31,6 +32,8 @@ class ClaimedTranslationRequestDeleted extends Component
      */
     public function render()
     {
-        return view('components.notifications.claimed-translation-request-deleted');
+        return view(
+            'components.notifications.claimed-translation-request-deleted'
+        );
     }
 }

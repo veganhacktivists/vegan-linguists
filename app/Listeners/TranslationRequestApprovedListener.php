@@ -29,8 +29,13 @@ class TranslationRequestApprovedListener
         $translationRequest = $event->translationRequest;
         $reviewer = $event->reviewer;
 
-        if ($translationRequest->num_approvals === $translationRequest->num_approvals_required) {
-            $translationRequest->update(['status' => TranslationRequestStatus::COMPLETE]);
+        if (
+            $translationRequest->num_approvals ===
+            $translationRequest->num_approvals_required
+        ) {
+            $translationRequest->update([
+                'status' => TranslationRequestStatus::COMPLETE,
+            ]);
         }
 
         if ($translationRequest->translator) {

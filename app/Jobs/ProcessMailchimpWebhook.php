@@ -40,7 +40,9 @@ class ProcessMailchimpWebhook extends ProcessWebhookJob
     private function handleUnsubscribe(string $email)
     {
         $user = User::whereEmail($email)->first();
-        if (!$user) return;
+        if (!$user) {
+            return;
+        }
 
         app(UnsubscribeUser::class)($user);
     }
@@ -48,7 +50,9 @@ class ProcessMailchimpWebhook extends ProcessWebhookJob
     private function handleSubscribe(string $email)
     {
         $user = User::whereEmail($email)->first();
-        if (!$user) return;
+        if (!$user) {
+            return;
+        }
 
         $client = new ApiClient();
         $client->setConfig([

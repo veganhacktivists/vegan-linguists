@@ -28,7 +28,7 @@ class UnsubscribeUser
                         [
                             'name' => config('mailchimp.audience.tag'),
                             'status' => 'inactive',
-                        ]
+                        ],
                     ],
                 ]
             );
@@ -37,10 +37,9 @@ class UnsubscribeUser
         } catch (ApiException $e) {
             $errorMessage = $e->getMessage();
 
-            Log::error(
-                "Mailchimp API error (unsubscribe): $errorMessage",
-                ['user_id' => $user->id]
-            );
+            Log::error("Mailchimp API error (unsubscribe): $errorMessage", [
+                'user_id' => $user->id,
+            ]);
 
             throw new NewsletterException($errorMessage);
         }

@@ -1,3 +1,3 @@
 <option {{ $attributes }}>
-    {{ $slot }}
+  {{ $slot }}
 </option>

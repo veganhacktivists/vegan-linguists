@@ -21,14 +21,19 @@ class RequestTranslationPage extends Component
 
     public function mount()
     {
-        $this->languages = Language::withCount('translators')->orderByName()->get();
+        $this->languages = Language::withCount('translators')
+            ->orderByName()
+            ->get();
     }
 
     public function render()
     {
-        return view('livewire.request-translation-page')->layout('layouts.app', [
-            'containContent' => true,
-        ]);
+        return view('livewire.request-translation-page')->layout(
+            'layouts.app',
+            [
+                'containContent' => true,
+            ]
+        );
     }
 
     public function requestTranslation()
@@ -36,19 +41,18 @@ class RequestTranslationPage extends Component
         $this->validate();
 
         $this->targetLanguages = array_unique(
-            array_diff(
-                $this->targetLanguages,
-                [$this->sourceLanguageId]
-            )
+            array_diff($this->targetLanguages, [$this->sourceLanguageId])
         );
 
         return DB::transaction(function () {
-            $source = Auth::user()->sources()->create([
-                'language_id' => $this->sourceLanguageId,
-                'title' => $this->title,
-                'content' => $this->content,
-                'plain_text' => $this->plainText,
-            ]);
+            $source = Auth::user()
+                ->sources()
+                ->create([
+                    'language_id' => $this->sourceLanguageId,
+                    'title' => $this->title,
+                    'content' => $this->content,
+                    'plain_text' => $this->plainText,
+                ]);
 
             $source->translationRequests()->createMany(
                 array_map(function ($targetLanguageId) {
@@ -61,7 +65,12 @@ class RequestTranslationPage extends Component
                 }, $this->targetLanguages)
             );
 
-            session()->flash('flash.banner', __('Success! You will be notified when your content gets translated'));
+            session()->flash(
+                'flash.banner',
+                __(
+                    'Success! You will be notified when your content gets translated'
+                )
+            );
 
             return redirect()->route('home');
         });
@@ -80,10 +89,17 @@ class RequestTranslationPage extends Component
                 'array',
                 'exists:languages,id',
                 function ($attribute, $targetLanguages, $fail) {
-                    if (in_array($this->sourceLanguageId, $targetLanguages) && count($targetLanguages) === 1) {
-                        $fail(__('Your target language must differ from your source language.'));
+                    if (
+                        in_array($this->sourceLanguageId, $targetLanguages) &&
+                        count($targetLanguages) === 1
+                    ) {
+                        $fail(
+                            __(
+                                'Your target language must differ from your source language.'
+                            )
+                        );
                     }
-                }
+                },
             ],
         ];
     }
@@ -91,7 +107,9 @@ class RequestTranslationPage extends Component
     protected function messages()
     {
         return [
-            'numReviewers.*' => __('Please choose a number of reviewers from 0 to 3.'),
+            'numReviewers.*' => __(
+                'Please choose a number of reviewers from 0 to 3.'
+            ),
         ];
     }
 }

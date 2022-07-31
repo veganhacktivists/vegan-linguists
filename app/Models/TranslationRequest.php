@@ -62,7 +62,7 @@ class TranslationRequest extends Model
             User::class,
             'reviewer_translation_request',
             'translation_request_id',
-            'reviewer_id',
+            'reviewer_id'
         )->withPivot('approved');
     }
 
@@ -89,9 +89,10 @@ class TranslationRequest extends Model
 
     public function submit(string $content, string $plainText)
     {
-        $status = $this->num_approvals_required > 0
-            ? TranslationRequestStatus::UNDER_REVIEW
-            : TranslationRequestStatus::COMPLETE;
+        $status =
+            $this->num_approvals_required > 0
+                ? TranslationRequestStatus::UNDER_REVIEW
+                : TranslationRequestStatus::COMPLETE;
 
         $this->update([
             'content' => $content,
@@ -108,7 +109,9 @@ class TranslationRequest extends Model
 
     public function setApproval(User $user)
     {
-        $this->reviewers()->updateExistingPivot($user->id, ['approved' => true]);
+        $this->reviewers()->updateExistingPivot($user->id, [
+            'approved' => true,
+        ]);
         TranslationRequestApprovedEvent::dispatch($this, $user);
     }
 
@@ -116,25 +119,30 @@ class TranslationRequest extends Model
     {
         if ($this->relationLoaded('reviewers')) {
             return (bool) optional(
-                optional(
-                    $this->reviewers->find($user)
-                )->pivot
+                optional($this->reviewers->find($user))->pivot
             )->approved;
         }
 
-        $user = $this->reviewers()->where('users.id', $user->id)->first();
+        $user = $this->reviewers()
+            ->where('users.id', $user->id)
+            ->first();
 
         return $user && $user->pivot->approved;
     }
 
     public function getNumApprovalsAttribute()
     {
-        return $this->reviewers()->wherePivot('approved', '=', 1)->count();
+        return $this->reviewers()
+            ->wherePivot('approved', '=', 1)
+            ->count();
     }
 
     public function getNumApprovalsRemainingAttribute()
     {
-        return $this->num_approvals_required - $this->reviewers()->wherePivot('approved', '=', 1)->count();
+        return $this->num_approvals_required -
+            $this->reviewers()
+                ->wherePivot('approved', '=', 1)
+                ->count();
     }
 
     public function isComplete()
@@ -168,39 +176,62 @@ class TranslationRequest extends Model
             return $this->reviewers->contains($user);
         }
 
-        return $this->reviewers()->where('users.id', $user->id)->exists();
+        return $this->reviewers()
+            ->where('users.id', $user->id)
+            ->exists();
     }
 
     public function doesNeedReviewers()
     {
-        return $this->isUnderReview()
-            && $this->reviewers()->count() < $this->num_approvals_required;
+        return $this->isUnderReview() &&
+            $this->reviewers()->count() < $this->num_approvals_required;
     }
 
     public function scopeUnclaimed(Builder $query)
     {
-        return $query->where('translation_requests.status', TranslationRequestStatus::UNCLAIMED);
+        return $query->where(
+            'translation_requests.status',
+            TranslationRequestStatus::UNCLAIMED
+        );
     }
 
     public function scopeNeedsReviewers(Builder $query)
     {
-        return $query->where('translation_requests.status', TranslationRequestStatus::UNDER_REVIEW)
-            ->has('reviewers', '<', DB::raw('translation_requests.num_approvals_required'));
+        return $query
+            ->where(
+                'translation_requests.status',
+                TranslationRequestStatus::UNDER_REVIEW
+            )
+            ->has(
+                'reviewers',
+                '<',
+                DB::raw('translation_requests.num_approvals_required')
+            );
     }
 
     public function scopeUnderReview(Builder $query)
     {
-        return $query->where('translation_requests.status', TranslationRequestStatus::UNDER_REVIEW);
+        return $query->where(
+            'translation_requests.status',
+            TranslationRequestStatus::UNDER_REVIEW
+        );
     }
 
     public function scopeIncomplete(Builder $query)
     {
-        return $query->where('translation_requests.status', '<>', TranslationRequestStatus::COMPLETE);
+        return $query->where(
+            'translation_requests.status',
+            '<>',
+            TranslationRequestStatus::COMPLETE
+        );
     }
 
     public function scopeComplete(Builder $query)
     {
-        return $query->where('translation_requests.status', TranslationRequestStatus::COMPLETE);
+        return $query->where(
+            'translation_requests.status',
+            TranslationRequestStatus::COMPLETE
+        );
     }
 
     public function scopeExcludingTranslator(Builder $query, User $user)
@@ -210,33 +241,51 @@ class TranslationRequest extends Model
 
     public function scopeExcludingReviewer(Builder $builder, User $user)
     {
-        return $builder->whereNotExists(function (QueryBuilder $query) use ($user) {
-            $query->select(DB::raw(1))
+        return $builder->whereNotExists(function (QueryBuilder $query) use (
+            $user
+        ) {
+            $query
+                ->select(DB::raw(1))
                 ->from('reviewer_translation_request')
                 ->where('reviewer_id', $user->id)
-                ->whereColumn('reviewer_translation_request.translation_request_id', 'translation_requests.id');
+                ->whereColumn(
+                    'reviewer_translation_request.translation_request_id',
+                    'translation_requests.id'
+                );
         });
     }
 
     public function scopeExcludingSourceAuthor(Builder $builder, User $user)
     {
-        return $builder->whereNotExists(function (QueryBuilder $query) use ($user) {
-            $query->select(DB::raw(1))
+        return $builder->whereNotExists(function (QueryBuilder $query) use (
+            $user
+        ) {
+            $query
+                ->select(DB::raw(1))
                 ->from('sources')
                 ->where('author_id', $user->id)
                 ->whereColumn('sources.id', 'translation_requests.source_id');
         });
     }
 
-    public function scopeWhereSourceLanguageId(Builder $builder, mixed $languageId)
-    {
-        return $builder->whereExists(function (QueryBuilder $query) use ($languageId) {
-            $query->select(DB::raw(1))
+    public function scopeWhereSourceLanguageId(
+        Builder $builder,
+        mixed $languageId
+    ) {
+        return $builder->whereExists(function (QueryBuilder $query) use (
+            $languageId
+        ) {
+            $query
+                ->select(DB::raw(1))
                 ->from('sources')
-                ->when(is_int($languageId), function (QueryBuilder $q) use ($languageId) {
+                ->when(is_int($languageId), function (QueryBuilder $q) use (
+                    $languageId
+                ) {
                     $q->where('sources.language_id', $languageId);
                 })
-                ->when(is_iterable($languageId), function (QueryBuilder $q) use ($languageId) {
+                ->when(is_iterable($languageId), function (
+                    QueryBuilder $q
+                ) use ($languageId) {
                     $q->whereIn('sources.language_id', $languageId);
                 })
                 ->whereColumn('sources.id', 'translation_requests.source_id');
@@ -246,10 +295,14 @@ class TranslationRequest extends Model
     public function scopeWhereLanguageId(Builder $builder, mixed $languageId)
     {
         return $builder
-            ->when(is_int($languageId), function (Builder $q) use ($languageId) {
+            ->when(is_int($languageId), function (Builder $q) use (
+                $languageId
+            ) {
                 $q->where('language_id', $languageId);
             })
-            ->when(is_iterable($languageId), function (Builder $q) use ($languageId) {
+            ->when(is_iterable($languageId), function (Builder $q) use (
+                $languageId
+            ) {
                 $q->whereIn('language_id', $languageId);
             });
     }
@@ -269,10 +322,7 @@ class TranslationRequest extends Model
 
         return $query->orderBy(
             DB::raw(
-                sprintf(
-                    "FIELD(status, '%s')",
-                    implode("','", $statuses)
-                ),
+                sprintf("FIELD(status, '%s')", implode("','", $statuses)),
                 'asc'
             )
         );

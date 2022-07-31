@@ -21,8 +21,10 @@ class TranslationRequestReviewerAddedEvent
      *
      * @return void
      */
-    public function __construct(public TranslationRequest $translationRequest, public User $reviewer)
-    {
+    public function __construct(
+        public TranslationRequest $translationRequest,
+        public User $reviewer
+    ) {
     }
 
     /**

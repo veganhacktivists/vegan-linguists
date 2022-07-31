@@ -15,7 +15,10 @@ class CreateNotificationSettingsTable extends Migration
     {
         Schema::create('notification_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table
+                ->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
             $table->string('notification_type');
             $table->boolean('site');
             $table->boolean('email');

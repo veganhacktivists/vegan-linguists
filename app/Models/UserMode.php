@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-abstract class UserMode {
+abstract class UserMode
+{
     const TRANSLATOR = 'TRANSLATOR';
     const AUTHOR = 'AUTHOR';
 }

@@ -26,8 +26,12 @@ class CommentUpdatedListener implements ShouldQueue
      */
     public function __construct()
     {
-        $this->resolvedCommentBatchEmailIntervalInMinutes = config('vl.notifications.resolved_comment_batch_interval', 30);
-        $this->timeout = ($this->resolvedCommentBatchEmailIntervalInMinutes + 2) * 60;
+        $this->resolvedCommentBatchEmailIntervalInMinutes = config(
+            'vl.notifications.resolved_comment_batch_interval',
+            30
+        );
+        $this->timeout =
+            ($this->resolvedCommentBatchEmailIntervalInMinutes + 2) * 60;
     }
 
     /**
@@ -43,13 +47,21 @@ class CommentUpdatedListener implements ShouldQueue
         $originalMetaData = $event->originalMetadata;
 
         if ($commentable instanceof TranslationRequest) {
-            $this->handleTranslationRequestComment($comment, $commentable, $originalMetaData);
+            $this->handleTranslationRequestComment(
+                $comment,
+                $commentable,
+                $originalMetaData
+            );
         }
     }
 
-    private function handleTranslationRequestComment(Comment $comment, TranslationRequest $translationRequest, array $originalMetaData)
-    {
-        $wasResolved = Arr::get($originalMetaData, 'resolved_at', null) !== null;
+    private function handleTranslationRequestComment(
+        Comment $comment,
+        TranslationRequest $translationRequest,
+        array $originalMetaData
+    ) {
+        $wasResolved =
+            Arr::get($originalMetaData, 'resolved_at', null) !== null;
 
         if ($comment->is_resolved && !$wasResolved) {
             $users = $translationRequest->reviewers;
@@ -57,7 +69,10 @@ class CommentUpdatedListener implements ShouldQueue
 
             if ($this->job->attempts() === 1) {
                 $users->each->notify(
-                    new TranslationRequestCommentResolvedNotification(collect([$comment]), false)
+                    new TranslationRequestCommentResolvedNotification(
+                        collect([$comment]),
+                        false
+                    )
                 );
             }
 
@@ -76,11 +91,15 @@ class CommentUpdatedListener implements ShouldQueue
 
             $now = CarbonImmutable::now();
             $minutesSinceResolution = $comment->resolved_at->diffInMinutes();
-            $minutesUntilNotification = $this->resolvedCommentBatchEmailIntervalInMinutes - $minutesSinceResolution;
+            $minutesUntilNotification =
+                $this->resolvedCommentBatchEmailIntervalInMinutes -
+                $minutesSinceResolution;
 
             if ($minutesUntilNotification > 0) {
                 // This accounts for leap seconds
-                $numberOfSeconds = $now->addMinutes($minutesUntilNotification)->diffInSeconds($now);
+                $numberOfSeconds = $now
+                    ->addMinutes($minutesUntilNotification)
+                    ->diffInSeconds($now);
 
                 $this->release($numberOfSeconds);
                 return;
@@ -90,12 +109,23 @@ class CommentUpdatedListener implements ShouldQueue
             foreach ($resolvedComments as $i => $resolvedComment) {
                 $comments->add($resolvedComment);
 
-                if ($i === $resolvedComments->count() - 1) break;
-                if ($resolvedComment->resolved_at->diffInMinutes($resolvedComments[$i + 1]->resolved_at) >= $this->resolvedCommentBatchEmailIntervalInMinutes) break;
+                if ($i === $resolvedComments->count() - 1) {
+                    break;
+                }
+                if (
+                    $resolvedComment->resolved_at->diffInMinutes(
+                        $resolvedComments[$i + 1]->resolved_at
+                    ) >= $this->resolvedCommentBatchEmailIntervalInMinutes
+                ) {
+                    break;
+                }
             }
 
             $users->each->notify(
-                new TranslationRequestCommentResolvedNotification($comments, true)
+                new TranslationRequestCommentResolvedNotification(
+                    $comments,
+                    true
+                )
             );
         }
     }

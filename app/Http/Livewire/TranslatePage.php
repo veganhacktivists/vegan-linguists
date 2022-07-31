@@ -31,8 +31,10 @@ class TranslatePage extends Component
         'toggleStartReviewingModal',
     ];
 
-    public function mount(TranslationRequest $translationRequest, string $slug = '')
-    {
+    public function mount(
+        TranslationRequest $translationRequest,
+        string $slug = ''
+    ) {
         $this->authorize('view', $translationRequest);
         $this->isMine = $translationRequest->isClaimedBy(Auth::user());
         $this->canReview = Gate::allows('review', $translationRequest);
@@ -49,7 +51,12 @@ class TranslatePage extends Component
         $this->translationPlainText = $translationRequest->plain_text;
 
         if (session('status') === 'verification-link-sent') {
-            session()->flash('flash.banner', __('An email has been sent to you with a link to verify your email address!'));
+            session()->flash(
+                'flash.banner',
+                __(
+                    'An email has been sent to you with a link to verify your email address!'
+                )
+            );
         }
     }
 
@@ -94,13 +101,15 @@ class TranslatePage extends Component
 
         return redirect()->route('translate', [
             $this->translationRequest->id,
-            $this->translationRequest->source->slug
+            $this->translationRequest->source->slug,
         ]);
     }
 
     public function unclaimTranslationRequest()
     {
-        if (!$this->translationRequest->isClaimed()) return;
+        if (!$this->translationRequest->isClaimed()) {
+            return;
+        }
 
         $this->authorize('view', $this->translationRequest);
 
@@ -108,7 +117,7 @@ class TranslatePage extends Component
 
         return redirect()->route('translate', [
             $this->translationRequest->id,
-            $this->translationRequest->source->slug
+            $this->translationRequest->source->slug,
         ]);
     }
 
@@ -120,7 +129,7 @@ class TranslatePage extends Component
 
         return redirect()->route('translate', [
             $this->translationRequest->id,
-            $this->translationRequest->source->slug
+            $this->translationRequest->source->slug,
         ]);
     }
 
@@ -141,7 +150,9 @@ class TranslatePage extends Component
 
     public function submitTranslation()
     {
-        if (!$this->translationRequest->isClaimed()) return;
+        if (!$this->translationRequest->isClaimed()) {
+            return;
+        }
 
         $this->authorize('view', $this->translationRequest);
 
@@ -149,12 +160,16 @@ class TranslatePage extends Component
 
         $this->translationRequest->submit(
             $this->translationContent,
-            $this->translationPlainText,
+            $this->translationPlainText
         );
 
         $successMessage = $this->translationRequest->isUnderReview()
-            ? __('Your translation has been submitted to be reviewed by others. Thank you!')
-            : __('Your translation has been submitted. Thank you for your contribution!');
+            ? __(
+                'Your translation has been submitted to be reviewed by others. Thank you!'
+            )
+            : __(
+                'Your translation has been submitted. Thank you for your contribution!'
+            );
 
         session()->flash('flash.banner', $successMessage);
 
@@ -184,7 +199,12 @@ class TranslatePage extends Component
 
         $this->translationRequest->setApproval(Auth::user());
 
-        session()->flash('flash.banner', __('The translation has been marked as approved by you. Thank you for your contribution!'));
+        session()->flash(
+            'flash.banner',
+            __(
+                'The translation has been marked as approved by you. Thank you for your contribution!'
+            )
+        );
 
         return redirect()->route('home');
     }
@@ -200,7 +220,9 @@ class TranslatePage extends Component
     protected function messages()
     {
         return [
-            'translationPlainText.required' => __('You must enter content before submitting.'),
+            'translationPlainText.required' => __(
+                'You must enter content before submitting.'
+            ),
         ];
     }
 }

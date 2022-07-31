@@ -13,15 +13,26 @@ class CreateReviewerTranslationRequestTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviewer_translation_request', function (Blueprint $table) {
+        Schema::create('reviewer_translation_request', function (
+            Blueprint $table
+        ) {
             $table->id();
-            $table->foreignId('reviewer_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('translation_request_id')->constrained('translation_requests')->cascadeOnDelete();
+            $table
+                ->foreignId('reviewer_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+            $table
+                ->foreignId('translation_request_id')
+                ->constrained('translation_requests')
+                ->cascadeOnDelete();
             $table->boolean('approved');
             $table->timestamps();
 
             // custom index name because the default is too long
-            $table->unique(['reviewer_id', 'translation_request_id'], 'review_reviewer_id_translation_request_id_unique');
+            $table->unique(
+                ['reviewer_id', 'translation_request_id'],
+                'review_reviewer_id_translation_request_id_unique'
+            );
         });
     }
 

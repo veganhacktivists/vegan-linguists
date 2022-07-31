@@ -18,9 +18,8 @@ class BaseNotification extends Component
         public mixed $user = null, // prevent dependency injection
         Carbon $date,
         public string $description = '',
-        public string $icon = '',
-    )
-    {
+        public string $icon = ''
+    ) {
         $this->dateDiff = $this->calculateDateDiff($date);
     }
 

@@ -15,10 +15,10 @@ class AuthorDashboardController extends Controller
         $sources = Auth::user()
             ->sources()
             ->with('translationRequests')
-            ->when($filter === 'complete', function(Builder $query) {
+            ->when($filter === 'complete', function (Builder $query) {
                 return $query->complete();
             })
-            ->when($filter === 'incomplete', function(Builder $query) {
+            ->when($filter === 'incomplete', function (Builder $query) {
                 return $query->incomplete();
             })
             ->orderByRecency()
