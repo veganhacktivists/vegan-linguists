@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Events\CommentCreatedEvent;
 use App\Events\CommentDeletedEvent;
 use App\Events\CommentUpdatedEvent;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -70,11 +70,17 @@ class Comment extends Model
     {
         $resolvedAt = Arr::get($this->metadata, 'resolved_at', null);
 
-        return $resolvedAt === null ? $resolvedAt : new Carbon($resolvedAt);
+        return $resolvedAt === null
+            ? $resolvedAt
+            : new CarbonImmutable($resolvedAt);
     }
 
     public function markAsResolved()
     {
+        if (!$this->hasAnnotation() || $this->is_resolved) {
+            return $this;
+        }
+
         return $this->update(['metadata->resolved_at' => time()]);
     }
 
