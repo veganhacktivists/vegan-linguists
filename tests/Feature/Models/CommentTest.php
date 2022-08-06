@@ -10,9 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    if (empty($this->commentAuthor)) {
-        $this->commentAuthor = User::factory()->create();
-    }
+    $this->commentAuthor = User::factory()->create();
 
     $this->normalComments = Comment::factory(10)->create([
         'author_id' => $this->commentAuthor->id,
