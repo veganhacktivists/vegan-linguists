@@ -7,6 +7,7 @@ use App\Events\TranslationRequestDeletingEvent;
 use App\Events\TranslationRequestReviewerAddedEvent;
 use App\Events\TranslationRequestUpdatedEvent;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -139,10 +140,7 @@ class TranslationRequest extends Model
 
     public function getNumApprovalsRemainingAttribute()
     {
-        return $this->num_approvals_required -
-            $this->reviewers()
-                ->wherePivot('approved', '=', 1)
-                ->count();
+        return $this->num_approvals_required - $this->num_approvals;
     }
 
     public function isComplete()
@@ -236,7 +234,9 @@ class TranslationRequest extends Model
 
     public function scopeExcludingTranslator(Builder $query, User $user)
     {
-        return $query->where('translator_id', '<>', $user->id);
+        return $query
+            ->where('translator_id', '<>', $user->id)
+            ->orWhere('translator_id', null);
     }
 
     public function scopeExcludingReviewer(Builder $builder, User $user)
@@ -328,8 +328,10 @@ class TranslationRequest extends Model
         );
     }
 
-    public function scopeWhereCreatedAfter(Builder $query, Carbon $date)
-    {
+    public function scopeWhereCreatedAfter(
+        Builder $query,
+        Carbon|CarbonImmutable $date
+    ) {
         return $query->where('created_at', '>', $date);
     }
 }
