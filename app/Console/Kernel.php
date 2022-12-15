@@ -31,9 +31,13 @@ class Kernel extends ConsoleKernel
             ->weekly()
             ->wednesdays()
             ->at('0:0')
-            ->withoutOverlapping();
+            ->withoutOverlapping()
+            ->thenPing(config('vl.heartbeats.new_translation_requests_email'));
 
-        $schedule->job(new ResizeNewProfilePhotos())->hourly();
+        $schedule
+            ->job(new ResizeNewProfilePhotos())
+            ->hourly()
+            ->thenPing(config('vl.heartbeats.resize_new_profile_photos'));
     }
 
     /**
