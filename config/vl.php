@@ -8,7 +8,7 @@ return [
         ),
     ],
     'heartbeats' => [
-        'new_translation_requests_email' => env('HEARTBEAT_NEW_TRANSLATION_REQUESTS_EMAIL'),
-        'resize_new_profile_photos' => env('HEARTBEAT_RESIZE_NEW_PROFILE_PHOTOS'),
+        'new_translation_requests_email' => env('HEARTBEAT_NEW_TRANSLATION_REQUESTS_EMAIL', 'https://example.com'),
+        'resize_new_profile_photos' => env('HEARTBEAT_RESIZE_NEW_PROFILE_PHOTOS', 'https://example.com'),
     ],
 ];
