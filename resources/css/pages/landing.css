@@ -36,11 +36,6 @@
   }
 }
 
-.landing-video-section {
-  background: linear-gradient(0, transparent, rgba(163, 86, 62, 0.7)),
-    url(/img/chat-bubble-pattern.png);
-}
-
 .landing-get-started {
   background: linear-gradient(0, transparent, rgba(163, 86, 62, 0.7)),
     url(/img/chat-bubble-pattern.png);
