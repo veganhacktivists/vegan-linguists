@@ -66,6 +66,18 @@
       </div>
     </div>
 
+    <div class="landing-video-section md:px-16 md:pt-12 md:pb-8 md:pb-12 lg:px-32 xl:px-48">
+      <h2 class="hidden text-center text-2xl font-semibold text-white md:mb-12 md:block lg:text-3xl">
+        {{ __('Build bridges across languages and cultures') }}
+      </h2>
+
+      <iframe class="mx-auto aspect-video w-full max-w-4xl"
+        src="https://www.youtube.com/embed/4ff-UfXfumM?rel=0&modestbranding=1"
+        title="{{ __('Vegan Linguists introduction video') }}" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
     <div class="relative overflow-hidden pt-16 pb-32">
       <div aria-hidden="true" class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-gray-100"></div>
       <div class="relative">
@@ -181,6 +193,28 @@
         </div>
       </div>
     </div>
+
+    <div class="bg-brand-green-400">
+      <div
+        class="mx-auto flex w-5/6 max-w-7xl flex-col justify-between gap-6 py-8 text-center text-white md:w-auto md:flex-row md:items-center md:px-6 md:text-left lg:px-8">
+        <div class="flex gap-6">
+          <x-icon-patreon class="hidden h-16 w-16 md:inline-block" />
+          <div class="flex flex-col gap-2">
+            <h4 class="text-2xl">{{ __('Please consider supporting our work!') }}</h4>
+            <p class="text-xl">
+              {{ __('This free-to-use service would not be possible without your support. Thank you!') }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <a href="https://veganhacktivists.org/support" target="_blank"
+            class="whitespace-nowrap rounded-md bg-white px-8 py-2 text-center text-lg font-bold text-brand-green-400 hover:bg-brand-green-50">
+            {{ __('Support us') }}
+          </a>
+        </div>
+
+      </div>
+    </div>
   </main>
 
   <footer aria-labelledby="footer-heading">
@@ -271,7 +305,7 @@
               </h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li>
-                  <a href="https://www.patreon.com/veganhacktivists"
+                  <a href="https://veganhacktivists.org/support"
                     class="text-base text-gray-500 hover:text-gray-900" target="_blank">
                     {{ __('Donate') }}
                   </a>
