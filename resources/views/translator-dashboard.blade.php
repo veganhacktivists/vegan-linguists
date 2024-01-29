@@ -13,7 +13,7 @@
         </p>
         <x-panel class="{{ $unclaimedTranslationRequests->isEmpty() ? 'items-center' : '' }} flex w-full flex-1">
           @if ($unclaimedTranslationRequests->isEmpty())
-            <x-empty-state class="mx-auto p-4" icon="o-translate" :title="__('No translation requests found')">
+            <x-empty-state class="mx-auto p-4" icon="o-language" :title="__('No translation requests found')">
               {{ __('Try coming back another time!') }}
             </x-empty-state>
           @else
@@ -39,7 +39,7 @@
         </p>
         <x-panel class="{{ $inProgressTranslations->isEmpty() ? 'items-center' : '' }} flex w-full flex-1">
           @if ($inProgressTranslations->isEmpty())
-            <x-empty-state class="mx-auto p-4" icon="o-translate" :title="__('No translations found')">
+            <x-empty-state class="mx-auto p-4" icon="o-language" :title="__('No translations found')">
               {{ __('Want to see something here?') }}
 
               <x-slot name="action">
@@ -71,7 +71,7 @@
         </p>
         <x-panel class="{{ $reviewableTranslationRequests->isEmpty() ? 'items-center' : '' }} flex w-full flex-1">
           @if ($reviewableTranslationRequests->isEmpty())
-            <x-empty-state class="mx-auto p-4" icon="o-translate" :title="__('No translations found')">
+            <x-empty-state class="mx-auto p-4" icon="o-language" :title="__('No translations found')">
               {{ __('Try coming back another time!') }}
             </x-empty-state>
           @else
@@ -98,7 +98,7 @@
         <x-panel
           class="{{ $translationRequestsClaimedForReview->isEmpty() ? 'items-center' : '' }} flex w-full flex-1">
           @if ($translationRequestsClaimedForReview->isEmpty())
-            <x-empty-state class="mx-auto p-4" icon="o-translate" :title="__('No translations found')">
+            <x-empty-state class="mx-auto p-4" icon="o-language" :title="__('No translations found')">
               {{ __('Want to see something here?') }}
 
               <x-slot name="action">

@@ -37,7 +37,7 @@ $isOnDashboard = request()->routeIs('home');
       class="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-brand-brown-700 hover:border-brand-brown-700 hover:text-brand-brown-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-brown-900"
       @click="open = true">
       <span class="sr-only">{{ __('Open main menu') }}</span>
-      <x-heroicon-o-menu class="block h-6 w-6" />
+      <x-heroicon-o-bars-3 class="block h-6 w-6" />
     </button>
   </div>
 
@@ -149,7 +149,7 @@ $isOnDashboard = request()->routeIs('home');
           class="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-brand-brown-700 hover:border-brand-brown-700 hover:text-brand-brown-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-brown-900"
           @click="open = false">
           <span class="sr-only">{{ __('Close main menu') }}</span>
-          <x-heroicon-o-x class="block h-6 w-6" />
+          <x-heroicon-o-x-mark class="block h-6 w-6" />
         </button>
       </div>
       <div class="max-w-8xl mx-auto space-y-1 py-3 px-2 sm:px-4">

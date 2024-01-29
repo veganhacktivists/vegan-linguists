@@ -30,7 +30,7 @@
                       wire:change="updateWebsiteNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
                       {{ $notificationSetting->site ? 'checked' : '' }} />
 
-                    <x-heroicon-o-desktop-computer data-tooltip="{{ __('Website') }}"
+                    <x-heroicon-o-computer-desktop data-tooltip="{{ __('Website') }}"
                       class="h-6 w-6 text-brand-brown-400 peer-checked:text-brand-brown-800" />
 
                   </label>
@@ -48,7 +48,7 @@
                       wire:change="updateEmailNotificationSetting('{{ addslashes($notificationSetting->notification_type) }}', $event.target.checked)"
                       {{ $notificationSetting->email ? 'checked' : '' }} />
 
-                    <x-heroicon-o-mail data-tooltip="{{ __('Email') }}"
+                    <x-heroicon-o-envelope data-tooltip="{{ __('Email') }}"
                       class="transition-color h-6 w-6 text-brand-brown-400 peer-checked:text-brand-brown-800" />
                   </label>
                 </div>

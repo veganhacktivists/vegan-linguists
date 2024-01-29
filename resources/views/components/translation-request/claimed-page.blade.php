@@ -90,7 +90,7 @@
             </div>
           @else
             <div class="flex h-14 items-center gap-2">
-              <x-heroicon-o-translate class="h-6 w-6" />
+              <x-heroicon-o-language class="h-6 w-6" />
               {{ $translationRequest->language->native_name }}
             </div>
             <div class="flex gap-2 text-right">
@@ -114,7 +114,7 @@
         x-transition:leave="transition ease-in duration-500" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         @toast-translation-request-saved.window.debounce.3000ms="saved = true; clearTimeout(timeout); timeout = setTimeout(() => saved = false, 1500)">
-        <x-heroicon-s-cloud-upload class="h-6 w-6" />
+        <x-heroicon-s-cloud-arrow-up class="h-6 w-6" />
         {{ __('Saved') }}
       </x-success-toast>
 

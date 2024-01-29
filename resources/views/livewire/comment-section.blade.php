@@ -35,7 +35,7 @@
                     class="flex h-10 w-10 items-center justify-center bg-brand-clay-200 ring-8 ring-white" />
 
                   <span class="absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
-                    <x-heroicon-s-chat-alt class="h-5 w-5 text-brand-clay-400" />
+                    <x-heroicon-s-chat-bubble-left-ellipsis class="h-5 w-5 text-brand-clay-400" />
                   </span>
                 </div>
                 <div class="min-w-0 flex-1">

@@ -55,7 +55,7 @@
                 {{ __('Completed Translations') }}
               </x-sidebar-link>
             @else
-              <x-sidebar-link href="{{ unclaimedTranslationRequestsRoute() }}" :active="empty($filter) && $isOnTranslationRequestsPage" icon="o-search">
+              <x-sidebar-link href="{{ unclaimedTranslationRequestsRoute() }}" :active="empty($filter) && $isOnTranslationRequestsPage" icon="o-magnifying-glass">
                 {{ __('Browse Translation Requests') }}
               </x-sidebar-link>
 
@@ -66,12 +66,12 @@
               <x-sidebar-separator />
 
               <x-sidebar-link href="{{ reviewableTranslationRequestsRoute() }}" :active="$filter === 'reviewable' && $isOnTranslationRequestsPage"
-                icon="o-document-search">
+                icon="o-document-magnifying-glass">
                 {{ __('Browse Reviewable Translations') }}
               </x-sidebar-link>
 
               <x-sidebar-link href="{{ underReviewTranslationRequestsRoute() }}" :active="$filter === 'under-review' && $isOnTranslationRequestsPage"
-                icon="o-switch-horizontal">
+                icon="o-arrows-right-left">
                 {{ __('Translations Under Review') }}
               </x-sidebar-link>
 

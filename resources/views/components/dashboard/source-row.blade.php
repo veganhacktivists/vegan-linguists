@@ -12,14 +12,14 @@
           @if ($numCompleteTranslationRequests < $totalTranslationRequests)
             <x-heroicon-o-clock class="h-10 w-10 text-brand-clay-400" />
           @else
-            <x-heroicon-s-badge-check class="h-10 w-10 text-brand-green-400" />
+            <x-heroicon-s-check-badge class="h-10 w-10 text-brand-green-400" />
           @endif
         </div>
       </div>
       <div class="mt-2 sm:flex sm:justify-between">
         <div class="sm:flex">
           <p class="flex items-center text-brand-brown-600">
-            <x-heroicon-o-translate class="mr-1.5 h-5 w-5 flex-shrink-0 text-brand-brown-500" />
+            <x-heroicon-o-language class="mr-1.5 h-5 w-5 flex-shrink-0 text-brand-brown-500" />
             {{ trans_choice('{1} :count target language|[*] :count target languages', $totalTranslationRequests) }}
           </p>
           @if ($numCompleteTranslationRequests < $totalTranslationRequests)

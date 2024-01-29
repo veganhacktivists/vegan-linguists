@@ -72,7 +72,7 @@
       </div>
 
       <div class="mt-4">
-        <x-alert title="{{ __('Important') }}" type="warning" icon="o-exclamation">
+        <x-alert title="{{ __('Important') }}" type="warning" icon="o-exclamation-triangle">
           {{ __('Once your submit your content for translation, it cannot be changed.') }}
           <strong>
             {{ __('Please make sure to proofread your content thoroughly before submission.') }}

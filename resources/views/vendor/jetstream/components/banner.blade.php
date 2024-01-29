@@ -22,7 +22,7 @@
           :class="{ 'hover:bg-brand-green-500 focus:bg-brand-green-500': style ==
               'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
           aria-label="Dismiss" x-on:click="show = false">
-          <x-heroicon-o-x class="h-5 w-5 text-white" />
+          <x-heroicon-o-x-mark class="h-5 w-5 text-white" />
         </button>
       </div>
     </div>

@@ -59,11 +59,11 @@
             <div class="sm:col-span-2">
               @if (Auth::user()->hasVerifiedEmail())
                 <x-alert title="{{ __('Claimed translation request limit reached') }}" type="warning"
-                  icon="o-exclamation">
+                  icon="o-exclamation-triangle">
                   {{ __('You have reached the claimed translation request limit. Please finish your claimed requests before attempting to claim more.') }}
                 </x-alert>
               @else
-                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation">
+                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation-triangle">
                   {{ __('Before being able to translate content, you must verify your email address.') }}
                   <form method="POST" action="{{ route('verification.send') }}" class="mt-2">
                     @csrf

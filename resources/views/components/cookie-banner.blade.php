@@ -20,7 +20,7 @@
   </p>
   <button id="btn-dismiss-cookie-banner">
     <div class="sr-only">{{ __('Dismiss') }}</div>
-    <x-heroicon-o-x class="h-6 w-6" />
+    <x-heroicon-o-x-mark class="h-6 w-6" />
   </button>
 </div>
 <script nonce="{{ csp_nonce() }}">

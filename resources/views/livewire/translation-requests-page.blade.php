@@ -26,7 +26,7 @@ $completedRoute = completedTranslationRequestsRoute();
     </div>
 
     <div class="mt-6">
-      <x-heroicon-o-arrow-circle-right class="h-6 w-6" />
+      <x-heroicon-o-arrow-right-circle class="h-6 w-6" />
     </div>
 
     <div class="w-full">
@@ -66,7 +66,7 @@ $completedRoute = completedTranslationRequestsRoute();
         </x-dashboard.translation-request-list>
       </x-panel>
     @elseif ($this->isMinePage())
-      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-translate" :title="__('No claimed translation requests')">
+      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-language" :title="__('No claimed translation requests')">
 
         @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
           {{ __('Try selecting different languages to broaden your search.') }}
@@ -81,7 +81,7 @@ $completedRoute = completedTranslationRequestsRoute();
         </x-slot>
       </x-empty-state>
     @elseif ($this->isReviewablePage())
-      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-translate" :title="__('No translations found')">
+      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-language" :title="__('No translations found')">
 
         @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
           {{ __('Try selecting different languages to broaden your search.') }}
@@ -90,7 +90,7 @@ $completedRoute = completedTranslationRequestsRoute();
         @endif
       </x-empty-state>
     @elseif ($this->isUnderReviewPage())
-      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-translate" :title="__('No translations found')">
+      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-language" :title="__('No translations found')">
 
         @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
           {{ __('Try selecting different languages to broaden your search.') }}
@@ -105,7 +105,7 @@ $completedRoute = completedTranslationRequestsRoute();
         </x-slot>
       </x-empty-state>
     @elseif ($this->isCompletedPage())
-      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-translate" :title="__('No translations found')">
+      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-language" :title="__('No translations found')">
         @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
           {{ __('Try selecting different languages to broaden your search.') }}
         @else
@@ -119,7 +119,7 @@ $completedRoute = completedTranslationRequestsRoute();
         </x-slot>
       </x-empty-state>
     @else
-      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-translate" :title="__('No translation requests found')">
+      <x-empty-state class="rounded-md bg-white p-8 shadow" icon="o-language" :title="__('No translation requests found')">
         @if (!empty($sourceLanguageCode) || !empty($targetLanguageCode))
           {{ __('Try selecting different languages to broaden your search.') }}
         @else

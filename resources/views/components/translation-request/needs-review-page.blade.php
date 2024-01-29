@@ -66,7 +66,7 @@
           @else
             <div class="sm:col-span-2">
               @if (!Auth::user()->hasVerifiedEmail())
-                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation">
+                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation-triangle">
                   {{ __('Before being able to review translations, you must verify your email address.') }}
                   <form method="POST" action="{{ route('verification.send') }}" class="mt-2">
                     @csrf
