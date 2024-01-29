@@ -33,10 +33,10 @@ After you have Docker and PHP installed, navigate to the project directory and r
 ```bash
 composer install
 ./vendor/bin/sail up
-./vendor/bin/sail yarn
+./vendor/bin/sail pnpm
 ```
 
-**Note:** If you have `node` and `yarn` installed locally, you can run `yarn` from your local machine instead of within the Docker container if you'd like.
+**Note:** If you have `node` and `pnpm` installed locally, you can run `pnpm` from your local machine instead of within the Docker container if you'd like.
 
 **Pro tip!** Add the following (or something equivalent) to your shell configuration to use Sail more easily:
 
@@ -50,7 +50,7 @@ During development, it's recommended to run the following in parallel:
 
 ```bash
 sail up # starts up Docker container
-sail yarn watch # watches for JS/CSS changes
+sail pnpm watch # watches for JS/CSS changes
 ```
 
 ## [Custom configuration](https://laravel.com/docs/9.x/structure#the-config-directory)
