@@ -93,7 +93,7 @@
     </x-slot>
   </x-dialog-modal>
 
-  <script nonce="{{ csp_nonce() }}">
+  <script>
     (function() {
       window.hasChanges = false;
 

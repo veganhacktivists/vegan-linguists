@@ -7,7 +7,7 @@ use App\Models\UserMode;
 @endpush
 
 @push('scripts')
-  @livewireScripts(['nonce' => csp_nonce()])
+  @livewireScripts
 @endpush
 
 <div class="relative pt-12 pb-6">

@@ -26,5 +26,6 @@
   </div>
 
   <x-cookie-banner />
+  @livewireScripts
 </body>
 </html>
