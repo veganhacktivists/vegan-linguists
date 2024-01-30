@@ -8,7 +8,6 @@
     "php": "^8.3",
     "blade-ui-kit/blade-heroicons": "2.2.1",
     "doctrine/dbal": "3.8.0",
-    "fruitcake/laravel-cors": "dev-develop",
     "genealabs/laravel-caffeine": "10.0.1",
     "guzzlehttp/guzzle": "7.8.1",
     "itsgoingd/clockwork": "v5.1.12",
