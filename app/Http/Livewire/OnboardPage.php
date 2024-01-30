@@ -19,7 +19,7 @@ class OnboardPage extends Component
     public function render()
     {
         $this->defaultLanguages = Language::where('code', 'en')->get();
-        return view('livewire.onboard-page')->layout('layouts.guest');
+        return view('livewire.onboard-page')->extends('layouts.guest');
     }
 
     public function completeOnboarding()
