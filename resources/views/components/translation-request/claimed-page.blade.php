@@ -118,7 +118,7 @@
         {{ __('Saved') }}
       </x-success-toast>
 
-      <x-confirmation-modal wire:model="isConfirmingUnclaim">
+      <x-confirmation-modal wire:model.live="isConfirmingUnclaim">
         <x-slot name="title">
           {{ __('Unclaim Translation Request') }}
         </x-slot>
@@ -138,7 +138,7 @@
         </x-slot>
       </x-confirmation-modal>
 
-      <x-dialog-modal wire:model="isConfirmingSubmission">
+      <x-dialog-modal wire:model.live="isConfirmingSubmission">
         <x-slot name="title">
           {{ __('Submit Translation') }}
         </x-slot>

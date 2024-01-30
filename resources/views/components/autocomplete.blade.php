@@ -1,6 +1,6 @@
 @props(['items', 'comparator', 'renderItem', 'renderItemLabel', 'getItemValue', 'emptyMessage', 'defaultItems' => collect(), 'multiSelect' => true, 'resultsClass' => 'z-10'])
 
-@php($wireModel = $attributes->get('wire:model', null))
+@php($wireModel = $attributes->get('wire:model.live', null))
 
 <div x-data="autocomplete({
     input: $refs.input,
@@ -14,7 +14,7 @@
     multiSelect: {{ $multiSelect ? 'true' : 'false' }},
     wireModel: {{ json_encode($wireModel) }},
     resultsClass: {{ json_encode($resultsClass) }},
-})" wire:ignore {{ $attributes->except(['wire:model', 'id', 'x-data']) }}>
+})" wire:ignore {{ $attributes->except(['wire:model.live', 'id', 'x-data']) }}>
 
   @if (empty($wireModel))
     <template x-for="item in selectedItems">

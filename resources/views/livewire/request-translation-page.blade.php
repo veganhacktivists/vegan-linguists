@@ -32,7 +32,7 @@
     </x-button>
   </div>
 
-  <x-dialog-modal wire:model="shouldDisplaySubmissionModal">
+  <x-dialog-modal wire:model.live="shouldDisplaySubmissionModal">
     <x-slot name="title">
       {{ __('Choose languages') }}
     </x-slot>
@@ -44,7 +44,7 @@
         <x-label for="title" class="mb-1">
           {{ __('Title') }}
         </x-label>
-        <x-input id="title" type="text" wire:model.lazy="title" />
+        <x-input id="title" type="text" wire:model.blur="title" />
       </div>
 
       <div class="mt-4">
@@ -52,7 +52,7 @@
           {{ __('Which language is your content written in?') }}
         </x-label>
 
-        <x-language-picker id="source-language" resultsClass="z-50" wire:model="sourceLanguageId" :multiSelect="false"
+        <x-language-picker id="source-language" resultsClass="z-50" wire:model.live="sourceLanguageId" :multiSelect="false"
           :defaultLanguages="collect([Auth::user()->languages->first()])" :languages="Auth::user()->languages" />
       </div>
 
@@ -60,7 +60,7 @@
         <x-label for="language-picker" class="mb-1">
           {{ __('Which languages would you like your content to be translated to?') }}
         </x-label>
-        <x-language-picker id="language-picker" resultsClass="z-50" wire:model="targetLanguages" :shouldDisplayTranslatedLanguage="true"
+        <x-language-picker id="language-picker" resultsClass="z-50" wire:model.live="targetLanguages" :shouldDisplayTranslatedLanguage="true"
           :languages="$languages" :defaultLanguages="Auth::user()->default_target_languages" />
       </div>
 
@@ -68,7 +68,7 @@
         <x-label for="num-reviewers" class="mb-1">
           {{ __('How many reviewers would you like to review the submitted translations?') }}
         </x-label>
-        <x-input id="num-reviewers" type="text" wire:model.lazy="numReviewers" />
+        <x-input id="num-reviewers" type="text" wire:model.blur="numReviewers" />
       </div>
 
       <div class="mt-4">

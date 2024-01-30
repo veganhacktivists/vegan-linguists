@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Profile;
+namespace App\Livewire\Profile;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +30,6 @@ class TranslationRequestSettings extends Component
 
         Auth::user()->default_target_languages = $this->targetLanguages;
 
-        $this->emit('saved');
+        $this->dispatch('saved');
     }
 }

@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <x-dialog-modal wire:model="isConfirmingReview">
+  <x-dialog-modal wire:model.live="isConfirmingReview">
     <x-slot name="title">
       {{ __('Start Reviewing Translation') }}
     </x-slot>

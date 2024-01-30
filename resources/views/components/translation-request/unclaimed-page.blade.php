@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <x-dialog-modal wire:model="isConfirmingClaim">
+      <x-dialog-modal wire:model.live="isConfirmingClaim">
         <x-slot name="title">
           {{ __('Claim Translation Request') }}
         </x-slot>

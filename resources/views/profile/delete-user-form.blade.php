@@ -19,7 +19,7 @@
     </div>
 
     <!-- Delete User Confirmation Modal -->
-    <x-dialog-modal wire:model="confirmingUserDeletion">
+    <x-dialog-modal wire:model.live="confirmingUserDeletion">
       <x-slot name="title">
         {{ __('Delete Account') }}
       </x-slot>
@@ -30,7 +30,7 @@
         <div class="mt-4" x-data="{}"
           x-on:confirming-delete-user.window="setTimeout(() => $el.querySelector('input[type=password]').focus(), 250)">
           <x-password-input class="mt-1 block" containerClass="w-3/4" placeholder="{{ __('Password') }}"
-            wire:model.defer="password" wire:keydown.enter="deleteUser" />
+            wire:model="password" wire:keydown.enter="deleteUser" />
 
           <x-input-error for="password" class="mt-2" />
         </div>

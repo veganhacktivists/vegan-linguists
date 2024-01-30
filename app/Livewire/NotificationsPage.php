@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Helpers\NotificationModelCache;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -50,6 +50,6 @@ class NotificationsPage extends Component
 
         $this->unreadNotifications = Auth::user()->unreadNotifications;
 
-        $this->emit('all-notifications-read');
+        $this->dispatch('all-notifications-read');
     }
 }

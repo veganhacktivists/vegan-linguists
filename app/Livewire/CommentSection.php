@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
@@ -44,7 +44,7 @@ class CommentSection extends Component
         $this->metadata = null;
 
         $this->commentable->refresh();
-        $this->emit('comment-saved');
+        $this->dispatch('comment-saved');
     }
 
     public function updatingPlainText(string $plainText)

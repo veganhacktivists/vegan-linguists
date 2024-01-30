@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\TranslationRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -145,7 +145,7 @@ class TranslatePage extends Component
             'plain_text' => $this->translationPlainText,
         ]);
 
-        $this->dispatchBrowserEvent('toast-translation-request-saved');
+        $this->dispatch('toast-translation-request-saved');
     }
 
     public function submitTranslation()
@@ -180,17 +180,18 @@ class TranslatePage extends Component
     {
         $this->authorize('review', $this->translationRequest);
 
-        $this->dispatchBrowserEvent('change-tab', 'discussion');
-        $this->dispatchBrowserEvent('comment-quote', [
-            'content' => json_decode($selection['content']),
-            'metadata' => [
+        $this->dispatch('change-tab', 'discussion');
+        $this->dispatchBrowserEvent(
+            'comment-quote',
+            content: json_decode($selection['content']),
+            metadata: [
                 'annotation' => [
                     'index' => $selection['index'],
                     'length' => $selection['length'],
                 ],
                 'resolved_at' => null,
-            ],
-        ]);
+            ]
+        );
     }
 
     public function approveTranslation()

@@ -27,5 +27,4 @@
 
   <x-cookie-banner />
 </body>
-
 </html>

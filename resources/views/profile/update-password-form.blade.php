@@ -10,14 +10,14 @@
   <x-slot name="form">
     <div class="col-span-6 sm:col-span-4">
       <x-label for="current_password" value="{{ __('Current Password') }}" />
-      <x-password-input id="current_password" class="mt-1 block" wire:model.defer="state.current_password"
+      <x-password-input id="current_password" class="mt-1 block" wire:model="state.current_password"
         autocomplete="current-password" />
       <x-input-error for="current_password" class="mt-2" />
     </div>
 
     <div class="col-span-6 sm:col-span-4">
       <x-label for="password" value="{{ __('New Password') }}" />
-      <x-password-input id="password" class="mt-1 block w-full" wire:model.defer="state.password"
+      <x-password-input id="password" class="mt-1 block w-full" wire:model="state.password"
         autocomplete="new-password" />
       <x-input-error for="password" class="mt-2" />
     </div>

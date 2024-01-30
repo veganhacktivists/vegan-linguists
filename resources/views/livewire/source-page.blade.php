@@ -129,7 +129,7 @@
   </div>
 
   @if (!$isViewingTranslation)
-    <x-confirmation-modal wire:model="isConfirmingSourceDeletion">
+    <x-confirmation-modal wire:model.live="isConfirmingSourceDeletion">
       <x-slot name="title">
         {{ __('Delete Content') }}
       </x-slot>
@@ -151,7 +151,7 @@
       </x-slot>
     </x-confirmation-modal>
   @elseif ($currentTranslationRequest->isClaimed())
-    <x-confirmation-modal wire:model="isConfirmingClaimRevocation">
+    <x-confirmation-modal wire:model.live="isConfirmingClaimRevocation">
       <x-slot name="title">
         {{ __('Revoke Claim') }}
       </x-slot>
@@ -173,7 +173,7 @@
       </x-slot>
     </x-confirmation-modal>
   @else
-    <x-confirmation-modal wire:model="isConfirmingTranslationRequestDeletion">
+    <x-confirmation-modal wire:model.live="isConfirmingTranslationRequestDeletion">
       <x-slot name="title">
         {{ __('Delete Translation Request') }}
       </x-slot>

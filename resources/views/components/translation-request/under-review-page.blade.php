@@ -153,7 +153,7 @@ $helpTourSteps = [
         </div>
       </div>
 
-      <x-dialog-modal wire:model="isConfirmingApproval">
+      <x-dialog-modal wire:model.live="isConfirmingApproval">
         <x-slot name="title">
           {{ __('Approve Translation') }}
         </x-slot>

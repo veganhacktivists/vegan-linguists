@@ -11,7 +11,7 @@ $confirmableId = md5($attributes->wire('then'));
 </span>
 
 @once
-  <x-dialog-modal wire:model="confirmingPassword">
+  <x-dialog-modal wire:model.live="confirmingPassword">
     <x-slot name="title">
       {{ $title }}
     </x-slot>
@@ -22,7 +22,7 @@ $confirmableId = md5($attributes->wire('then'));
       <div class="mt-4" x-data="{}"
         x-on:confirming-password.window="setTimeout(() => $el.querySelector('input[type=password]').focus(), 250)">
         <x-password-input class="mt-1 block" containerClass="w-3/4" placeholder="{{ __('Password') }}"
-          wire:model.defer="confirmablePassword" wire:keydown.enter="confirmPassword" />
+          wire:model="confirmablePassword" wire:keydown.enter="confirmPassword" />
 
         <x-input-error for="confirmable_password" class="mt-2" />
       </div>

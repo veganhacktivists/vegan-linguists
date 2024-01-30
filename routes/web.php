@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\SwitchUserModeController;
-use App\Http\Livewire\NotificationsPage;
-use App\Http\Livewire\OnboardPage;
+use App\Livewire\NotificationsPage;
+use App\Livewire\OnboardPage;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\RequestTranslationPage;
-use App\Http\Livewire\SourcePage;
-use App\Http\Livewire\TranslatePage;
-use App\Http\Livewire\TranslationRequestsPage;
+use App\Livewire\RequestTranslationPage;
+use App\Livewire\SourcePage;
+use App\Livewire\TranslatePage;
+use App\Livewire\TranslationRequestsPage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 

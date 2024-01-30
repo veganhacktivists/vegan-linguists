@@ -11,7 +11,7 @@
     <div class="col-span-6 sm:col-span-4">
       <x-label for="languages"
         value="{{ __('Which languages do you typically want your content to be translated to?') }}" />
-      <x-language-picker id="target-languages" class="mt-1 block" wire:model="targetLanguages" :defaultLanguages="Auth::user()->default_target_languages" />
+      <x-language-picker id="target-languages" class="mt-1 block" wire:model.live="targetLanguages" :defaultLanguages="Auth::user()->default_target_languages" />
       <x-input-error for="target-languages" class="mt-2" />
     </div>
   </x-slot>

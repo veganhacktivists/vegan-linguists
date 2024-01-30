@@ -40,7 +40,7 @@ use App\Models\UserMode;
               '{{ UserMode::TRANSLATOR }}', 'border-brand-brown-200': userMode !== '{{ UserMode::TRANSLATOR }}' }">
           <input type="radio" name="user-mode" value="{{ UserMode::TRANSLATOR }}"
             class="mt-0.5 h-4 w-4 cursor-pointer border-brand-brown-300 text-brand-blue-600 focus:ring-brand-blue-500"
-            aria-labelledby="user-mode-0-label" required wire:model="userMode"
+            aria-labelledby="user-mode-0-label" required wire:model.live="userMode"
             @change="userMode = '{{ UserMode::TRANSLATOR }}'">
           <div class="ml-3 flex flex-col">
             <span id="user-mode-0-label" class="block text-sm"
@@ -56,7 +56,7 @@ use App\Models\UserMode;
               '{{ UserMode::AUTHOR }}', 'border-brand-brown-200': userMode !== '{{ UserMode::AUTHOR }}' }">
           <input type="radio" name="user-mode" value="{{ UserMode::AUTHOR }}"
             class="mt-0.5 h-4 w-4 cursor-pointer border-brand-brown-300 text-brand-blue-600 focus:ring-brand-blue-500"
-            aria-labelledby="user-mode-1-label" wire:model="userMode" @change="userMode = '{{ UserMode::AUTHOR }}'">
+            aria-labelledby="user-mode-1-label" wire:model.live="userMode" @change="userMode = '{{ UserMode::AUTHOR }}'">
           <div class="ml-3 flex flex-col">
             <span id="user-mode-1-label" class="block text-sm"
               x-bind:class="{ 'text-brand-blue-900': userMode === '{{ UserMode::AUTHOR }}', 'text-brand-brown-900': userMode !==
@@ -71,7 +71,7 @@ use App\Models\UserMode;
                   'both' }">
           <input type="radio" name="user-mode" value="both"
             class="mt-0.5 h-4 w-4 cursor-pointer border-brand-brown-300 text-brand-blue-600 focus:ring-brand-blue-500"
-            aria-labelledby="user-mode-2-label" wire:model="userMode" @change="userMode = 'both'">
+            aria-labelledby="user-mode-2-label" wire:model.live="userMode" @change="userMode = 'both'">
           <div class="ml-3 flex flex-col">
             <span id="user-mode-2-label" class="block text-sm"
               x-bind:class="{ 'text-brand-blue-900': userMode === 'both', 'text-brand-brown-900': userMode !== 'both' }">
@@ -91,7 +91,7 @@ use App\Models\UserMode;
           {{ __('Excellent. Which languages is your content written in?') }}
         </div>
       </legend>
-      <x-language-picker class="w-full" :defaultLanguages="$defaultLanguages" wire:model="languages" />
+      <x-language-picker class="w-full" :defaultLanguages="$defaultLanguages" wire:model.live="languages" />
     </fieldset>
 
     <fieldset class="mx-auto hidden w-full max-w-2xl"
@@ -99,7 +99,7 @@ use App\Models\UserMode;
       <legend class="my-4 text-center text-xl">
         {{ __('Which languages do you typically want your content to be translated to?') }}
       </legend>
-      <x-language-picker class="w-full" shouldDisplayTranslatedLanguage wire:model="targetLanguages" />
+      <x-language-picker class="w-full" shouldDisplayTranslatedLanguage wire:model.live="targetLanguages" />
     </fieldset>
 
     <x-validation-errors class="mx-auto w-full max-w-2xl" />

@@ -120,7 +120,7 @@
   <x-cookie-banner />
   @stack('modals')
 
-  @livewireScripts(['nonce' => csp_nonce()])
+ @livewireScripts(['nonce' => csp_nonce()])
 </body>
 
 </html>

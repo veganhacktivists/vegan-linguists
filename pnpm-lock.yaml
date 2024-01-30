@@ -16,9 +16,6 @@ dependencies:
     version: 5.0.12
 
 devDependencies:
-  '@alpinejs/focus':
-    specifier: ^3.10.5
-    version: 3.13.5
   '@prettier/plugin-php':
     specifier: ^0.22.1
     version: 0.22.1(prettier@3.2.4)
@@ -31,9 +28,6 @@ devDependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.0
     version: 0.5.10(tailwindcss@3.4.1)
-  alpinejs:
-    specifier: ^3.0.6
-    version: 3.13.5
   autocompleter:
     specifier: ^9.1.2
     version: 9.1.2
@@ -76,13 +70,6 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
-    dev: true
-
-  /@alpinejs/focus@3.13.5:
-    resolution: {integrity: sha512-ViZ1W9M3/leZKNdsMyTZvGCu2DPMyUSbRwrbGNOnCkzHMHOIP6zdGpzPkD+1HyhQ2SuG7wRgf7YlrPnlE6tMqA==}
-    dependencies:
-      focus-trap: 6.9.4
-      tabbable: 5.3.3
     dev: true
 
   /@ampproject/remapping@2.2.1:
@@ -2022,16 +2009,6 @@ packages:
       '@types/node': 20.11.10
     dev: true
 
-  /@vue/reactivity@3.1.5:
-    resolution: {integrity: sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==}
-    dependencies:
-      '@vue/shared': 3.1.5
-    dev: true
-
-  /@vue/shared@3.1.5:
-    resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
-    dev: true
-
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
     dependencies:
@@ -2258,12 +2235,6 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-    dev: true
-
-  /alpinejs@3.13.5:
-    resolution: {integrity: sha512-1d2XeNGN+Zn7j4mUAKXtAgdc4/rLeadyTMWeJGXF5DzwawPBxwTiBhFFm6w/Ei8eJxUZeyNWWSD9zknfdz1kEw==}
-    dependencies:
-      '@vue/reactivity': 3.1.5
     dev: true
 
   /ansi-html-community@0.0.8:
@@ -3667,12 +3638,6 @@ packages:
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
-    dev: true
-
-  /focus-trap@6.9.4:
-    resolution: {integrity: sha512-v2NTsZe2FF59Y+sDykKY+XjqZ0cPfhq/hikWVL88BqLivnNiEffAsac6rP6H45ff9wG9LL5ToiDqrLEP9GX9mw==}
-    dependencies:
-      tabbable: 5.3.3
     dev: true
 
   /follow-redirects@1.15.5:
@@ -6338,10 +6303,6 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
-    dev: true
-
-  /tabbable@5.3.3:
-    resolution: {integrity: sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==}
     dev: true
 
   /tailwindcss@3.4.1:
