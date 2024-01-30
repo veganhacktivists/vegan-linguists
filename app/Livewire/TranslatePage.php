@@ -62,7 +62,7 @@ class TranslatePage extends Component
 
     public function render()
     {
-        return view('livewire.translate-page')->extends('layouts.app', [
+        return view('livewire.translate-page')->layout('layouts.app', [
             'containContent' => $this->isMine || $this->canReview,
         ]);
     }

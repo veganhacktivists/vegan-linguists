@@ -28,7 +28,7 @@ class RequestTranslationPage extends Component
 
     public function render()
     {
-        return view('livewire.request-translation-page')->extends(
+        return view('livewire.request-translation-page')->layout(
             'layouts.app',
             [
                 'containContent' => true,

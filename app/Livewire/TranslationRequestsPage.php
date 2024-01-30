@@ -12,6 +12,7 @@ class TranslationRequestsPage extends Component
 {
     public string $sourceLanguageCode;
     public string $targetLanguageCode;
+    public Collection $translationRequests;
     public Collection $languages;
 
     private string $filter;
