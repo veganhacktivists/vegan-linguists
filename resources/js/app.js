@@ -1,11 +1,5 @@
-require('./bootstrap')
-require('./tooltips')
-require('./components/autocomplete')
-require('./components/rich-text-editor')
-require('./components/tour')
-
-import Alpine from 'alpinejs'
-
-window.Alpine = Alpine
-
-Alpine.start()
+import './bootstrap'
+import './tooltips'
+import './components/autocomplete'
+import './components/rich-text-editor'
+import './components/tour'

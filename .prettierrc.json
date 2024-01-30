@@ -4,7 +4,6 @@
       "files": "*.js",
       "options": {
         "arrowParens": "always",
-        "jsxBracketSameLine": false,
         "parser": "babel",
         "printWidth": 80,
         "semi": false,

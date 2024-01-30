@@ -11,14 +11,13 @@
   {{-- Fonts --}}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-  {{-- Styles --}}
-  @stack('styles')
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
   {{-- Scripts --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  {{-- Styles --}}
+  @livewireStyles
+
   <x-google-analytics />
-  <script src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}" defer></script>
-  @stack('scripts')
 </head>
 
 <body class="bg-brand-beige-100 bg-opacity-60 text-brand-brown-900">
