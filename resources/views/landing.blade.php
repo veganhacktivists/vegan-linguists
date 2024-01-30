@@ -9,7 +9,12 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+  {{-- Scripts --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  {{-- Styles --}}
+  @livewireStyles
 
   <x-google-analytics />
 </head>
@@ -385,5 +390,5 @@
   </footer>
   <x-cookie-banner />
 </body>
-
+ @livewireScripts
 </html>
