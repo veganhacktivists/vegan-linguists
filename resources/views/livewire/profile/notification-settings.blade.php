@@ -1,4 +1,4 @@
-<x-jet-form-section submit="">
+<x-form-section submit="">
   <x-slot name="title">
     {{ __('Notification Settings') }}
   </x-slot>
@@ -59,4 +59,4 @@
       </fieldset>
     </div>
   </x-slot>
-</x-jet-form-section>
+</x-form-section>

@@ -15,9 +15,9 @@
   </div>
 
   <div class="mt-4 text-right">
-    <x-jet-button type="submit" :disabled="mb_strlen(trim($plainText)) === 0" wire:loading.attr="disabled" wire:click="saveComment">
+    <x-button type="submit" :disabled="mb_strlen(trim($plainText)) === 0" wire:loading.attr="disabled" wire:click="saveComment">
       {{ __('Comment') }}
-    </x-jet-button>
+    </x-button>
   </div>
 
   @if ($commentable->comments->count() > 0)
@@ -56,16 +56,16 @@
                         <div class="flex gap-2">
                           @php($index = $comment->metadata['annotation']['index'])
                           @php($length = $comment->metadata['annotation']['length'])
-                          <x-jet-secondary-button
+                          <x-secondary-button
                             @click="$dispatch('highlight-annotation', { index: {{ $index }}, length: {{ $length }} })">
                             {{ __('Jump to annotation') }}
-                          </x-jet-secondary-button>
+                          </x-secondary-button>
 
                           @if (!$comment->is_resolved)
                             @can('resolveComment', $commentable)
-                              <x-jet-button wire:click="resolveComment({{ $comment->id }})">
+                              <x-button wire:click="resolveComment({{ $comment->id }})">
                                 {{ __('Mark resolved') }}
-                              </x-jet-button>
+                              </x-button>
                             @else
                               <div
                                 class="flex items-center gap-2 rounded bg-brand-clay-400 px-4 text-xs font-bold text-white">

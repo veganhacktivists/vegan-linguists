@@ -49,9 +49,9 @@ $isOnDashboard = request()->routeIs('home');
     <div class="ml-10 flex flex-shrink-0 items-center space-x-10 pr-4">
       <nav aria-label="{{ __('Global') }}" class="flex space-x-10">
         @if (Auth::user()->isInAuthorMode())
-          <x-jet-primary-button element="a" href="{{ route('request-translation') }}" class="text-xs">
+          <x-primary-button element="a" href="{{ route('request-translation') }}" class="text-xs">
             {{ __('Request translation') }}
-          </x-jet-primary-button>
+          </x-primary-button>
         @endif
       </nav>
       <div class="flex items-center space-x-8">
@@ -71,7 +71,7 @@ $isOnDashboard = request()->routeIs('home');
         <div class="relative inline-block text-left">
           <div class="hidden sm:flex sm:items-center">
             <div class="relative">
-              <x-jet-dropdown align="right" width="48">
+              <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                   <button
                     class="flex rounded-full border-2 border-transparent text-sm transition focus:border-brand-clay-500 focus:outline-none">
@@ -84,15 +84,15 @@ $isOnDashboard = request()->routeIs('home');
                     {{ __('Manage Account') }}
                   </div>
 
-                  <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                  <x-dropdown-link href="{{ route('profile.show') }}">
                     {{ __('Profile') }}
-                  </x-jet-dropdown-link>
+                  </x-dropdown-link>
 
                   <form method="POST" action="{{ route('switch-user-mode') }}">
                     @csrf
                     <input type="hidden" name="_method" value="PUT" />
 
-                    <x-jet-dropdown-link href="{{ route('switch-user-mode') }}" x-data=""
+                    <x-dropdown-link href="{{ route('switch-user-mode') }}" x-data=""
                       @click="$event.preventDefault();
                                                              $el.closest('form').submit();">
                       @if (Auth::user()->isInAuthorMode())
@@ -100,7 +100,7 @@ $isOnDashboard = request()->routeIs('home');
                       @else
                         {{ __('Switch to Author view') }}
                       @endif
-                    </x-jet-dropdown-link>
+                    </x-dropdown-link>
                   </form>
 
                   <div class="border-t border-brand-beige-100"></div>
@@ -108,14 +108,14 @@ $isOnDashboard = request()->routeIs('home');
                   <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-jet-dropdown-link href="{{ route('logout') }}" x-data=""
+                    <x-dropdown-link href="{{ route('logout') }}" x-data=""
                       @click="$event.preventDefault();
                                                              $el.closest('form').submit();">
                       {{ __('Log Out') }}
-                    </x-jet-dropdown-link>
+                    </x-dropdown-link>
                   </form>
                 </x-slot>
-              </x-jet-dropdown>
+              </x-dropdown>
             </div>
           </div>
 
@@ -154,35 +154,35 @@ $isOnDashboard = request()->routeIs('home');
       </div>
       <div class="max-w-8xl mx-auto space-y-1 py-3 px-2 sm:px-4">
         @if (Auth::user()->isInAuthorMode())
-          <x-jet-responsive-nav-link href="{{ route('home') }}" :active="empty($filter) && $isOnDashboard">
+          <x-responsive-nav-link href="{{ route('home') }}" :active="empty($filter) && $isOnDashboard">
             {{ __('All Translation Requests') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
-          <x-jet-responsive-nav-link href="{{ route('home', ['filter' => 'complete']) }}" :active="$filter === 'complete' && $isOnDashboard">
+          <x-responsive-nav-link href="{{ route('home', ['filter' => 'complete']) }}" :active="$filter === 'complete' && $isOnDashboard">
             {{ __('Completed Translations') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
-          <x-jet-responsive-nav-link href="{{ route('home', ['filter' => 'incomplete']) }}" :active="$filter === 'incomplete' && $isOnDashboard">
+          <x-responsive-nav-link href="{{ route('home', ['filter' => 'incomplete']) }}" :active="$filter === 'incomplete' && $isOnDashboard">
             {{ __('Incomplete Translation Requests') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
-          <x-jet-responsive-nav-link href="{{ route('request-translation') }}" :active="request()->routeIs('request-translation')">
+          <x-responsive-nav-link href="{{ route('request-translation') }}" :active="request()->routeIs('request-translation')">
             {{ __('Request Translation') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
         @else
-          <x-jet-responsive-nav-link href="{{ route('home', \Request::except('filter')) }}" :active="empty($filter) && $isOnDashboard">
+          <x-responsive-nav-link href="{{ route('home', \Request::except('filter')) }}" :active="empty($filter) && $isOnDashboard">
             {{ __('Claimed Requests') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
-          <x-jet-responsive-nav-link href=" {{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
+          <x-responsive-nav-link href=" {{ route('home', ['filter' => 'unclaimed'] + \Request::all()) }}"
             :active="$filter === 'unclaimed' && $isOnDashboard">
             {{ __('Unclaimed Requests') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
-          <x-jet-responsive-nav-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
+          <x-responsive-nav-link href="{{ route('home', ['filter' => 'complete'] + \Request::all()) }}"
             :active="$filter === 'completed' && $isOnDashboard">
             {{ __('Completed Translations') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
         @endif
       </div>
       <div class="border-t border-brand-beige-100 pt-4 pb-3">
@@ -206,15 +206,15 @@ $isOnDashboard = request()->routeIs('home');
           </a>
         </div>
         <div class="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
-          <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+          <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
             {{ __('Profile') }}
-          </x-jet-responsive-nav-link>
+          </x-responsive-nav-link>
 
           <form method="POST" action="{{ route('switch-user-mode') }}">
             @csrf
             <input type="hidden" name="_method" value="PUT" />
 
-            <x-jet-responsive-nav-link href="{{ route('switch-user-mode') }}" x-data=""
+            <x-responsive-nav-link href="{{ route('switch-user-mode') }}" x-data=""
               @click="$event.preventDefault();
                                                    $el.closest('form').submit();">
               @if (Auth::user()->isInAuthorMode())
@@ -222,17 +222,17 @@ $isOnDashboard = request()->routeIs('home');
               @else
                 {{ __('Switch to Author view') }}
               @endif
-            </x-jet-responsive-nav-link>
+            </x-responsive-nav-link>
           </form>
 
           <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <x-jet-responsive-nav-link href="{{ route('logout') }}" x-data=""
+            <x-responsive-nav-link href="{{ route('logout') }}" x-data=""
               @click="$event.preventDefault();
                                                    $el.closest('form').submit();">
               {{ __('Log Out') }}
-            </x-jet-responsive-nav-link>
+            </x-responsive-nav-link>
           </form>
         </div>
       </div>

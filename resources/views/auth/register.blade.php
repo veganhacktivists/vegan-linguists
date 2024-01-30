@@ -16,28 +16,28 @@
         </div>
 
         <div class="mt-8">
-          <x-jet-validation-errors class="mb-4" />
+          <x-validation-errors class="mb-4" />
 
           <form method="POST" class="space-y-6" action="{{ route('register') }}">
             @csrf
             <div>
-              <x-jet-label for="name" value="{{ __('Name') }}" />
+              <x-label for="name" value="{{ __('Name') }}" />
               <div class="mt-1">
-                <x-jet-input id="name" class="mt-1 block w-full" type="text" name="name" :value="old('name')"
+                <x-input id="name" class="mt-1 block w-full" type="text" name="name" :value="old('name')"
                   required autofocus autocomplete="name" />
               </div>
             </div>
             <div>
-              <x-jet-label for="email" value="{{ __('Email address') }}" />
+              <x-label for="email" value="{{ __('Email address') }}" />
 
               <div class="mt-1">
-                <x-jet-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
+                <x-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
                   required autofocus />
               </div>
             </div>
 
             <div>
-              <x-jet-label for="password" value="{{ __('Password') }}" />
+              <x-label for="password" value="{{ __('Password') }}" />
               <div class="mt-1">
                 <x-password-input id="password" class="mt-1 block" name="password" required
                   autocomplete="current-password" />
@@ -45,22 +45,22 @@
             </div>
 
             <div>
-              <x-jet-label for="newsletter" id="newsletter-description">
+              <x-label for="newsletter" id="newsletter-description">
                 <div class="flex items-center">
-                  <x-jet-checkbox id="newsletter" aria-describedby="newsletter-description" name="newsletter" checked />
+                  <x-checkbox id="newsletter" aria-describedby="newsletter-description" name="newsletter" checked />
 
                   <div class="ml-2">
                     {{ __('Keep me updated with news related to Vegan Linguists') }}
                   </div>
                 </div>
-              </x-jet-label>
+              </x-label>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
               <div>
-                <x-jet-label for="terms">
+                <x-label for="terms">
                   <div class="flex items-center">
-                    <x-jet-checkbox name="terms" id="terms" />
+                    <x-checkbox name="terms" id="terms" />
 
                     <div class="ml-2">
                       {!! __('I agree to the :terms_of_service and :privacy_policy', [
@@ -79,14 +79,14 @@
                       ]) !!}
                     </div>
                   </div>
-                </x-jet-label>
+                </x-label>
               </div>
             @endif
 
             <div>
-              <x-jet-button type="submit" class="w-full justify-center">
+              <x-button type="submit" class="w-full justify-center">
                 {{ __('Sign up') }}
-              </x-jet-button>
+              </x-button>
             </div>
           </form>
         </div>

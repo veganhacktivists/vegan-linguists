@@ -102,8 +102,8 @@ use App\Models\UserMode;
       <x-language-picker class="w-full" shouldDisplayTranslatedLanguage wire:model="targetLanguages" />
     </fieldset>
 
-    <x-jet-validation-errors class="mx-auto w-full max-w-2xl" />
+    <x-validation-errors class="mx-auto w-full max-w-2xl" />
 
-    <x-jet-primary-button type="submit" class="mx-auto">{{ __('Get started') }}</x-jet-primary-button>
+    <x-primary-button type="submit" class="mx-auto">{{ __('Get started') }}</x-primary-button>
   </form>
 </div>

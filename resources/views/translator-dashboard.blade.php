@@ -43,9 +43,9 @@
               {{ __('Want to see something here?') }}
 
               <x-slot name="action">
-                <x-jet-button element="a" href="{{ unclaimedTranslationRequestsRoute() }}">
+                <x-button element="a" href="{{ unclaimedTranslationRequestsRoute() }}">
                   {{ __('Find content to translate') }}
-                </x-jet-button>
+                </x-button>
               </x-slot>
             </x-empty-state>
           @else
@@ -102,9 +102,9 @@
               {{ __('Want to see something here?') }}
 
               <x-slot name="action">
-                <x-jet-button element="a" href="{{ reviewableTranslationRequestsRoute() }}">
+                <x-button element="a" href="{{ reviewableTranslationRequestsRoute() }}">
                   {{ __('Find translations to review') }}
-                </x-jet-button>
+                </x-button>
               </x-slot>
             </x-empty-state>
           @else

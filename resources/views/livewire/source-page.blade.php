@@ -56,10 +56,10 @@
           {{ $source->title }}
         </div>
         <div>
-          <x-jet-danger-button class="whitespace-nowrap" type="button"
+          <x-danger-button class="whitespace-nowrap" type="button"
             wire:click="$toggle('isConfirmingSourceDeletion')">
             {{ __('Delete content') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </div>
       @elseif ($currentTranslationRequest->isClaimed())
         <div class="truncate">
@@ -70,10 +70,10 @@
           ]) }}
         </div>
         <div>
-          <x-jet-danger-button class="whitespace-nowrap" type="button"
+          <x-danger-button class="whitespace-nowrap" type="button"
             wire:click="$toggle('isConfirmingClaimRevocation')">
             {{ __('Revoke claim') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </div>
       @elseif ($currentTranslationRequest->isUnderReview())
         <div class="truncate">
@@ -84,10 +84,10 @@
           ]) }}
         </div>
         <div>
-          <x-jet-danger-button class="whitespace-nowrap" type="button"
+          <x-danger-button class="whitespace-nowrap" type="button"
             wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
             {{ __('Delete request') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </div>
       @elseif ($currentTranslationRequest->isComplete())
         <div class="truncate">
@@ -98,20 +98,20 @@
           ]) }}
         </div>
         <div>
-          <x-jet-danger-button class="whitespace-nowrap" type="button"
+          <x-danger-button class="whitespace-nowrap" type="button"
             wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
             {{ __('Delete translation') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </div>
       @else
         <div class="truncate">
           {{ __('This request has not yet been claimed by a translator') }}
         </div>
         <div>
-          <x-jet-danger-button class="whitespace-nowrap" type="button"
+          <x-danger-button class="whitespace-nowrap" type="button"
             wire:click="$toggle('isConfirmingTranslationRequestDeletion')">
             {{ __('Delete request') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </div>
       @endif
     </div>
@@ -129,7 +129,7 @@
   </div>
 
   @if (!$isViewingTranslation)
-    <x-jet-confirmation-modal wire:model="isConfirmingSourceDeletion">
+    <x-confirmation-modal wire:model="isConfirmingSourceDeletion">
       <x-slot name="title">
         {{ __('Delete Content') }}
       </x-slot>
@@ -141,17 +141,17 @@
       </x-slot>
 
       <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('isConfirmingSourceDeletion')" wire:loading.attr="disabled">
+        <x-secondary-button wire:click="$toggle('isConfirmingSourceDeletion')" wire:loading.attr="disabled">
           {{ __('Cancel') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
-        <x-jet-danger-button class="ml-2" wire:click="deleteSource" wire:loading.attr="disabled">
+        <x-danger-button class="ml-2" wire:click="deleteSource" wire:loading.attr="disabled">
           {{ __('Yes') }}
-        </x-jet-danger-button>
+        </x-danger-button>
       </x-slot>
-    </x-jet-confirmation-modal>
+    </x-confirmation-modal>
   @elseif ($currentTranslationRequest->isClaimed())
-    <x-jet-confirmation-modal wire:model="isConfirmingClaimRevocation">
+    <x-confirmation-modal wire:model="isConfirmingClaimRevocation">
       <x-slot name="title">
         {{ __('Revoke Claim') }}
       </x-slot>
@@ -163,17 +163,17 @@
       </x-slot>
 
       <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('isConfirmingClaimRevocation')" wire:loading.attr="disabled">
+        <x-secondary-button wire:click="$toggle('isConfirmingClaimRevocation')" wire:loading.attr="disabled">
           {{ __('Cancel') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
-        <x-jet-danger-button class="ml-2" wire:click="revokeClaim" wire:loading.attr="disabled">
+        <x-danger-button class="ml-2" wire:click="revokeClaim" wire:loading.attr="disabled">
           {{ __('Yes') }}
-        </x-jet-danger-button>
+        </x-danger-button>
       </x-slot>
-    </x-jet-confirmation-modal>
+    </x-confirmation-modal>
   @else
-    <x-jet-confirmation-modal wire:model="isConfirmingTranslationRequestDeletion">
+    <x-confirmation-modal wire:model="isConfirmingTranslationRequestDeletion">
       <x-slot name="title">
         {{ __('Delete Translation Request') }}
       </x-slot>
@@ -191,15 +191,15 @@
       </x-slot>
 
       <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('isConfirmingTranslationRequestDeletion')"
+        <x-secondary-button wire:click="$toggle('isConfirmingTranslationRequestDeletion')"
           wire:loading.attr="disabled">
           {{ __('Cancel') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
-        <x-jet-danger-button class="ml-2" wire:click="deleteTranslationRequest" wire:loading.attr="disabled">
+        <x-danger-button class="ml-2" wire:click="deleteTranslationRequest" wire:loading.attr="disabled">
           {{ __('Yes') }}
-        </x-jet-danger-button>
+        </x-danger-button>
       </x-slot>
-    </x-jet-confirmation-modal>
+    </x-confirmation-modal>
   @endif
 </div>

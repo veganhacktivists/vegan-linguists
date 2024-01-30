@@ -23,7 +23,7 @@
     </template>
   @endif
 
-  <x-jet-input id="{{ $attributes->get('id') }}" type="text" x-ref="input" autocomplete="off"
+  <x-input id="{{ $attributes->get('id') }}" type="text" x-ref="input" autocomplete="off"
     @blur="attemptToSelectItem()" />
 
   @if ($multiSelect)

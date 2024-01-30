@@ -16,7 +16,7 @@
         </div>
 
         <div class="mt-8">
-          <x-jet-validation-errors class="mb-4" />
+          <x-validation-errors class="mb-4" />
 
           @if (session('status'))
             <x-alert type="success" :title="__('Success')" icon="s-check-circle">
@@ -27,16 +27,16 @@
           <form method="POST" class="space-y-6" action="{{ route('login') }}">
             @csrf
             <div>
-              <x-jet-label for="email" value="{{ __('Email address') }}" />
+              <x-label for="email" value="{{ __('Email address') }}" />
 
               <div class="mt-1">
-                <x-jet-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
+                <x-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
                   required autofocus />
               </div>
             </div>
 
             <div>
-              <x-jet-label for="password" value="{{ __('Password') }}" />
+              <x-label for="password" value="{{ __('Password') }}" />
               <div class="mt-1">
                 <x-password-input id="password" class="mt-1 block" name="password" required
                   autocomplete="current-password" />
@@ -46,7 +46,7 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <label for="remember_me" class="flex items-center">
-                  <x-jet-checkbox id="remember_me" name="remember" checked />
+                  <x-checkbox id="remember_me" name="remember" checked />
                   <span class="ml-2 text-sm">{{ __('Remember me') }}</span>
                 </label>
               </div>
@@ -60,9 +60,9 @@
             </div>
 
             <div>
-              <x-jet-button type="submit" class="w-full justify-center">
+              <x-button type="submit" class="w-full justify-center">
                 {{ __('Log in') }}
-              </x-jet-button>
+              </x-button>
             </div>
           </form>
         </div>

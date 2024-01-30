@@ -1,4 +1,4 @@
-<x-jet-action-section>
+<x-action-section>
   <x-slot name="title">
     {{ __('Delete Account') }}
   </x-slot>
@@ -13,13 +13,13 @@
     </div>
 
     <div class="mt-5">
-      <x-jet-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled" type="button">
+      <x-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled" type="button">
         {{ __('Delete account') }}
-      </x-jet-danger-button>
+      </x-danger-button>
     </div>
 
     <!-- Delete User Confirmation Modal -->
-    <x-jet-dialog-modal wire:model="confirmingUserDeletion">
+    <x-dialog-modal wire:model="confirmingUserDeletion">
       <x-slot name="title">
         {{ __('Delete Account') }}
       </x-slot>
@@ -32,20 +32,20 @@
           <x-password-input class="mt-1 block" containerClass="w-3/4" placeholder="{{ __('Password') }}"
             wire:model.defer="password" wire:keydown.enter="deleteUser" />
 
-          <x-jet-input-error for="password" class="mt-2" />
+          <x-input-error for="password" class="mt-2" />
         </div>
       </x-slot>
 
       <x-slot name="footer">
-        <x-jet-secondary-button type="button" wire:click="$toggle('confirmingUserDeletion')"
+        <x-secondary-button type="button" wire:click="$toggle('confirmingUserDeletion')"
           wire:loading.attr="disabled">
           {{ __('Cancel') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
-        <x-jet-danger-button class="ml-2" wire:click="deleteUser" wire:loading.attr="disabled">
+        <x-danger-button class="ml-2" wire:click="deleteUser" wire:loading.attr="disabled">
           {{ __('Delete account') }}
-        </x-jet-danger-button>
+        </x-danger-button>
       </x-slot>
-    </x-jet-dialog-modal>
+    </x-dialog-modal>
   </x-slot>
-</x-jet-action-section>
+</x-action-section>

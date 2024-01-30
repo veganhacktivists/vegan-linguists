@@ -91,7 +91,7 @@
       <main class="flex min-w-0 flex-1 flex-col overflow-auto border-t border-brand-brown-200 lg:flex-row">
         <section aria-labelledby="primary-heading"
           class="{{ !empty($containContent) ? 'h-full' : '' }} min-w-0 flex-1 flex-col lg:order-last">
-          <x-jet-banner />
+          <x-banner />
 
           {{ $slot }}
         </section>

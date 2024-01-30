@@ -27,9 +27,9 @@
         {{ __('Want to see something here?') }}
 
         <x-slot name="action">
-          <x-jet-button element="a" href="{{ route('request-translation') }}">
+          <x-button element="a" href="{{ route('request-translation') }}">
             {{ __('Request a translation') }}
-          </x-jet-button>
+          </x-button>
         </x-slot>
       </x-empty-state>
     @else
@@ -37,9 +37,9 @@
         {{ __('Get started by requesting a translation') }}
 
         <x-slot name="action">
-          <x-jet-button element="a" href="{{ route('request-translation') }}">
+          <x-button element="a" href="{{ route('request-translation') }}">
             {{ __('Request a translation') }}
-          </x-jet-button>
+          </x-button>
         </x-slot>
       </x-empty-state>
     @endif

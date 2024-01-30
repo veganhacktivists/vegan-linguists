@@ -1,4 +1,4 @@
-<x-jet-form-section submit="updateProfileInformation">
+<x-form-section submit="updateProfileInformation">
   <x-slot name="title">
     {{ __('Profile Information') }}
   </x-slot>
@@ -22,7 +22,7 @@
                                     reader.readAsDataURL($refs.photo.files[0]);
                             " />
 
-        <x-jet-label for="photo" value="{{ __('Photo') }}" />
+        <x-label for="photo" value="{{ __('Photo') }}" />
 
         {{-- Current Profile Photo --}}
         <div class="mt-2" x-show="! photoPreview">
@@ -38,64 +38,64 @@
           </span>
         </div>
 
-        <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+        <x-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
           {{ __('Select a new photo') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
         @if ($this->user->profile_photo_path)
-          <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
+          <x-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
             {{ __('Remove photo') }}
-          </x-jet-secondary-button>
+          </x-secondary-button>
         @endif
 
-        <x-jet-input-error for="photo" class="mt-2" />
+        <x-input-error for="photo" class="mt-2" />
       </div>
     @endif
 
     {{-- Name --}}
     <div class="col-span-6 sm:col-span-4">
-      <x-jet-label for="name" value="{{ __('Name') }}" />
-      <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name"
+      <x-label for="name" value="{{ __('Name') }}" />
+      <x-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name"
         autocomplete="name" />
-      <x-jet-input-error for="name" class="mt-2" />
+      <x-input-error for="name" class="mt-2" />
     </div>
 
     {{-- Email --}}
     <div class="col-span-6 sm:col-span-4">
-      <x-jet-label for="email" value="{{ __('Email') }}" />
-      <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
-      <x-jet-input-error for="email" class="mt-2" />
+      <x-label for="email" value="{{ __('Email') }}" />
+      <x-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
+      <x-input-error for="email" class="mt-2" />
     </div>
 
     {{-- Languages --}}
     <div class="col-span-6 sm:col-span-4">
-      <x-jet-label for="languages" value="{{ __('What language(s) do you speak?') }}" />
+      <x-label for="languages" value="{{ __('What language(s) do you speak?') }}" />
       <x-language-picker id="languages" class="mt-1 block" wire:model="state.languages" :defaultLanguages="$this->user->languages"
         shouldDisplayTranslatedLanguage />
-      <x-jet-input-error for="languages" class="mt-2" />
+      <x-input-error for="languages" class="mt-2" />
     </div>
 
     {{-- Newsletter --}}
     <div class="col-span-6 sm:col-span-4" id="newsletter-description">
-      <x-jet-label for="newsletter">
+      <x-label for="newsletter">
         <div class="flex items-center">
-          <x-jet-checkbox id="newsletter" aria-describedby="newsletter-description"
+          <x-checkbox id="newsletter" aria-describedby="newsletter-description"
             wire:model="state.is_subscribed_to_newsletter" />
           <div class="ml-2">
             {{ __('Keep me updated with news related to Vegan Linguists') }}
           </div>
         </div>
-      </x-jet-label>
+      </x-label>
     </div>
   </x-slot>
 
   <x-slot name="actions">
-    <x-jet-action-message class="mr-3" on="saved">
+    <x-action-message class="mr-3" on="saved">
       {{ __('Saved.') }}
-    </x-jet-action-message>
+    </x-action-message>
 
-    <x-jet-button type="submit" wire:loading.attr="disabled" wire:target="photo">
+    <x-button type="submit" wire:loading.attr="disabled" wire:target="photo">
       {{ __('Save') }}
-    </x-jet-button>
+    </x-button>
   </x-slot>
-</x-jet-form-section>
+</x-form-section>

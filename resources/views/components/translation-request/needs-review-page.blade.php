@@ -2,9 +2,9 @@
   <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
   <x-slot name="picker">
-    <x-jet-button @click="Livewire.emit('toggleStartReviewingModal')">
+    <x-button @click="Livewire.emit('toggleStartReviewingModal')">
       {{ __('Start reviewing') }}
-    </x-jet-button>
+    </x-button>
   </x-slot>
 
   <x-slot name="aside">
@@ -59,10 +59,10 @@
             </dd>
           </div>
           @can('claimForReview', $translationRequest)
-            <x-jet-button class="col-span-2 mx-auto justify-center" type="button"
+            <x-button class="col-span-2 mx-auto justify-center" type="button"
               @click.prevent="Livewire.emit('toggleStartReviewingModal')">
               {{ __("I'll review this!") }}
-            </x-jet-button>
+            </x-button>
           @else
             <div class="sm:col-span-2">
               @if (!Auth::user()->hasVerifiedEmail())
@@ -72,10 +72,10 @@
                     @csrf
                     <input type="hidden" name="_method" value="POST" />
 
-                    <x-jet-button element="a" class="w-full justify-center" href="{{ route('verification.send') }}"
+                    <x-button element="a" class="w-full justify-center" href="{{ route('verification.send') }}"
                       x-data="" @click.prevent="$el.closest('form').submit();">
                       {{ __('Resend verification email') }}
-                    </x-jet-button>
+                    </x-button>
                   </form>
                 </x-alert>
               @endif
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <x-jet-dialog-modal wire:model="isConfirmingReview">
+  <x-dialog-modal wire:model="isConfirmingReview">
     <x-slot name="title">
       {{ __('Start Reviewing Translation') }}
     </x-slot>
@@ -111,23 +111,23 @@
             @csrf
             <input type="hidden" name="_method" value="POST" />
 
-            <x-jet-button element="a" class="w-full justify-center" href="{{ route('verification.send') }}"
+            <x-button element="a" class="w-full justify-center" href="{{ route('verification.send') }}"
               x-data="" @click.prevent="$el.closest('form').submit();">
               {{ __('Resend verification email') }}
-            </x-jet-button>
+            </x-button>
           </form>
         @endif
       @endcan
     </x-slot>
 
     <x-slot name="footer">
-      <x-jet-secondary-button wire:click="toggleStartReviewingModal" wire:loading.attr="disabled">
+      <x-secondary-button wire:click="toggleStartReviewingModal" wire:loading.attr="disabled">
         {{ __('Cancel') }}
-      </x-jet-secondary-button>
+      </x-secondary-button>
 
-      <x-jet-button class="ml-2" wire:click="startReviewing" wire:loading.attr="disabled">
+      <x-button class="ml-2" wire:click="startReviewing" wire:loading.attr="disabled">
         {{ __('Start review') }}
-      </x-jet-button>
+      </x-button>
     </x-slot>
-  </x-jet-dialog-modal>
+  </x-dialog-modal>
 </div>

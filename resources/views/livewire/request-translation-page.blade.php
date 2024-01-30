@@ -27,48 +27,48 @@
   </div>
 
   <div class="sticky bottom-0 bg-white p-2 text-right">
-    <x-jet-button type="submit" wire:click="$set('shouldDisplaySubmissionModal', true)" :disabled="mb_strlen(trim($plainText)) === 0">
+    <x-button type="submit" wire:click="$set('shouldDisplaySubmissionModal', true)" :disabled="mb_strlen(trim($plainText)) === 0">
       {{ __('Continue') }}
-    </x-jet-button>
+    </x-button>
   </div>
 
-  <x-jet-dialog-modal wire:model="shouldDisplaySubmissionModal">
+  <x-dialog-modal wire:model="shouldDisplaySubmissionModal">
     <x-slot name="title">
       {{ __('Choose languages') }}
     </x-slot>
 
     <x-slot name="content">
-      <x-jet-validation-errors class="mb-4" />
+      <x-validation-errors class="mb-4" />
 
       <div>
-        <x-jet-label for="title" class="mb-1">
+        <x-label for="title" class="mb-1">
           {{ __('Title') }}
-        </x-jet-label>
-        <x-jet-input id="title" type="text" wire:model.lazy="title" />
+        </x-label>
+        <x-input id="title" type="text" wire:model.lazy="title" />
       </div>
 
       <div class="mt-4">
-        <x-jet-label for="source-language" class="mb-1">
+        <x-label for="source-language" class="mb-1">
           {{ __('Which language is your content written in?') }}
-        </x-jet-label>
+        </x-label>
 
         <x-language-picker id="source-language" resultsClass="z-50" wire:model="sourceLanguageId" :multiSelect="false"
           :defaultLanguages="collect([Auth::user()->languages->first()])" :languages="Auth::user()->languages" />
       </div>
 
       <div class="mt-4">
-        <x-jet-label for="language-picker" class="mb-1">
+        <x-label for="language-picker" class="mb-1">
           {{ __('Which languages would you like your content to be translated to?') }}
-        </x-jet-label>
+        </x-label>
         <x-language-picker id="language-picker" resultsClass="z-50" wire:model="targetLanguages" :shouldDisplayTranslatedLanguage="true"
           :languages="$languages" :defaultLanguages="Auth::user()->default_target_languages" />
       </div>
 
       <div class="mt-4">
-        <x-jet-label for="num-reviewers" class="mb-1">
+        <x-label for="num-reviewers" class="mb-1">
           {{ __('How many reviewers would you like to review the submitted translations?') }}
-        </x-jet-label>
-        <x-jet-input id="num-reviewers" type="text" wire:model.lazy="numReviewers" />
+        </x-label>
+        <x-input id="num-reviewers" type="text" wire:model.lazy="numReviewers" />
       </div>
 
       <div class="mt-4">
@@ -82,16 +82,16 @@
     </x-slot>
 
     <x-slot name="footer">
-      <x-jet-secondary-button type="button" wire:click="$set('shouldDisplaySubmissionModal', false)">
+      <x-secondary-button type="button" wire:click="$set('shouldDisplaySubmissionModal', false)">
         {{ __('Cancel') }}
-      </x-jet-secondary-button>
+      </x-secondary-button>
 
-      <x-jet-button type="submit" class="ml-2" dusk="confirm-password-button" @click="window.hasChanges = false"
+      <x-button type="submit" class="ml-2" dusk="confirm-password-button" @click="window.hasChanges = false"
         wire:click="requestTranslation" wire:loading.attr="disabled" :disabled="count($targetLanguages) === 0">
         {{ __('Submit') }}
-      </x-jet-button>
+      </x-button>
     </x-slot>
-  </x-jet-dialog-modal>
+  </x-dialog-modal>
 
   <script nonce="{{ csp_nonce() }}">
     (function() {

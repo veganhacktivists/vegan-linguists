@@ -11,7 +11,7 @@ $confirmableId = md5($attributes->wire('then'));
 </span>
 
 @once
-  <x-jet-dialog-modal wire:model="confirmingPassword">
+  <x-dialog-modal wire:model="confirmingPassword">
     <x-slot name="title">
       {{ $title }}
     </x-slot>
@@ -24,19 +24,19 @@ $confirmableId = md5($attributes->wire('then'));
         <x-password-input class="mt-1 block" containerClass="w-3/4" placeholder="{{ __('Password') }}"
           wire:model.defer="confirmablePassword" wire:keydown.enter="confirmPassword" />
 
-        <x-jet-input-error for="confirmable_password" class="mt-2" />
+        <x-input-error for="confirmable_password" class="mt-2" />
       </div>
     </x-slot>
 
     <x-slot name="footer">
-      <x-jet-secondary-button type="button" wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
+      <x-secondary-button type="button" wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
         {{ __('Cancel') }}
-      </x-jet-secondary-button>
+      </x-secondary-button>
 
-      <x-jet-button type="submit" class="ml-2" dusk="confirm-password-button" wire:click="confirmPassword"
+      <x-button type="submit" class="ml-2" dusk="confirm-password-button" wire:click="confirmPassword"
         wire:loading.attr="disabled">
         {{ $button }}
-      </x-jet-button>
+      </x-button>
     </x-slot>
-  </x-jet-dialog-modal>
+  </x-dialog-modal>
 @endonce

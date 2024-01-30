@@ -1,5 +1,5 @@
 <div class="{{ $containerClass ?? '' }} relative" x-data="{ show: false }">
-  <x-jet-input x-bind:type="show ? 'text' : 'password'" {{ $attributes->merge([
+  <x-input x-bind:type="show ? 'text' : 'password'" {{ $attributes->merge([
       'class' => 'pr-10 w-full',
   ]) }} />
   <button class="absolute right-2 top-2" type="button" @click="show = !show"

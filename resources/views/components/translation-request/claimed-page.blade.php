@@ -2,36 +2,36 @@
   <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
   <x-slot name="picker">
-    <x-jet-dropdown align="left" width="48">
+    <x-dropdown align="left" width="48">
       <x-slot name="trigger">
-        <x-jet-button>
+        <x-button>
           {{ __('Menu') }}
-        </x-jet-button>
+        </x-button>
       </x-slot>
 
       <x-slot name="content">
-        <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'source')">
+        <x-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'source')">
           {{ __('Original content') }}
-        </x-jet-dropdown-link>
+        </x-dropdown-link>
 
-        <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'discussion')">
+        <x-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'discussion')">
           {{ __('Discussion') }}
-        </x-jet-dropdown-link>
+        </x-dropdown-link>
 
         @if ($translationRequest->isClaimed())
           <div class="border-t border-brand-brown-200"></div>
 
-          <x-jet-dropdown-link href="#" aria-role="button"
+          <x-dropdown-link href="#" aria-role="button"
             @click.prevent="Livewire.emit('toggleSubmissionModal')">
             {{ __('Submit translation') }}
-          </x-jet-dropdown-link>
+          </x-dropdown-link>
 
-          <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.emit('toggleUnclaimModal')">
+          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.emit('toggleUnclaimModal')">
             {{ __('Unclaim') }}
-          </x-jet-dropdown-link>
+          </x-dropdown-link>
         @endif
       </x-slot>
-    </x-jet-dropdown>
+    </x-dropdown>
   </x-slot>
 
   <div class="flex h-full bg-white" x-data="{ tab: window.location.hash === '#discussion' ? 'discussion' : 'source' }"
@@ -95,12 +95,12 @@
             </div>
             <div class="flex gap-2 text-right">
               @if ($translationRequest->isClaimed())
-                <x-jet-danger-button wire:click="toggleUnclaimModal" type="button">
+                <x-danger-button wire:click="toggleUnclaimModal" type="button">
                   {{ __('Unclaim') }}
-                </x-jet-danger-button>
-                <x-jet-button wire:click="toggleSubmissionModal" type="button">
+                </x-danger-button>
+                <x-button wire:click="toggleSubmissionModal" type="button">
                   {{ __('Submit translation') }}
-                </x-jet-button>
+                </x-button>
               @endif
             </div>
         </div>
@@ -118,7 +118,7 @@
         {{ __('Saved') }}
       </x-success-toast>
 
-      <x-jet-confirmation-modal wire:model="isConfirmingUnclaim">
+      <x-confirmation-modal wire:model="isConfirmingUnclaim">
         <x-slot name="title">
           {{ __('Unclaim Translation Request') }}
         </x-slot>
@@ -128,17 +128,17 @@
         </x-slot>
 
         <x-slot name="footer">
-          <x-jet-secondary-button wire:click="toggleUnclaimModal" wire:loading.attr="disabled">
+          <x-secondary-button wire:click="toggleUnclaimModal" wire:loading.attr="disabled">
             {{ __('Cancel') }}
-          </x-jet-secondary-button>
+          </x-secondary-button>
 
-          <x-jet-danger-button class="ml-2" wire:click="unclaimTranslationRequest" wire:loading.attr="disabled">
+          <x-danger-button class="ml-2" wire:click="unclaimTranslationRequest" wire:loading.attr="disabled">
             {{ __('Unclaim') }}
-          </x-jet-danger-button>
+          </x-danger-button>
         </x-slot>
-      </x-jet-confirmation-modal>
+      </x-confirmation-modal>
 
-      <x-jet-dialog-modal wire:model="isConfirmingSubmission">
+      <x-dialog-modal wire:model="isConfirmingSubmission">
         <x-slot name="title">
           {{ __('Submit Translation') }}
         </x-slot>
@@ -149,19 +149,19 @@
             {{ __('Make sure you are finished, because this cannot be undone.') }}
           </strong>
 
-          <x-jet-validation-errors class="mt-3" />
+          <x-validation-errors class="mt-3" />
         </x-slot>
 
         <x-slot name="footer">
-          <x-jet-secondary-button wire:click="toggleSubmissionModal" wire:loading.attr="disabled">
+          <x-secondary-button wire:click="toggleSubmissionModal" wire:loading.attr="disabled">
             {{ __('Cancel') }}
-          </x-jet-secondary-button>
+          </x-secondary-button>
 
-          <x-jet-button class="ml-2" wire:click="submitTranslation" wire:loading.attr="disabled">
+          <x-button class="ml-2" wire:click="submitTranslation" wire:loading.attr="disabled">
             {{ __('Submit') }}
-          </x-jet-button>
+          </x-button>
         </x-slot>
-      </x-jet-dialog-modal>
+      </x-dialog-modal>
     </div>
   </div>
 </div>
