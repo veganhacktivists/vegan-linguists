@@ -1,5 +1,5 @@
 <div
-  class="fixed inset-x-0 bottom-0 flex justify-between border border-t-brand-beige-500 bg-brand-beige-100 p-3 text-sm text-brand-brown-800 shadow-lg"
+  class="fixed bottom-0 inset-x-0 md:left-1/2 md:-translate-x-1/2 md:w-1/2 flex justify-between border border-t-brand-beige-500 bg-brand-beige-100 p-3 text-sm text-brand-brown-800 shadow-lg"
   id="cookie-banner" x-cloak>
   <p class="flex items-center pr-6">
     <span>
