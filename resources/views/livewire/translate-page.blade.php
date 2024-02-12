@@ -1,3 +1,4 @@
+<div>
 @switch (true)
   @case($isMine)
     <x-translation-request.claimed-page :translationRequest="$translationRequest" />
@@ -20,3 +21,4 @@
   @break
 
 @endswitch
+</div>
