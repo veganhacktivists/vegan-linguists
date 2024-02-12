@@ -2,7 +2,7 @@
   <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
   <x-slot name="picker">
-    <x-button @click="Livewire.emit('toggleClaimModal')">
+    <x-button @click="Livewire.dispatch('toggleClaimModal')">
       {{ __('Claim') }}
     </x-button>
   </x-slot>
@@ -52,7 +52,7 @@
           </div>
           @can('claim', $translationRequest)
             <x-button class="col-span-2 mx-auto justify-center" type="button"
-              @click.prevent="Livewire.emit('toggleClaimModal')">
+              @click.prevent="Livewire.dispatch('toggleClaimModal')">
               {{ __("I'll translate this!") }}
             </x-button>
           @else

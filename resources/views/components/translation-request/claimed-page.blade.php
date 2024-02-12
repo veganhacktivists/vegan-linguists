@@ -22,11 +22,11 @@
           <div class="border-t border-brand-brown-200"></div>
 
           <x-dropdown-link href="#" aria-role="button"
-            @click.prevent="Livewire.emit('toggleSubmissionModal')">
+            @click.prevent="Livewire.dispatch('toggleSubmissionModal')">
             {{ __('Submit translation') }}
           </x-dropdown-link>
 
-          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.emit('toggleUnclaimModal')">
+          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.dispatch('toggleUnclaimModal')">
             {{ __('Unclaim') }}
           </x-dropdown-link>
         @endif

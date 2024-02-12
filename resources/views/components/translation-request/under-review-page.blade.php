@@ -70,7 +70,7 @@ $helpTourSteps = [
         @can('approve', $translationRequest)
           <div class="border-t border-brand-brown-200"></div>
 
-          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.emit('toggleApprovalModal')">
+          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.dispatch('toggleApprovalModal')">
             {{ __('Approve translation') }}
           </x-dropdown-link>
         @endcan
