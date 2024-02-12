@@ -42,7 +42,7 @@ services:
             retries: 3
             timeout: 5s
     mysql_test:
-        image: "mariadb"
+        image: "mariadb:10.11"
         environment:
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
             MYSQL_DATABASE: "${DB_DATABASE}"
@@ -62,7 +62,5 @@ networks:
     sail:
         driver: bridge
 volumes:
-    sailmysql:
-        driver: local
-    sailredis:
+    veganlinguists_db:
         driver: local
