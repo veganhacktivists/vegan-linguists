@@ -181,7 +181,7 @@ class TranslatePage extends Component
         $this->authorize('review', $this->translationRequest);
 
         $this->dispatch('change-tab', 'discussion');
-        $this->dispatchBrowserEvent(
+        $this->dispatch(
             'comment-quote',
             content: json_decode($selection['content']),
             metadata: [
