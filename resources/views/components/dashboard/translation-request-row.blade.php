@@ -17,7 +17,7 @@
       <div class="mt-2 sm:flex sm:justify-between">
         <div class="sm:flex">
           <p class="flex items-center text-brand-brown-600">
-            <x-heroicon-o-translate class="mr-1.5 h-5 w-5 flex-shrink-0 text-brand-brown-500" />
+            <x-heroicon-o-language class="mr-1.5 h-5 w-5 flex-shrink-0 text-brand-brown-500" />
             {{ $translationRequest->source->language->native_name }}
           </p>
           <p class="mt-2 flex items-center text-brand-brown-600 sm:mt-0 sm:ml-6">

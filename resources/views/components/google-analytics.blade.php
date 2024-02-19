@@ -1,6 +1,6 @@
 @if (config('app.env') === 'production')
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y7TQD4J5Z7" nonce="{{ csp_nonce() }}"></script>
-  <script nonce="{{ csp_nonce() }}">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y7TQD4J5Z7"></script>
+  <script>
     (function() {
       window.dataLayer = window.dataLayer || [];
 

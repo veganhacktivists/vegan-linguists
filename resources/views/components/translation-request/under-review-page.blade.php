@@ -51,31 +51,31 @@ $helpTourSteps = [
   <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
   <x-slot name="picker">
-    <x-jet-dropdown align="left" width="48">
+    <x-dropdown align="left" width="48">
       <x-slot name="trigger">
-        <x-jet-button>
+        <x-button>
           {{ __('Menu') }}
-        </x-jet-button>
+        </x-button>
       </x-slot>
 
       <x-slot name="content">
-        <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'source')">
+        <x-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'source')">
           {{ __('Original content') }}
-        </x-jet-dropdown-link>
+        </x-dropdown-link>
 
-        <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'discussion')">
+        <x-dropdown-link href="#" aria-role="button" @click.prevent="$dispatch('change-tab', 'discussion')">
           {{ __('Discussion') }}
-        </x-jet-dropdown-link>
+        </x-dropdown-link>
 
         @can('approve', $translationRequest)
           <div class="border-t border-brand-brown-200"></div>
 
-          <x-jet-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.emit('toggleApprovalModal')">
+          <x-dropdown-link href="#" aria-role="button" @click.prevent="Livewire.dispatch('toggleApprovalModal')">
             {{ __('Approve translation') }}
-          </x-jet-dropdown-link>
+          </x-dropdown-link>
         @endcan
       </x-slot>
-    </x-jet-dropdown>
+    </x-dropdown>
   </x-slot>
 
   <div class="flex h-full bg-white" x-data="{ tab: window.location.hash === '#discussion' ? 'discussion' : 'source' }"
@@ -120,9 +120,9 @@ $helpTourSteps = [
               <x-rich-text-editor :content="$translationRequest->content"
                 @highlight-annotation.window="highlight($event.detail.index, $event.detail.length)" :isReadOnly="true">
                 <x-slot name="inlineToolbar">
-                  <x-jet-primary-button @click="$wire.startReviewComment(selection)">
+                  <x-primary-button @click="$wire.startReviewComment(selection)">
                     {{ __('Comment') }}
-                  </x-jet-primary-button>
+                  </x-primary-button>
                 </x-slot>
               </x-rich-text-editor>
             </div>
@@ -137,9 +137,9 @@ $helpTourSteps = [
                 id="helpButton" @click="start()">
                 <x-heroicon-o-question-mark-circle class="h-6 w-6" />
               </x-tour>
-              <x-jet-button wire:click="toggleApprovalModal" type="button" id="approveButton">
+              <x-button wire:click="toggleApprovalModal" type="button" id="approveButton">
                 {{ __('Approve translation') }}
-              </x-jet-button>
+              </x-button>
             @else
               <div class="w-full px-4 text-center">
                 @if ($translationRequest->isComplete())
@@ -153,7 +153,7 @@ $helpTourSteps = [
         </div>
       </div>
 
-      <x-jet-dialog-modal wire:model="isConfirmingApproval">
+      <x-dialog-modal wire:model.live="isConfirmingApproval">
         <x-slot name="title">
           {{ __('Approve Translation') }}
         </x-slot>
@@ -164,19 +164,19 @@ $helpTourSteps = [
             {{ __('Make sure you are completely satisfied with the translation, because this cannot be undone.') }}
           </strong>
 
-          <x-jet-validation-errors class="mt-3" />
+          <x-validation-errors class="mt-3" />
         </x-slot>
 
         <x-slot name="footer">
-          <x-jet-secondary-button wire:click="toggleApprovalModal" wire:loading.attr="disabled">
+          <x-secondary-button wire:click="toggleApprovalModal" wire:loading.attr="disabled">
             {{ __('Cancel') }}
-          </x-jet-secondary-button>
+          </x-secondary-button>
 
-          <x-jet-button class="ml-2" wire:click="approveTranslation" wire:loading.attr="disabled">
+          <x-button class="ml-2" wire:click="approveTranslation" wire:loading.attr="disabled">
             {{ __('Approve') }}
-          </x-jet-button>
+          </x-button>
         </x-slot>
-      </x-jet-dialog-modal>
+      </x-dialog-modal>
     </div>
   </div>
 </div>

@@ -1,25 +1,27 @@
 .landing-hero {
   background: radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)),
-    url(/img/noise.png);
+    url(../../../public/img/noise.png);
   background-size: 100%, auto;
 }
 
 @screen lg {
   .landing-hero {
-    background: url(/img/hero-left.png) 5% center no-repeat,
-      url(/img/hero-right.png) 95% center no-repeat,
+    background:
+      url(../../../public/img/hero-left.png) 5% center no-repeat,
+      url(../../../public/img/hero-right.png) 95% center no-repeat,
       radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)),
-      url(/img/noise.png);
+      url(../../../public/img/noise.png);
     background-size: 20%, 20%, 100%;
   }
 }
 
 @screen xl {
   .landing-hero {
-    background: url(/img/hero-left.png) 5% center no-repeat,
-      url(/img/hero-right.png) 95% center no-repeat,
+    background:
+      url(../../../public/img/hero-left.png) 5% center no-repeat,
+      url(../../../public/img/hero-right.png) 95% center no-repeat,
       radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)),
-      url(/img/noise.png);
+      url(../../../public/img/noise.png);
 
     background-size: 25%, 25%, 100%;
   }
@@ -27,10 +29,11 @@
 
 @screen 2xl {
   .landing-hero {
-    background: url(/img/hero-left.png) 2% center no-repeat,
-      url(/img/hero-right.png) 98% center no-repeat,
+    background:
+      url(../../../public/img/hero-left.png) 2% center no-repeat,
+      url(../../../public/img/hero-right.png) 98% center no-repeat,
       radial-gradient(transparent 50%, rgba(147, 119, 94, 0.5)),
-      url(/img/noise.png);
+      url(../../../public/img/noise.png);
 
     background-size: contain, contain, 100%;
   }
@@ -38,10 +41,10 @@
 
 .landing-video-section {
   background: linear-gradient(0, transparent, rgba(163, 86, 62, 0.7)),
-    url(/img/chat-bubble-pattern.png);
+    url(../../../public/img/chat-bubble-pattern.png);
 }
 
 .landing-get-started {
   background: linear-gradient(0, transparent, rgba(163, 86, 62, 0.7)),
-    url(/img/chat-bubble-pattern.png);
+    url(../../../public/img/chat-bubble-pattern.png);
 }

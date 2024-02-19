@@ -15,9 +15,9 @@
   </div>
 
   <div class="mt-4 text-right">
-    <x-jet-button type="submit" :disabled="mb_strlen(trim($plainText)) === 0" wire:loading.attr="disabled" wire:click="saveComment">
+    <x-button type="submit" :disabled="mb_strlen(trim($plainText)) === 0" wire:loading.attr="disabled" wire:click="saveComment">
       {{ __('Comment') }}
-    </x-jet-button>
+    </x-button>
   </div>
 
   @if ($commentable->comments->count() > 0)
@@ -35,7 +35,7 @@
                     class="flex h-10 w-10 items-center justify-center bg-brand-clay-200 ring-8 ring-white" />
 
                   <span class="absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
-                    <x-heroicon-s-chat-alt class="h-5 w-5 text-brand-clay-400" />
+                    <x-heroicon-s-chat-bubble-left-ellipsis class="h-5 w-5 text-brand-clay-400" />
                   </span>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -56,16 +56,16 @@
                         <div class="flex gap-2">
                           @php($index = $comment->metadata['annotation']['index'])
                           @php($length = $comment->metadata['annotation']['length'])
-                          <x-jet-secondary-button
+                          <x-secondary-button
                             @click="$dispatch('highlight-annotation', { index: {{ $index }}, length: {{ $length }} })">
                             {{ __('Jump to annotation') }}
-                          </x-jet-secondary-button>
+                          </x-secondary-button>
 
                           @if (!$comment->is_resolved)
                             @can('resolveComment', $commentable)
-                              <x-jet-button wire:click="resolveComment({{ $comment->id }})">
+                              <x-button wire:click="resolveComment({{ $comment->id }})">
                                 {{ __('Mark resolved') }}
-                              </x-jet-button>
+                              </x-button>
                             @else
                               <div
                                 class="flex items-center gap-2 rounded bg-brand-clay-400 px-4 text-xs font-bold text-white">

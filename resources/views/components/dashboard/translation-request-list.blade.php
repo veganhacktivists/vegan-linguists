@@ -17,7 +17,7 @@
             </p>
             <p class="flex items-center truncate text-sm text-brand-brown-700">
               {{ $translationRequest->source->language->native_name }}
-              <x-heroicon-o-arrow-sm-right class="h-4 w-4" />
+              <x-heroicon-o-arrow-small-right class="h-4 w-4" />
               {{ $translationRequest->language->native_name }}
             </p>
           </div>

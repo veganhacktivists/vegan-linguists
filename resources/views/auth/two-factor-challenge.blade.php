@@ -1,5 +1,5 @@
 <x-guest-layout>
-  <x-jet-authentication-card>
+  <x-authentication-card>
     <x-slot name="logo">
       <x-icon-logo-with-text class="w-56 sm:w-80" />
     </x-slot>
@@ -13,20 +13,20 @@
         {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
       </div>
 
-      <x-jet-validation-errors class="mb-4" />
+      <x-validation-errors class="mb-4" />
 
       <form method="POST" action="{{ route('two-factor.login') }}">
         @csrf
 
         <div class="mt-4" x-show="! recovery">
-          <x-jet-label for="code" value="{{ __('Code') }}" />
-          <x-jet-input id="code" class="mt-1 block w-full" type="text" inputmode="numeric" name="code"
+          <x-label for="code" value="{{ __('Code') }}" />
+          <x-input id="code" class="mt-1 block w-full" type="text" inputmode="numeric" name="code"
             autofocus x-ref="code" autocomplete="off" />
         </div>
 
         <div class="mt-4" x-show="recovery">
-          <x-jet-label for="recovery_code" value="{{ __('Recovery Code') }}" />
-          <x-jet-input id="recovery_code" class="mt-1 block w-full" type="text" name="recovery_code"
+          <x-label for="recovery_code" value="{{ __('Recovery Code') }}" />
+          <x-input id="recovery_code" class="mt-1 block w-full" type="text" name="recovery_code"
             x-ref="recovery_code" autocomplete="off" />
         </div>
 
@@ -49,11 +49,11 @@
             {{ __('Use an authentication code') }}
           </button>
 
-          <x-jet-button type="submit" class="ml-4">
+          <x-button type="submit" class="ml-4">
             {{ __('Log in') }}
-          </x-jet-button>
+          </x-button>
         </div>
       </form>
     </div>
-  </x-jet-authentication-card>
+  </x-authentication-card>
 </x-guest-layout>

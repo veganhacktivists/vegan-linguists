@@ -18,9 +18,9 @@ use App\Notifications\TranslationSubmittedNotification;
     </h2>
 
     <div>
-      <x-jet-secondary-button type="button" wire:click="markAllAsRead">
+      <x-secondary-button type="button" wire:click="markAllAsRead">
         {{ __('Mark all as read') }}
-      </x-jet-secondary-button>
+      </x-secondary-button>
     </div>
   </div>
 

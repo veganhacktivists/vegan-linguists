@@ -2,9 +2,9 @@
   <x-slot name="pageTitle">{{ $translationRequest->source->title }}</x-slot>
 
   <x-slot name="picker">
-    <x-jet-button @click="Livewire.emit('toggleClaimModal')">
+    <x-button @click="Livewire.dispatch('toggleClaimModal')">
       {{ __('Claim') }}
-    </x-jet-button>
+    </x-button>
   </x-slot>
 
   <x-slot name="aside">
@@ -51,28 +51,28 @@
             </dd>
           </div>
           @can('claim', $translationRequest)
-            <x-jet-button class="col-span-2 mx-auto justify-center" type="button"
-              @click.prevent="Livewire.emit('toggleClaimModal')">
+            <x-button class="col-span-2 mx-auto justify-center" type="button"
+              @click.prevent="Livewire.dispatch('toggleClaimModal')">
               {{ __("I'll translate this!") }}
-            </x-jet-button>
+            </x-button>
           @else
             <div class="sm:col-span-2">
               @if (Auth::user()->hasVerifiedEmail())
                 <x-alert title="{{ __('Claimed translation request limit reached') }}" type="warning"
-                  icon="o-exclamation">
+                  icon="o-exclamation-triangle">
                   {{ __('You have reached the claimed translation request limit. Please finish your claimed requests before attempting to claim more.') }}
                 </x-alert>
               @else
-                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation">
+                <x-alert title="{{ __('Email verification required') }}" type="warning" icon="o-exclamation-triangle">
                   {{ __('Before being able to translate content, you must verify your email address.') }}
                   <form method="POST" action="{{ route('verification.send') }}" class="mt-2">
                     @csrf
                     <input type="hidden" name="_method" value="POST" />
 
-                    <x-jet-button element="a" href="{{ route('verification.send') }}" class="w-full justify-center"
+                    <x-button element="a" href="{{ route('verification.send') }}" class="w-full justify-center"
                       x-data="" @click.prevent="$el.closest('form').submit();">
                       {{ __('Resend verification email') }}
-                    </x-jet-button>
+                    </x-button>
                   </form>
                 </x-alert>
               @endif
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <x-jet-dialog-modal wire:model="isConfirmingClaim">
+      <x-dialog-modal wire:model.live="isConfirmingClaim">
         <x-slot name="title">
           {{ __('Claim Translation Request') }}
         </x-slot>
@@ -107,10 +107,10 @@
               @csrf
               <input type="hidden" name="_method" value="POST" />
 
-              <x-jet-button element="a" href="{{ route('verification.send') }}" class="w-full justify-center"
+              <x-button element="a" href="{{ route('verification.send') }}" class="w-full justify-center"
                 x-data="" @click.prevent="$el.closest('form').submit();">
                 {{ __('Resend verification email') }}
-              </x-jet-button>
+              </x-button>
             </form>
           @else
             {{ __('You have reached the claimed translation request limit. Please finish your claimed requests before attempting to claim more.') }}
@@ -118,17 +118,17 @@
         </x-slot>
 
         <x-slot name="footer">
-          <x-jet-secondary-button wire:click="toggleClaimModal" wire:loading.attr="disabled">
+          <x-secondary-button wire:click="toggleClaimModal" wire:loading.attr="disabled">
             {{ __('Cancel') }}
-          </x-jet-secondary-button>
+          </x-secondary-button>
 
           @can('claim', $translationRequest)
-            <x-jet-button class="ml-2" wire:click="claimTranslationRequest" wire:loading.attr="disabled">
+            <x-button class="ml-2" wire:click="claimTranslationRequest" wire:loading.attr="disabled">
               {{ __('Claim') }}
-            </x-jet-button>
+            </x-button>
           @endcan
         </x-slot>
-      </x-jet-dialog-modal>
+      </x-dialog-modal>
     </div>
   </div>
 </div>

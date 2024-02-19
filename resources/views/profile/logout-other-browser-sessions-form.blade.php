@@ -1,4 +1,4 @@
-<x-jet-action-section>
+<x-action-section>
   <x-slot name="title">
     {{ __('Browser Sessions') }}
   </x-slot>
@@ -58,17 +58,17 @@
     @endif
 
     <div class="mt-5 flex items-center">
-      <x-jet-button type="submit" wire:click="confirmLogout" wire:loading.attr="disabled">
+      <x-button type="submit" wire:click="confirmLogout" wire:loading.attr="disabled">
         {{ __('Log out other browser sessions') }}
-      </x-jet-button>
+      </x-button>
 
-      <x-jet-action-message class="ml-3" on="loggedOut">
+      <x-action-message class="ml-3" on="loggedOut">
         {{ __('Done.') }}
-      </x-jet-action-message>
+      </x-action-message>
     </div>
 
     {{-- Log Out Other Devices Confirmation Modal --}}
-    <x-jet-dialog-modal wire:model="confirmingLogout">
+    <x-dialog-modal wire:model.live="confirmingLogout">
       <x-slot name="title">
         {{ __('Log out other browser sessions') }}
       </x-slot>
@@ -79,22 +79,22 @@
         <div class="mt-4" x-data="{}"
           x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $el.querySelector('input[type=password]').focus(), 250)">
           <x-password-input class="mt-1 block" containerClass="w-3/4" placeholder="{{ __('Password') }}"
-            wire:model.defer="password" wire:keydown.enter="logoutOtherBrowserSessions" />
+            wire:model="password" wire:keydown.enter="logoutOtherBrowserSessions" />
 
-          <x-jet-input-error for="password" class="mt-2" />
+          <x-input-error for="password" class="mt-2" />
         </div>
       </x-slot>
 
       <x-slot name="footer">
-        <x-jet-secondary-button type="button" wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled">
+        <x-secondary-button type="button" wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled">
           {{ __('Cancel') }}
-        </x-jet-secondary-button>
+        </x-secondary-button>
 
-        <x-jet-button class="ml-2" type="submit" wire:click="logoutOtherBrowserSessions"
+        <x-button class="ml-2" type="submit" wire:click="logoutOtherBrowserSessions"
           wire:loading.attr="disabled">
           {{ __('Log out other browser sessions') }}
-        </x-jet-button>
+        </x-button>
       </x-slot>
-    </x-jet-dialog-modal>
+    </x-dialog-modal>
   </x-slot>
-</x-jet-action-section>
+</x-action-section>

@@ -16,14 +16,14 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-  @stack('styles')
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+  {{-- Scripts --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+  {{-- Styles --}}
   @livewireStyles
 
+
   <x-google-analytics />
-  <script src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}" defer></script>
-  @stack('scripts')
 </head>
 
 <body class="bg-brand-beige-100 bg-opacity-60 font-sans text-brand-brown-900 antialiased">
@@ -55,7 +55,7 @@
                 {{ __('Completed Translations') }}
               </x-sidebar-link>
             @else
-              <x-sidebar-link href="{{ unclaimedTranslationRequestsRoute() }}" :active="empty($filter) && $isOnTranslationRequestsPage" icon="o-search">
+              <x-sidebar-link href="{{ unclaimedTranslationRequestsRoute() }}" :active="empty($filter) && $isOnTranslationRequestsPage" icon="o-magnifying-glass">
                 {{ __('Browse Translation Requests') }}
               </x-sidebar-link>
 
@@ -66,12 +66,12 @@
               <x-sidebar-separator />
 
               <x-sidebar-link href="{{ reviewableTranslationRequestsRoute() }}" :active="$filter === 'reviewable' && $isOnTranslationRequestsPage"
-                icon="o-document-search">
+                icon="o-document-magnifying-glass">
                 {{ __('Browse Reviewable Translations') }}
               </x-sidebar-link>
 
               <x-sidebar-link href="{{ underReviewTranslationRequestsRoute() }}" :active="$filter === 'under-review' && $isOnTranslationRequestsPage"
-                icon="o-switch-horizontal">
+                icon="o-arrows-right-left">
                 {{ __('Translations Under Review') }}
               </x-sidebar-link>
 
@@ -91,7 +91,7 @@
       <main class="flex min-w-0 flex-1 flex-col overflow-auto border-t border-brand-brown-200 lg:flex-row">
         <section aria-labelledby="primary-heading"
           class="{{ !empty($containContent) ? 'h-full' : '' }} min-w-0 flex-1 flex-col lg:order-last">
-          <x-jet-banner />
+          <x-banner />
 
           {{ $slot }}
         </section>
@@ -120,7 +120,7 @@
   <x-cookie-banner />
   @stack('modals')
 
-  @livewireScripts(['nonce' => csp_nonce()])
+ @livewireScripts
 </body>
 
 </html>

@@ -9,7 +9,12 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+  {{-- Scripts --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  {{-- Styles --}}
+  @livewireStyles
 
   <x-google-analytics />
 </head>
@@ -53,9 +58,9 @@
           </p>
           <div class="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
             <div class="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-4 sm:space-y-0">
-              <x-jet-primary-button element="a" class="flex justify-center" href="{{ route('register') }}">
+              <x-primary-button element="a" class="flex justify-center" href="{{ route('register') }}">
                 {{ __('Get content translated') }}
-              </x-jet-primary-button>
+              </x-primary-button>
               <a href="{{ route('register') }}"
                 class="flex items-center justify-center rounded-md border border-transparent bg-brand-clay-500 px-3 py-2 text-base font-bold text-white shadow-sm hover:bg-brand-clay-600">
                 {{ __('Translate content') }}
@@ -94,9 +99,9 @@
                 {{ __("Volunteer translators will translate your content for free. All you need to do is sign up and submit your content. They'll take care of the rest.") }}
               </p>
               <div class="mt-6">
-                <x-jet-primary-button element="a" href="{{ route('register') }}">
+                <x-primary-button element="a" href="{{ route('register') }}">
                   {{ __('Get started') }}
-                </x-jet-primary-button>
+                </x-primary-button>
               </div>
             </div>
           </div>
@@ -123,9 +128,9 @@
                 {{ __('We need your help to build bridges across languages and cultures. Register to find vegan content that needs to be translated to the languages you speak.') }}
               </p>
               <div class="mt-6">
-                <x-jet-primary-button element="a" href="{{ route('register') }}">
+                <x-primary-button element="a" href="{{ route('register') }}">
                   {{ __('Get started') }}
-                </x-jet-primary-button>
+                </x-primary-button>
               </div>
             </div>
           </div>
@@ -349,7 +354,7 @@
             action="https://veganhacktivists.us20.list-manage.com/subscribe/post?u=0baba35be8f6397f7ac1066f1&amp;id=f4cb014082"
             method="post" target="_blank">
             <label for="email-address" class="sr-only">{{ __('Email address') }}</label>
-            <x-jet-input type="email" name="EMAIL" id="email-address" autocomplete="email" required
+            <x-input type="email" name="EMAIL" id="email-address" autocomplete="email" required
               placeholder="{{ __('Enter your email') }}" />
 
             {{-- Bot honey pot --}}
@@ -357,9 +362,9 @@
                 name="b_0baba35be8f6397f7ac1066f1_5fd11d4221" tabindex="-1" value=""></div>
 
             <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-              <x-jet-button type="submit">
+              <x-button type="submit">
                 {{ __('Subscribe') }}
-              </x-jet-button>
+              </x-button>
             </div>
           </form>
         </div>
@@ -385,5 +390,5 @@
   </footer>
   <x-cookie-banner />
 </body>
-
+ @livewireScripts
 </html>

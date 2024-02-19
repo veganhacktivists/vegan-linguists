@@ -1,5 +1,5 @@
 <div
-  class="fixed inset-x-0 bottom-0 flex justify-between border border-t-brand-beige-500 bg-brand-beige-100 p-3 text-sm text-brand-brown-800 shadow-lg"
+  class="fixed bottom-0 inset-x-0 md:left-1/2 md:-translate-x-1/2 md:w-1/2 flex justify-between border border-t-brand-beige-500 bg-brand-beige-100 p-3 text-sm text-brand-brown-800 shadow-lg"
   id="cookie-banner" x-cloak>
   <p class="flex items-center pr-6">
     <span>
@@ -20,10 +20,10 @@
   </p>
   <button id="btn-dismiss-cookie-banner">
     <div class="sr-only">{{ __('Dismiss') }}</div>
-    <x-heroicon-o-x class="h-6 w-6" />
+    <x-heroicon-o-x-mark class="h-6 w-6" />
   </button>
 </div>
-<script nonce="{{ csp_nonce() }}">
+<script>
   (function() {
     const isDismissed = localStorage.getItem('cookieBannerDismissed')
     if (!isDismissed) {

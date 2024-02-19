@@ -5,32 +5,30 @@
   "keywords": ["framework", "laravel"],
   "license": "MIT",
   "require": {
-    "php": "^8.0",
-    "bepsvpt/secure-headers": "^7.2",
-    "blade-ui-kit/blade-heroicons": "^1.2",
-    "doctrine/dbal": "^3.1",
-    "fruitcake/laravel-cors": "^2.0",
-    "genealabs/laravel-caffeine": "^9.0",
-    "guzzlehttp/guzzle": "^7.0.1",
-    "itsgoingd/clockwork": "^5.1",
-    "laravel/framework": "^9.0",
-    "laravel/jetstream": "^2.3",
-    "laravel/sanctum": "^2.6",
-    "laravel/tinker": "^2.5",
-    "livewire/livewire": "^2.5",
-    "mailchimp/marketing": "^3.0",
-    "renatomarinho/laravel-page-speed": "^2.0",
-    "spatie/laravel-webhook-client": "^3.1"
+    "php": "^8.3",
+    "blade-ui-kit/blade-heroicons": "2.2.1",
+    "doctrine/dbal": "3.8.0",
+    "genealabs/laravel-caffeine": "10.0.1",
+    "guzzlehttp/guzzle": "7.8.1",
+    "itsgoingd/clockwork": "v5.1.12",
+    "laravel/framework": "v10.42.0",
+    "laravel/jetstream": "v4.2.2",
+    "laravel/sanctum": "v3.3.3",
+    "laravel/tinker": "v2.9.0",
+    "livewire/livewire": "v3.4.4",
+    "mailchimp/marketing": "3.0.80",
+    "spatie/laravel-webhook-client": "3.2.0"
   },
   "require-dev": {
-    "spatie/laravel-ignition": "^1.0",
-    "fakerphp/faker": "^1.9.1",
-    "laravel/sail": "^1.0.1",
-    "mockery/mockery": "^1.5",
-    "nunomaduro/collision": "^6.1",
-    "pestphp/pest": "^1.21",
-    "pestphp/pest-plugin-laravel": "^1.2",
-    "pestphp/pest-plugin-mock": "^1.0"
+    "barryvdh/laravel-ide-helper": "^2.13@dev",
+    "fakerphp/faker": "v1.23.1",
+    "laravel/pint": "^1.13",
+    "laravel/sail": "v1.27.2",
+    "mockery/mockery": "1.6.7",
+    "nunomaduro/collision": "v7.10.0",
+    "pestphp/pest": "v2.33.2",
+    "pestphp/pest-plugin-laravel": "v2.2.0",
+    "spatie/laravel-ignition": "2.4.1"
   },
   "autoload": {
     "files": ["app/Helpers/ViewHelpers.php"],
@@ -51,13 +49,18 @@
       "@php artisan package:discover --ansi"
     ],
     "post-update-cmd": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi"
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+      "@generate-helpers"
     ],
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ],
     "post-create-project-cmd": ["@php artisan key:generate --ansi"],
-    "test": ["pest"]
+    "test": ["pest"],
+    "generate-helpers": [
+      "@php artisan ide-helper:generate",
+      "@php artisan ide-helper:models --nowrite"
+    ]
   },
   "extra": {
     "laravel": {
@@ -69,7 +72,8 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "allow-plugins": {
-      "pestphp/pest-plugin": true
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
     }
   },
   "minimum-stability": "dev",
