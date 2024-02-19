@@ -10,9 +10,17 @@ use MailchimpMarketing\ApiException;
 
 class SubscribeUser
 {
-    public function __invoke(User $user, ApiClient $apiClient = null)
+    public function __invoke(User $user, ?ApiClient $apiClient = null)
     {
         $apiClient = $apiClient ?? new ApiClient();
+        $apiKey = config('mailchimp.api.key');
+        $serverPrefix = config('mailchimp.api.server_prefix');
+
+        if (! $apiKey || ! $serverPrefix) {
+            Log::error("Can't subscribe user to newsletter: missing API key or server prefix");
+
+            return;
+        }
 
         $apiClient->setConfig([
             'apiKey' => config('mailchimp.api.key'),
