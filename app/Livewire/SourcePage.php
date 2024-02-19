@@ -12,10 +12,15 @@ class SourcePage extends Component
     use AuthorizesRequests;
 
     public Source $source;
+
     public TranslationRequest $currentTranslationRequest;
+
     public bool $isViewingTranslation;
+
     public bool $isConfirmingClaimRevocation = false;
+
     public bool $isConfirmingTranslationRequestDeletion = false;
+
     public bool $isConfirmingSourceDeletion = false;
 
     public function mount(
@@ -29,7 +34,7 @@ class SourcePage extends Component
         $this->isViewingTranslation = isset($translationRequest->id);
         $this->currentTranslationRequest = $translationRequest;
 
-        if (!$this->isViewingTranslation && $slug !== $source->slug) {
+        if (! $this->isViewingTranslation && $slug !== $source->slug) {
             return redirect()->route('source', [$source->id, $source->slug]);
         }
     }
@@ -43,13 +48,13 @@ class SourcePage extends Component
     {
         $this->authorize('view', $this->source);
 
+        $translatorName = $this->currentTranslationRequest->translator->name;
         $this->currentTranslationRequest->unclaim();
 
         session()->flash(
             'flash.banner',
             __('Revoked :translatorName\'s claim.', [
-                'translatorName' =>
-                    $this->currentTranslationRequest->translator->name,
+                'translatorName' => $translatorName,
             ])
         );
 
@@ -84,8 +89,7 @@ class SourcePage extends Component
             __(
                 'The :languageName translation of ":sourceTitle" has been deleted.',
                 [
-                    'languageName' =>
-                        $this->currentTranslationRequest->language->name,
+                    'languageName' => $this->currentTranslationRequest->language->name,
                     'sourceTitle' => $this->source->title,
                 ]
             )
