@@ -2,6 +2,7 @@
 nixPkgs = [
   "...",
   "python311Packages.supervisor",
+  "nodejs_20_15_0",
 ]
 
 [phases.install]
