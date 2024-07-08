@@ -17,6 +17,7 @@ cmds = [
   "cp /app/nixpacks/supervisord.conf /etc/supervisord.conf",
   "cp /app/nixpacks/start.sh /assets/start.sh",
   "chmod +x /assets/start.sh",
+  "chown -R www-data /app/storage",
   "..."
 ]
 
