@@ -18,6 +18,7 @@ cmds = [
   "cp /app/nixpacks/start.sh /assets/start.sh",
   "chmod +x /assets/start.sh",
   "chown -R www-data /app/storage",
+  "chown -R www-data /app/bootstrap/cache",
   "..."
 ]
 
