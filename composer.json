@@ -17,6 +17,7 @@
     "laravel/tinker": "v2.9.0",
     "livewire/livewire": "v3.4.4",
     "mailchimp/marketing": "3.0.80",
+    "sentry/sentry-laravel": "^4.8",
     "spatie/laravel-webhook-client": "3.2.0"
   },
   "require-dev": {
