@@ -9,7 +9,7 @@ nixPkgs = [
 
 [phases.install]
 cmds = [
-  'corepack enable',
+  'corepack prepare pnpm@9.14.2 --activate',
   '...',
 ]
 
