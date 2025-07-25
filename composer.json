@@ -15,7 +15,7 @@
     "laravel/jetstream": "v4.2.2",
     "laravel/sanctum": "v3.3.3",
     "laravel/tinker": "v2.9.0",
-    "livewire/livewire": "v3.4.4",
+    "livewire/livewire": "v3.6.4",
     "mailchimp/marketing": "3.0.80",
     "sentry/sentry-laravel": "^4.8",
     "spatie/laravel-webhook-client": "3.2.0"
